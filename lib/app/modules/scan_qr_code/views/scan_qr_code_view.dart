@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -70,9 +69,7 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
             controller.data.value++;
             if (controller.data.value == 1) {
               controller.qrController?.pauseCamera();
-              controller.qrController?.resumeCamera();
-
-              /* showDialog(
+              showDialog(
                 context: context,
                 builder: (context) {
                   Uri uri = Uri.parse(controller.result!.code != null
@@ -103,7 +100,8 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                 },
               ).whenComplete(() {
                 controller.data.value = 0;
-              });*/
+                controller.qrController?.resumeCamera();
+              });
             }
           }
         });
