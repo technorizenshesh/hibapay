@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "778522283771",
+    "project_id": "hibapay-291ee",
+    "storage_bucket": "hibapay-291ee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:778522283771:android:fcc5b5e71c81a5d08e6a5e",
+        "android_client_info": {
+          "package_name": "com.hibapay.app.hibapay"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCY0lwYGEKsoGUiptzwPsioayyWbm74vW4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

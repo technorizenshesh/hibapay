@@ -1,0 +1,84 @@
+part of 'app_pages.dart';
+// DO NOT EDIT. This is code generated via package:get_cli/get_cli.dart
+
+abstract class Routes {
+  Routes._();
+  static const HOME = _Paths.HOME;
+  static const SPLASH = _Paths.SPLASH;
+  static const LOGIN = _Paths.LOGIN;
+  static const SIGN_UP = _Paths.SIGN_UP;
+  static const RESET_PASSWORD = _Paths.RESET_PASSWORD;
+  static const CHECK_YOUR_MAIL = _Paths.CHECK_YOUR_MAIL;
+  static const CREATE_NEW_PASSWORD = _Paths.CREATE_NEW_PASSWORD;
+  static const NAV_BAR = _Paths.NAV_BAR;
+  static const PROFILE = _Paths.PROFILE;
+  static const MY_PROFILE = _Paths.MY_PROFILE;
+  static const RATE_US = _Paths.RATE_US;
+  static const CHANGE_PASSWORD = _Paths.CHANGE_PASSWORD;
+  static const MY_CARD = _Paths.MY_CARD;
+  static const ACCOUNT = _Paths.ACCOUNT;
+  static const SCAN_QR_CODE = _Paths.SCAN_QR_CODE;
+  static const ADD_NEW_CARD = _Paths.ADD_NEW_CARD;
+  static const GENERAL_SETTING = _Paths.GENERAL_SETTING;
+  static const EDIT_PROFILE = _Paths.EDIT_PROFILE;
+  static const ADD_NEW_BANK = _Paths.ADD_NEW_BANK;
+  static const TRANSFER = _Paths.TRANSFER;
+  static const SEND_MONEY = _Paths.SEND_MONEY;
+  static const WITHDRAW = _Paths.WITHDRAW;
+  static const ADD_BANK_ACCOUNT = _Paths.ADD_BANK_ACCOUNT;
+  static const SEND_MONEY_SUCCESSFULLY = _Paths.SEND_MONEY_SUCCESSFULLY;
+  static const MORE = _Paths.MORE;
+  static const ELECTRICITY = _Paths.ELECTRICITY;
+  static const RECHARGE = _Paths.RECHARGE;
+  static const BIL_PAYMENT = _Paths.BIL_PAYMENT;
+  static const BIL_PAYMENT_SUBMIT = _Paths.BIL_PAYMENT_SUBMIT;
+  static const BIL_PAYMENT_SUCCESS = _Paths.BIL_PAYMENT_SUCCESS;
+  static const RENT = _Paths.RENT;
+  static const NOTIFICATION = _Paths.NOTIFICATION;
+  static const ALL_TRANSACTIONS = _Paths.ALL_TRANSACTIONS;
+  static const CREATE_YOUR_SMARTPAY_CARD = _Paths.CREATE_YOUR_SMARTPAY_CARD;
+  static const VERIFY_IDENTITY = _Paths.VERIFY_IDENTITY;
+  static const VERIFY_IDENTITY_SUCCESS = _Paths.VERIFY_IDENTITY_SUCCESS;
+  static const PAY_AMOUNT = _Paths.PAY_AMOUNT;
+}
+
+abstract class _Paths {
+  _Paths._();
+  static const HOME = '/home';
+  static const SPLASH = '/splash';
+  static const LOGIN = '/login';
+  static const SIGN_UP = '/sign-up';
+  static const RESET_PASSWORD = '/reset-password';
+  static const CHECK_YOUR_MAIL = '/check-your-mail';
+  static const CREATE_NEW_PASSWORD = '/create-new-password';
+  static const NAV_BAR = '/nav-bar';
+  static const PROFILE = '/profile';
+  static const MY_PROFILE = '/my-profile';
+  static const RATE_US = '/rate-us';
+  static const CHANGE_PASSWORD = '/change-password';
+  static const MY_CARD = '/my-card';
+  static const ACCOUNT = '/account';
+  static const SCAN_QR_CODE = '/scan-qr-code';
+  static const ADD_NEW_CARD = '/add-new-card';
+  static const GENERAL_SETTING = '/general-setting';
+  static const EDIT_PROFILE = '/edit-profile';
+  static const ADD_NEW_BANK = '/add-new-bank';
+  static const TRANSFER = '/transfer';
+  static const SEND_MONEY = '/send-money';
+  static const WITHDRAW = '/withdraw';
+  static const ADD_BANK_ACCOUNT = '/add-bank-account';
+  static const SEND_MONEY_SUCCESSFULLY = '/send-money-successfully';
+  static const MORE = '/more';
+  static const ELECTRICITY = '/electricity';
+  static const RECHARGE = '/recharge';
+  static const BIL_PAYMENT = '/bil-payment';
+  static const BIL_PAYMENT_SUBMIT = '/bil-payment-submit';
+  static const BIL_PAYMENT_SUCCESS = '/bil-payment-success';
+  static const RENT = '/rent';
+  static const NOTIFICATION = '/notification';
+  static const ALL_TRANSACTIONS = '/all-transactions';
+  static const CREATE_YOUR_SMARTPAY_CARD = '/create-your-smartpay-card';
+  static const VERIFY_IDENTITY = '/verify-identity';
+  static const VERIFY_IDENTITY_SUCCESS = '/verify-identity-success';
+  static const PAY_AMOUNT = '/pay-amount';
+}

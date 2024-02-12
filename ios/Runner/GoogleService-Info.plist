@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCWVWb0tjdIr0Dy2zEa9xlb7LnPC61o62k</string>
+	<key>GCM_SENDER_ID</key>
+	<string>778522283771</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.hibapay.app.hibapay</string>
+	<key>PROJECT_ID</key>
+	<string>hibapay-291ee</string>
+	<key>STORAGE_BUCKET</key>
+	<string>hibapay-291ee.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:778522283771:ios:e3fe8600a76ff10b8e6a5e</string>
+</dict>
+</plist>
