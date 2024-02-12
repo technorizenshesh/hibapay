@@ -70,10 +70,9 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
             controller.data.value++;
             if (controller.data.value == 1) {
               controller.qrController?.pauseCamera();
-              Get.;
               controller.qrController?.resumeCamera();
 
-             /* showDialog(
+              /* showDialog(
                 context: context,
                 builder: (context) {
                   Uri uri = Uri.parse(controller.result!.code != null
