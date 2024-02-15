@@ -14,6 +14,9 @@ class ScanQrCodeController extends GetxController {
   final data = 0.obs;
   CameraFacing? cameraFacing;
 
+  TextEditingController amountController = TextEditingController();
+  TextEditingController addNotesController = TextEditingController();
+
   @override
   void onInit() {
     super.onInit();
@@ -31,4 +34,6 @@ class ScanQrCodeController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  clickOnPayNowButton() {}
 }

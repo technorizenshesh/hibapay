@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
-class PayAmountController extends GetxController {
+class FaqsController extends GetxController {
 
   final count = 0.obs;
 
-  TextEditingController amountController = TextEditingController();
-  TextEditingController addNotesController = TextEditingController();
+  TextEditingController searchController = TextEditingController();
   @override
   void onInit() {
     super.onInit();
@@ -24,5 +23,5 @@ class PayAmountController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnPayNowButton() {}
+  clickOnLoadMoreButton() {}
 }

@@ -28,6 +28,8 @@ import '../modules/edit_profile/bindings/edit_profile_binding.dart';
 import '../modules/edit_profile/views/edit_profile_view.dart';
 import '../modules/electricity/bindings/electricity_binding.dart';
 import '../modules/electricity/views/electricity_view.dart';
+import '../modules/faqs/bindings/faqs_binding.dart';
+import '../modules/faqs/views/faqs_view.dart';
 import '../modules/general_setting/bindings/general_setting_binding.dart';
 import '../modules/general_setting/views/general_setting_view.dart';
 import '../modules/home/bindings/home_binding.dart';
@@ -267,6 +269,11 @@ class AppPages {
       name: _Paths.PAY_AMOUNT,
       page: () => const PayAmountView(),
       binding: PayAmountBinding(),
+    ),
+    GetPage(
+      name: _Paths.FAQS,
+      page: () => const FaqsView(),
+      binding: FaqsBinding(),
     ),
   ];
 }

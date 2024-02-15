@@ -154,6 +154,7 @@ class StringConstants {
   static const String theCustomizable =
       "The customizable, no hidden fee,\ninstant discount debit or credit card";
   static const String enterAmount = "Enter amount:";
+  static const String addNotes = "Add Notes";
   static const String amount = "Amount";
   static const String fromWhichAccountDoYouWantToPay =
       "From which account do you want to pay";
@@ -177,6 +178,8 @@ class StringConstants {
   static const String fasTag = "FASTag";
   static const String landline = "Landline";
   static const String bilPayment = "Bil Payment";
+  static const String payNow = "Pay Now";
+  static const String loadMore = "Load More";
   static const String iAgreeAndAllowHibaPay =
       "I agree and allow HibaPay to fetch my pending bills from next month onwards. I have read, understood and agree to be bound by the Terms and Conditions";
 }

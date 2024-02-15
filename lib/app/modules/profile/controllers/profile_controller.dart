@@ -51,6 +51,9 @@ class ProfileController extends GetxController {
       case 2:
         Get.toNamed(Routes.CHANGE_PASSWORD);
         break;
+      case 3:
+        Get.toNamed(Routes.FAQS);
+        break;
       case 4:
         Get.toNamed(Routes.RATE_US);
         break;

@@ -40,6 +40,7 @@ abstract class Routes {
   static const VERIFY_IDENTITY = _Paths.VERIFY_IDENTITY;
   static const VERIFY_IDENTITY_SUCCESS = _Paths.VERIFY_IDENTITY_SUCCESS;
   static const PAY_AMOUNT = _Paths.PAY_AMOUNT;
+  static const FAQS = _Paths.FAQS;
 }
 
 abstract class _Paths {
@@ -81,4 +82,5 @@ abstract class _Paths {
   static const VERIFY_IDENTITY = '/verify-identity';
   static const VERIFY_IDENTITY_SUCCESS = '/verify-identity-success';
   static const PAY_AMOUNT = '/pay-amount';
+  static const FAQS = '/faqs';
 }

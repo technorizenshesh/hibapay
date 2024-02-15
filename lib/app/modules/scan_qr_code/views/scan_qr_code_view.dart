@@ -1,9 +1,13 @@
 import 'dart:developer';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hibapay/app/data/constants/string_constants.dart';
+import 'package:hibapay/app/routes/app_pages.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import '../../../../common/common_methods.dart';
+import '../../../../common/common_widgets.dart';
+import '../../../data/constants/icons_constant.dart';
 import '../controllers/scan_qr_code_controller.dart';
 
 class ScanQrCodeView extends GetView<ScanQrCodeController> {
@@ -69,7 +73,7 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
             controller.data.value++;
             if (controller.data.value == 1) {
               controller.qrController?.pauseCamera();
-              showDialog(
+              /*showDialog(
                 context: context,
                 builder: (context) {
                   Uri uri = Uri.parse(controller.result!.code != null
@@ -81,27 +85,86 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
                     print("$key: ${value.join(', ')}");
                     print("Parameter Values:$queryParams");
                   });
-                  return (controller.result != null)
-                      ? Obx(() {
-                          controller.count.value;
-                          return Container(
-                            decoration: BoxDecoration(
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                borderRadius: BorderRadius.circular(10.px)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                  'Barcode Type: ${describeEnum(controller.result!.format)}   Data: ${controller.result!.code}'),
-                            ),
-                          );
-                        })
-                      : const SizedBox();
+                  return Scaffold(
+                    appBar: CommonWidgets.appBar(
+                      title: StringConstants.payNow,
+                    ),
+                    body: Column(children: [
+                      ListTile(
+                        shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.px),
+                          borderSide: BorderSide(
+                            color:
+                            Theme.of(context).colorScheme.surface,
+                            width: .4.px,
+                          ),
+                        ),
+                        trailing: CommonMethods.appIcons(
+                            assetName: IconConstants.icCheck),
+                        subtitle: Text(
+                          '**** **** **** 1121',
+                          style: Theme.of(context)
+                              .textTheme
+                              .titleMedium
+                              ?.copyWith(
+                            fontSize: 12.px,
+                          ),
+                        ),
+                        title: Text(
+                          'Abram Stanton',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                              fontSize: 14.px,
+                              color:
+                              Theme.of(context).primaryColor),
+                        ),
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(24.px),
+                          child: Image.asset(
+                            'assets/images/img_logo.png',
+                            height: 48.px,
+                            width: 48.px,
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 14.px),
+                      TextField(
+                        controller: controller.amountController,
+                        decoration: CommonWidgets.inputDecoration(
+                          labelText: StringConstants.enterAmount,
+                          hintText:
+                          StringConstants.pleaseEnterAccountName,
+                        ),
+                      ),
+                      SizedBox(height: 14.px),
+                      TextField(
+                        controller: controller.addNotesController,
+                        decoration: CommonWidgets.inputDecoration(
+                          labelText: StringConstants.addNotes,
+                          hintText: StringConstants.typeHere,
+                        ),
+                      ),
+                      SizedBox(height: 14.px),
+                      CommonWidgets.commonElevatedButton(
+                        onPressed: () => controller.clickOnPayNowButton(),
+                        child: Text(
+                          StringConstants.payNow,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    ]),
+                  );
                 },
               ).whenComplete(() {
                 controller.data.value = 0;
                 controller.qrController?.resumeCamera();
-              });
+              });*/
+              Get.toNamed(Routes.PAY_AMOUNT);
             }
           }
         });
