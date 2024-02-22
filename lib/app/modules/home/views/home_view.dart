@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hibapay/app/data/constants/icons_constant.dart';
 import 'package:hibapay/common/common_methods.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../data/constants/string_constants.dart';
 import '../controllers/home_controller.dart';
 
@@ -70,11 +71,12 @@ class HomeView extends GetView<HomeController> {
                   child: Column(
                     children: [
                       cards(
+                          onTap: () => controller.clickOnDeposit(),
                           assetName: IconConstants.icDeposit,
                           title: StringConstants.deposit),
                       SizedBox(height: 18.px),
                       cards(
-                        onTap: () => controller.clickOnTransfers(),
+                          onTap: () => controller.clickOnTransfers(),
                           assetName: IconConstants.icTransfers,
                           title: StringConstants.transfers),
                       SizedBox(height: 18.px),
@@ -82,6 +84,11 @@ class HomeView extends GetView<HomeController> {
                           onTap: () => controller.clickOnWithdraw(),
                           assetName: IconConstants.icWithdraw,
                           title: StringConstants.withdraw),
+                      SizedBox(height: 18.px),
+                      cards(
+                          onTap: () => controller.clickOnWallet(),
+                          assetName: IconConstants.icWallet,
+                          title: StringConstants.wallet),
                       SizedBox(height: 18.px),
                       cards(
                           onTap: () => controller.clickOnMore(),
@@ -180,7 +187,10 @@ class HomeView extends GetView<HomeController> {
     );
   }
 
-  Widget cards({required String assetName, required String title, GestureTapCallback? onTap}) {
+  Widget cards(
+      {required String assetName,
+      required String title,
+      GestureTapCallback? onTap}) {
     return GestureDetector(
       onTap: onTap,
       child: Column(

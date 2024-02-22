@@ -47,10 +47,10 @@ class IconConstants {
   static const String icDth = 'assets/icons/ic_dth.svg';
   static const String icElectricity = 'assets/icons/ic_electricity.svg';
   static const String icRent = 'assets/icons/ic_rent.svg';
-  static const String icFastag = 'assets/icons/ic_fastag.svg';
+  static const String icFasTag = 'assets/icons/ic_fas_tag.svg';
   static const String icLandline = 'assets/icons/ic_landline.svg';
   static const String icMore = 'assets/icons/ic_more.svg';
-
+  static const String icWallet = 'assets/icons/ic_wallet.svg';
 
   static const String icAccountInfo = 'assets/icons/ic_account_info.svg';
   static const String icLanguage = 'assets/icons/ic_language.svg';
@@ -62,9 +62,6 @@ class IconConstants {
   static const String icBank = 'assets/icons/ic_bank.svg';
   static const String icCard = 'assets/icons/ic_card.svg';
 }
-
-
-
 
 class IconConstantsPng {
   static const String icDeposit = 'assets/icons_png/ic_deposit.png';
@@ -78,10 +75,12 @@ class IconConstantsPng {
   static const String icDth = 'assets/icons_png/ic_dth.png';
   static const String icElectricity = 'assets/icons_png/ic_electricity.png';
   static const String icRent = 'assets/icons_png/ic_rent.png';
-  static const String icFastag = 'assets/icons_png/ic_fastag.png';
+  static const String icFasTag = 'assets/icons_png/ic_fas_tag.png';
   static const String icLandline = 'assets/icons_png/ic_landline.png';
   static const String icMore = 'assets/icons_png/ic_more.png';
-  static const String icDownloadReceipt = 'assets/icons_png/ic_download_receipt.png';
+  static const String icDownloadReceipt =
+      'assets/icons_png/ic_download_receipt.png';
   static const String icAddIdentity = 'assets/icons_png/ic_add_identity.png';
-
+  static const String icSwitch = 'assets/icons_png/ic_switch.png';
+  static const String icCopy = 'assets/icons_png/ic_copy.png';
 }

@@ -24,6 +24,8 @@ import '../modules/create_new_password/bindings/create_new_password_binding.dart
 import '../modules/create_new_password/views/create_new_password_view.dart';
 import '../modules/create_your_smartpay_card/bindings/create_your_smartpay_card_binding.dart';
 import '../modules/create_your_smartpay_card/views/create_your_smartpay_card_view.dart';
+import '../modules/deposit/bindings/deposit_binding.dart';
+import '../modules/deposit/views/deposit_view.dart';
 import '../modules/edit_profile/bindings/edit_profile_binding.dart';
 import '../modules/edit_profile/views/edit_profile_view.dart';
 import '../modules/electricity/bindings/electricity_binding.dart';
@@ -52,6 +54,8 @@ import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/rate_us/bindings/rate_us_binding.dart';
 import '../modules/rate_us/views/rate_us_view.dart';
+import '../modules/receiving_account/bindings/receiving_account_binding.dart';
+import '../modules/receiving_account/views/receiving_account_view.dart';
 import '../modules/recharge/bindings/recharge_binding.dart';
 import '../modules/recharge/views/recharge_view.dart';
 import '../modules/rent/bindings/rent_binding.dart';
@@ -74,6 +78,8 @@ import '../modules/verify_identity/bindings/verify_identity_binding.dart';
 import '../modules/verify_identity/views/verify_identity_view.dart';
 import '../modules/verify_identity_success/bindings/verify_identity_success_binding.dart';
 import '../modules/verify_identity_success/views/verify_identity_success_view.dart';
+import '../modules/wallet/bindings/wallet_binding.dart';
+import '../modules/wallet/views/wallet_view.dart';
 import '../modules/withdraw/bindings/withdraw_binding.dart';
 import '../modules/withdraw/views/withdraw_view.dart';
 
@@ -274,6 +280,21 @@ class AppPages {
       name: _Paths.FAQS,
       page: () => const FaqsView(),
       binding: FaqsBinding(),
+    ),
+    GetPage(
+      name: _Paths.WALLET,
+      page: () => const WalletView(),
+      binding: WalletBinding(),
+    ),
+    GetPage(
+      name: _Paths.RECEIVING_ACCOUNT,
+      page: () => const ReceivingAccountView(),
+      binding: ReceivingAccountBinding(),
+    ),
+    GetPage(
+      name: _Paths.DEPOSIT,
+      page: () => const DepositView(),
+      binding: DepositBinding(),
     ),
   ];
 }

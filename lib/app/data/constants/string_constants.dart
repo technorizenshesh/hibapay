@@ -43,6 +43,11 @@ class StringConstants {
   static const String home = 'Home';
   static const String myCard = ' My Card';
   static const String account = 'Account';
+  static const String accountHolder = 'Account Holder';
+  static const String bankName = 'Bank Name';
+  static const String swiftCode = 'Swift code';
+  static const String iban = 'IBAN';
+  static const String address = 'Address';
   static const String totalSpending = 'Total Spending';
   static const String currentBalance = 'Current balance';
   static const String bankAccount = 'Bank account : ';
@@ -51,8 +56,15 @@ class StringConstants {
   static const String deposit = 'Deposit';
   static const String transfers = 'Transfers';
   static const String withdraw = 'Withdraw';
+  static const String topUpWallet = 'Top up Wallet';
+  static const String addMoney =
+      'Add money to your wallet and make one click payments';
+  static const String wallet = 'Wallet';
   static const String more = 'More';
   static const String allTransactions = 'All transactions';
+  static const String receivingAccount = 'Receiving Account';
+  static const String walletBalance = 'Wallet balance';
+  static const String switchText = 'Switch';
   static const String addNewCard = 'Add new card';
   static const String verifyIdentity = 'Verify identity';
   static const String chooseCards = 'Choose cards';
@@ -132,7 +144,6 @@ class StringConstants {
   static const String meterNumber = "Meter Number";
   static const String currency = "Currency";
   static const String accountName = "Account Name";
-  static const String bankName = "Bank Name";
   static const String mobileNumber = "Mobile Number";
   static const String pleaseEnterAccountNumber = "Please enter account number";
   static const String pleaseEnterMeterNumber = "Please enter meter number";

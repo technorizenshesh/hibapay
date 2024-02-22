@@ -21,7 +21,7 @@ class MoreController extends GetxController {
       'icon': IconConstantsPng.icElectricity
     },
     {'title': StringConstants.rent, 'icon': IconConstantsPng.icRent},
-    {'title': StringConstants.fasTag, 'icon': IconConstantsPng.icFastag},
+    {'title': StringConstants.fasTag, 'icon': IconConstantsPng.icFasTag},
     {'title': StringConstants.landline, 'icon': IconConstantsPng.icLandline},
     {'title': StringConstants.more, 'icon': IconConstantsPng.icMore},
   ];

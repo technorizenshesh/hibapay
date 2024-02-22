@@ -1,7 +1,8 @@
 import 'package:get/get.dart';
-import 'package:hibapay/app/routes/app_pages.dart';
 
-class HomeController extends GetxController {
+import '../../../routes/app_pages.dart';
+
+class WalletController extends GetxController {
   final count = 0.obs;
 
   List listOfTra = [
@@ -27,7 +28,6 @@ class HomeController extends GetxController {
       'icon': 'assets/icons/ic_withdraw.svg'
     },
   ];
-
   @override
   void onInit() {
     super.onInit();
@@ -45,31 +45,9 @@ class HomeController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnTransfers() {
-    Get.toNamed(Routes.TRANSFER);
+  clickOnReceivingAccount() {
+    Get.toNamed(Routes.RECEIVING_ACCOUNT);
   }
 
-  clickOnWithdraw() {
-    Get.toNamed(Routes.WITHDRAW);
-  }
-
-  clickOnMore() {
-    Get.toNamed(Routes.MORE);
-  }
-
-  clickOnAllTransactions() {
-    Get.toNamed(Routes.ALL_TRANSACTIONS);
-  }
-
-  clickOnNotificationIcon() {
-    Get.toNamed(Routes.NOTIFICATION);
-  }
-
-  clickOnWallet() {
-    Get.toNamed(Routes.WALLET);
-  }
-
-  clickOnDeposit() {
-    Get.toNamed(Routes.DEPOSIT);
-  }
+  clickOnSwitch() {}
 }
