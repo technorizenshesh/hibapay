@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hibapay/app/data/constants/string_constants.dart';
 import 'package:hibapay/common/common_methods.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/image_constants.dart';
 import '../controllers/profile_controller.dart';
@@ -16,27 +18,73 @@ class ProfileView extends GetView<ProfileController> {
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-           ClipRRect(
-            borderRadius: BorderRadius.circular(50.px),
-            child: Image.asset(
-              ImgConstants.imgLogo,
-              height: 100.px,
-              width: 100.px,
-              fit: BoxFit.cover,
-            ),
-          ),
-          SizedBox(height: 20.px),
-          Text(
-            'Tommy Jason',
-            style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                fontSize: 20.px, color: Theme.of(context).primaryColor),
-          ),
-          SizedBox(height: 4.px),
-          Text(
-            'tommyjason@gmail.com',
-            style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                  fontSize: 12.px,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.px),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  StringConstants.profile,
+                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                      fontSize: 24.px, color: Theme.of(context).primaryColor),
                 ),
+                SizedBox(height: 20.px),
+                GestureDetector(
+                  // onTap: () => controller.clickOnDetailCard(),
+                  child: Padding(
+                    padding: EdgeInsets.all(8.px),
+                    child: Row(
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(50.px),
+                          child: Image.asset(
+                            ImgConstants.imgLogo,
+                            height: 100.px,
+                            width: 100.px,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        SizedBox(width: 20.px),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Tommy Jason',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                      fontSize: 20.px,
+                                      color: Theme.of(context).primaryColor),
+                            ),
+                            SizedBox(height: 4.px),
+                            Text(
+                              'tommyjason@gmail.com',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(
+                                    fontSize: 12.px,
+                                  ),
+                            ),
+                            SizedBox(height: 4.px),
+                            Text(
+                              '⭐⭐⭐⭐⭐ 5',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleSmall
+                                  ?.copyWith(
+                                    fontSize: 12.px,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
           SizedBox(height: 20.px),
           ListView.builder(

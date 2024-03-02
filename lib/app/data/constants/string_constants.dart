@@ -191,6 +191,7 @@ class StringConstants {
   static const String bilPayment = "Bil Payment";
   static const String payNow = "Pay Now";
   static const String loadMore = "Load More";
+  static const String hibaSpin = "Hiba Spin";
   static const String iAgreeAndAllowHibaPay =
       "I agree and allow HibaPay to fetch my pending bills from next month onwards. I have read, understood and agree to be bound by the Terms and Conditions";
 }

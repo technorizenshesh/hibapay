@@ -61,6 +61,7 @@ class IconConstants {
   static const String icRightArrow = 'assets/icons/ic_right_arrow.svg';
   static const String icBank = 'assets/icons/ic_bank.svg';
   static const String icCard = 'assets/icons/ic_card.svg';
+  static const String icSpinner = 'assets/icons/ic_spinner.svg';
 }
 
 class IconConstantsPng {

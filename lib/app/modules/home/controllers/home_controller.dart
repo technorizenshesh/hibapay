@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:hibapay/app/data/constants/icons_constant.dart';
+import 'package:hibapay/app/data/constants/string_constants.dart';
 import 'package:hibapay/app/routes/app_pages.dart';
 
 class HomeController extends GetxController {
@@ -27,6 +29,25 @@ class HomeController extends GetxController {
       'icon': 'assets/icons/ic_withdraw.svg'
     },
   ];
+
+  List list = [
+    {'title': StringConstants.recharge, 'icon': IconConstantsPng.icRecharge},
+    {'title': StringConstants.cableTV, 'icon': IconConstantsPng.icCableTv},
+    {'title': StringConstants.paidGas, 'icon': IconConstantsPng.icPaidGas},
+    {'title': StringConstants.water, 'icon': IconConstantsPng.icWater},
+    {'title': StringConstants.wifi, 'icon': IconConstantsPng.icWifi},
+    {'title': StringConstants.dTH, 'icon': IconConstantsPng.icDth},
+    {
+      'title': StringConstants.electricity,
+      'icon': IconConstantsPng.icElectricity
+    },
+    {'title': StringConstants.fasTag, 'icon': IconConstantsPng.icFasTag},
+    {'title': StringConstants.rent, 'icon': IconConstantsPng.icRent},
+    {'title': StringConstants.landline, 'icon': IconConstantsPng.icLandline},
+    {'title': StringConstants.withdraw, 'icon': IconConstantsPng.icWithdraw},
+  ];
+
+  final cardIndex = 0.obs;
 
   @override
   void onInit() {
@@ -71,5 +92,29 @@ class HomeController extends GetxController {
 
   clickOnDeposit() {
     Get.toNamed(Routes.DEPOSIT);
+  }
+
+  clickOnSpinnerIcon() {
+    Get.toNamed(Routes.SPINNER);
+  }
+
+  clickOnCard({required int index}) {
+    switch (list[index]['title']) {
+      case StringConstants.electricity:
+        Get.toNamed(Routes.ELECTRICITY,
+            parameters: {'title': StringConstants.electricity});
+        break;
+      case StringConstants.recharge || StringConstants.dTH:
+        Get.toNamed(Routes.RECHARGE,
+            parameters: {'title': list[index]['title']});
+        break;
+      case StringConstants.more:
+        Get.toNamed(Routes.BIL_PAYMENT,
+            parameters: {'title': list[index]['title']});
+        break;
+      case StringConstants.rent:
+        Get.toNamed(Routes.RENT, parameters: {'title': list[index]['title']});
+        break;
+    }
   }
 }

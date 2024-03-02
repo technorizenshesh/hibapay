@@ -44,6 +44,8 @@ abstract class Routes {
   static const WALLET = _Paths.WALLET;
   static const RECEIVING_ACCOUNT = _Paths.RECEIVING_ACCOUNT;
   static const DEPOSIT = _Paths.DEPOSIT;
+  static const SPINNER = _Paths.SPINNER;
+  static const REWARD_POINTS = _Paths.REWARD_POINTS;
 }
 
 abstract class _Paths {
@@ -89,4 +91,6 @@ abstract class _Paths {
   static const WALLET = '/wallet';
   static const RECEIVING_ACCOUNT = '/receiving-account';
   static const DEPOSIT = '/deposit';
+  static const SPINNER = '/spinner';
+  static const REWARD_POINTS = '/reward-points';
 }

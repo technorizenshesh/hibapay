@@ -62,6 +62,8 @@ import '../modules/rent/bindings/rent_binding.dart';
 import '../modules/rent/views/rent_view.dart';
 import '../modules/reset_password/bindings/reset_password_binding.dart';
 import '../modules/reset_password/views/reset_password_view.dart';
+import '../modules/reward_points/bindings/reward_points_binding.dart';
+import '../modules/reward_points/views/reward_points_view.dart';
 import '../modules/scan_qr_code/bindings/scan_qr_code_binding.dart';
 import '../modules/scan_qr_code/views/scan_qr_code_view.dart';
 import '../modules/send_money/bindings/send_money_binding.dart';
@@ -70,6 +72,8 @@ import '../modules/send_money_successfully/bindings/send_money_successfully_bind
 import '../modules/send_money_successfully/views/send_money_successfully_view.dart';
 import '../modules/sign_up/bindings/sign_up_binding.dart';
 import '../modules/sign_up/views/sign_up_view.dart';
+import '../modules/spinner/bindings/spinner_binding.dart';
+import '../modules/spinner/views/spinner_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
 import '../modules/transfer/bindings/transfer_binding.dart';
@@ -88,7 +92,7 @@ part 'app_routes.dart';
 class AppPages {
   AppPages._();
 
-  static const INITIAL = Routes.SPLASH;
+  static const INITIAL = Routes.NAV_BAR;
 
   static final routes = [
     GetPage(
@@ -295,6 +299,16 @@ class AppPages {
       name: _Paths.DEPOSIT,
       page: () => const DepositView(),
       binding: DepositBinding(),
+    ),
+    GetPage(
+      name: _Paths.SPINNER,
+      page: () => const SpinnerView(),
+      binding: SpinnerBinding(),
+    ),
+    GetPage(
+      name: _Paths.REWARD_POINTS,
+      page: () => const RewardPointsView(),
+      binding: RewardPointsBinding(),
     ),
   ];
 }
