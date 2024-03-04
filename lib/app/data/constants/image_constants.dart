@@ -9,6 +9,9 @@ class ImgConstants {
       'assets/images/img_transfer_successful.png';
   static const String imgSuccess = 'assets/images/img_success.png';
   static const String imgCard = 'assets/images/img_card.png';
+  static const String imgSpinnerPage = 'assets/images/img_spinner_page.png';
+  static const String imgProgressBubbles =
+      'assets/images/img_progress_bubbles.png';
 
   static const String defaultNetworkImage =
       'https://s3.amazonaws.com/37assets/svn/765-default-avatar.png';

@@ -84,4 +84,9 @@ class IconConstantsPng {
   static const String icAddIdentity = 'assets/icons_png/ic_add_identity.png';
   static const String icSwitch = 'assets/icons_png/ic_switch.png';
   static const String icCopy = 'assets/icons_png/ic_copy.png';
+  static const String icBetting = 'assets/icons_png/ic_betting.png';
+  static const String icData = 'assets/icons_png/ic_data.png';
+  static const String icGiftUser = 'assets/icons_png/ic_gift_user.png';
+  static const String icInternet = 'assets/icons_png/ic_internet.png';
+  static const String icCoin = 'assets/icons_png/ic_coin.png';
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -17,7 +16,7 @@ class FaqsView extends GetView<FaqsController> {
         title: StringConstants.payNow,
       ),
       body: Padding(
-        padding: EdgeInsets.all(16.px),
+        padding: EdgeInsets.all(20.px),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Text(
             'You have any question ?',

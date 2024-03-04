@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hibapay/app/data/constants/string_constants.dart';
 import 'package:hibapay/common/common_methods.dart';
+import 'package:hibapay/common/common_widgets.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../data/constants/icons_constant.dart';
@@ -14,62 +15,68 @@ class ProfileView extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: CommonWidgets.appBar(
+          title: StringConstants.profile, wantBackButton: false),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SizedBox(height: 20.px),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.px),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  StringConstants.profile,
-                  style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                      fontSize: 24.px, color: Theme.of(context).primaryColor),
+            child: InkWell(
+              onTap: () => controller.clickOnCard(),
+              borderRadius: BorderRadius.circular(8.px),
+              child: Container(
+                padding: EdgeInsets.all(10.px),
+                decoration: BoxDecoration(
+                  color:
+                      Theme.of(context).colorScheme.surface.withOpacity(.1.px),
+                  borderRadius: BorderRadius.circular(10.px),
                 ),
-                SizedBox(height: 20.px),
-                GestureDetector(
-                  // onTap: () => controller.clickOnDetailCard(),
-                  child: Padding(
-                    padding: EdgeInsets.all(8.px),
-                    child: Row(
+                child: Row(
+                  children: [
+                    ClipRRect(
+                      borderRadius: BorderRadius.circular(40.px),
+                      child: Image.asset(
+                        ImgConstants.imgLogo,
+                        height: 80.px,
+                        width: 80.px,
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                    SizedBox(width: 20.px),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ClipRRect(
-                          borderRadius: BorderRadius.circular(50.px),
-                          child: Image.asset(
-                            ImgConstants.imgLogo,
-                            height: 100.px,
-                            width: 100.px,
-                            fit: BoxFit.cover,
-                          ),
+                        Text(
+                          'Tommy Jason',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                  fontSize: 20.px,
+                                  color: Theme.of(context).primaryColor),
                         ),
-                        SizedBox(width: 20.px),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Tommy Jason',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(
-                                      fontSize: 20.px,
-                                      color: Theme.of(context).primaryColor),
-                            ),
-                            SizedBox(height: 4.px),
-                            Text(
-                              'tommyjason@gmail.com',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleSmall
-                                  ?.copyWith(
+                        SizedBox(height: 4.px),
+                        Text(
+                          'tommyjason@gmail.com',
+                          style:
+                              Theme.of(context).textTheme.titleSmall?.copyWith(
                                     fontSize: 12.px,
                                   ),
+                        ),
+                        SizedBox(height: 4.px),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            CommonMethods.appIconsPng(
+                              assetName: IconConstantsPng.icCoin,
+                              height: 18.px,
+                              width: 18.px,
                             ),
-                            SizedBox(height: 4.px),
+                            SizedBox(width: 4.px),
                             Text(
-                              '⭐⭐⭐⭐⭐ 5',
+                              '150',
                               style: Theme.of(context)
                                   .textTheme
                                   .titleSmall
@@ -81,9 +88,12 @@ class ProfileView extends GetView<ProfileController> {
                         ),
                       ],
                     ),
-                  ),
+                    const Spacer(),
+                    CommonMethods.appIcons(
+                        assetName: IconConstants.icRightArrow)
+                  ],
                 ),
-              ],
+              ),
             ),
           ),
           SizedBox(height: 20.px),

@@ -46,6 +46,9 @@ abstract class Routes {
   static const DEPOSIT = _Paths.DEPOSIT;
   static const SPINNER = _Paths.SPINNER;
   static const REWARD_POINTS = _Paths.REWARD_POINTS;
+  static const GIFT_USER = _Paths.GIFT_USER;
+  static const BETTING = _Paths.BETTING;
+  static const CABLE_TV = _Paths.CABLE_TV;
 }
 
 abstract class _Paths {
@@ -93,4 +96,7 @@ abstract class _Paths {
   static const DEPOSIT = '/deposit';
   static const SPINNER = '/spinner';
   static const REWARD_POINTS = '/reward-points';
+  static const GIFT_USER = '/gift-user';
+  static const BETTING = '/betting';
+  static const CABLE_TV = '/cable-tv';
 }

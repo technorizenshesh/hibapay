@@ -145,6 +145,7 @@ class StringConstants {
   static const String currency = "Currency";
   static const String accountName = "Account Name";
   static const String mobileNumber = "Mobile Number";
+  static const String decoderNumber = "Decoder Number";
   static const String pleaseEnterAccountNumber = "Please enter account number";
   static const String pleaseEnterMeterNumber = "Please enter meter number";
   static const String pleaseEnterCurrency = "Please enter currency";
@@ -153,9 +154,14 @@ class StringConstants {
   static const String select = "Select";
   static const String serviceProvider = "Service Provider";
   static const String pleaseEnterAccountName = "Please enter account name";
+  static const String giftingAmount = "Gifting Amount";
+  static const String pleaseEnterGiftingAmount = "Please enter gifting amount";
+  static const String pleaseEnterBillTag = "Please enter bill tag";
+  static const String billTag = "Bill Tag";
   static const String pleaseEnterNickName = "Please enter nick name";
   static const String pleaseEnterBankName = "Please enter bank name";
   static const String pleaseEnterMobileNumber = "Please enter mobile number";
+  static const String enterDecoderNumber = "Please enter decoder number";
   static const String pleaseEnterAmount = "Please enter amount";
   static const String searchContacts = "Search contacts...";
   static const String sendMoney = "Send Money";
@@ -179,6 +185,10 @@ class StringConstants {
   static const String to = "To";
   static const String total = "Total";
   static const String recharge = "Recharge";
+  static const String data = "Data";
+  static const String internet = "Internet";
+  static const String betting = "Betting";
+  static const String giftUser = "Gift User";
   static const String cableTV = "Cable TV";
   static const String paidGas = "Paid Gas";
   static const String water = "Water";
@@ -192,6 +202,21 @@ class StringConstants {
   static const String payNow = "Pay Now";
   static const String loadMore = "Load More";
   static const String hibaSpin = "Hiba Spin";
+  static const String rewardPoints = "Reward Points";
+  static const String myRewardsPoints = "My Rewards points";
+  static const String points = "points";
+  static const String redeemPoints = "Redeem points";
+  static const String adventurous = "Adventurous";
+  static const String yourRankProgress = "Your Rank Progress";
+  static const String rewardsPointRules = "Rewards point rules";
+  static const String pointsRankingMilestones = "Points Ranking Milestones";
+  static const String howToEarnPoints = "How To Earn Points";
+  static const String pointsExpirationDeadline = "Points Expiration Deadline";
+  static const String inviteFriendsFivePoints = "Invite friends 5 Points";
+  static const String youWin = "You Win";
+  static const String spinToAgain = "Spin To again";
+  static const String earnThreeHundredEightyPointsToEach =
+      "Earn 380 points to reach";
   static const String iAgreeAndAllowHibaPay =
       "I agree and allow HibaPay to fetch my pending bills from next month onwards. I have read, understood and agree to be bound by the Terms and Conditions";
 }

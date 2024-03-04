@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 
 class AllTransactionsController extends GetxController {
-
   final count = 0.obs;
 
   List listOfTra = [
@@ -44,4 +43,6 @@ class AllTransactionsController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  clickOnSwitch() {}
 }

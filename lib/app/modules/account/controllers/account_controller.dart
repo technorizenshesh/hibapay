@@ -52,4 +52,6 @@ class AccountController extends GetxController {
   clickOnAddAccount() {
     Get.toNamed(Routes.ADD_NEW_BANK);
   }
+
+  clickOnSwitch() {}
 }

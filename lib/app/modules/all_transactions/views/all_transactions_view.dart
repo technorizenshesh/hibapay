@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -112,16 +111,91 @@ class AllTransactionsView extends GetView<AllTransactionsController> {
                                       ),
                                 ),
                                 SizedBox(height: 8.px),
-                                Text(
-                                  '${CommonMethods.cur}12,256.00',
-                                  style: Theme.of(Get.context!)
-                                      .textTheme
-                                      .displayMedium
-                                      ?.copyWith(
-                                        fontSize: 24.px,
-                                        color: Theme.of(context)
-                                            .scaffoldBackgroundColor,
+                                Row(
+                                  children: [
+                                    Text(
+                                      '${CommonMethods.cur}12,256.00',
+                                      style: Theme.of(Get.context!)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(
+                                            fontSize: 24.px,
+                                            color: Theme.of(context)
+                                                .scaffoldBackgroundColor,
+                                          ),
+                                    ),
+                                    const Spacer(),
+                                    PopupMenuButton(
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      offset: Offset(-34.px, 20.px),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.px)),
+                                      elevation: .4.px,
+                                      icon: Padding(
+                                        padding: EdgeInsets.all(8.px),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              StringConstants.switchText,
+                                              style: Theme.of(Get.context!)
+                                                  .textTheme
+                                                  .titleMedium
+                                                  ?.copyWith(
+                                                    fontSize: 12.px,
+                                                    color: Theme.of(context)
+                                                        .scaffoldBackgroundColor,
+                                                  ),
+                                            ),
+                                            SizedBox(width: 2.px),
+                                            CommonMethods.appIconsPng(
+                                              assetName:
+                                                  IconConstantsPng.icSwitch,
+                                              width: 14.px,
+                                              height: 14.px,
+                                            ),
+                                          ],
+                                        ),
                                       ),
+                                      itemBuilder: (context) {
+                                        return [
+                                          PopupMenuItem(
+                                            value: 'US  ( \$ )',
+                                            child: Text(
+                                              'US  ( \$ )',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(fontSize: 14.px),
+                                            ),
+                                          ),
+                                          PopupMenuItem(
+                                            value: 'British  ( £ )',
+                                            child: Text(
+                                              'British  ( £ )',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(fontSize: 14.px),
+                                            ),
+                                          ),
+                                          PopupMenuItem(
+                                            value: 'NGN  ( ₦ )',
+                                            child: Text(
+                                              'NGN  ( ₦ )',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(fontSize: 14.px),
+                                            ),
+                                          ),
+                                        ];
+                                      },
+                                      onSelected: (value) =>
+                                          controller.clickOnSwitch(),
+                                    ),
+                                  ],
                                 ),
                                 SizedBox(height: 8.px),
                                 Text(

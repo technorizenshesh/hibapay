@@ -59,4 +59,8 @@ class ProfileController extends GetxController {
         break;
     }
   }
+
+  clickOnCard() {
+    Get.toNamed(Routes.REWARD_POINTS);
+  }
 }

@@ -33,17 +33,14 @@ class HomeController extends GetxController {
   List list = [
     {'title': StringConstants.recharge, 'icon': IconConstantsPng.icRecharge},
     {'title': StringConstants.cableTV, 'icon': IconConstantsPng.icCableTv},
-    {'title': StringConstants.paidGas, 'icon': IconConstantsPng.icPaidGas},
-    {'title': StringConstants.water, 'icon': IconConstantsPng.icWater},
-    {'title': StringConstants.wifi, 'icon': IconConstantsPng.icWifi},
-    {'title': StringConstants.dTH, 'icon': IconConstantsPng.icDth},
+    {'title': StringConstants.data, 'icon': IconConstantsPng.icData},
     {
       'title': StringConstants.electricity,
       'icon': IconConstantsPng.icElectricity
     },
-    {'title': StringConstants.fasTag, 'icon': IconConstantsPng.icFasTag},
-    {'title': StringConstants.rent, 'icon': IconConstantsPng.icRent},
-    {'title': StringConstants.landline, 'icon': IconConstantsPng.icLandline},
+    {'title': StringConstants.internet, 'icon': IconConstantsPng.icInternet},
+    {'title': StringConstants.betting, 'icon': IconConstantsPng.icBetting},
+    {'title': StringConstants.giftUser, 'icon': IconConstantsPng.icGiftUser},
     {'title': StringConstants.withdraw, 'icon': IconConstantsPng.icWithdraw},
   ];
 
@@ -104,7 +101,21 @@ class HomeController extends GetxController {
         Get.toNamed(Routes.ELECTRICITY,
             parameters: {'title': StringConstants.electricity});
         break;
-      case StringConstants.recharge || StringConstants.dTH:
+      case StringConstants.cableTV:
+        Get.toNamed(Routes.CABLE_TV,
+            parameters: {'title': StringConstants.electricity});
+        break;
+      case StringConstants.betting:
+        Get.toNamed(Routes.BETTING,
+            parameters: {'title': StringConstants.electricity});
+        break;
+      case StringConstants.giftUser:
+        Get.toNamed(Routes.GIFT_USER,
+            parameters: {'title': StringConstants.electricity});
+        break;
+      case StringConstants.recharge ||
+            StringConstants.internet ||
+            StringConstants.data:
         Get.toNamed(Routes.RECHARGE,
             parameters: {'title': list[index]['title']});
         break;
@@ -114,6 +125,10 @@ class HomeController extends GetxController {
         break;
       case StringConstants.rent:
         Get.toNamed(Routes.RENT, parameters: {'title': list[index]['title']});
+        break;
+      case StringConstants.withdraw:
+        Get.toNamed(Routes.WITHDRAW,
+            parameters: {'title': list[index]['title']});
         break;
     }
   }

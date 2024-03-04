@@ -1,9 +1,13 @@
 import 'package:get/get.dart';
 
 class RewardPointsController extends GetxController {
-  //TODO: Implement RewardPointsController
-
   final count = 0.obs;
+
+  List listOfListTile = [
+    'Points Ranking Milestones',
+    'How To Earn Points',
+    'Points Expiration Deadline',
+  ];
   @override
   void onInit() {
     super.onInit();
@@ -20,4 +24,6 @@ class RewardPointsController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  clickOnInviteFriendsFivePointsButton() {}
 }

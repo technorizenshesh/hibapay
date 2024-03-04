@@ -10,12 +10,16 @@ import '../modules/add_new_card/bindings/add_new_card_binding.dart';
 import '../modules/add_new_card/views/add_new_card_view.dart';
 import '../modules/all_transactions/bindings/all_transactions_binding.dart';
 import '../modules/all_transactions/views/all_transactions_view.dart';
+import '../modules/betting/bindings/betting_binding.dart';
+import '../modules/betting/views/betting_view.dart';
 import '../modules/bil_payment/bindings/bil_payment_binding.dart';
 import '../modules/bil_payment/views/bil_payment_view.dart';
 import '../modules/bil_payment_submit/bindings/bil_payment_submit_binding.dart';
 import '../modules/bil_payment_submit/views/bil_payment_submit_view.dart';
 import '../modules/bil_payment_success/bindings/bil_payment_success_binding.dart';
 import '../modules/bil_payment_success/views/bil_payment_success_view.dart';
+import '../modules/cable_tv/bindings/cable_tv_binding.dart';
+import '../modules/cable_tv/views/cable_tv_view.dart';
 import '../modules/change_password/bindings/change_password_binding.dart';
 import '../modules/change_password/views/change_password_view.dart';
 import '../modules/check_your_mail/bindings/check_your_mail_binding.dart';
@@ -34,6 +38,8 @@ import '../modules/faqs/bindings/faqs_binding.dart';
 import '../modules/faqs/views/faqs_view.dart';
 import '../modules/general_setting/bindings/general_setting_binding.dart';
 import '../modules/general_setting/views/general_setting_view.dart';
+import '../modules/gift_user/bindings/gift_user_binding.dart';
+import '../modules/gift_user/views/gift_user_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -309,6 +315,21 @@ class AppPages {
       name: _Paths.REWARD_POINTS,
       page: () => const RewardPointsView(),
       binding: RewardPointsBinding(),
+    ),
+    GetPage(
+      name: _Paths.GIFT_USER,
+      page: () => const GiftUserView(),
+      binding: GiftUserBinding(),
+    ),
+    GetPage(
+      name: _Paths.BETTING,
+      page: () => const BettingView(),
+      binding: BettingBinding(),
+    ),
+    GetPage(
+      name: _Paths.CABLE_TV,
+      page: () => const CableTvView(),
+      binding: CableTvBinding(),
     ),
   ];
 }

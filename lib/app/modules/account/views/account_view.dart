@@ -1,10 +1,11 @@
 import 'dart:ui';
-import 'package:carousel_slider/carousel_slider.dart';
+
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hibapay/common/common_methods.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/account_controller.dart';
@@ -52,9 +53,9 @@ class AccountView extends GetView<AccountController> {
                       ),
                     ),
                     SizedBox(height: 20.px),
-                    CarouselSlider(
+                    /*CarouselSlider(
                       items: List.generate(
-                        6,
+                        1,
                         (index) => ClipRRect(
                           child: BackdropFilter(
                             filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
@@ -99,16 +100,96 @@ class AccountView extends GetView<AccountController> {
                                           ),
                                     ),
                                     SizedBox(height: 8.px),
-                                    Text(
-                                      '${CommonMethods.cur}12,256.00',
-                                      style: Theme.of(Get.context!)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.copyWith(
-                                            fontSize: 24.px,
-                                            color: Theme.of(context)
-                                                .scaffoldBackgroundColor,
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            '${CommonMethods.cur}12,256.00',
+                                            maxLines: 1,
+                                            style: Theme.of(Get.context!)
+                                                .textTheme
+                                                .displayMedium
+                                                ?.copyWith(
+                                                  fontSize: 24.px,
+                                                  color: Theme.of(context)
+                                                      .scaffoldBackgroundColor,
+                                                ),
                                           ),
+                                        ),
+                                        PopupMenuButton(
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                          offset: Offset(-34.px, 20.px),
+                                          shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.px)),
+                                          elevation: .4.px,
+                                          icon: Padding(
+                                            padding: EdgeInsets.all(8.px),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  StringConstants.switchText,
+                                                  style: Theme.of(Get.context!)
+                                                      .textTheme
+                                                      .titleMedium
+                                                      ?.copyWith(
+                                                        fontSize: 12.px,
+                                                        color: Theme.of(context)
+                                                            .scaffoldBackgroundColor,
+                                                      ),
+                                                ),
+                                                SizedBox(width: 2.px),
+                                                CommonMethods.appIconsPng(
+                                                  assetName:
+                                                      IconConstantsPng.icSwitch,
+                                                  width: 14.px,
+                                                  height: 14.px,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          itemBuilder: (context) {
+                                            return [
+                                              PopupMenuItem(
+                                                value: 'US  ( \$ )',
+                                                child: Text(
+                                                  'US  ( \$ )',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .displayMedium
+                                                      ?.copyWith(
+                                                          fontSize: 14.px),
+                                                ),
+                                              ),
+                                              PopupMenuItem(
+                                                value: 'British  ( £ )',
+                                                child: Text(
+                                                  'British  ( £ )',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .displayMedium
+                                                      ?.copyWith(
+                                                          fontSize: 14.px),
+                                                ),
+                                              ),
+                                              PopupMenuItem(
+                                                value: 'NGN  ( ₦ )',
+                                                child: Text(
+                                                  'NGN  ( ₦ )',
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .displayMedium
+                                                      ?.copyWith(
+                                                          fontSize: 14.px),
+                                                ),
+                                              ),
+                                            ];
+                                          },
+                                          onSelected: (value) =>
+                                              controller.clickOnSwitch(),
+                                        ),
+                                      ],
                                     ),
                                     SizedBox(height: 8.px),
                                     Flexible(
@@ -161,7 +242,8 @@ class AccountView extends GetView<AccountController> {
                                           ],
                                         ),
                                         GestureDetector(
-                                          onTap: () => controller.clickOnAddAccount(),
+                                          onTap: () =>
+                                              controller.clickOnAddAccount(),
                                           child: CommonMethods.appIcons(
                                             assetName: IconConstants.icBank,
                                             height: 34.px,
@@ -196,7 +278,7 @@ class AccountView extends GetView<AccountController> {
                         scrollDirection: Axis.horizontal,
                       ),
                     ),
-                    SizedBox(height: 20.px),
+                     SizedBox(height: 20.px),
                     Align(
                       alignment: Alignment.center,
                       child: Container(
@@ -239,6 +321,206 @@ class AccountView extends GetView<AccountController> {
                         ),
                       ),
                     )
+                    */
+                    ClipRRect(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                        child: Container(
+                          width: double.infinity,
+                          height: 200.px,
+                          margin: EdgeInsets.symmetric(horizontal: 20.px),
+                          padding: EdgeInsets.all(20.px),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              end: Alignment.topRight,
+                              begin: Alignment.bottomLeft,
+                              colors: [
+                                Theme.of(Get.context!)
+                                    .scaffoldBackgroundColor
+                                    .withOpacity(.1),
+                                Theme.of(Get.context!)
+                                    .scaffoldBackgroundColor
+                                    .withOpacity(.1),
+                              ],
+                            ),
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(30.px),
+                            ),
+                            border: Border.all(
+                              width: .4.px,
+                              color: Theme.of(Get.context!)
+                                  .scaffoldBackgroundColor
+                                  .withOpacity(0.2),
+                            ),
+                          ),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  StringConstants.currentBalance,
+                                  style: Theme.of(Get.context!)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        // fontSize: 20.px,
+                                        color: Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                      ),
+                                ),
+                                SizedBox(height: 8.px),
+                                Row(
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        '${CommonMethods.cur}12,256.00',
+                                        maxLines: 1,
+                                        style: Theme.of(Get.context!)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(
+                                              fontSize: 24.px,
+                                              color: Theme.of(context)
+                                                  .scaffoldBackgroundColor,
+                                            ),
+                                      ),
+                                    ),
+                                    PopupMenuButton(
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                      offset: Offset(-34.px, 20.px),
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.px)),
+                                      elevation: .4.px,
+                                      icon: Padding(
+                                        padding: EdgeInsets.all(8.px),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              StringConstants.switchText,
+                                              style: Theme.of(Get.context!)
+                                                  .textTheme
+                                                  .titleMedium
+                                                  ?.copyWith(
+                                                    fontSize: 12.px,
+                                                    color: Theme.of(context)
+                                                        .scaffoldBackgroundColor,
+                                                  ),
+                                            ),
+                                            SizedBox(width: 2.px),
+                                            CommonMethods.appIconsPng(
+                                              assetName:
+                                                  IconConstantsPng.icSwitch,
+                                              width: 14.px,
+                                              height: 14.px,
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      itemBuilder: (context) {
+                                        return [
+                                          PopupMenuItem(
+                                            value: 'US  ( \$ )',
+                                            child: Text(
+                                              'US  ( \$ )',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(fontSize: 14.px),
+                                            ),
+                                          ),
+                                          PopupMenuItem(
+                                            value: 'British  ( £ )',
+                                            child: Text(
+                                              'British  ( £ )',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(fontSize: 14.px),
+                                            ),
+                                          ),
+                                          PopupMenuItem(
+                                            value: 'NGN  ( ₦ )',
+                                            child: Text(
+                                              'NGN  ( ₦ )',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(fontSize: 14.px),
+                                            ),
+                                          ),
+                                        ];
+                                      },
+                                      onSelected: (value) =>
+                                          controller.clickOnSwitch(),
+                                    ),
+                                  ],
+                                ),
+                                SizedBox(height: 8.px),
+                                Flexible(
+                                  child: Text(
+                                    '${StringConstants.bankAccount}2564  8546  8421  1121',
+                                    style: Theme.of(Get.context!)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                          fontSize: 10.px,
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                        ),
+                                  ),
+                                ),
+                                SizedBox(height: 20.px),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          'IN ₦ 18,895 +',
+                                          style: Theme.of(Get.context!)
+                                              .textTheme
+                                              .titleMedium
+                                              ?.copyWith(
+                                                fontSize: 12.px,
+                                                color: Theme.of(context)
+                                                    .scaffoldBackgroundColor,
+                                              ),
+                                        ),
+                                        SizedBox(height: 4.px),
+                                        Text(
+                                          'Out ₦ 20,895 -',
+                                          style: Theme.of(Get.context!)
+                                              .textTheme
+                                              .titleMedium
+                                              ?.copyWith(
+                                                fontSize: 12.px,
+                                                color: Theme.of(context)
+                                                    .scaffoldBackgroundColor,
+                                              ),
+                                        ),
+                                      ],
+                                    ),
+                                    GestureDetector(
+                                      onTap: () =>
+                                          controller.clickOnAddAccount(),
+                                      child: CommonMethods.appIcons(
+                                        assetName: IconConstants.icBank,
+                                        height: 34.px,
+                                        width: 34.px,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ]),
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -301,13 +583,13 @@ class AccountView extends GetView<AccountController> {
                             lineBarsData: [
                               LineChartBarData(
                                 spots: const [
-                                  FlSpot(0, 4.44),
+                                  FlSpot(0, 2.44),
                                   FlSpot(2.6, 1.44),
                                   FlSpot(4.9, 3.44),
                                   FlSpot(6.8, 2.44),
                                   FlSpot(8, 4.44),
                                   FlSpot(9.5, 0.44),
-                                  FlSpot(11, 5.44),
+                                  FlSpot(11, 2.44),
                                 ],
                                 isCurved: true,
                                 gradient: LinearGradient(
@@ -389,19 +671,30 @@ class AccountView extends GetView<AccountController> {
                             controller.listOfTra[index]['type'] == 'Withdraw'
                                 ? '- ${CommonMethods.cur + controller.listOfTra[index]['amount']}'
                                 : '+ ${CommonMethods.cur + controller.listOfTra[index]['amount']}',
-                            style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                                fontSize: 14.px, color: Theme.of(context).primaryColor),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                    fontSize: 14.px,
+                                    color: Theme.of(context).primaryColor),
                           ),
                           subtitle: Text(
                             controller.listOfTra[index]['sub_title'],
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontSize: 12.px,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  fontSize: 12.px,
+                                ),
                           ),
                           title: Text(
                             controller.listOfTra[index]['title'],
-                            style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                                fontSize: 14.px, color: Theme.of(context).primaryColor),
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                    fontSize: 14.px,
+                                    color: Theme.of(context).primaryColor),
                           ),
                           leading: CommonMethods.appIcons(
                               assetName: controller.listOfTra[index]['icon']),

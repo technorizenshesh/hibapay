@@ -19,6 +19,8 @@ class HomeView extends GetView<HomeController> {
     return Obx(() {
       controller.count.value;
       return Scaffold(
+        backgroundColor:
+            Theme.of(context).colorScheme.surface.withOpacity(.1.px),
         body: ListView(
           children: [
             SizedBox(height: 40.px),
@@ -247,7 +249,7 @@ class HomeView extends GetView<HomeController> {
                 child: Wrap(
                   children: List.generate(controller.list.length, (index) {
                     return SizedBox(
-                      width: MediaQuery.of(context).size.width / 4.3,
+                      width: MediaQuery.of(context).size.width / 3.3,
                       child: Padding(
                         padding: EdgeInsets.symmetric(
                             horizontal: 4.px, vertical: 4.px),
@@ -260,10 +262,11 @@ class HomeView extends GetView<HomeController> {
                                 horizontal: 4.px, vertical: 14.px),
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(8.px),
-                              border: Border.all(
+                              color: Colors.white,
+                              /*border: Border.all(
                                 width: .4.px,
                                 color: Theme.of(context).colorScheme.surface,
-                              ),
+                              ),*/
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,

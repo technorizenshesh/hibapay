@@ -51,7 +51,8 @@ class AppLightColors extends AppColors {
   Color get text => const Color(0xff000000);
 
   @override
-  Color get success => const Color(0xff38E894);
+  // Color get success => const Color(0xff38E894);
+  Color get success => const Color(0xff00A037);
 }
 
 class AppDarkColors extends AppColors {
@@ -83,5 +84,5 @@ class AppDarkColors extends AppColors {
   Color get text => const Color(0xff000000);
 
   @override
-  Color get success => const Color(0xff38E894);
+  Color get success => const Color(0xff00A037);
 }
