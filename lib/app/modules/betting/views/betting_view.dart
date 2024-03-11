@@ -31,6 +31,14 @@ class BettingView extends GetView<BettingController> {
                 ),
                 SizedBox(height: 14.px),
                 TextField(
+                  controller: controller.enterIdController,
+                  decoration: CommonWidgets.inputDecoration(
+                    labelText: StringConstants.userId,
+                    hintText: StringConstants.pleaseEnterId,
+                  ),
+                ),
+                SizedBox(height: 14.px),
+                TextField(
                   controller: controller.amountController,
                   decoration: CommonWidgets.inputDecoration(
                     labelText: StringConstants.enterAmount,

@@ -99,19 +99,19 @@ class HomeController extends GetxController {
     switch (list[index]['title']) {
       case StringConstants.electricity:
         Get.toNamed(Routes.ELECTRICITY,
-            parameters: {'title': StringConstants.electricity});
+            parameters: {'title': list[index]['title']});
         break;
       case StringConstants.cableTV:
         Get.toNamed(Routes.CABLE_TV,
-            parameters: {'title': StringConstants.electricity});
+            parameters: {'title': list[index]['title']});
         break;
       case StringConstants.betting:
         Get.toNamed(Routes.BETTING,
-            parameters: {'title': StringConstants.electricity});
+            parameters: {'title': list[index]['title']});
         break;
       case StringConstants.giftUser:
         Get.toNamed(Routes.GIFT_USER,
-            parameters: {'title': StringConstants.electricity});
+            parameters: {'title': list[index]['title']});
         break;
       case StringConstants.recharge ||
             StringConstants.internet ||

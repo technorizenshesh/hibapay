@@ -156,6 +156,7 @@ class StringConstants {
   static const String pleaseEnterAccountName = "Please enter account name";
   static const String giftingAmount = "Gifting Amount";
   static const String pleaseEnterGiftingAmount = "Please enter gifting amount";
+  static const String pleaseEnterId = "Please enter id";
   static const String pleaseEnterBillTag = "Please enter bill tag";
   static const String billTag = "Bill Tag";
   static const String pleaseEnterNickName = "Please enter nick name";
@@ -167,10 +168,14 @@ class StringConstants {
   static const String sendMoney = "Send Money";
   static const String backToHome = "Back To Home";
   static const String getFreeCard = "Get Free Card";
+  static const String inviteNow = "INVITE NOW";
+  static const String referYourFriendsEarnCashback =
+      "Refer Your Friends, Earn Cashback";
   static const String createYourSmartPayCard = "Create your Smart pay Card";
   static const String theCustomizable =
       "The customizable, no hidden fee,\ninstant discount debit or credit card";
   static const String enterAmount = "Enter amount:";
+  static const String userId = "User ID";
   static const String addNotes = "Add Notes";
   static const String amount = "Amount";
   static const String fromWhichAccountDoYouWantToPay =
@@ -215,6 +220,11 @@ class StringConstants {
   static const String inviteFriendsFivePoints = "Invite friends 5 Points";
   static const String youWin = "You Win";
   static const String spinToAgain = "Spin To again";
+  static const String biometricSettings = "Biometric Settings";
+  static const String appearanceAndDisplay = "Appearance & Display";
+  static const String referral = "Referral";
+  static const String collect = "Collect";
+  static const String contactPreferences = "Contact preferences";
   static const String earnThreeHundredEightyPointsToEach =
       "Earn 380 points to reach";
   static const String iAgreeAndAllowHibaPay =

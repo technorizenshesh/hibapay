@@ -24,7 +24,7 @@ if (flutterVersionName == null) {
 
 android {
     namespace "com.hibapay.app.hibapay"
-    compileSdkVersion flutter.compileSdkVersion
+    compileSdkVersion 34
     ndkVersion "25.1.8937393"
 
     compileOptions {
@@ -64,4 +64,6 @@ flutter {
     source '../..'
 }
 
-dependencies {}
+dependencies {
+    implementation "com.android.support:multidex:1.0.3"
+}

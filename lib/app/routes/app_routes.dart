@@ -49,6 +49,10 @@ abstract class Routes {
   static const GIFT_USER = _Paths.GIFT_USER;
   static const BETTING = _Paths.BETTING;
   static const CABLE_TV = _Paths.CABLE_TV;
+  static const BIOMETRIC_SETTINGS = _Paths.BIOMETRIC_SETTINGS;
+  static const CONTACT_PREFERENCES = _Paths.CONTACT_PREFERENCES;
+  static const REFERRAL = _Paths.REFERRAL;
+  static const GIFT_USER_CARDS = _Paths.GIFT_USER_CARDS;
 }
 
 abstract class _Paths {
@@ -99,4 +103,8 @@ abstract class _Paths {
   static const GIFT_USER = '/gift-user';
   static const BETTING = '/betting';
   static const CABLE_TV = '/cable-tv';
+  static const BIOMETRIC_SETTINGS = '/biometric-settings';
+  static const CONTACT_PREFERENCES = '/contact-preferences';
+  static const REFERRAL = '/referral';
+  static const GIFT_USER_CARDS = '/gift-user-cards';
 }

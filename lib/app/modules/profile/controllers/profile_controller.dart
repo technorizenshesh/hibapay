@@ -1,14 +1,18 @@
 import 'package:get/get.dart';
+import 'package:hibapay/app/data/constants/icons_constant.dart';
 import 'package:hibapay/app/data/constants/string_constants.dart';
-
-import '../../../data/constants/icons_constant.dart';
-import '../../../routes/app_pages.dart';
+import 'package:hibapay/app/routes/app_pages.dart';
 
 class ProfileController extends GetxController {
   final count = 0.obs;
 
   List listOfListTileImages = [
+    IconConstants.icAppearanceAndDisplay,
+    IconConstants.icBiometricSettings,
+    IconConstants.icReferral,
+    IconConstants.icGiftUser,
     IconConstants.icAccountInfo,
+    IconConstants.icContactPreferences,
     IconConstants.icGeneralSetting,
     IconConstants.icChangePassword,
     IconConstants.icFaqs,
@@ -16,12 +20,19 @@ class ProfileController extends GetxController {
   ];
 
   List listOfListTileTitles = [
+    StringConstants.appearanceAndDisplay,
+    StringConstants.biometricSettings,
+    StringConstants.referral,
+    StringConstants.giftUser,
     StringConstants.accountInfo,
+    StringConstants.contactPreferences,
     StringConstants.generalSetting,
     StringConstants.changePassword,
     StringConstants.faqs,
     StringConstants.rateUs,
   ];
+
+  final switchValue = false.obs;
 
   @override
   void onInit() {
@@ -41,20 +52,29 @@ class ProfileController extends GetxController {
   void increment() => count.value++;
 
   clickOnListTile({required int index}) {
-    switch (index) {
-      case 0:
+    switch (listOfListTileTitles[index]) {
+      case StringConstants.biometricSettings:
+        Get.toNamed(Routes.BIOMETRIC_SETTINGS);
+        break;
+      case StringConstants.referral:
+        Get.toNamed(Routes.REFERRAL);
+        break;
+      case StringConstants.giftUser:
+        Get.toNamed(Routes.GIFT_USER_CARDS);
+        break;
+      case StringConstants.accountInfo:
         Get.toNamed(Routes.MY_PROFILE);
         break;
-      case 1:
+      case StringConstants.generalSetting:
         Get.toNamed(Routes.GENERAL_SETTING);
         break;
-      case 2:
+      case StringConstants.changePassword:
         Get.toNamed(Routes.CHANGE_PASSWORD);
         break;
-      case 3:
+      case StringConstants.faqs:
         Get.toNamed(Routes.FAQS);
         break;
-      case 4:
+      case StringConstants.rateUs:
         Get.toNamed(Routes.RATE_US);
         break;
     }

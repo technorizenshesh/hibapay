@@ -62,6 +62,16 @@ class IconConstants {
   static const String icBank = 'assets/icons/ic_bank.svg';
   static const String icCard = 'assets/icons/ic_card.svg';
   static const String icSpinner = 'assets/icons/ic_spinner.svg';
+  static const String icAppearanceAndDisplay =
+      'assets/icons/ic_appearance_and_display.svg';
+  static const String icBiometricSettings =
+      'assets/icons/ic_biometric_settings.svg';
+  static const String icContactPreferences =
+      'assets/icons/ic_contact_preferences.svg';
+  static const String icGiftUser = 'assets/icons/ic_gift_user.svg';
+  static const String icReferral = 'assets/icons/ic_referral.svg';
+  static const String icCopy = 'assets/icons/ic_copy.svg';
+  static const String icGift = 'assets/icons/ic_gift.svg';
 }
 
 class IconConstantsPng {

@@ -10,6 +10,8 @@ class ImgConstants {
   static const String imgSuccess = 'assets/images/img_success.png';
   static const String imgCard = 'assets/images/img_card.png';
   static const String imgSpinnerPage = 'assets/images/img_spinner_page.png';
+  static const String imgReferral = 'assets/images/image_referral.png';
+  static const String imgGiftBox = 'assets/images/img_gift_box.png';
   static const String imgProgressBubbles =
       'assets/images/img_progress_bubbles.png';
 

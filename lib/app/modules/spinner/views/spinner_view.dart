@@ -31,14 +31,13 @@ class SpinnerView extends GetView<SpinnerController> {
                     alignment: Alignment.center,
                     children: [
                       Container(
-                        width: 300.px,
-                        height: 300.px,
+                        width: 240.px,
+                        height: 240.px,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(150.px),
+                          borderRadius: BorderRadius.circular(120.px),
                           border: Border.all(
-                            color: const Color(
-                                0xffE89600), // Choose your border color
-                            width: 8.px, // Choose your border width
+                            color: const Color(0xffE89600),
+                            width: 8.px,
                           ),
                         ),
                         child: FortuneWheel(
@@ -74,11 +73,11 @@ class SpinnerView extends GetView<SpinnerController> {
                         ),
                       ),
                       ClipRRect(
-                        borderRadius: BorderRadius.circular(30.px),
+                        borderRadius: BorderRadius.circular(24.px),
                         child: Image.asset(
                           ImgConstants.imageBgWhiteLogo,
-                          height: 60.px,
-                          width: 60.px,
+                          height: 48.px,
+                          width: 48.px,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -112,10 +111,10 @@ class SpinnerView extends GetView<SpinnerController> {
                 SizedBox(height: 8.px),
                 Image.asset(
                   ImgConstants.imgSpinnerPage,
-                  height: 220.px,
-                  width: 220.px,
+                  height: 180.px,
+                  width: 180.px,
                 ),
-                SizedBox(height: 14.px),
+                SizedBox(height: 20.px),
                 CommonWidgets.commonElevatedButton(
                   onPressed: () => controller.clickOnSpinToAgainButton(),
                   child: Text(
@@ -126,7 +125,7 @@ class SpinnerView extends GetView<SpinnerController> {
                         ?.copyWith(fontWeight: FontWeight.w700),
                   ),
                 ),
-                SizedBox(height: 40.px),
+                SizedBox(height: 20.px),
               ],
             ),
           ),

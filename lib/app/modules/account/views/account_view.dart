@@ -521,6 +521,59 @@ class AccountView extends GetView<AccountController> {
                         ),
                       ),
                     ),
+                    SizedBox(height: 20.px),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        InkWell(
+                          onTap: () => controller.clickOnDeposit(),
+                          borderRadius: BorderRadius.circular(24.px),
+                          child: Container(
+                            padding: EdgeInsets.all(8.px),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24.px),
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                CommonMethods.textViewLinearGradient(
+                                    text: StringConstants.deposit, value: true),
+                                SizedBox(width: 8.px),
+                                CommonMethods.iconLinearGradient(
+                                    assetName: IconConstants.icDeposit,
+                                    value: true),
+                              ],
+                            ),
+                          ),
+                        ),
+                        SizedBox(width: 10.px),
+                        InkWell(
+                          onTap: () => controller.clickOnWithdraw(),
+                          borderRadius: BorderRadius.circular(24.px),
+                          child: Container(
+                            padding: EdgeInsets.all(8.px),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24.px),
+                              color: Theme.of(context).scaffoldBackgroundColor,
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                CommonMethods.textViewLinearGradient(
+                                    text: StringConstants.withdraw,
+                                    value: true),
+                                SizedBox(width: 8.px),
+                                CommonMethods.iconLinearGradient(
+                                    assetName: IconConstants.icWithdraw,
+                                    value: true),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
               ),

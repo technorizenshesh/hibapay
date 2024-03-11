@@ -18,12 +18,16 @@ import '../modules/bil_payment_submit/bindings/bil_payment_submit_binding.dart';
 import '../modules/bil_payment_submit/views/bil_payment_submit_view.dart';
 import '../modules/bil_payment_success/bindings/bil_payment_success_binding.dart';
 import '../modules/bil_payment_success/views/bil_payment_success_view.dart';
+import '../modules/biometric_settings/bindings/biometric_settings_binding.dart';
+import '../modules/biometric_settings/views/biometric_settings_view.dart';
 import '../modules/cable_tv/bindings/cable_tv_binding.dart';
 import '../modules/cable_tv/views/cable_tv_view.dart';
 import '../modules/change_password/bindings/change_password_binding.dart';
 import '../modules/change_password/views/change_password_view.dart';
 import '../modules/check_your_mail/bindings/check_your_mail_binding.dart';
 import '../modules/check_your_mail/views/check_your_mail_view.dart';
+import '../modules/contact_preferences/bindings/contact_preferences_binding.dart';
+import '../modules/contact_preferences/views/contact_preferences_view.dart';
 import '../modules/create_new_password/bindings/create_new_password_binding.dart';
 import '../modules/create_new_password/views/create_new_password_view.dart';
 import '../modules/create_your_smartpay_card/bindings/create_your_smartpay_card_binding.dart';
@@ -40,6 +44,8 @@ import '../modules/general_setting/bindings/general_setting_binding.dart';
 import '../modules/general_setting/views/general_setting_view.dart';
 import '../modules/gift_user/bindings/gift_user_binding.dart';
 import '../modules/gift_user/views/gift_user_view.dart';
+import '../modules/gift_user_cards/bindings/gift_user_cards_binding.dart';
+import '../modules/gift_user_cards/views/gift_user_cards_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
 import '../modules/login/bindings/login_binding.dart';
@@ -64,6 +70,8 @@ import '../modules/receiving_account/bindings/receiving_account_binding.dart';
 import '../modules/receiving_account/views/receiving_account_view.dart';
 import '../modules/recharge/bindings/recharge_binding.dart';
 import '../modules/recharge/views/recharge_view.dart';
+import '../modules/referral/bindings/referral_binding.dart';
+import '../modules/referral/views/referral_view.dart';
 import '../modules/rent/bindings/rent_binding.dart';
 import '../modules/rent/views/rent_view.dart';
 import '../modules/reset_password/bindings/reset_password_binding.dart';
@@ -330,6 +338,26 @@ class AppPages {
       name: _Paths.CABLE_TV,
       page: () => const CableTvView(),
       binding: CableTvBinding(),
+    ),
+    GetPage(
+      name: _Paths.BIOMETRIC_SETTINGS,
+      page: () => const BiometricSettingsView(),
+      binding: BiometricSettingsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONTACT_PREFERENCES,
+      page: () => const ContactPreferencesView(),
+      binding: ContactPreferencesBinding(),
+    ),
+    GetPage(
+      name: _Paths.REFERRAL,
+      page: () => const ReferralView(),
+      binding: ReferralBinding(),
+    ),
+    GetPage(
+      name: _Paths.GIFT_USER_CARDS,
+      page: () => const GiftUserCardsView(),
+      binding: GiftUserCardsBinding(),
     ),
   ];
 }

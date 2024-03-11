@@ -243,6 +243,28 @@ class WalletView extends GetView<WalletController> {
                                     ),
                                   ],
                                 ),
+                                SizedBox(height: 8.px),
+                                Row(
+                                  children: [
+                                    CommonMethods.appIcons(
+                                      assetName: IconConstants.icGift,
+                                      height: 24.px,
+                                      width: 24.px,
+                                    ),
+                                    SizedBox(width: 2.px),
+                                    Text(
+                                      'HP58464',
+                                      style: Theme.of(Get.context!)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            fontSize: 12.px,
+                                            color: Theme.of(context)
+                                                .scaffoldBackgroundColor,
+                                          ),
+                                    ),
+                                  ],
+                                )
                               ]),
                         ),
                       ),

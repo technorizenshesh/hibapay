@@ -54,4 +54,12 @@ class AccountController extends GetxController {
   }
 
   clickOnSwitch() {}
+
+  clickOnDeposit() {
+    Get.toNamed(Routes.DEPOSIT);
+  }
+
+  clickOnWithdraw() {
+    Get.toNamed(Routes.WITHDRAW);
+  }
 }

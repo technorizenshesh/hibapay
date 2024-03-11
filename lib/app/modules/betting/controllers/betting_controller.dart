@@ -8,6 +8,7 @@ class BettingController extends GetxController {
   String title = '';
 
   TextEditingController amountController = TextEditingController();
+  TextEditingController enterIdController = TextEditingController();
   TextEditingController serviceProviderController = TextEditingController();
 
   @override
