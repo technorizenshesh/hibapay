@@ -6,6 +6,7 @@ import 'package:get/get.dart';
 class SpinnerController extends GetxController {
   final coins = "0".obs;
   final count = 0.obs;
+  bool absorbing = false;
   StreamController<int> selected = StreamController<int>();
   final items = <String>[
     '10',
@@ -39,10 +40,13 @@ class SpinnerController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnSpinToAgainButton() {
+  clickOnSpinAgainButton() {
+    absorbing = true;
+    increment();
     selected.add(
       Fortune.randomInt(0, items.length),
     );
+    absorbing = false;
     increment();
   }
 

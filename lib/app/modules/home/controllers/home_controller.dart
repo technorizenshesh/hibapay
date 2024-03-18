@@ -1,6 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hibapay/app/data/constants/icons_constant.dart';
 import 'package:hibapay/app/data/constants/string_constants.dart';
+import 'package:hibapay/app/modules/spinner/views/spinner_view.dart';
 import 'package:hibapay/app/routes/app_pages.dart';
 
 class HomeController extends GetxController {
@@ -92,7 +94,13 @@ class HomeController extends GetxController {
   }
 
   clickOnSpinnerIcon() {
-    Get.toNamed(Routes.SPINNER);
+    //Get.toNamed(Routes.SPINNER);
+    Navigator.push(
+      Get.context!,
+      MaterialPageRoute(
+        builder: (context) => const SpinnerViewSTF(),
+      ),
+    );
   }
 
   clickOnCard({required int index}) {

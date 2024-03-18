@@ -219,7 +219,7 @@ class StringConstants {
   static const String pointsExpirationDeadline = "Points Expiration Deadline";
   static const String inviteFriendsFivePoints = "Invite friends 5 Points";
   static const String youWin = "You Win";
-  static const String spinToAgain = "Spin To again";
+  static const String spinAgain = "Spin again";
   static const String biometricSettings = "Biometric Settings";
   static const String appearanceAndDisplay = "Appearance & Display";
   static const String referral = "Referral";
