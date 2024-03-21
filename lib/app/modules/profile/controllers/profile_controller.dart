@@ -1,7 +1,10 @@
 import 'package:get/get.dart';
 import 'package:hibapay/app/data/constants/icons_constant.dart';
 import 'package:hibapay/app/data/constants/string_constants.dart';
+import 'package:hibapay/app/modules/nav_bar/controllers/nav_bar_controller.dart';
 import 'package:hibapay/app/routes/app_pages.dart';
+import 'package:hibapay/common/common_widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileController extends GetxController {
   final count = 0.obs;
@@ -16,7 +19,8 @@ class ProfileController extends GetxController {
     IconConstants.icGeneralSetting,
     IconConstants.icChangePassword,
     IconConstants.icFaqs,
-    IconConstants.icRateUs
+    IconConstants.icRateUs,
+    IconConstants.icLogout,
   ];
 
   List listOfListTileTitles = [
@@ -30,6 +34,7 @@ class ProfileController extends GetxController {
     StringConstants.changePassword,
     StringConstants.faqs,
     StringConstants.rateUs,
+    StringConstants.logout,
   ];
 
   final switchValue = false.obs;
@@ -77,10 +82,25 @@ class ProfileController extends GetxController {
       case StringConstants.rateUs:
         Get.toNamed(Routes.RATE_US);
         break;
+      case StringConstants.logout:
+        clickOnLogout();
+        break;
     }
   }
 
   clickOnCard() {
     Get.toNamed(Routes.REWARD_POINTS);
+  }
+
+  clickOnLogout() async {
+    CommonWidgets.showAlertDialog(
+      onPressedYes: () async {
+        SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+        sharedPreferences.clear();
+        selectedIndex.value = 0;
+        Get.offAllNamed(Routes.SPLASH);
+      },
+    );
   }
 }

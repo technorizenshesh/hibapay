@@ -72,6 +72,7 @@ class IconConstants {
   static const String icReferral = 'assets/icons/ic_referral.svg';
   static const String icCopy = 'assets/icons/ic_copy.svg';
   static const String icGift = 'assets/icons/ic_gift.svg';
+  static const String icLogout = 'assets/icons/ic_logout.svg';
 }
 
 class IconConstantsPng {

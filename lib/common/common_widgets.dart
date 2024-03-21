@@ -1,14 +1,20 @@
 import 'dart:async';
+import 'dart:convert';
+import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:hibapay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:hibapay/common/common_methods.dart';
+// ignore: depend_on_referenced_packages
+import 'package:http/http.dart' as http;
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
+
 import '../app/data/constants/icons_constant.dart';
 import '../app/data/constants/string_constants.dart';
 
@@ -440,16 +446,16 @@ class CommonWidgets {
 
   static InputDecoration inputDecoration(
       {String? hintText,
-        String? labelText,
-        String? errorText,
-        EdgeInsetsGeometry? contentPadding,
-        Color? fillColor,
-        TextStyle? hintStyle,
-        TextStyle? labelStyle,
-        TextStyle? errorStyle,
-        Widget? suffixIcon,
-        Widget? prefixIcon,
-        bool? filled}) {
+      String? labelText,
+      String? errorText,
+      EdgeInsetsGeometry? contentPadding,
+      Color? fillColor,
+      TextStyle? hintStyle,
+      TextStyle? labelStyle,
+      TextStyle? errorStyle,
+      Widget? suffixIcon,
+      Widget? prefixIcon,
+      bool? filled}) {
     return InputDecoration(
       errorText: errorText,
       counterText: '',
@@ -483,6 +489,79 @@ class CommonWidgets {
     );
   }
 
+  static Future<bool> internetConnectionCheckerMethod() async {
+    /*   bool result = await InternetConnectionChecker().hasConnection;
+    return result;
+*/
+    try {
+      final result = await http.get(Uri.parse('https://www.google.com/'));
+      if (result.statusCode == 200) {
+        return true;
+      } else {
+        return false;
+      }
+    } on SocketException catch (_) {
+      return false;
+    }
+  }
+
+  ///For Check Get Api Response
+  static Future<bool> responseCheckForGetMethod({
+    http.Response? response,
+    bool wantSuccessToast = false,
+    bool wantErrorToast = true,
+  }) async {
+    Map<String, dynamic> responseMap = jsonDecode(response?.body ?? "");
+    if (wantErrorToast) {
+      if (responseMap[ApiKeyConstants.message] != null) {
+        snackBarView(title: responseMap[ApiKeyConstants.message]);
+      }
+      /*if (responseMap[ApiKeyConstants.error] != null) {
+        snackBarView(title: responseMap[ApiKeyConstants.error]);
+      }*/
+    }
+    if (response != null && response.statusCode == 200) {
+      return true;
+    } else if (response != null && response.statusCode == 401) {
+      return false;
+    } else {
+      return false;
+    }
+  }
+
+  ///For Check Post Api Response
+  static Future<bool> responseCheckForPostMethod(
+      {http.Response? response, bool wantSnackBar = true}) async {
+    Map<String, dynamic> responseMap = jsonDecode(response?.body ?? "");
+    if (wantSnackBar) {
+      if (responseMap[ApiKeyConstants.message] != null) {
+        snackBarView(title: responseMap[ApiKeyConstants.message]);
+      }
+      /*if (responseMap[ApiKeyConstants.error] != null) {
+        snackBarView(title: responseMap[ApiKeyConstants.error]);
+      }*/
+    }
+    if (response != null && response.statusCode == 200) {
+      return true;
+    } else if (response != null && response.statusCode == 401) {
+      return false;
+    } else {
+      return false;
+    }
+  }
+
+  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackBarView(
+      {String title = ''}) {
+    var snackBar = SnackBar(
+      content: Text(title,
+          style: Theme.of(Get.context!)
+              .textTheme
+              .displayMedium
+              ?.copyWith(fontSize: 14.px)),
+      backgroundColor: Theme.of(Get.context!).colorScheme.onSecondary,
+    );
+    return ScaffoldMessenger.of(Get.context!).showSnackBar(snackBar);
+  }
 }
 
 enum ErrorAnimationType { shake, clear }

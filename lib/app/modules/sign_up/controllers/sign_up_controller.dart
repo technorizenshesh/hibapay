@@ -1,9 +1,12 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:responsive_sizer/responsive_sizer.dart';
-
-import '../../../../common/common_widgets.dart';
-import '../../../data/constants/string_constants.dart';
+import 'package:hibapay/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:hibapay/app/data/apis/api_methods/api_methods.dart';
+import 'package:hibapay/app/data/apis/api_models/user_model.dart';
+import 'package:hibapay/common/common_widgets.dart';
+import 'package:hibapay/common/time_picker_view.dart';
+import 'package:intl/intl.dart';
 
 class SignUpController extends GetxController {
   final count = 0.obs;
@@ -24,7 +27,7 @@ class SignUpController extends GetxController {
   final isCountryOfResidence = false.obs;
   final isDateOfBirth = false.obs;
   final isPassword = false.obs;
-  final passwordHide = false.obs;
+  final passwordHide = true.obs;
   TextEditingController fullNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
@@ -33,6 +36,12 @@ class SignUpController extends GetxController {
   TextEditingController countryOfResidenceController = TextEditingController();
   TextEditingController dateOfBirthController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
+  Map<String, dynamic> bodyParams = {};
+  DateTime? dateTime;
+
+  final inAsyncCall = false.obs;
+  final countryCode = 'IN'.obs;
 
   @override
   void onInit() {
@@ -67,8 +76,38 @@ class SignUpController extends GetxController {
     Get.back();
   }
 
-  clickOnSignUpButton() {
-    // Get.toNamed(Routes.NAV_BAR);
+  clickOnSignUpButton() async {
+    if (fullNameController.text.trim().isNotEmpty &&
+        phoneController.text.trim().isNotEmpty &&
+        emailController.text.trim().isNotEmpty &&
+        streetAddressController.text.trim().isNotEmpty &&
+        cityController.text.trim().isNotEmpty &&
+        countryCode.value.trim().isNotEmpty &&
+        dateOfBirthController.text.trim().isNotEmpty &&
+        passwordController.text.trim().isNotEmpty) {
+      inAsyncCall.value = true;
+      bodyParams = {
+        ApiKeyConstants.fullName: fullNameController.text,
+        ApiKeyConstants.mobile: phoneController.text,
+        ApiKeyConstants.email: emailController.text,
+        ApiKeyConstants.streetAddress: streetAddressController.text,
+        ApiKeyConstants.city: cityController.text,
+        ApiKeyConstants.country: countryCode.value,
+        ApiKeyConstants.dob: dateOfBirthController.text,
+        ApiKeyConstants.password: passwordController.text,
+        ApiKeyConstants.confirmPassword: passwordController.text,
+        ApiKeyConstants.countryCode: countryCode.value,
+      };
+      UserModel? userModel = await ApiMethods.signUp(bodyParams: bodyParams);
+      if (userModel != null &&
+          userModel.status != null &&
+          userModel.status != '0') {
+        Get.back();
+      }
+      inAsyncCall.value = false;
+    } else {
+      CommonWidgets.snackBarView(title: 'All field required');
+    }
   }
 
   clickOnEyeButton() {
@@ -87,55 +126,15 @@ class SignUpController extends GetxController {
   }
 
   clickOnCountryField() {
-    return showModalBottomSheet(
+    return showCountryPicker(
       context: Get.context!,
-      backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
-      builder: (context) {
-        return Padding(
-          padding: EdgeInsets.all(20.px),
-          child: Column(
-            children: [
-              Expanded(
-                child: ListView.builder(
-                  itemCount: 4,
-                  itemBuilder: (context, index) => Row(
-                    children: [
-                      Text(
-                        'NGN',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.copyWith(fontSize: 14.px),
-                      ),
-                      SizedBox(width: 12.px),
-                      Text(
-                        'Nigeria',
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineMedium
-                            ?.copyWith(fontSize: 14.px),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-              CommonWidgets.commonElevatedButton(
-                onPressed: () => clickOnCancelButton(),
-                child: Text(
-                  StringConstants.cancel,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall
-                      ?.copyWith(fontWeight: FontWeight.w700),
-                ),
-              ),
-            ],
-          ),
-        );
+      showPhoneCode: true,
+      searchAutofocus: true,
+      onSelect: (Country country) {
+        countryOfResidenceController.text = country.name;
+        countryCode.value = country.countryCode;
       },
-    ).whenComplete(() {
-      isCountryOfResidence.value = false;
-    });
+    );
   }
 
   clickOnCancelButton() {
@@ -145,5 +144,19 @@ class SignUpController extends GetxController {
 
   clickOnPasswordEyeButton() {
     passwordHide.value = !passwordHide.value;
+  }
+
+  clickOnDob() async {
+    dateTime = await DatePickerView().datePickerView(
+      color: Theme.of(Get.context!).primaryColor,
+      lastDate: DateTime.now(),
+      initialDate: DateTime(2000),
+      firstDate: DateTime(2000),
+    );
+    if (dateTime != null) {
+      dateOfBirthController.text = DateFormat('dd-MM-yyyy')
+          .format(dateTime ?? DateTime.now())
+          .toString();
+    }
   }
 }

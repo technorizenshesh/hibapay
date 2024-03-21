@@ -10,7 +10,6 @@ import '../../../data/constants/string_constants.dart';
 
 class AddNewCardController extends GetxController {
   final count = 0.obs;
-
   bool isLightTheme = false;
   String cardNumber = '';
   String expiryDate = '';

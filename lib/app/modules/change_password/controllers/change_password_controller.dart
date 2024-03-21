@@ -4,6 +4,8 @@ import 'package:get/get.dart';
 class ChangePasswordController extends GetxController {
   final count = 0.obs;
 
+  final inAsyncCall = false.obs;
+
   final isCurrentPassword = false.obs;
   final currentPasswordHide = false.obs;
   TextEditingController currentPasswordController = TextEditingController();
@@ -18,6 +20,8 @@ class ChangePasswordController extends GetxController {
   final confirmPasswordHide = false.obs;
   TextEditingController confirmPasswordController = TextEditingController();
   FocusNode focusConfirmPassword = FocusNode();
+
+  Map<dynamic, dynamic> bodyParams = {};
 
   @override
   void onInit() {
@@ -49,8 +53,6 @@ class ChangePasswordController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnSaveButton() {}
-
   clickOnCurrentPasswordEyeButton() {
     currentPasswordHide.value = !currentPasswordHide.value;
   }
@@ -61,5 +63,30 @@ class ChangePasswordController extends GetxController {
 
   clickOnConfirmPasswordEyeButton() {
     confirmPasswordHide.value = !confirmPasswordHide.value;
+  }
+
+  clickOnSaveButton() async {
+    /* if (currentPasswordController.text.trim().isNotEmpty &&
+        newPasswordController.text.trim().isNotEmpty &&
+        confirmPasswordController.text.trim().isNotEmpty) {
+      inAsyncCall.value = true;
+      bodyParams = {
+        ApiKeyConstants.password: currentPasswordController.text,
+        ApiKeyConstants.otp: newPasswordController.text
+      };
+      UserModel? userModel = await ApiMethods.verifyOtpMobile(
+        bodyParams: bodyParams,
+      );
+      if (userModel != null &&
+          userModel.token != null &&
+          userModel.token!.isNotEmpty) {
+        SharedPreferences sp = await SharedPreferences.getInstance();
+        sp.setString(ApiKeyConstants.token, userModel.token ?? '');
+        Get.toNamed(Routes.NAV_BAR);
+      }
+      inAsyncCall.value = false;
+    } else {
+      CommonWidgets.snackBarView(title: 'All field required');
+    }*/
   }
 }
