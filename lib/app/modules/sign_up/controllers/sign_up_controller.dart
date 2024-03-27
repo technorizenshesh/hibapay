@@ -150,8 +150,8 @@ class SignUpController extends GetxController {
     dateTime = await DatePickerView().datePickerView(
       color: Theme.of(Get.context!).primaryColor,
       lastDate: DateTime.now(),
-      initialDate: DateTime(2000),
-      firstDate: DateTime(2000),
+      initialDate: DateTime(1940),
+      firstDate: DateTime(1940),
     );
     if (dateTime != null) {
       dateOfBirthController.text = DateFormat('dd-MM-yyyy')

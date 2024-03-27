@@ -5,7 +5,6 @@ import 'package:hibapay/app/data/apis/api_methods/api_methods.dart';
 import 'package:hibapay/app/data/apis/api_models/user_model.dart';
 import 'package:hibapay/app/routes/app_pages.dart';
 import 'package:hibapay/common/common_widgets.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class ResetPasswordController extends GetxController {
   final count = 0.obs;
@@ -53,18 +52,22 @@ class ResetPasswordController extends GetxController {
     if (emailController.text.trim().isNotEmpty) {
       inAsyncCall.value = true;
       bodyParams = {
-        ApiKeyConstants.email: emailController.value,
-        ApiKeyConstants.type: ApiKeyConstants.byEmail
+        ApiKeyConstants.email: emailController.text,
+        ApiKeyConstants.type: ApiKeyConstants.byEmail,
       };
       UserModel? userModel = await ApiMethods.forgotPassword(
         bodyParams: bodyParams,
       );
       if (userModel != null &&
-          userModel.token != null &&
-          userModel.token!.isNotEmpty) {
-        SharedPreferences sp = await SharedPreferences.getInstance();
-        sp.setString(ApiKeyConstants.token, userModel.token ?? '');
-        Get.toNamed(Routes.NAV_BAR);
+          userModel.result != null &&
+          userModel.result!.otp != null &&
+          userModel.result!.otp!.isNotEmpty) {
+        if (userModel.result != null) {
+          Get.toNamed(Routes.CHECK_YOUR_MAIL, parameters: {
+            ApiKeyConstants.otp: userModel.result!.otp ?? '',
+            ApiKeyConstants.email: emailController.text
+          });
+        }
       }
       inAsyncCall.value = false;
     } else {

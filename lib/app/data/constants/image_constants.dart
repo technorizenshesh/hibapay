@@ -2,6 +2,8 @@ class ImgConstants {
   static const String imgLogo = 'assets/images/img_logo.png';
   static const String imageBgWhiteLogo =
       'assets/images/image_bg_white_logo.png';
+  static const String imageSpinnerIndicator =
+      'assets/images/image_spinner_indicator.png';
   static const String imgSplash = 'assets/images/img_splash.png';
   static const String imgCardBackGround =
       'assets/images/img_card_back_ground.png';

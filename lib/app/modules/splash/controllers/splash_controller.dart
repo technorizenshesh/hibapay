@@ -33,9 +33,8 @@ class SplashController extends GetxController {
 
   Future<void> manageSession() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
-    print('::::::::::::::::::${sp.getString(ApiKeyConstants.token)}');
-    if (sp.getString(ApiKeyConstants.token) != null &&
-        sp.getString(ApiKeyConstants.token)!.isNotEmpty) {
+    if (sp.getString(ApiKeyConstants.authTokenHiba) != null &&
+        sp.getString(ApiKeyConstants.authTokenHiba)!.isNotEmpty) {
       Get.offAllNamed(Routes.NAV_BAR);
     } else {
       Get.offAllNamed(Routes.LOGIN);

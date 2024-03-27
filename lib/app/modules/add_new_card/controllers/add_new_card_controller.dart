@@ -1,19 +1,27 @@
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:hibapay/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:hibapay/app/data/apis/api_methods/api_methods.dart';
+import 'package:hibapay/app/data/apis/api_models/add_card_model.dart';
+import 'package:hibapay/app/data/constants/icons_constant.dart';
+import 'package:hibapay/app/data/constants/string_constants.dart';
 import 'package:hibapay/app/routes/app_pages.dart';
+import 'package:hibapay/common/common_methods.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
-import '../../../data/constants/icons_constant.dart';
-import '../../../data/constants/string_constants.dart';
 
 class AddNewCardController extends GetxController {
   final count = 0.obs;
+  final inAsyncCall = false.obs;
   bool isLightTheme = false;
   String cardNumber = '';
   String expiryDate = '';
   String cardHolderName = '';
+  final countryCode = ''.obs;
+  final authTokenHiba = ''.obs;
   String cvvCode = '';
   bool isCvvFocused = false;
   bool useGlassMorphism = false;
@@ -32,6 +40,9 @@ class AddNewCardController extends GetxController {
   FocusNode focusYear = FocusNode();
   FocusNode focusCvv = FocusNode();
   FocusNode focusCardHoldersName = FocusNode();
+  FocusNode focusCountryOfResidence = FocusNode();
+  final isCountryOfResidence = false.obs;
+  TextEditingController countryOfResidenceController = TextEditingController();
 
   final isCardNumber = false.obs;
   final isMonth = false.obs;
@@ -45,8 +56,12 @@ class AddNewCardController extends GetxController {
   TextEditingController cvvController = TextEditingController();
   TextEditingController cardHoldersNameController = TextEditingController();
 
+  Map<String, dynamic> bodyParams = {};
+
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
     super.onInit();
     startListener();
   }
@@ -69,6 +84,7 @@ class AddNewCardController extends GetxController {
     focusYear.addListener(onFocusChange);
     focusCvv.addListener(onFocusChange);
     focusCardHoldersName.addListener(onFocusChange);
+    focusCountryOfResidence.addListener(onFocusChange);
   }
 
   void onFocusChange() {
@@ -77,9 +93,58 @@ class AddNewCardController extends GetxController {
     isYear.value = focusYear.hasFocus;
     isCvv.value = focusCvv.hasFocus;
     isCardHoldersName.value = focusCardHoldersName.hasFocus;
+    isCountryOfResidence.value = focusCountryOfResidence.hasFocus;
   }
 
-  clickOnSaveButton() {
+  clickOnSaveButton() async {
+    if (authTokenHiba.value.trim().isNotEmpty &&
+        countryCode.value.trim().isNotEmpty &&
+        cardNumber.trim().isNotEmpty &&
+        expiryDate.trim().isNotEmpty &&
+        cardHolderName.trim().isNotEmpty &&
+        cvvCode.trim().isNotEmpty) {
+      inAsyncCall.value = true;
+      bodyParams = {
+        ApiKeyConstants.cardCountryCode: countryCode.value,
+        ApiKeyConstants.cardHolder: cardHolderName,
+        ApiKeyConstants.cardExpMonth: expiryDate.split('/').first,
+        ApiKeyConstants.cardExpYear: expiryDate.split('/').elementAt(1),
+        ApiKeyConstants.cardNumber: cardNumber.replaceAll(' ', ''),
+        ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+      };
+      print(bodyParams);
+      AddCardModel? addCardModel =
+          await ApiMethods.addCard(bodyParams: bodyParams);
+      if (addCardModel != null &&
+          addCardModel.status != null &&
+          addCardModel.status != '0') {
+        // Get.back();
+        showTheReadyDialog();
+      }
+      inAsyncCall.value = false;
+    } else {
+      CommonWidgets.snackBarView(title: 'All field required');
+    }
+  }
+
+  clickOnOkIAmReady() {
+    Get.toNamed(Routes.VERIFY_IDENTITY);
+  }
+
+  clickOnCountryField() {
+    return showCountryPicker(
+      context: Get.context!,
+      showPhoneCode: true,
+      searchAutofocus: true,
+      onSelect: (Country country) {
+        countryOfResidenceController.text = country.name;
+        countryCode.value = country.countryCode;
+        increment();
+      },
+    );
+  }
+
+  void showTheReadyDialog() {
     showDialog(
       context: Get.context!,
       builder: (BuildContext context) {
@@ -101,7 +166,7 @@ class AddNewCardController extends GetxController {
                   ),
                 ),
                 Container(
-                  height: 210.px,
+                  height: 240.px,
                   width: MediaQuery.of(context).size.width / 1.2,
                   decoration: BoxDecoration(
                     color: Theme.of(context).scaffoldBackgroundColor,
@@ -155,9 +220,5 @@ class AddNewCardController extends GetxController {
         );
       },
     );
-  }
-
-  clickOnOkIAmReady() {
-    Get.toNamed(Routes.VERIFY_IDENTITY);
   }
 }

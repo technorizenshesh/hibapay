@@ -10,10 +10,11 @@ class MyHttp {
   static Future<http.Response?> getMethod(
       {required String url, void Function(int)? checkResponse}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? token = sharedPreferences.getString(ApiKeyConstants.token);
+    String? authTokenHiba =
+        sharedPreferences.getString(ApiKeyConstants.authTokenHiba);
     Map<String, String> authorization = {};
     authorization = {
-      "Authorization": "Bearer ${token ?? ''}",
+      "Authorization": "Bearer ${authTokenHiba ?? ''}",
       'Accept': 'application/json'
     };
     if (kDebugMode) print("URL:: $url");
@@ -51,10 +52,11 @@ class MyHttp {
       required String endPointUri,
       void Function(int)? checkResponse}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? token = sharedPreferences.getString(ApiKeyConstants.token);
+    String? authTokenHiba =
+        sharedPreferences.getString(ApiKeyConstants.authTokenHiba);
     Map<String, String> authorization = {};
     authorization = {
-      "Authorization": "Bearer ${token ?? ''}",
+      "Authorization": "Bearer ${authTokenHiba ?? ''}",
       'Accept': 'application/json'
     };
     if (kDebugMode) print("endPointUri:: $endPointUri");
@@ -94,14 +96,15 @@ class MyHttp {
       bool wantSnackBar = true,
       void Function(int)? checkResponse}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? token = sharedPreferences.getString(ApiKeyConstants.token);
+    String? authTokenHiba =
+        sharedPreferences.getString(ApiKeyConstants.authTokenHiba);
     Map<String, String> authorization = {};
     authorization = {
-      "Authorization": "Bearer ${token ?? ''}",
+      "Authorization": "Bearer ${authTokenHiba ?? ''}",
       'Accept': 'application/json'
     };
     if (kDebugMode) print("URL:: $url");
-    if (kDebugMode) print("TOKEN:: $authorization");
+    // if (kDebugMode) print("TOKEN:: $authorization");
     if (kDebugMode) print("bodyParams:: ${bodyParams ?? {}}");
     if (await CommonWidgets.internetConnectionCheckerMethod()) {
       try {
@@ -140,14 +143,15 @@ class MyHttp {
       required Map<String, dynamic> bodyParams,
       void Function(int)? checkResponse}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? token = sharedPreferences.getString(ApiKeyConstants.token);
+    String? authTokenHiba =
+        sharedPreferences.getString(ApiKeyConstants.authTokenHiba);
     Map<String, String> authorization = {};
     authorization = {
-      "Authorization": "Bearer ${token ?? ''}",
+      "Authorization": "Bearer ${authTokenHiba ?? ''}",
       'Accept': 'application/json'
     };
     if (kDebugMode) print("URL:: $url");
-    if (kDebugMode) print("TOKEN:: $authorization");
+    // if (kDebugMode) print("TOKEN:: $authorization");
     if (kDebugMode) print("bodyParams:: $bodyParams}");
     if (await CommonWidgets.internetConnectionCheckerMethod()) {
       try {
@@ -188,10 +192,11 @@ class MyHttp {
       List<File>? images,
       void Function(int)? checkResponse}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    String? token = sharedPreferences.getString(ApiKeyConstants.token);
+    String? authTokenHiba =
+        sharedPreferences.getString(ApiKeyConstants.authTokenHiba);
     if (kDebugMode) print("bodyParams:: ${bodyParams ?? {}}");
     if (kDebugMode) print("URL:: $url");
-    if (kDebugMode) print("TOKEN:: $token");
+    if (kDebugMode) print("TOKEN:: $authTokenHiba");
     if (await CommonWidgets.internetConnectionCheckerMethod()) {
       try {
         http.Response res;
@@ -199,7 +204,7 @@ class MyHttp {
             http.MultipartRequest(multipartRequestType, Uri.parse(url));
         request.headers.addAll({'Content-Type': 'multipart/form-data'});
         request.headers.addAll({'Accept': 'application/json'});
-        request.headers['Authorization'] = "Bearer ${token ?? ''}";
+        request.headers['Authorization'] = "Bearer ${authTokenHiba ?? ''}";
         if (kDebugMode) print("CALLING:: $url");
         //Single Image Upload
         if (image != null && imageKey != null) {
