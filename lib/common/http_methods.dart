@@ -196,7 +196,7 @@ class MyHttp {
         sharedPreferences.getString(ApiKeyConstants.authTokenHiba);
     if (kDebugMode) print("bodyParams:: ${bodyParams ?? {}}");
     if (kDebugMode) print("URL:: $url");
-    if (kDebugMode) print("TOKEN:: $authTokenHiba");
+    if (kDebugMode) print("TOKEN:: ${authTokenHiba ?? ''}");
     if (await CommonWidgets.internetConnectionCheckerMethod()) {
       try {
         http.Response res;

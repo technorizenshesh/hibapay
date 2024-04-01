@@ -14,4 +14,7 @@ class ApiUrlConstants {
   static const String endPointOfAddCard = '${baseUrl}card/add-card';
   static const String endPointOfGetCard = '${baseUrl}card/get-card';
   static const String endPointOfDelete = '${baseUrl}card/delete-card';
+  static const String endPointOfGetProfile = '${baseUrl}user/get-profile';
+  static const String endPointOfUploadUserDocuments =
+      '${baseUrl}user/upload-user-documents';
 }

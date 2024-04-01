@@ -4,9 +4,11 @@ import 'package:get/get.dart';
 import 'package:hibapay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:hibapay/app/data/apis/api_methods/api_methods.dart';
 import 'package:hibapay/app/data/apis/api_models/user_model.dart';
+import 'package:hibapay/app/routes/app_pages.dart';
 import 'package:hibapay/common/common_widgets.dart';
 import 'package:hibapay/common/time_picker_view.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUpController extends GetxController {
   final count = 0.obs;
@@ -100,9 +102,12 @@ class SignUpController extends GetxController {
       };
       UserModel? userModel = await ApiMethods.signUp(bodyParams: bodyParams);
       if (userModel != null &&
-          userModel.status != null &&
-          userModel.status != '0') {
-        Get.back();
+          userModel.result != null &&
+          userModel.result!.id != null &&
+          userModel.result!.id!.isNotEmpty) {
+        SharedPreferences sp = await SharedPreferences.getInstance();
+        sp.setString(ApiKeyConstants.userId, userModel.result?.id ?? '');
+        Get.toNamed(Routes.VERIFY_IDENTITY);
       }
       inAsyncCall.value = false;
     } else {

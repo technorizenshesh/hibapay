@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:hibapay/app/data/apis/api_constants/api_url_constants.dart';
 import 'package:hibapay/app/data/apis/api_models/add_card_model.dart';
@@ -17,6 +18,26 @@ class ApiMethods {
     http.Response? response = await MyHttp.postMethod(
       bodyParams: bodyParams,
       url: ApiUrlConstants.endPointOfSignUp,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      userModel = UserModel.fromJson(jsonDecode(response.body));
+      return userModel;
+    }
+    return null;
+  }
+
+  static Future<UserModel?> uploadUserDocuments({
+    void Function(int)? checkResponse,
+    Map<String, File>? imageMap,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    UserModel? userModel;
+    http.Response? response = await MyHttp.multipart(
+      multipartRequestType: 'POST',
+      imageMap: imageMap,
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfUploadUserDocuments,
       checkResponse: checkResponse,
     );
     if (response != null) {

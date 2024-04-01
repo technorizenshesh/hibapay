@@ -11,6 +11,7 @@ class ResetPasswordController extends GetxController {
   final isEmail = false.obs;
   final isPhone = false.obs;
   final inAsyncCall = false.obs;
+  final selectedTab = 0.obs;
 
   FocusNode focusEmail = FocusNode();
   FocusNode focusPhone = FocusNode();
@@ -49,31 +50,62 @@ class ResetPasswordController extends GetxController {
   void increment() => count.value++;
 
   clickOnSubmitButton() async {
-    if (emailController.text.trim().isNotEmpty) {
-      inAsyncCall.value = true;
-      bodyParams = {
-        ApiKeyConstants.email: emailController.text,
-        ApiKeyConstants.type: ApiKeyConstants.byEmail,
-      };
-      UserModel? userModel = await ApiMethods.forgotPassword(
-        bodyParams: bodyParams,
-      );
-      if (userModel != null &&
-          userModel.result != null &&
-          userModel.result!.otp != null &&
-          userModel.result!.otp!.isNotEmpty) {
-        if (userModel.result != null) {
-          Get.toNamed(Routes.CHECK_YOUR_MAIL, parameters: {
-            ApiKeyConstants.otp: userModel.result!.otp ?? '',
-            ApiKeyConstants.email: emailController.text
-          });
+    if (selectedTab.value == 0) {
+      if (emailController.text.trim().isNotEmpty) {
+        inAsyncCall.value = true;
+        bodyParams = {
+          ApiKeyConstants.email: emailController.text,
+          ApiKeyConstants.type: ApiKeyConstants.byEmail,
+        };
+        UserModel? userModel = await ApiMethods.forgotPassword(
+          bodyParams: bodyParams,
+        );
+        if (userModel != null &&
+            userModel.result != null &&
+            userModel.result!.otp != null &&
+            userModel.result!.otp!.isNotEmpty) {
+          if (userModel.result != null) {
+            Get.toNamed(Routes.CHECK_YOUR_MAIL, parameters: {
+              ApiKeyConstants.otp: userModel.result!.otp ?? '',
+              ApiKeyConstants.email: emailController.text
+            });
+          }
         }
+        inAsyncCall.value = false;
+      } else {
+        CommonWidgets.snackBarView(title: 'All field required');
       }
-      inAsyncCall.value = false;
     } else {
-      CommonWidgets.snackBarView(title: 'All field required');
+      if (phoneController.text.trim().isNotEmpty) {
+        inAsyncCall.value = true;
+        bodyParams = {
+          ApiKeyConstants.email: phoneController.text,
+          ApiKeyConstants.type: ApiKeyConstants.byMobile,
+        };
+        UserModel? userModel = await ApiMethods.forgotPassword(
+          bodyParams: bodyParams,
+        );
+        if (userModel != null &&
+            userModel.result != null &&
+            userModel.result!.otp != null &&
+            userModel.result!.otp!.isNotEmpty) {
+          if (userModel.result != null) {
+            Get.toNamed(Routes.CHECK_YOUR_MAIL, parameters: {
+              ApiKeyConstants.otp: userModel.result!.otp ?? '',
+              ApiKeyConstants.mobile: phoneController.text
+            });
+          }
+        }
+        inAsyncCall.value = false;
+      } else {
+        CommonWidgets.snackBarView(title: 'All field required');
+      }
     }
   }
 
   clickOnResendCodeButton() {}
+
+  clickOnTabs({required int value}) async {
+    selectedTab.value = value;
+  }
 }

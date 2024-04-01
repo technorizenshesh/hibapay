@@ -1,5 +1,6 @@
 class ApiKeyConstants {
   // static const String token = 'token';
+  static const String userId = 'user_id';
   static const String message = 'message';
   static const String error = 'error';
   static const String fullName = 'full_name';
@@ -23,4 +24,6 @@ class ApiKeyConstants {
   static const String cardExpMonth = 'card_exp_month';
   static const String cardNumber = 'card_number';
   static const String cardId = 'card_id';
+  static const String uDocGovtPhoto = 'udoc_govt_photo';
+  static const String uDocSelfyPhoto = 'udoc_selfy_photo';
 }
