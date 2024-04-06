@@ -73,6 +73,7 @@ class IconConstants {
   static const String icCopy = 'assets/icons/ic_copy.svg';
   static const String icGift = 'assets/icons/ic_gift.svg';
   static const String icLogout = 'assets/icons/ic_logout.svg';
+  static const String icDownArrow = 'assets/icons/ic_down_arrow.svg';
 }
 
 class IconConstantsPng {

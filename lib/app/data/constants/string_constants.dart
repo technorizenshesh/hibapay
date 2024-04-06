@@ -1,4 +1,5 @@
 class StringConstants {
+  static const String title = 'title';
   static const String login = 'Login';
   static const String cancel = 'Cancel';
   static const String signUp = 'Sign up';
@@ -225,6 +226,8 @@ class StringConstants {
   static const String referral = "Referral";
   static const String collect = "Collect";
   static const String contactPreferences = "Contact preferences";
+  static const String uFitPay = "UFITPAY";
+  static const String hibapay = "HIBAPAY";
   static const String earnThreeHundredEightyPointsToEach =
       "Earn 380 points to reach";
   static const String iAgreeAndAllowHibaPay =

@@ -1,9 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hibapay/app/data/constants/icons_constant.dart';
+import 'package:hibapay/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:hibapay/app/data/apis/api_methods/api_methods.dart';
+import 'package:hibapay/app/data/apis/api_models/get_banners_model.dart';
+import 'package:hibapay/app/data/apis/api_models/get_services_hibapay_model.dart';
+import 'package:hibapay/app/data/apis/api_models/user_model.dart';
 import 'package:hibapay/app/data/constants/string_constants.dart';
 import 'package:hibapay/app/modules/spinner/views/spinner_view.dart';
 import 'package:hibapay/app/routes/app_pages.dart';
+import 'package:hibapay/common/common_widgets.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
   final count = 0.obs;
@@ -32,25 +38,22 @@ class HomeController extends GetxController {
     },
   ];
 
-  List list = [
-    {'title': StringConstants.recharge, 'icon': IconConstantsPng.icRecharge},
-    {'title': StringConstants.cableTV, 'icon': IconConstantsPng.icCableTv},
-    {'title': StringConstants.data, 'icon': IconConstantsPng.icData},
-    {
-      'title': StringConstants.electricity,
-      'icon': IconConstantsPng.icElectricity
-    },
-    {'title': StringConstants.internet, 'icon': IconConstantsPng.icInternet},
-    {'title': StringConstants.betting, 'icon': IconConstantsPng.icBetting},
-    {'title': StringConstants.giftUser, 'icon': IconConstantsPng.icGiftUser},
-    {'title': StringConstants.withdraw, 'icon': IconConstantsPng.icWithdraw},
-  ];
-
   final cardIndex = 0.obs;
+  List<GetServicesResult> getServicesResult = [];
+  Result? result;
+  List<GetBannersResult> getBannersResult = [];
+
+  final inAsyncCall = false.obs;
+  final authTokenHiba = ''.obs;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
     super.onInit();
+    inAsyncCall.value = true;
+    await onInitWorking();
+    inAsyncCall.value = false;
   }
 
   @override
@@ -64,6 +67,52 @@ class HomeController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  onInitWorking() async {
+    await getProfileApi();
+    await getBannersApi();
+    await getServicesApi();
+  }
+
+  getProfileApi() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value
+    };
+    UserModel? userModel = await ApiMethods.getProfile(bodyParams: bodyParams);
+    if (userModel != null && userModel.result != null) {
+      result = userModel.result!;
+      increment();
+    }
+  }
+
+  getBannersApi() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+      ApiKeyConstants.type: ApiKeyConstants.home,
+    };
+    GetBannersModel? getBannersModel =
+        await ApiMethods.getBanners(bodyParams: bodyParams);
+    if (getBannersModel != null &&
+        getBannersModel.result != null &&
+        getBannersModel.result!.isNotEmpty) {
+      getBannersResult = getBannersModel.result!;
+      increment();
+    }
+  }
+
+  getServicesApi() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value
+    };
+    GetServicesModel? getServicesModel =
+        await ApiMethods.getServices(bodyParams: bodyParams);
+    if (getServicesModel != null &&
+        getServicesModel.result != null &&
+        getServicesModel.result!.isNotEmpty) {
+      getServicesResult = getServicesModel.result!;
+      increment();
+    }
+  }
 
   clickOnTransfers() {
     Get.toNamed(Routes.TRANSFER);
@@ -104,40 +153,56 @@ class HomeController extends GetxController {
   }
 
   clickOnCard({required int index}) {
-    switch (list[index]['title']) {
-      case StringConstants.electricity:
-        Get.toNamed(Routes.ELECTRICITY,
-            parameters: {'title': list[index]['title']});
+    switch (getServicesResult[index].serviceId.toString()) {
+      case '0001' || '0002' || '0004':
+        if (getServicesResult[index].type.toString() ==
+            ApiKeyConstants.uFitPay) {
+          Get.toNamed(Routes.RECHARGE, parameters: {
+            StringConstants.title:
+                getServicesResult[index].serviceNameCustom ?? '',
+            ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
+          });
+        } else {
+          if (getServicesResult[index].serviceId.toString() == '0001') {
+            Get.toNamed(Routes.GIFT_USER, parameters: {
+              StringConstants.title:
+                  getServicesResult[index].serviceNameCustom ?? '',
+              ApiKeyConstants.serviceId:
+                  getServicesResult[index].serviceId ?? '',
+            });
+          } else {
+            Get.toNamed(Routes.WITHDRAW, parameters: {
+              StringConstants.title:
+                  getServicesResult[index].serviceNameCustom ?? '',
+              ApiKeyConstants.serviceId:
+                  getServicesResult[index].serviceId ?? '',
+            });
+          }
+        }
         break;
-      case StringConstants.cableTV:
-        Get.toNamed(Routes.CABLE_TV,
-            parameters: {'title': list[index]['title']});
+      case '0003':
+        Get.toNamed(Routes.ELECTRICITY, parameters: {
+          StringConstants.title:
+              getServicesResult[index].serviceNameCustom ?? '',
+          ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
+        });
         break;
-      case StringConstants.betting:
-        Get.toNamed(Routes.BETTING,
-            parameters: {'title': list[index]['title']});
+      case '0005':
+        Get.toNamed(Routes.CABLE_TV, parameters: {
+          StringConstants.title:
+              getServicesResult[index].serviceNameCustom ?? '',
+          ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
+        });
         break;
-      case StringConstants.giftUser:
-        Get.toNamed(Routes.GIFT_USER,
-            parameters: {'title': list[index]['title']});
+      case '0036':
+        Get.toNamed(Routes.BETTING, parameters: {
+          StringConstants.title:
+              getServicesResult[index].serviceNameCustom ?? '',
+          ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
+        });
         break;
-      case StringConstants.recharge ||
-            StringConstants.internet ||
-            StringConstants.data:
-        Get.toNamed(Routes.RECHARGE,
-            parameters: {'title': list[index]['title']});
-        break;
-      case StringConstants.more:
-        Get.toNamed(Routes.BIL_PAYMENT,
-            parameters: {'title': list[index]['title']});
-        break;
-      case StringConstants.rent:
-        Get.toNamed(Routes.RENT, parameters: {'title': list[index]['title']});
-        break;
-      case StringConstants.withdraw:
-        Get.toNamed(Routes.WITHDRAW,
-            parameters: {'title': list[index]['title']});
-        break;
+      default:
+        CommonWidgets.snackBarView(title: 'Coming soon');
     }
   }
 }

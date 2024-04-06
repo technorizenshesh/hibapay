@@ -3,7 +3,10 @@ import 'dart:io';
 
 import 'package:hibapay/app/data/apis/api_constants/api_url_constants.dart';
 import 'package:hibapay/app/data/apis/api_models/add_card_model.dart';
+import 'package:hibapay/app/data/apis/api_models/get_banners_model.dart';
 import 'package:hibapay/app/data/apis/api_models/get_card_model.dart';
+import 'package:hibapay/app/data/apis/api_models/get_services_hibapay_model.dart';
+import 'package:hibapay/app/data/apis/api_models/u_fit_pay_get_services_model.dart';
 import 'package:hibapay/common/http_methods.dart';
 import 'package:http/http.dart' as http;
 
@@ -216,6 +219,75 @@ class ApiMethods {
     if (response != null) {
       userModel = UserModel.fromJson(jsonDecode(response.body));
       return userModel;
+    }
+    return null;
+  }
+
+  static Future<GetServicesModel?> getServices({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    GetServicesModel? getServicesModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfGetServices,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getServicesModel = GetServicesModel.fromJson(jsonDecode(response.body));
+      return getServicesModel;
+    }
+    return null;
+  }
+
+  static Future<UFitPayGetServicesModel?> uFitPayGetServices({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    UFitPayGetServicesModel? uFitPayGetServicesModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfUFitPayGetServices,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      uFitPayGetServicesModel =
+          UFitPayGetServicesModel.fromJson(jsonDecode(response.body));
+      return uFitPayGetServicesModel;
+    }
+    return null;
+  }
+
+  static Future<UserModel?> getProfile({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    UserModel? userModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfGetProfile,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      userModel = UserModel.fromJson(jsonDecode(response.body));
+      return userModel;
+    }
+    return null;
+  }
+
+  static Future<GetBannersModel?> getBanners({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    GetBannersModel? getBannersModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfGetBanners,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getBannersModel = GetBannersModel.fromJson(jsonDecode(response.body));
+      return getBannersModel;
     }
     return null;
   }
