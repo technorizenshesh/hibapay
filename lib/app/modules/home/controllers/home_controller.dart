@@ -1,14 +1,14 @@
+import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_banners_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_services_hibapay_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
+import 'package:HibaPay/app/data/constants/string_constants.dart';
+import 'package:HibaPay/app/modules/spinner/views/spinner_view.dart';
+import 'package:HibaPay/app/routes/app_pages.dart';
+import 'package:HibaPay/common/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hibapay/app/data/apis/api_constants/api_key_constants.dart';
-import 'package:hibapay/app/data/apis/api_methods/api_methods.dart';
-import 'package:hibapay/app/data/apis/api_models/get_banners_model.dart';
-import 'package:hibapay/app/data/apis/api_models/get_services_hibapay_model.dart';
-import 'package:hibapay/app/data/apis/api_models/user_model.dart';
-import 'package:hibapay/app/data/constants/string_constants.dart';
-import 'package:hibapay/app/modules/spinner/views/spinner_view.dart';
-import 'package:hibapay/app/routes/app_pages.dart';
-import 'package:hibapay/common/common_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {

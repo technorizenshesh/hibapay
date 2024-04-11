@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hibapay/common/common_methods.dart';
+import 'package:HibaPay/common/common_methods.dart';
 import '../controllers/splash_controller.dart';
 
 class SplashView extends GetView<SplashController> {

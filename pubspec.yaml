@@ -1,4 +1,4 @@
-name: hibapay
+name: HibaPay
 version: 1.0.0+1
 publish_to: none
 description: A new hibapay project.
@@ -31,8 +31,8 @@ dependencies:
   local_auth: ^2.2.0
   shared_preferences: ^2.2.2
   country_picker: ^2.0.25
-
-
+  flutter_colorpicker: ^1.0.3
+  colornames: ^0.1.0
 
 dev_dependencies:
   flutter_lints: ^3.0.1

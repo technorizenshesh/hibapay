@@ -1,8 +1,10 @@
+import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
+import 'package:HibaPay/app/data/apis/api_models/delete_virtual_card_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_card_holder_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
+import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:get/get.dart';
-import 'package:hibapay/app/data/apis/api_constants/api_key_constants.dart';
-import 'package:hibapay/app/data/apis/api_methods/api_methods.dart';
-import 'package:hibapay/app/data/apis/api_models/get_card_model.dart';
-import 'package:hibapay/app/routes/app_pages.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class MyCardController extends GetxController {
@@ -10,8 +12,10 @@ class MyCardController extends GetxController {
 
   Map<String, dynamic> bodyParams = {};
   final authTokenHiba = ''.obs;
-  List<Result> result = [];
   final inAsyncCall = false.obs;
+
+  GetCardHolderResult? getCardHolderResult;
+  List<ListVirtualCardsResult> listVirtualCardsResult = [];
 
   @override
   Future<void> onInit() async {
@@ -33,40 +37,75 @@ class MyCardController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnAddNewCard() {
-    Get.toNamed(Routes.ADD_NEW_CARD);
-  }
-
   onInitWork() async {
     if (authTokenHiba.value.isNotEmpty) {
       inAsyncCall.value = true;
-      bodyParams = {ApiKeyConstants.authTokenHiba: authTokenHiba.value};
-      GetCardModel? getCardModel =
-          await ApiMethods.getCard(bodyParams: bodyParams);
-      if (getCardModel != null &&
-          getCardModel.result != null &&
-          getCardModel.result!.isNotEmpty) {
-        result = getCardModel.result!;
-      }
+      await getCardHolderApi();
+      await listVirtualCardsApi();
       inAsyncCall.value = false;
     }
   }
 
   clickOnDeleteButton({required int index}) async {
-    if (result[index].cardId != null &&
-        result[index].cardId!.isNotEmpty &&
+    if (listVirtualCardsResult[index].vcardCardId != null &&
+        listVirtualCardsResult[index].vcardCardId!.isNotEmpty &&
         authTokenHiba.value.isNotEmpty) {
       bodyParams = {
         ApiKeyConstants.authTokenHiba: authTokenHiba.value,
-        ApiKeyConstants.cardId: result[index].cardId ?? ''
+        ApiKeyConstants.cardHolderId:
+            listVirtualCardsResult[index].vcardCardId ?? ''
       };
-      GetCardModel? getCardModel =
-          await ApiMethods.deleteCard(bodyParams: bodyParams);
-      if (getCardModel != null &&
-          getCardModel.status != null &&
-          getCardModel.status!.isNotEmpty) {
+      DeleteVirtualCardModel? deleteVirtualCardModel =
+          await ApiMethods.deleteVirtualCard(bodyParams: bodyParams);
+      if (deleteVirtualCardModel != null &&
+          deleteVirtualCardModel.result != null) {
         await onInitWork();
       }
     }
+  }
+
+  getCardHolderApi() async {
+    bodyParams.clear();
+    bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+    };
+    GetCardHolderModel? getCardHolderModel =
+        await ApiMethods.getCardHolder(bodyParams: bodyParams);
+    if (getCardHolderModel != null && getCardHolderModel.result != null) {
+      getCardHolderResult = getCardHolderModel.result;
+      if (getCardHolderResult != null &&
+          getCardHolderResult!.cchCardHolderId != null &&
+          getCardHolderResult!.cchCardHolderId!.isNotEmpty) {
+        SharedPreferences sp = await SharedPreferences.getInstance();
+        sp.setString(ApiKeyConstants.cardHolderId,
+            getCardHolderResult!.cchCardHolderId!);
+      }
+      increment();
+    }
+  }
+
+  listVirtualCardsApi() async {
+    bodyParams.clear();
+    bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+    };
+    ListVirtualCardsModel? listVirtualCardsModel =
+        await ApiMethods.listVirtualCards(bodyParams: bodyParams);
+    if (listVirtualCardsModel != null &&
+        listVirtualCardsModel.result != null &&
+        listVirtualCardsModel.result!.isNotEmpty) {
+      listVirtualCardsResult = listVirtualCardsModel.result!;
+      increment();
+    }
+  }
+
+  clickOnCreateVirtualCard() async {
+    await Get.toNamed(Routes.CREATE_VIRTUAL_CARD);
+    await onInitWork();
+  }
+
+  clickOnCreateVirtualCardHolder() async {
+    await Get.toNamed(Routes.CREATE_CARD_HOLDER);
+    await onInitWork();
   }
 }

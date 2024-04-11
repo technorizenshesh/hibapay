@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hibapay/common/common_widgets.dart';
+import 'package:HibaPay/common/common_widgets.dart';
 import '../controllers/notification_controller.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../common/common_methods.dart';

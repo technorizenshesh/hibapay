@@ -2,13 +2,13 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:HibaPay/common/common_methods.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:hibapay/app/data/apis/api_constants/api_key_constants.dart';
-import 'package:hibapay/common/common_methods.dart';
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -509,7 +509,7 @@ class CommonWidgets {
   static Future<bool> responseCheckForGetMethod({
     http.Response? response,
     bool wantSuccessToast = false,
-    bool wantErrorToast = true,
+    bool wantErrorToast = false,
   }) async {
     Map<String, dynamic> responseMap = jsonDecode(response?.body ?? "");
     if (wantErrorToast) {
@@ -531,7 +531,7 @@ class CommonWidgets {
 
   ///For Check Post Api Response
   static Future<bool> responseCheckForPostMethod(
-      {http.Response? response, bool wantSnackBar = true}) async {
+      {http.Response? response, bool wantSnackBar = false}) async {
     Map<String, dynamic> responseMap = jsonDecode(response?.body ?? "");
     if (wantSnackBar) {
       if (responseMap[ApiKeyConstants.message] != null) {
@@ -550,8 +550,8 @@ class CommonWidgets {
     }
   }
 
-  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason> snackBarView(
-      {String title = ''}) {
+  static ScaffoldFeatureController<SnackBar, SnackBarClosedReason>
+      snackBarView1({String title = ''}) {
     var snackBar = SnackBar(
       content: Text(title,
           style: Theme.of(Get.context!)
@@ -561,6 +561,10 @@ class CommonWidgets {
       backgroundColor: Theme.of(Get.context!).colorScheme.onSecondary,
     );
     return ScaffoldMessenger.of(Get.context!).showSnackBar(snackBar);
+  }
+
+  static SnackbarController snackBarView({String title = ''}) {
+    return Get.snackbar('Message', title);
   }
 }
 

@@ -1,3 +1,5 @@
+// ignore_for_file: constant_identifier_names
+
 import 'package:get/get.dart';
 
 import '../modules/account/bindings/account_binding.dart';
@@ -28,8 +30,12 @@ import '../modules/check_your_mail/bindings/check_your_mail_binding.dart';
 import '../modules/check_your_mail/views/check_your_mail_view.dart';
 import '../modules/contact_preferences/bindings/contact_preferences_binding.dart';
 import '../modules/contact_preferences/views/contact_preferences_view.dart';
+import '../modules/create_card_holder/bindings/create_card_holder_binding.dart';
+import '../modules/create_card_holder/views/create_card_holder_view.dart';
 import '../modules/create_new_password/bindings/create_new_password_binding.dart';
 import '../modules/create_new_password/views/create_new_password_view.dart';
+import '../modules/create_virtual_card/bindings/create_virtual_card_binding.dart';
+import '../modules/create_virtual_card/views/create_virtual_card_view.dart';
 import '../modules/create_your_smartpay_card/bindings/create_your_smartpay_card_binding.dart';
 import '../modules/create_your_smartpay_card/views/create_your_smartpay_card_view.dart';
 import '../modules/deposit/bindings/deposit_binding.dart';
@@ -358,6 +364,16 @@ class AppPages {
       name: _Paths.GIFT_USER_CARDS,
       page: () => const GiftUserCardsView(),
       binding: GiftUserCardsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_CARD_HOLDER,
+      page: () => const CreateCardHolderView(),
+      binding: CreateCardHolderBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATE_VIRTUAL_CARD,
+      page: () => const CreateVirtualCardView(),
+      binding: CreateVirtualCardBinding(),
     ),
   ];
 }

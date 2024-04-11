@@ -4,11 +4,11 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_fortune_wheel/flutter_fortune_wheel.dart';
 import 'package:get/get.dart';
-import 'package:hibapay/app/data/constants/icons_constant.dart';
-import 'package:hibapay/app/data/constants/image_constants.dart';
-import 'package:hibapay/app/data/constants/string_constants.dart';
-import 'package:hibapay/common/common_methods.dart';
-import 'package:hibapay/common/common_widgets.dart';
+import 'package:HibaPay/app/data/constants/icons_constant.dart';
+import 'package:HibaPay/app/data/constants/image_constants.dart';
+import 'package:HibaPay/app/data/constants/string_constants.dart';
+import 'package:HibaPay/common/common_methods.dart';
+import 'package:HibaPay/common/common_widgets.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../controllers/spinner_controller.dart';

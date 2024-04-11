@@ -9,7 +9,22 @@ class StringConstants {
   static const String phoneNumber = 'Phone Number';
   static const String doNotHaveAnAccount = 'Don’t have an account?';
   static const String fullName = 'Full Name';
+  static const String lastName = 'Last Name';
+  static const String selectedColor = 'Selected color';
+  static const String name = 'Name';
+  static const String colorText = 'Color';
+  static const String pickColor = 'Pick color';
   static const String pleaseEnterFullName = 'Please enter full name';
+  static const String pleaseEnterFirstName = 'Please enter first name';
+  static const String pleaseEnterLastName = 'Please enter last name';
+  static const String pleaseEnterName = 'Please enter name';
+  static const String pleaseEnterPhone = 'Please enter phone';
+  static const String pleaseEnterAddress = 'Please enter address';
+  static const String pleaseEnterState = 'Please enter state';
+  static const String pleaseEnterCountry = 'Please enter country';
+  static const String pleaseEnterColor = 'Please enter color';
+  static const String pleaseEnterPostalCode = 'Please enter postal code';
+  static const String pleaseEnterBvn = 'Please enter bvn';
   static const String email = 'Email';
   static const String notification = 'Notification';
   static const String pleaseEnterEmail = 'Please enter email';
@@ -29,6 +44,7 @@ class StringConstants {
   static const String resendCode = 'Resend Code';
   static const String passwordReset = 'Password Reset';
   static const String createNewPassword = 'Create New Password';
+  static const String create = 'Create';
   static const String newPassword = 'New Password';
   static const String confirmPassword = 'Confirm password';
   static const String confirm = 'Confirm';
@@ -42,6 +58,8 @@ class StringConstants {
   static const String pleasePutYourEmailOrMobileNumberToResetYourPassword =
       'Please put your email or mobile number to reset your password';
   static const String home = 'Home';
+  static const String createCardHolder = 'Create card holder';
+  static const String createVirtualCard = 'Create virtual card';
   static const String myCard = ' My Card';
   static const String account = 'Account';
   static const String accountHolder = 'Account Holder';
@@ -49,6 +67,10 @@ class StringConstants {
   static const String swiftCode = 'Swift code';
   static const String iban = 'IBAN';
   static const String address = 'Address';
+  static const String state = 'State';
+  static const String country = 'Country';
+  static const String postalCode = 'Postal Code';
+  static const String bvn = 'BVN';
   static const String totalSpending = 'Total Spending';
   static const String currentBalance = 'Current balance';
   static const String bankAccount = 'Bank account : ';

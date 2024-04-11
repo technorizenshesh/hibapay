@@ -1,8 +1,8 @@
 import 'dart:io';
 
+import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:HibaPay/common/common_widgets.dart';
 import 'package:flutter/foundation.dart';
-import 'package:hibapay/app/data/apis/api_constants/api_key_constants.dart';
-import 'package:hibapay/common/common_widgets.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -93,7 +93,7 @@ class MyHttp {
   static Future<http.Response?> postMethod(
       {required String url,
       Map<String, dynamic>? bodyParams,
-      bool wantSnackBar = true,
+      bool wantSnackBar = false,
       void Function(int)? checkResponse}) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     String? authTokenHiba =

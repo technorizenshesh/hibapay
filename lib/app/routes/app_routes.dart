@@ -1,5 +1,6 @@
-part of 'app_pages.dart';
+// ignore_for_file: constant_identifier_names
 // DO NOT EDIT. This is code generated via package:get_cli/get_cli.dart
+part of 'app_pages.dart';
 
 abstract class Routes {
   Routes._();
@@ -53,6 +54,8 @@ abstract class Routes {
   static const CONTACT_PREFERENCES = _Paths.CONTACT_PREFERENCES;
   static const REFERRAL = _Paths.REFERRAL;
   static const GIFT_USER_CARDS = _Paths.GIFT_USER_CARDS;
+  static const CREATE_CARD_HOLDER = _Paths.CREATE_CARD_HOLDER;
+  static const CREATE_VIRTUAL_CARD = _Paths.CREATE_VIRTUAL_CARD;
 }
 
 abstract class _Paths {
@@ -107,4 +110,6 @@ abstract class _Paths {
   static const CONTACT_PREFERENCES = '/contact-preferences';
   static const REFERRAL = '/referral';
   static const GIFT_USER_CARDS = '/gift-user-cards';
+  static const CREATE_CARD_HOLDER = '/create-card-holder';
+  static const CREATE_VIRTUAL_CARD = '/create-virtual-card';
 }

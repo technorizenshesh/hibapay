@@ -2,9 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hibapay/app/data/constants/icons_constant.dart';
-import 'package:hibapay/common/common_methods.dart';
-import 'package:hibapay/common/progress_bar.dart';
+import 'package:HibaPay/app/data/constants/icons_constant.dart';
+import 'package:HibaPay/common/common_methods.dart';
+import 'package:HibaPay/common/progress_bar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../common/common_widgets.dart';

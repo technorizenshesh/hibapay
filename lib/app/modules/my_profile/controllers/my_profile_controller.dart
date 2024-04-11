@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:hibapay/app/routes/app_pages.dart';
+import 'package:HibaPay/app/routes/app_pages.dart';
 
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/string_constants.dart';

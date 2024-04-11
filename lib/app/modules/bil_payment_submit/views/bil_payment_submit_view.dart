@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../controllers/bil_payment_submit_controller.dart';
-import 'package:hibapay/app/data/constants/image_constants.dart';
+import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';

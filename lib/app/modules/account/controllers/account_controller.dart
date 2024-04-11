@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:hibapay/app/routes/app_pages.dart';
+import 'package:HibaPay/app/routes/app_pages.dart';
 
 class AccountController extends GetxController {
   final count = 0.obs;

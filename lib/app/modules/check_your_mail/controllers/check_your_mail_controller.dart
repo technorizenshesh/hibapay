@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hibapay/app/data/apis/api_constants/api_key_constants.dart';
-import 'package:hibapay/app/data/apis/api_methods/api_methods.dart';
-import 'package:hibapay/app/data/apis/api_models/user_model.dart';
-import 'package:hibapay/common/common_methods.dart';
-import 'package:hibapay/common/common_widgets.dart';
+import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
+import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
+import 'package:HibaPay/common/common_methods.dart';
+import 'package:HibaPay/common/common_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../routes/app_pages.dart';

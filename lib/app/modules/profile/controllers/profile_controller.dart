@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import 'package:hibapay/app/data/constants/icons_constant.dart';
-import 'package:hibapay/app/data/constants/string_constants.dart';
-import 'package:hibapay/app/modules/nav_bar/controllers/nav_bar_controller.dart';
-import 'package:hibapay/app/routes/app_pages.dart';
-import 'package:hibapay/common/common_widgets.dart';
+import 'package:HibaPay/app/data/constants/icons_constant.dart';
+import 'package:HibaPay/app/data/constants/string_constants.dart';
+import 'package:HibaPay/app/modules/nav_bar/controllers/nav_bar_controller.dart';
+import 'package:HibaPay/app/routes/app_pages.dart';
+import 'package:HibaPay/common/common_widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileController extends GetxController {

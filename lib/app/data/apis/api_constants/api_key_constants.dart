@@ -6,9 +6,19 @@ class ApiKeyConstants {
   static const String fullName = 'full_name';
   static const String mobile = 'mobile';
   static const String email = 'email';
+  static const String firstName = 'first_name';
+  static const String lastName = 'last_name';
+  static const String phone = 'phone';
+  static const String address = 'address';
+  static const String state = 'state';
+  static const String country = 'country';
+  static const String postalCode = 'postal_code';
+  static const String kycMethod = 'kyc_method';
+  static const String bvn = 'bvn';
+  static const String selfieImage = 'selfie_image';
+  static const String selfieImageCapital = 'SELFIE_IMAGE';
   static const String streetAddress = 'street_address';
   static const String city = 'city';
-  static const String country = 'country';
   static const String dob = 'dob';
   static const String password = 'password';
   static const String confirmPassword = 'confirm_password';
@@ -30,4 +40,12 @@ class ApiKeyConstants {
   static const String serviceId = 'service_id';
   static const String uDocGovtPhoto = 'udoc_govt_photo';
   static const String uDocSelfyPhoto = 'udoc_selfy_photo';
+  static const String cardBrand = 'card_brand';
+  static const String cardCurrency = 'card_currency';
+  static const String amount = 'amount';
+  static const String fundingCurrency = 'funding_currency';
+  static const String cardHolderId = 'card_holder_id';
+  static const String callbackUrl = 'callback_url';
+  static const String color = 'color';
+  static const String name = 'name';
 }

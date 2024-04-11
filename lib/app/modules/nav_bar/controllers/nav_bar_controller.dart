@@ -1,11 +1,11 @@
 import 'package:get/get.dart';
-import 'package:hibapay/app/modules/account/controllers/account_controller.dart';
-import 'package:hibapay/app/modules/account/views/account_view.dart';
-import 'package:hibapay/app/modules/home/controllers/home_controller.dart';
-import 'package:hibapay/app/modules/my_card/controllers/my_card_controller.dart';
-import 'package:hibapay/app/modules/my_card/views/my_card_view.dart';
-import 'package:hibapay/app/modules/profile/controllers/profile_controller.dart';
-import 'package:hibapay/app/modules/scan_qr_code/views/scan_qr_code_view.dart';
+import 'package:HibaPay/app/modules/account/controllers/account_controller.dart';
+import 'package:HibaPay/app/modules/account/views/account_view.dart';
+import 'package:HibaPay/app/modules/home/controllers/home_controller.dart';
+import 'package:HibaPay/app/modules/my_card/controllers/my_card_controller.dart';
+import 'package:HibaPay/app/modules/my_card/views/my_card_view.dart';
+import 'package:HibaPay/app/modules/profile/controllers/profile_controller.dart';
+import 'package:HibaPay/app/modules/scan_qr_code/views/scan_qr_code_view.dart';
 
 import '../../home/views/home_view.dart';
 import '../../profile/views/profile_view.dart';

@@ -1,10 +1,10 @@
+import 'package:HibaPay/app/data/constants/image_constants.dart';
+import 'package:HibaPay/app/data/constants/string_constants.dart';
+import 'package:HibaPay/common/common_widgets.dart';
+import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:get/get.dart';
-import 'package:hibapay/app/data/constants/image_constants.dart';
-import 'package:hibapay/app/data/constants/string_constants.dart';
-import 'package:hibapay/common/common_widgets.dart';
-import 'package:hibapay/common/progress_bar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../controllers/my_card_controller.dart';
@@ -22,11 +22,11 @@ class MyCardView extends GetView<MyCardController> {
               title: StringConstants.myCard, wantBackButton: false),
           body: ListView(
             children: [
-              if (controller.result.isNotEmpty)
+              if (controller.listVirtualCardsResult.isNotEmpty)
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: controller.result.length,
+                  itemCount: controller.listVirtualCardsResult.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.symmetric(
@@ -36,18 +36,23 @@ class MyCardView extends GetView<MyCardController> {
                         children: [
                           CreditCardWidget(
                             padding: 0,
-                            cardNumber:
-                                controller.result[index].cardNumber ?? '',
+                            cardNumber: controller.listVirtualCardsResult[index]
+                                    .vcardCardNumber ??
+                                '',
                             expiryDate:
-                                '${controller.result[index].cardExpMonth ?? ''}/${controller.result[index].cardExpYear ?? ''}',
-                            cardHolderName:
-                                controller.result[index].cardHolder ?? '',
+                                '${controller.listVirtualCardsResult[index].vcardExpiryMonth ?? ''}/${controller.listVirtualCardsResult[index].vcardExpiryYear ?? ''}',
+                            cardHolderName: controller
+                                    .listVirtualCardsResult[index].vcardName ??
+                                '',
                             cvvCode: 'XXXX',
                             showBackView: false,
                             isChipVisible: true,
                             isHolderNameVisible: true,
                             chipColor: const Color(0xffE5AC3C),
-                            backgroundImage: ImgConstants.imgCardBackGround,
+                            cardBgColor: hexToColor(controller
+                                    .listVirtualCardsResult[index].vcardColor ??
+                                ''),
+                            // backgroundImage: ImgConstants.imgCardBackGround,
                             onCreditCardWidgetChange: (creditCardBrand) {},
                           ),
                           GestureDetector(
@@ -76,7 +81,9 @@ class MyCardView extends GetView<MyCardController> {
               SizedBox(height: 24.px),
               Center(
                 child: InkWell(
-                  onTap: () => controller.clickOnAddNewCard(),
+                  onTap: () => controller.getCardHolderResult == null
+                      ? controller.clickOnCreateVirtualCardHolder()
+                      : controller.clickOnCreateVirtualCard(),
                   borderRadius: BorderRadius.circular(20.px),
                   child: Container(
                     decoration: BoxDecoration(
@@ -90,7 +97,7 @@ class MyCardView extends GetView<MyCardController> {
                     child: Padding(
                       padding: EdgeInsets.all(8.px),
                       child: Text(
-                        "+   ${StringConstants.addNewCard}",
+                        "+   ${controller.getCardHolderResult == null ? StringConstants.createVirtualCard : StringConstants.addNewCard}",
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium
@@ -108,5 +115,13 @@ class MyCardView extends GetView<MyCardController> {
         ),
       );
     });
+  }
+
+  Color hexToColor(String hexColor) {
+    // Remove the '#' character if present
+    hexColor = hexColor.replaceAll('#', '');
+
+    // Parse the hex color code and return Color object
+    return Color(int.parse('FF$hexColor', radix: 16));
   }
 }

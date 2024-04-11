@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:hibapay/common/text_styles.dart';
+import 'package:HibaPay/common/text_styles.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'colors.dart';
 

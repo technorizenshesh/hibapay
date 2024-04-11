@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hibapay/app/routes/app_pages.dart';
+import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../data/constants/string_constants.dart';

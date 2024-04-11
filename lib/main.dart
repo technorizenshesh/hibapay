@@ -11,7 +11,7 @@ Future<void> main() async {
   );*/
   runApp(
     GetMaterialApp(
-      title: "HIBA PAY",
+      title: "HibaPay",
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
       debugShowCheckedModeBanner: false,
