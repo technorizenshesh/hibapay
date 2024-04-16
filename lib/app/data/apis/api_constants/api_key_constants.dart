@@ -28,6 +28,9 @@ class ApiKeyConstants {
   static const String byEmail = 'BY_EMAIL';
   static const String byMobile = 'BY_MOBILE';
   static const String authTokenHiba = 'auth_token_hiba';
+  static const String vendorId = 'vendor_id';
+  static const String virtualCardId = 'virtual_card_id';
+  static const String virtualCardAmount = 'virtual_card_amount';
   static const String home = 'HOME';
   static const String uFitPay = 'UFITPAY';
   static const String hibaPay = 'HIBAPAY';
@@ -44,6 +47,9 @@ class ApiKeyConstants {
   static const String cardCurrency = 'card_currency';
   static const String amount = 'amount';
   static const String fundingCurrency = 'funding_currency';
+  static const String withdrawalAmount = 'withdrawal_amount';
+  static const String virtualCardFundingCurrency =
+      'virtual_card_funding_currency';
   static const String cardHolderId = 'card_holder_id';
   static const String callbackUrl = 'callback_url';
   static const String color = 'color';

@@ -1,8 +1,8 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/progress_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../common/common_widgets.dart';
@@ -33,7 +33,7 @@ class RechargeView extends GetView<RechargeController> {
                       focusNode: controller.focusMobileNumber,
                       title: StringConstants.mobileNumber,
                       controller: controller.mobileNumberController,
-                      isCard: controller.icMobileNumber.value,
+                      isCard: controller.isMobileNumber.value,
                       hintText: StringConstants.pleaseEnterMobileNumber,
                     ),
                     SizedBox(height: 14.px),
@@ -41,22 +41,55 @@ class RechargeView extends GetView<RechargeController> {
                       focusNode: controller.focusServiceProvider,
                       title: StringConstants.serviceProvider,
                       controller: controller.serviceProviderController,
-                      isCard: controller.icServiceProvider.value,
+                      isCard: controller.isServiceProvider.value,
                       hintText: StringConstants.serviceProvider,
                       readOnly: true,
                       suffixIcon: CommonMethods.iconLinearGradient(
-                          value: controller.icServiceProvider.value,
+                          value: controller.isServiceProvider.value,
                           assetName: IconConstants.icDownArrow,
                           width: 10.px,
                           height: 10.px),
                       onTap: () => controller.clickOnServiceProvider(),
                     ),
+                    /*  if (controller.getPackagesResultData.isNotEmpty)
+                      SizedBox(height: 14.px),
+                    if (controller.getPackagesResultData.isNotEmpty)
+                      CommonWidgets.commonTextFieldForLoginSignUP(
+                        focusNode: controller.focusPackages,
+                        title: StringConstants.packages,
+                        controller: controller.packagesController,
+                        isCard: controller.isPackages.value,
+                        hintText: StringConstants.packages,
+                        readOnly: true,
+                        suffixIcon: CommonMethods.iconLinearGradient(
+                            value: controller.isPackages.value,
+                            assetName: IconConstants.icDownArrow,
+                            width: 10.px,
+                            height: 10.px),
+                        onTap: () => controller.clickOnPackages(),
+                      ),
+                    if (controller.packages.isNotEmpty) SizedBox(height: 14.px),
+                    if (controller.packages.isNotEmpty)
+                      CommonWidgets.commonTextFieldForLoginSignUP(
+                        focusNode: controller.focusAmount,
+                        title: StringConstants.enterAmount,
+                        controller: controller.amountController,
+                        isCard: controller.isAmount.value,
+                        hintText: StringConstants.enterAmount,
+                        readOnly: true,
+                        suffixIcon: CommonMethods.iconLinearGradient(
+                            value: controller.isAmount.value,
+                            assetName: IconConstants.icDownArrow,
+                            width: 10.px,
+                            height: 10.px),
+                        onTap: () => controller.clickOnPackagesAmount(),
+                      ),*/
                     SizedBox(height: 14.px),
                     CommonWidgets.commonTextFieldForLoginSignUP(
                       focusNode: controller.focusAmount,
                       title: StringConstants.enterAmount,
                       controller: controller.amountController,
-                      isCard: controller.icAmount.value,
+                      isCard: controller.isAmount.value,
                       hintText: StringConstants.enterAmount,
                     ),
                     SizedBox(height: 20.px),

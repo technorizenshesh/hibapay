@@ -1,4 +1,3 @@
-import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/progress_bar.dart';
@@ -22,11 +21,11 @@ class MyCardView extends GetView<MyCardController> {
               title: StringConstants.myCard, wantBackButton: false),
           body: ListView(
             children: [
-              if (controller.listVirtualCardsResult.isNotEmpty)
+              if (listVirtualCardsResult.isNotEmpty)
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: controller.listVirtualCardsResult.length,
+                  itemCount: listVirtualCardsResult.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.symmetric(
@@ -36,22 +35,20 @@ class MyCardView extends GetView<MyCardController> {
                         children: [
                           CreditCardWidget(
                             padding: 0,
-                            cardNumber: controller.listVirtualCardsResult[index]
-                                    .vcardCardNumber ??
-                                '',
+                            cardNumber:
+                                listVirtualCardsResult[index].vcardCardNumber ??
+                                    '',
                             expiryDate:
-                                '${controller.listVirtualCardsResult[index].vcardExpiryMonth ?? ''}/${controller.listVirtualCardsResult[index].vcardExpiryYear ?? ''}',
-                            cardHolderName: controller
-                                    .listVirtualCardsResult[index].vcardName ??
-                                '',
+                                '${listVirtualCardsResult[index].vcardExpiryMonth ?? ''}/${listVirtualCardsResult[index].vcardExpiryYear ?? ''}',
+                            cardHolderName:
+                                listVirtualCardsResult[index].vcardName ?? '',
                             cvvCode: 'XXXX',
                             showBackView: false,
                             isChipVisible: true,
                             isHolderNameVisible: true,
                             chipColor: const Color(0xffE5AC3C),
-                            cardBgColor: hexToColor(controller
-                                    .listVirtualCardsResult[index].vcardColor ??
-                                ''),
+                            cardBgColor: hexToColor(
+                                listVirtualCardsResult[index].vcardColor ?? ''),
                             // backgroundImage: ImgConstants.imgCardBackGround,
                             onCreditCardWidgetChange: (creditCardBrand) {},
                           ),

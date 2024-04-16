@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../app/data/constants/image_constants.dart';
 
 class CommonMethods {
-  static String cur = "\$";
+  static String cur = "₦";
 
   static void unFocsKeyBoard() {
     FocusManager.instance.primaryFocus?.unfocus();
@@ -33,6 +34,7 @@ class CommonMethods {
       ],
     );
   }
+
   static Widget appIconsPng(
       {required String assetName, double? width, double? height}) {
     return Column(

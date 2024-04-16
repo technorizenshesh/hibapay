@@ -1,55 +1,33 @@
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_banners_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_card_transactions_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_services_hibapay_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
-import 'package:HibaPay/app/modules/spinner/views/spinner_view.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:HibaPay/common/common_widgets.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+List<GetServicesResult> getServicesResult = [];
+List<GetBannersResult> getBannersResult = [];
+List<GetCardTransactionsResultData> getCardTransactionsResultData = [];
+
 class HomeController extends GetxController {
   final count = 0.obs;
-
-  List listOfTra = [
-    {
-      'title': 'Sports',
-      'sub_title': 'Payment',
-      'amount': '15.99',
-      'type': 'Withdraw',
-      'icon': 'assets/icons/ic_withdraw.svg'
-    },
-    {
-      'title': 'Bank of America',
-      'sub_title': 'Deposit',
-      'amount': '2,045.00',
-      'type': 'Deposit',
-      'icon': 'assets/icons/ic_deposit.svg'
-    },
-    {
-      'title': 'To Brody Armando',
-      'sub_title': 'Sent',
-      'amount': '986.00',
-      'type': 'Withdraw',
-      'icon': 'assets/icons/ic_withdraw.svg'
-    },
-  ];
-
   final cardIndex = 0.obs;
-  List<GetServicesResult> getServicesResult = [];
   Result? result;
-  List<GetBannersResult> getBannersResult = [];
-
+  GetCardTransactionsResult? getCardTransactionsResult;
   final inAsyncCall = false.obs;
   final authTokenHiba = ''.obs;
+  final virtualCardId = ''.obs;
 
   @override
   Future<void> onInit() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
+    virtualCardId.value = sp.getString(ApiKeyConstants.virtualCardId) ?? '';
     super.onInit();
     inAsyncCall.value = true;
     await onInitWorking();
@@ -72,6 +50,7 @@ class HomeController extends GetxController {
     await getProfileApi();
     await getBannersApi();
     await getServicesApi();
+    await getCardTransactionsApi();
   }
 
   getProfileApi() async {
@@ -114,6 +93,25 @@ class HomeController extends GetxController {
     }
   }
 
+  getCardTransactionsApi() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+      ApiKeyConstants.virtualCardId: virtualCardId.value,
+    };
+    GetCardTransactionsModel? getCardTransactionsModel =
+        await ApiMethods.getCardTransactions(bodyParams: bodyParams);
+    if (getCardTransactionsModel != null &&
+        getCardTransactionsModel.result != null) {
+      getCardTransactionsResult = getCardTransactionsModel.result!;
+      if (getCardTransactionsResult != null &&
+          getCardTransactionsResult!.data != null &&
+          getCardTransactionsResult!.data!.isNotEmpty) {
+        getCardTransactionsResultData = getCardTransactionsResult!.data!;
+      }
+      increment();
+    }
+  }
+
   clickOnTransfers() {
     Get.toNamed(Routes.TRANSFER);
   }
@@ -144,12 +142,14 @@ class HomeController extends GetxController {
 
   clickOnSpinnerIcon() {
     //Get.toNamed(Routes.SPINNER);
-    Navigator.push(
+    /*Navigator.push(
       Get.context!,
       MaterialPageRoute(
         builder: (context) => const SpinnerViewSTF(),
       ),
-    );
+    );*/
+    Get.snackbar('Spin wheel',
+        'Spin Not available at the moment, this feature will be available soon');
   }
 
   clickOnCard({required int index}) {

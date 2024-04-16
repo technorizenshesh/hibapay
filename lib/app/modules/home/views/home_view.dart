@@ -1,13 +1,13 @@
 import 'dart:ui';
 
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/progress_bar.dart';
+import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../controllers/home_controller.dart';
@@ -86,10 +86,10 @@ class HomeView extends GetView<HomeController> {
                 ),
               ),
               SizedBox(height: 32.px),
-              if (controller.getBannersResult.isNotEmpty)
+              if (getBannersResult.isNotEmpty)
                 CarouselSlider(
                   items: List.generate(
-                    controller.getBannersResult.length,
+                    getBannersResult.length,
                     (index) => ClipRRect(
                       child: BackdropFilter(
                         filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
@@ -98,9 +98,8 @@ class HomeView extends GetView<HomeController> {
                           height: 220.px,
                           padding: EdgeInsets.all(20.px),
                           child: CommonWidgets.imageView(
-                              image: controller
-                                      .getBannersResult[index].bannersImage ??
-                                  ''),
+                              image:
+                                  getBannersResult[index].bannersImage ?? ''),
                         ),
                       ),
                     ),
@@ -124,9 +123,8 @@ class HomeView extends GetView<HomeController> {
                     viewportFraction: 1,
                   ),
                 ),
-              if (controller.getBannersResult.isNotEmpty)
-                SizedBox(height: 4.px),
-              if (controller.getBannersResult.isNotEmpty)
+              if (getBannersResult.isNotEmpty) SizedBox(height: 4.px),
+              if (getBannersResult.isNotEmpty)
                 Align(
                   alignment: Alignment.center,
                   child: Padding(
@@ -145,7 +143,7 @@ class HomeView extends GetView<HomeController> {
                         children: [
                           Wrap(
                             children: List.generate(
-                              controller.getBannersResult.length,
+                              getBannersResult.length,
                               (index) => Padding(
                                 padding: EdgeInsets.all(2.px),
                                 child: Center(
@@ -239,12 +237,12 @@ class HomeView extends GetView<HomeController> {
             ],
           ),*/
               SizedBox(height: 24.px),
-              if (controller.getServicesResult.isNotEmpty)
+              if (getServicesResult.isNotEmpty)
                 Center(
                   child: SingleChildScrollView(
                     child: Wrap(
-                      children: List.generate(
-                          controller.getServicesResult.length, (index) {
+                      children:
+                          List.generate(getServicesResult.length, (index) {
                         return SizedBox(
                           width: MediaQuery.of(context).size.width / 3.3,
                           child: Padding(
@@ -270,10 +268,8 @@ class HomeView extends GetView<HomeController> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     CommonWidgets.imageView(
-                                        image: controller
-                                                .getServicesResult[index]
-                                                .icon ??
-                                            '',
+                                        image:
+                                            getServicesResult[index].icon ?? '',
                                         width: 24.px,
                                         height: 24.px,
                                         fit: BoxFit.contain,
@@ -281,7 +277,7 @@ class HomeView extends GetView<HomeController> {
                                             BorderRadius.circular(0.px)),
                                     SizedBox(height: 14.px),
                                     Text(
-                                      controller.getServicesResult[index]
+                                      getServicesResult[index]
                                               .serviceNameCustom ??
                                           '',
                                       maxLines: 2,
@@ -305,7 +301,7 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ),
                 ),
-              SizedBox(height: 24.px),
+              /* SizedBox(height: 24.px),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.px),
                 child: Row(
@@ -339,45 +335,62 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ],
                 ),
-              ),
-              SizedBox(height: 20.px),
-              ListView.builder(
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                itemCount: controller.listOfTra.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    trailing: Text(
-                      controller.listOfTra[index]['type'] == 'Withdraw'
-                          ? '- ${CommonMethods.cur + controller.listOfTra[index]['amount']}'
-                          : '+ ${CommonMethods.cur + controller.listOfTra[index]['amount']}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                              fontSize: 14.px,
-                              color: Theme.of(context).primaryColor),
-                    ),
-                    subtitle: Text(
-                      controller.listOfTra[index]['sub_title'],
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                            fontSize: 12.px,
-                          ),
-                    ),
-                    title: Text(
-                      controller.listOfTra[index]['title'],
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                              fontSize: 14.px,
-                              color: Theme.of(context).primaryColor),
-                    ),
-                    leading: CommonMethods.appIcons(
-                        assetName: controller.listOfTra[index]['icon']),
-                  );
-                },
-              ),
+              ),*/
+              if (getCardTransactionsResultData.isNotEmpty)
+                SizedBox(height: 24.px),
+              if (getCardTransactionsResultData.isNotEmpty)
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.px),
+                  child: Text(
+                    'Virtual Transactions',
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.surface,
+                        fontSize: 14.px),
+                    maxLines: 1,
+                  ),
+                ),
+              if (getCardTransactionsResultData.isNotEmpty)
+                SizedBox(height: 20.px),
+              if (getCardTransactionsResultData.isNotEmpty)
+                ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: getCardTransactionsResultData.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      trailing: Text(
+                        getCardTransactionsResultData[index].type != 'credit'
+                            ? '- ${"${CommonMethods.cur}${getCardTransactionsResultData[index].amount ?? '0'}"}'
+                            : '+ ${"${CommonMethods.cur}${getCardTransactionsResultData[index].amount ?? '0'}"}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                                fontSize: 14.px,
+                                color: Theme.of(context).primaryColor),
+                      ),
+                      subtitle: Text(
+                        getCardTransactionsResultData[index].datetime ?? '',
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontSize: 12.px,
+                                ),
+                      ),
+                      title: Text(
+                        getCardTransactionsResultData[index].narration ?? '',
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                                fontSize: 14.px,
+                                color: Theme.of(context).primaryColor),
+                      ),
+                      /*leading: CommonMethods.appIcons(
+                          assetName: controller
+                              .getCardTransactionsResultData[index]['icon']),*/
+                    );
+                  },
+                ),
               SizedBox(height: 20.px),
             ],
           ),

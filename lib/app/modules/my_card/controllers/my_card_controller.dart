@@ -7,6 +7,8 @@ import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+List<ListVirtualCardsResult> listVirtualCardsResult = [];
+
 class MyCardController extends GetxController {
   final count = 0.obs;
 
@@ -15,7 +17,6 @@ class MyCardController extends GetxController {
   final inAsyncCall = false.obs;
 
   GetCardHolderResult? getCardHolderResult;
-  List<ListVirtualCardsResult> listVirtualCardsResult = [];
 
   @override
   Future<void> onInit() async {
@@ -50,9 +51,10 @@ class MyCardController extends GetxController {
     if (listVirtualCardsResult[index].vcardCardId != null &&
         listVirtualCardsResult[index].vcardCardId!.isNotEmpty &&
         authTokenHiba.value.isNotEmpty) {
+      inAsyncCall.value = true;
       bodyParams = {
         ApiKeyConstants.authTokenHiba: authTokenHiba.value,
-        ApiKeyConstants.cardHolderId:
+        ApiKeyConstants.virtualCardId:
             listVirtualCardsResult[index].vcardCardId ?? ''
       };
       DeleteVirtualCardModel? deleteVirtualCardModel =
@@ -91,6 +93,7 @@ class MyCardController extends GetxController {
     };
     ListVirtualCardsModel? listVirtualCardsModel =
         await ApiMethods.listVirtualCards(bodyParams: bodyParams);
+    listVirtualCardsResult.clear();
     if (listVirtualCardsModel != null &&
         listVirtualCardsModel.result != null &&
         listVirtualCardsModel.result!.isNotEmpty) {

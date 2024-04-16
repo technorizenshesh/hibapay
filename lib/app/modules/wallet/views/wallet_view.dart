@@ -102,7 +102,7 @@ class WalletView extends GetView<WalletController> {
                                 Row(
                                   children: [
                                     Text(
-                                      'US Dollar ( \$ )',
+                                      'US Dollar ( ${CommonMethods.cur} )',
                                       style: Theme.of(Get.context!)
                                           .textTheme
                                           .titleMedium
@@ -149,9 +149,10 @@ class WalletView extends GetView<WalletController> {
                                       itemBuilder: (context) {
                                         return [
                                           PopupMenuItem(
-                                            value: 'US  ( \$ )',
+                                            value:
+                                                'US  ( ${CommonMethods.cur} )',
                                             child: Text(
-                                              'US  ( \$ )',
+                                              'US  ( ${CommonMethods.cur} )',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayMedium

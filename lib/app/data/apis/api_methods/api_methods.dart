@@ -11,6 +11,8 @@ import 'package:HibaPay/app/data/apis/api_models/get_banners_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_card_holder_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_card_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_card_transactions_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_packages_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_price_list_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_services_hibapay_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/search_card_holder_model.dart';
@@ -267,6 +269,23 @@ class ApiMethods {
     return null;
   }
 
+  static Future<GetPackagesModel?> uFitPayGetPackages({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    GetPackagesModel? getPackagesModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfUFitPayGetPackages,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getPackagesModel = GetPackagesModel.fromJson(jsonDecode(response.body));
+      return getPackagesModel;
+    }
+    return null;
+  }
+
   static Future<UFitPayGetVendorsModel?> uFitPayGetVendors({
     void Function(int)? checkResponse,
     Map<String, dynamic>? bodyParams,
@@ -281,6 +300,23 @@ class ApiMethods {
       uFitPayGetVendorsModel =
           UFitPayGetVendorsModel.fromJson(jsonDecode(response.body));
       return uFitPayGetVendorsModel;
+    }
+    return null;
+  }
+
+  static Future<GetPriceListModel?> uFitPayGetPriceList({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    GetPriceListModel? getPriceListModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfUFitPayGetPriceList,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getPriceListModel = GetPriceListModel.fromJson(jsonDecode(response.body));
+      return getPriceListModel;
     }
     return null;
   }

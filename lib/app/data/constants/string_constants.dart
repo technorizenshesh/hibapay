@@ -173,9 +173,12 @@ class StringConstants {
   static const String pleaseEnterMeterNumber = "Please enter meter number";
   static const String pleaseEnterCurrency = "Please enter currency";
   static const String selectProvider = "Select Provider";
+  static const String selectPackages = "Select Packages";
+  static const String selectPackagesAmount = "Select Packages Amount";
   static const String selectAccount = "Select Account";
   static const String select = "Select";
   static const String serviceProvider = "Service Provider";
+  static const String packages = "Packages";
   static const String pleaseEnterAccountName = "Please enter account name";
   static const String giftingAmount = "Gifting Amount";
   static const String pleaseEnterGiftingAmount = "Please enter gifting amount";
@@ -197,7 +200,7 @@ class StringConstants {
   static const String createYourSmartPayCard = "Create your Smart pay Card";
   static const String theCustomizable =
       "The customizable, no hidden fee,\ninstant discount debit or credit card";
-  static const String enterAmount = "Enter amount:";
+  static const String enterAmount = "Enter amount";
   static const String userId = "User ID";
   static const String addNotes = "Add Notes";
   static const String amount = "Amount";

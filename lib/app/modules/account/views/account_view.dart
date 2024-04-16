@@ -1,9 +1,9 @@
 import 'dart:ui';
 
+import 'package:HibaPay/common/common_methods.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:HibaPay/common/common_methods.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../data/constants/icons_constant.dart';
@@ -152,9 +152,9 @@ class AccountView extends GetView<AccountController> {
                                           itemBuilder: (context) {
                                             return [
                                               PopupMenuItem(
-                                                value: 'US  ( \$ )',
+                                                value: 'US  ( ${CommonMethods.cur} )',
                                                 child: Text(
-                                                  'US  ( \$ )',
+                                                  'US  ( ${CommonMethods.cur} )',
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .displayMedium
@@ -420,9 +420,10 @@ class AccountView extends GetView<AccountController> {
                                       itemBuilder: (context) {
                                         return [
                                           PopupMenuItem(
-                                            value: 'US  ( \$ )',
+                                            value:
+                                                'US  ( ${CommonMethods.cur} )',
                                             child: Text(
-                                              'US  ( \$ )',
+                                              'US  ( ${CommonMethods.cur} )',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayMedium

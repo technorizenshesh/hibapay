@@ -1,6 +1,10 @@
+import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
+import 'package:HibaPay/app/data/apis/api_models/fund_virtual_card_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
@@ -10,9 +14,53 @@ import '../../../data/constants/string_constants.dart';
 class DepositController extends GetxController {
   final count = 0.obs;
 
+  final isAmount = false.obs;
+  FocusNode focusAmount = FocusNode();
+  TextEditingController amountController = TextEditingController();
+
+  final inAsyncCall = false.obs;
+  final authTokenHiba = ''.obs;
+  final virtualCardId = ''.obs;
+
+  FundVirtualCardResult? result;
+
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
+    virtualCardId.value = sp.getString(ApiKeyConstants.virtualCardId) ?? '';
     super.onInit();
+    startListener();
+  }
+
+  void startListener() {
+    focusAmount.addListener(onFocusChange);
+  }
+
+  void onFocusChange() {
+    isAmount.value = focusAmount.hasFocus;
+  }
+
+  clickOnTopUpWalletButton() async {
+    if (amountController.text.isNotEmpty) {
+      inAsyncCall.value = true;
+      Map<String, dynamic> bodyParams = {
+        ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+        ApiKeyConstants.virtualCardId: virtualCardId.value,
+        ApiKeyConstants.virtualCardAmount: amountController.text,
+        ApiKeyConstants.virtualCardFundingCurrency: 'NGN',
+      };
+      FundVirtualCardModel? fundVirtualCardModel =
+          await ApiMethods.fundVirtualCard(bodyParams: bodyParams);
+      if (fundVirtualCardModel != null && fundVirtualCardModel.result != null) {
+        result = fundVirtualCardModel.result!;
+        Get.back();
+        increment();
+      }
+      inAsyncCall.value = false;
+    } else {
+      Get.snackbar('Something went wrong', 'Amount field required');
+    }
   }
 
   @override
@@ -27,7 +75,7 @@ class DepositController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnTopUpWalletButton() {
+  clickOnTopUpWalletButton1() {
     showModalBottomSheet(
       backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
       context: Get.context!,

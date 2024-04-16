@@ -161,9 +161,10 @@ class AllTransactionsView extends GetView<AllTransactionsController> {
                                       itemBuilder: (context) {
                                         return [
                                           PopupMenuItem(
-                                            value: 'US  ( \$ )',
+                                            value:
+                                                'US  ( ${CommonMethods.cur} )',
                                             child: Text(
-                                              'US  ( \$ )',
+                                              'US  ( ${CommonMethods.cur} )',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayMedium

@@ -84,6 +84,9 @@ class CreateVirtualCardController extends GetxController {
           await ApiMethods.createVirtualCard(bodyParams: bodyParams);
       if (createVirtualCardModel != null &&
           createVirtualCardModel.result != null) {
+        SharedPreferences sp = await SharedPreferences.getInstance();
+        sp.setString(ApiKeyConstants.virtualCardId,
+            createVirtualCardModel.result?.data?.id ?? '');
         Get.back();
       } else {
         CommonWidgets.snackBarView(title: 'This time only one card add');

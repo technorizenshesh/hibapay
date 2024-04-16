@@ -1,8 +1,5 @@
 import 'dart:io';
 
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
@@ -11,6 +8,11 @@ import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:HibaPay/common/alert_dialog_view.dart';
 import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/image_pick_and_crop.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image/image.dart' as img;
+import 'package:path/path.dart' as path;
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -43,18 +45,38 @@ class VerifyIdentityController extends GetxController {
 
   void increment() => count.value++;
 
+  // Function to convert an image file to PNG format
+  Future<File?> convertToPNG(String imagePath) async {
+    try {
+      // Read the image file
+      final imageBytes = await File(imagePath).readAsBytes();
+      // Decode the image
+      img.Image image = img.decodeImage(imageBytes)!;
+      // Convert the image to PNG format
+      List<int> pngBytes = img.encodePng(image);
+      // Write the PNG bytes to a new file
+      String pngPath = imagePath.replaceAll(path.extension(imagePath), '.png');
+      File pngFile = File(pngPath);
+      await pngFile.writeAsBytes(pngBytes);
+      return pngFile;
+    } catch (e) {
+      print('Error converting image to PNG: $e');
+      return null;
+    }
+  }
+
   clickOnVerifyMyIdentityButton() async {
     if (imageGovernmentId.value != null && imageSelfiePhoto.value != null) {
       inAsyncCall.value = true;
       imageMap = {
         ApiKeyConstants.uDocGovtPhoto:
-            File(imageGovernmentId.value?.path ?? ''),
+            await convertToPNG(imageGovernmentId.value?.path ?? '') ?? File(''),
         ApiKeyConstants.uDocSelfyPhoto:
-            File(imageSelfiePhoto.value?.path ?? ''),
+            await convertToPNG(imageSelfiePhoto.value?.path ?? '') ?? File(''),
       };
-      bodyParams = {
-        ApiKeyConstants.userId: userId.value,
-      };
+      bodyParams = {ApiKeyConstants.userId: userId.value};
+      print('imageMap::::::::::::::${imageMap}');
+      print('bodyParams::::::::::::::${bodyParams}');
       UserModel? userModel = await ApiMethods.uploadUserDocuments(
           imageMap: imageMap, bodyParams: bodyParams);
       if (userModel != null &&

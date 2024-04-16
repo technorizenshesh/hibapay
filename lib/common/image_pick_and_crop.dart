@@ -28,13 +28,11 @@ class ImagePickerAndCropper {
     Color color = Colors.blue,
   }) async {
     XFile? imagePicker;
-    try{
+    try {
       imagePicker = pickImageFromGallery
           ? await ImagePicker().pickImage(source: ImageSource.gallery)
           : await ImagePicker().pickImage(source: ImageSource.camera);
-    }
-    catch(e)
-    {
+    } catch (e) {
       //handle error
       print('e:::::::::::::${e}');
     }
@@ -67,31 +65,26 @@ class ImagePickerAndCropper {
           return null;
         }
       } else {
-        //return File(imagePicker.path);
-        return null;
+        return File(imagePicker.path);
+        //return null;
       }
     } else {
       return null;
     }
   }
 
-
-  static Future<List<XFile>> pickMultipleImages()
-  async {
+  static Future<List<XFile>> pickMultipleImages() async {
     final ImagePicker imagePicker = ImagePicker();
     List<XFile> imageFileList = [];
 
-    final List<XFile> selectedImages = await
-    imagePicker.pickMultiImage()??[];
+    final List<XFile> selectedImages = await imagePicker.pickMultiImage() ?? [];
     if (selectedImages.isNotEmpty) {
       imageFileList.addAll(selectedImages);
-      if(kDebugMode) {
+      if (kDebugMode) {
         print("Selected Image List Length:${imageFileList.length}");
       }
       return imageFileList;
-    }
-    else
-    {
+    } else {
       return [];
     }
   }

@@ -1,7 +1,14 @@
+import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
+import 'package:HibaPay/app/data/apis/api_models/fund_virtual_card_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_card_transactions_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/icons_constant.dart';
@@ -9,13 +16,111 @@ import '../../../data/constants/icons_constant.dart';
 class WithdrawController extends GetxController {
   final count = 0.obs;
 
-  List listOfData = ['25%', '50%', '75%', '100%'];
+  final inAsyncCall = false.obs;
+  final authTokenHiba = ''.obs;
+  final virtualCardId = ''.obs;
+
+  FundVirtualCardResult? result;
+  FundVirtualCardResult? resultWithdraw;
+
+  final isAmount = false.obs;
+  FocusNode focusAmount = FocusNode();
+  TextEditingController amountController = TextEditingController();
+
+  final balance = ''.obs;
+
+  GetCardTransactionsResult? getCardTransactionsResult;
+
+  List<GetCardTransactionsResultData> getCardTransactionsResultData = [];
+
+  List<ListVirtualCardsResult> listVirtualCardsResult = [];
+
+  List<String> percentageList = ['25', '50', '75', '100'];
 
   final selectedValue = 0.obs;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
+    virtualCardId.value = sp.getString(ApiKeyConstants.virtualCardId) ?? '';
     super.onInit();
+    startListener();
+    inAsyncCall.value = true;
+    await onInitWorking();
+    inAsyncCall.value = false;
+  }
+
+  void startListener() {
+    focusAmount.addListener(onFocusChange);
+  }
+
+  void onFocusChange() {
+    isAmount.value = focusAmount.hasFocus;
+  }
+
+  onInitWorking() async {
+    await getCardTransactionsApi();
+    await listVirtualCardsApi();
+  }
+
+/*
+  fundVirtualCardApi() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+      ApiKeyConstants.virtualCardId: virtualCardId.value,
+      ApiKeyConstants.virtualCardFundingCurrency: 'NGN',
+    };
+    FundVirtualCardModel? fundVirtualCardModel =
+        await ApiMethods.fundVirtualCard(bodyParams: bodyParams);
+    if (fundVirtualCardModel != null && fundVirtualCardModel.result != null) {
+      result = fundVirtualCardModel.result!;
+      if (result != null &&
+          result!.data != null &&
+          result!.data!.balance != null &&
+          result!.data!.balance!.isNotEmpty) {
+        balance.value = result!.data!.balance!;
+      }
+      increment();
+    }
+  }
+*/
+
+  getCardTransactionsApi() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+      ApiKeyConstants.virtualCardId: virtualCardId.value,
+    };
+    GetCardTransactionsModel? getCardTransactionsModel =
+        await ApiMethods.getCardTransactions(bodyParams: bodyParams);
+    if (getCardTransactionsModel != null &&
+        getCardTransactionsModel.result != null) {
+      getCardTransactionsResult = getCardTransactionsModel.result!;
+      if (getCardTransactionsResult != null &&
+          getCardTransactionsResult!.data != null &&
+          getCardTransactionsResult!.data!.isNotEmpty) {
+        getCardTransactionsResultData = getCardTransactionsResult!.data!;
+        if (getCardTransactionsResultData.isNotEmpty) {
+          balance.value = getCardTransactionsResultData.first.amount ?? '';
+        }
+      }
+      increment();
+    }
+  }
+
+  listVirtualCardsApi() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+    };
+    ListVirtualCardsModel? listVirtualCardsModel =
+        await ApiMethods.listVirtualCards(bodyParams: bodyParams);
+    listVirtualCardsResult.clear();
+    if (listVirtualCardsModel != null &&
+        listVirtualCardsModel.result != null &&
+        listVirtualCardsModel.result!.isNotEmpty) {
+      listVirtualCardsResult = listVirtualCardsModel.result!;
+      increment();
+    }
   }
 
   @override
@@ -30,7 +135,7 @@ class WithdrawController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnWithdrawButton() {
+  clickOnWithdrawButton1() {
     showModalBottomSheet(
       backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
       context: Get.context!,
@@ -116,7 +221,52 @@ class WithdrawController extends GetxController {
     );
   }
 
+  clickOnWithdrawButton() async {
+    if (amountController.text.isNotEmpty) {
+      if (double.parse(balance.value) >= double.parse(amountController.text)) {
+        inAsyncCall.value = true;
+        await withdrawVirtualCardBalanceApi();
+        inAsyncCall.value = false;
+      } else {
+        Get.snackbar('Something went wrong', 'Insufficient balance');
+      }
+    } else {
+      Get.snackbar('Something went wrong', 'Amount field required');
+    }
+  }
+
+  withdrawVirtualCardBalanceApi() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+      ApiKeyConstants.virtualCardId: virtualCardId.value,
+      ApiKeyConstants.virtualCardFundingCurrency: 'NGN',
+      ApiKeyConstants.withdrawalAmount: amountController.text.toString(),
+    };
+    FundVirtualCardModel? fundVirtualCardModel =
+        await ApiMethods.withdrawVirtualCardBalance(bodyParams: bodyParams);
+    if (fundVirtualCardModel != null && fundVirtualCardModel.result != null) {
+      resultWithdraw = fundVirtualCardModel.result!;
+      if (resultWithdraw != null &&
+          resultWithdraw!.data != null &&
+          resultWithdraw!.data!.balance != null &&
+          resultWithdraw!.data!.balance!.isNotEmpty) {
+        // balance.value = resultWithdraw!.data!.balance!;
+        Get.snackbar('Successfully', 'Payment withdraw');
+        Get.back();
+      }
+      increment();
+    }
+  }
+
   clickOnConfirmButton() {
     Get.back();
+  }
+
+  clickOnPercentage({required int index}) {
+    selectedValue.value = index;
+    amountController.text = (double.parse(balance.value) *
+            (double.parse(percentageList[index]) / 100))
+        .toString();
+    increment();
   }
 }

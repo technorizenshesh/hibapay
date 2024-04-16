@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 
 ///
 /// Wrap around any widget that makes an async call to show a modal progress
@@ -37,7 +38,7 @@ class ProgressBar extends StatelessWidget {
   ProgressBar({
     Key? key,
     required this.inAsyncCall,
-    this.opacity = 0.5,
+    this.opacity = 0.05,
     this.color = Colors.grey,
     this.progressIndicator,
     this.offset,
@@ -49,10 +50,10 @@ class ProgressBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     progressIndicator ??= CircularProgressIndicator(
-      backgroundColor: const Color(0xff7C7C7C).withOpacity(.2),
+      backgroundColor: const Color(0xff7C7C7C).withOpacity(.01),
       color: Theme.of(context).primaryColor,
       strokeCap: StrokeCap.round,
-      strokeWidth: 6,
+      strokeWidth: 4,
     );
 
     if (!inAsyncCall) return child;
@@ -89,7 +90,23 @@ class ProgressBar extends StatelessWidget {
             width: 64.px,
           ),
         ),*/
-        layOutProgressIndicator,
+        Center(
+          child: Stack(
+            children: [
+              Center(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(24.px),
+                  child: Image.asset(
+                    'assets/images/img_logo.png',
+                    height: 40.px,
+                    width: 40.px,
+                  ),
+                ),
+              ),
+              layOutProgressIndicator,
+            ],
+          ),
+        ),
       ],
     );
   }
