@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:HibaPay/app/data/apis/api_constants/api_url_constants.dart';
 import 'package:HibaPay/app/data/apis/api_models/add_card_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/bill_pay_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/create_card_holder_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/create_virtual_card_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/delete_virtual_card_model.dart';
@@ -317,6 +318,23 @@ class ApiMethods {
     if (response != null) {
       getPriceListModel = GetPriceListModel.fromJson(jsonDecode(response.body));
       return getPriceListModel;
+    }
+    return null;
+  }
+
+  static Future<BillPayModel?> uFitPayBillPay({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    BillPayModel? billPayModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfUFitPayBillPay,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      billPayModel = BillPayModel.fromJson(jsonDecode(response.body));
+      return billPayModel;
     }
     return null;
   }

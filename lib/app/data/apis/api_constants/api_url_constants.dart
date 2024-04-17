@@ -23,6 +23,7 @@ class ApiUrlConstants {
       '${baseUrl}ufitpay/get-vendors';
   static const String endPointOfUFitPayGetPriceList =
       '${baseUrl}ufitpay/get-price-list';
+  static const String endPointOfUFitPayBillPay = '${baseUrl}ufitpay/bill-pay';
   static const String endPointOfUFitPayGetPackages =
       '${baseUrl}ufitpay/get-packages';
   static const String endPointOfUploadUserDocuments =

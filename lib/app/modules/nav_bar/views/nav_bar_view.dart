@@ -1,12 +1,12 @@
+import 'package:HibaPay/common/common_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:HibaPay/common/common_methods.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/nav_bar_controller.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 
 class NavBarView extends GetView<NavBarController> {
   const NavBarView({super.key});

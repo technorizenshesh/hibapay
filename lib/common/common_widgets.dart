@@ -564,7 +564,7 @@ class CommonWidgets {
   }
 
   static SnackbarController snackBarView({String title = ''}) {
-    return Get.snackbar('Message', title);
+    return Get.snackbar(margin: EdgeInsets.all(20.px), 'Message', title);
   }
 }
 

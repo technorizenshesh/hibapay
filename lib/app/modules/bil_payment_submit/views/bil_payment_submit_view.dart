@@ -1,11 +1,12 @@
+import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/bil_payment_submit_controller.dart';
-import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_methods.dart';
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/string_constants.dart';
+import '../controllers/bil_payment_submit_controller.dart';
 
 class BilPaymentSubmitView extends GetView<BilPaymentSubmitController> {
   const BilPaymentSubmitView({Key? key}) : super(key: key);

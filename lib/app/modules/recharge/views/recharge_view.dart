@@ -51,39 +51,6 @@ class RechargeView extends GetView<RechargeController> {
                           height: 10.px),
                       onTap: () => controller.clickOnServiceProvider(),
                     ),
-                    /*  if (controller.getPackagesResultData.isNotEmpty)
-                      SizedBox(height: 14.px),
-                    if (controller.getPackagesResultData.isNotEmpty)
-                      CommonWidgets.commonTextFieldForLoginSignUP(
-                        focusNode: controller.focusPackages,
-                        title: StringConstants.packages,
-                        controller: controller.packagesController,
-                        isCard: controller.isPackages.value,
-                        hintText: StringConstants.packages,
-                        readOnly: true,
-                        suffixIcon: CommonMethods.iconLinearGradient(
-                            value: controller.isPackages.value,
-                            assetName: IconConstants.icDownArrow,
-                            width: 10.px,
-                            height: 10.px),
-                        onTap: () => controller.clickOnPackages(),
-                      ),
-                    if (controller.packages.isNotEmpty) SizedBox(height: 14.px),
-                    if (controller.packages.isNotEmpty)
-                      CommonWidgets.commonTextFieldForLoginSignUP(
-                        focusNode: controller.focusAmount,
-                        title: StringConstants.enterAmount,
-                        controller: controller.amountController,
-                        isCard: controller.isAmount.value,
-                        hintText: StringConstants.enterAmount,
-                        readOnly: true,
-                        suffixIcon: CommonMethods.iconLinearGradient(
-                            value: controller.isAmount.value,
-                            assetName: IconConstants.icDownArrow,
-                            width: 10.px,
-                            height: 10.px),
-                        onTap: () => controller.clickOnPackagesAmount(),
-                      ),*/
                     SizedBox(height: 14.px),
                     CommonWidgets.commonTextFieldForLoginSignUP(
                       focusNode: controller.focusAmount,

@@ -1,3 +1,4 @@
+import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/progress_bar.dart';
@@ -45,6 +46,7 @@ class MyCardView extends GetView<MyCardController> {
                             cvvCode: 'XXXX',
                             showBackView: false,
                             isChipVisible: true,
+                            isSwipeGestureEnabled: false,
                             isHolderNameVisible: true,
                             chipColor: const Color(0xffE5AC3C),
                             cardBgColor: hexToColor(
@@ -52,23 +54,47 @@ class MyCardView extends GetView<MyCardController> {
                             // backgroundImage: ImgConstants.imgCardBackGround,
                             onCreditCardWidgetChange: (creditCardBrand) {},
                           ),
-                          GestureDetector(
-                            onTap: () =>
-                                controller.clickOnDeleteButton(index: index),
-                            child: Container(
-                              height: 40.px,
-                              width: 40.px,
-                              margin: EdgeInsets.all(8.px),
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20.px),
-                                  color: Theme.of(context)
-                                      .scaffoldBackgroundColor),
-                              child: Icon(
-                                Icons.delete_outline_outlined,
-                                color: Theme.of(context).primaryColor,
-                                size: 20.px,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              Container(
+                                height: 40.px,
+                                width: 40.px,
+                                margin: EdgeInsets.symmetric(vertical: 8.px),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20.px),
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(40.px),
+                                  child: Image.asset(
+                                    ImgConstants.imgLogo,
+                                    height: 34.px,
+                                    width: 34.px,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
                               ),
-                            ),
+                              GestureDetector(
+                                onTap: () => controller.clickOnDeleteButton(
+                                    index: index),
+                                child: Container(
+                                  height: 40.px,
+                                  width: 40.px,
+                                  margin: EdgeInsets.all(8.px),
+                                  decoration: BoxDecoration(
+                                      borderRadius:
+                                          BorderRadius.circular(20.px),
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor),
+                                  child: Icon(
+                                    Icons.delete_outline_outlined,
+                                    color: Theme.of(context).primaryColor,
+                                    size: 20.px,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),

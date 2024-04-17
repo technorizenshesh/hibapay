@@ -100,8 +100,11 @@ class WithdrawController extends GetxController {
           getCardTransactionsResult!.data != null &&
           getCardTransactionsResult!.data!.isNotEmpty) {
         getCardTransactionsResultData = getCardTransactionsResult!.data!;
+        print(
+            'getCardTransactionsResultData.first.amount:::::::::::::${getCardTransactionsResultData.first.amount}');
         if (getCardTransactionsResultData.isNotEmpty) {
           balance.value = getCardTransactionsResultData.first.amount ?? '';
+          increment();
         }
       }
       increment();
@@ -223,15 +226,22 @@ class WithdrawController extends GetxController {
 
   clickOnWithdrawButton() async {
     if (amountController.text.isNotEmpty) {
-      if (double.parse(balance.value) >= double.parse(amountController.text)) {
+      if (/*double.parse(balance.value)*/ 1000 >=
+          double.parse(amountController.text)) {
         inAsyncCall.value = true;
         await withdrawVirtualCardBalanceApi();
         inAsyncCall.value = false;
       } else {
-        Get.snackbar('Something went wrong', 'Insufficient balance');
+        Get.snackbar(
+            margin: EdgeInsets.all(20.px),
+            'Error',
+            'Minimum withdrawal should be 1000');
       }
     } else {
-      Get.snackbar('Something went wrong', 'Amount field required');
+      Get.snackbar(
+          margin: EdgeInsets.all(20.px),
+          'Something went wrong',
+          'Amount field required');
     }
   }
 
@@ -251,8 +261,9 @@ class WithdrawController extends GetxController {
           resultWithdraw!.data!.balance != null &&
           resultWithdraw!.data!.balance!.isNotEmpty) {
         // balance.value = resultWithdraw!.data!.balance!;
-        Get.snackbar('Successfully', 'Payment withdraw');
         Get.back();
+        Get.snackbar(
+            margin: EdgeInsets.all(20.px), 'Successfully', 'Payment withdraw');
       }
       increment();
     }

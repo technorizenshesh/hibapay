@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/progress_bar.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../controllers/cable_tv_controller.dart';
@@ -51,14 +51,47 @@ class CableTvView extends GetView<CableTvController> {
                           height: 10.px),
                       onTap: () => controller.clickOnServiceProvider(),
                     ),
-                    SizedBox(height: 14.px),
+                    if (controller.getPackagesResultData.isNotEmpty)
+                      SizedBox(height: 14.px),
+                    if (controller.getPackagesResultData.isNotEmpty)
+                      CommonWidgets.commonTextFieldForLoginSignUP(
+                        focusNode: controller.focusPackages,
+                        title: StringConstants.packages,
+                        controller: controller.packagesController,
+                        isCard: controller.isPackages.value,
+                        hintText: StringConstants.packages,
+                        readOnly: true,
+                        suffixIcon: CommonMethods.iconLinearGradient(
+                            value: controller.isPackages.value,
+                            assetName: IconConstants.icDownArrow,
+                            width: 10.px,
+                            height: 10.px),
+                        onTap: () => controller.clickOnPackages(),
+                      ),
+                    if (controller.packages.isNotEmpty) SizedBox(height: 14.px),
+                    if (controller.packages.isNotEmpty)
+                      CommonWidgets.commonTextFieldForLoginSignUP(
+                        focusNode: controller.focusAmount,
+                        title: StringConstants.enterAmount,
+                        controller: controller.amountController,
+                        isCard: controller.isAmount.value,
+                        hintText: StringConstants.enterAmount,
+                        readOnly: true,
+                        suffixIcon: CommonMethods.iconLinearGradient(
+                            value: controller.isAmount.value,
+                            assetName: IconConstants.icDownArrow,
+                            width: 10.px,
+                            height: 10.px),
+                        onTap: () => controller.clickOnPackagesAmount(),
+                      ),
+                    /* SizedBox(height: 14.px),
                     CommonWidgets.commonTextFieldForLoginSignUP(
                       focusNode: controller.focusAmount,
                       title: StringConstants.enterAmount,
                       controller: controller.amountController,
                       isCard: controller.isAmount.value,
                       hintText: StringConstants.enterAmount,
-                    ),
+                    ),*/
                     SizedBox(height: 20.px),
                     CommonWidgets.commonElevatedButton(
                       onPressed: () => controller.clickOnContinueButton(),

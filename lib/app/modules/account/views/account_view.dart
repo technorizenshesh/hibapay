@@ -384,7 +384,7 @@ class AccountView extends GetView<AccountController> {
                                             ),
                                       ),
                                     ),
-                                    PopupMenuButton(
+                                    /*PopupMenuButton(
                                       color: Theme.of(context)
                                           .scaffoldBackgroundColor,
                                       offset: Offset(-34.px, 20.px),
@@ -454,7 +454,7 @@ class AccountView extends GetView<AccountController> {
                                       },
                                       onSelected: (value) =>
                                           controller.clickOnSwitch(),
-                                    ),
+                                    ),*/
                                   ],
                                 ),
                                 SizedBox(height: 8.px),
@@ -507,7 +507,7 @@ class AccountView extends GetView<AccountController> {
                                         ),
                                       ],
                                     ),
-                                    GestureDetector(
+                                    /*GestureDetector(
                                       onTap: () =>
                                           controller.clickOnAddAccount(),
                                       child: CommonMethods.appIcons(
@@ -515,7 +515,7 @@ class AccountView extends GetView<AccountController> {
                                         height: 34.px,
                                         width: 34.px,
                                       ),
-                                    ),
+                                    ),*/
                                   ],
                                 ),
                               ]),

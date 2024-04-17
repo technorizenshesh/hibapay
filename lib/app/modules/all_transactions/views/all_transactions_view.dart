@@ -125,7 +125,7 @@ class AllTransactionsView extends GetView<AllTransactionsController> {
                                           ),
                                     ),
                                     const Spacer(),
-                                    PopupMenuButton(
+                                    /*PopupMenuButton(
                                       color: Theme.of(context)
                                           .scaffoldBackgroundColor,
                                       offset: Offset(-34.px, 20.px),
@@ -195,7 +195,7 @@ class AllTransactionsView extends GetView<AllTransactionsController> {
                                       },
                                       onSelected: (value) =>
                                           controller.clickOnSwitch(),
-                                    ),
+                                    ),*/
                                   ],
                                 ),
                                 SizedBox(height: 8.px),

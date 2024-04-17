@@ -1,5 +1,3 @@
-// ignore_for_file: constant_identifier_names
-
 import 'package:get/get.dart';
 
 import '../modules/account/bindings/account_binding.dart';
@@ -38,6 +36,8 @@ import '../modules/create_virtual_card/bindings/create_virtual_card_binding.dart
 import '../modules/create_virtual_card/views/create_virtual_card_view.dart';
 import '../modules/create_your_smartpay_card/bindings/create_your_smartpay_card_binding.dart';
 import '../modules/create_your_smartpay_card/views/create_your_smartpay_card_view.dart';
+import '../modules/data/bindings/data_binding.dart';
+import '../modules/data/views/data_view.dart';
 import '../modules/deposit/bindings/deposit_binding.dart';
 import '../modules/deposit/views/deposit_view.dart';
 import '../modules/edit_profile/bindings/edit_profile_binding.dart';
@@ -54,6 +54,8 @@ import '../modules/gift_user_cards/bindings/gift_user_cards_binding.dart';
 import '../modules/gift_user_cards/views/gift_user_cards_view.dart';
 import '../modules/home/bindings/home_binding.dart';
 import '../modules/home/views/home_view.dart';
+import '../modules/internet/bindings/internet_binding.dart';
+import '../modules/internet/views/internet_view.dart';
 import '../modules/login/bindings/login_binding.dart';
 import '../modules/login/views/login_view.dart';
 import '../modules/more/bindings/more_binding.dart';
@@ -106,6 +108,8 @@ import '../modules/wallet/bindings/wallet_binding.dart';
 import '../modules/wallet/views/wallet_view.dart';
 import '../modules/withdraw/bindings/withdraw_binding.dart';
 import '../modules/withdraw/views/withdraw_view.dart';
+
+// ignore_for_file: constant_identifier_names
 
 part 'app_routes.dart';
 
@@ -374,6 +378,16 @@ class AppPages {
       name: _Paths.CREATE_VIRTUAL_CARD,
       page: () => const CreateVirtualCardView(),
       binding: CreateVirtualCardBinding(),
+    ),
+    GetPage(
+      name: _Paths.DATA,
+      page: () => const DataView(),
+      binding: DataBinding(),
+    ),
+    GetPage(
+      name: _Paths.INTERNET,
+      page: () => const InternetView(),
+      binding: InternetBinding(),
     ),
   ];
 }

@@ -1,9 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/common_widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../controllers/more_controller.dart';
 
 class MoreView extends GetView<MoreController> {
@@ -14,7 +15,7 @@ class MoreView extends GetView<MoreController> {
     return Scaffold(
       appBar: CommonWidgets.appBar(title: StringConstants.more),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.px,vertical: 10.px),
+        padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 10.px),
         child: SingleChildScrollView(
           child: Wrap(
             children: List.generate(controller.list.length, (index) {
@@ -24,18 +25,17 @@ class MoreView extends GetView<MoreController> {
                   padding:
                       EdgeInsets.symmetric(horizontal: 4.px, vertical: 4.px),
                   child: InkWell(
-                    onTap: () =>controller.clickOnCard(index: index),
+                    onTap: () => controller.clickOnCard(index: index),
                     borderRadius: BorderRadius.circular(8.px),
                     child: Container(
                       height: 100.px,
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 4.px, vertical: 14.px),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 4.px, vertical: 14.px),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(8.px),
                         border: Border.all(
                           width: .4.px,
-                          color:
-                              Theme.of(context).colorScheme.surface,
+                          color: Theme.of(context).colorScheme.surface,
                         ),
                       ),
                       child: Column(

@@ -1,3 +1,4 @@
+import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
@@ -38,6 +39,52 @@ class DepositView extends GetView<DepositController> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
+                SizedBox(height: 24.px),
+                if (controller.listVirtualCardsResult.isNotEmpty)
+                  ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: controller.listVirtualCardsResult.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        shape: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(16.px),
+                          borderSide: BorderSide(
+                            color: Theme.of(context).colorScheme.surface,
+                            width: .4.px,
+                          ),
+                        ),
+                        trailing: CommonMethods.appIcons(
+                            assetName: IconConstants.icRightArrow),
+                        subtitle: Text(
+                          controller.listVirtualCardsResult[index]
+                                  .vcardCardNumber ??
+                              '',
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontSize: 12.px,
+                                  ),
+                        ),
+                        title: Text(
+                          controller.listVirtualCardsResult[index].vcardName ??
+                              '',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                  fontSize: 14.px,
+                                  color: Theme.of(context).primaryColor),
+                        ),
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(24.px),
+                          child: Image.asset(
+                            'assets/images/img_logo.png',
+                            height: 48.px,
+                            width: 48.px,
+                          ),
+                        ),
+                      );
+                    },
+                  ),
                 SizedBox(height: 40.px),
                 Text(
                   StringConstants.topUpWallet,

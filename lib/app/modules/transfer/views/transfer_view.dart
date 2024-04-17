@@ -1,7 +1,6 @@
-import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../common/common_methods.dart';

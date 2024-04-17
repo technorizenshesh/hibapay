@@ -1,9 +1,11 @@
-import 'package:get/get.dart';
 import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/alert_dialog_view.dart';
 import '../../../../common/image_pick_and_crop.dart';
 import '../../../../common/time_picker_view.dart';
@@ -128,8 +130,6 @@ class EditProfileController extends GetxController {
         pickImageFromGallery: true);
     increment();
   }
-
-
 
   clickOnDob() async {
     dateTime = await DatePickerView().datePickerView(

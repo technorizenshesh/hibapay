@@ -1,5 +1,5 @@
-import 'package:get/get.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
+import 'package:get/get.dart';
 
 class CreateYourSmartpayCardController extends GetxController {
   //TODO: Implement CreateYourSmartpayCardController

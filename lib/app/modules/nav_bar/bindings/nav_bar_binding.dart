@@ -1,7 +1,8 @@
-import 'package:get/get.dart';
 import 'package:HibaPay/app/modules/account/controllers/account_controller.dart';
 import 'package:HibaPay/app/modules/my_card/controllers/my_card_controller.dart';
 import 'package:HibaPay/app/modules/scan_qr_code/controllers/scan_qr_code_controller.dart';
+import 'package:get/get.dart';
+
 import '../../home/controllers/home_controller.dart';
 import '../../profile/controllers/profile_controller.dart';
 import '../controllers/nav_bar_controller.dart';

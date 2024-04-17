@@ -1,9 +1,8 @@
-import 'package:flutter/material.dart';
-
-import 'package:get/get.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/common_widgets.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../controllers/add_bank_account_controller.dart';

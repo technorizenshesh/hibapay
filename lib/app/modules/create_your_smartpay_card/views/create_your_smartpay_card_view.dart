@@ -1,7 +1,8 @@
+import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import '../../../../common/common_widgets.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/create_your_smartpay_card_controller.dart';

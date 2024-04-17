@@ -1,7 +1,8 @@
+import 'package:HibaPay/common/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:HibaPay/common/text_styles.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+
 import 'colors.dart';
 
 class AppThemeData {
@@ -15,23 +16,23 @@ class AppThemeData {
           statusBarColor: AppLightColors().secondary,
           statusBarBrightness: Brightness.light, // For iOS: (dark icons)
           statusBarIconBrightness:
-          Brightness.light, // For Android(M and greater): (dark icons)
+              Brightness.light, // For Android(M and greater): (dark icons)
         ),
       ),
       textTheme: AppTextTheme().myTextTheme(
           fontFamily: fontFamily,
           colors: lightTheme ? AppLightColors() : AppDarkColors()),
-      primaryColor: lightTheme
-          ? AppLightColors().primary
-          : AppDarkColors().primary,
+      primaryColor:
+          lightTheme ? AppLightColors().primary : AppDarkColors().primary,
       scaffoldBackgroundColor: lightTheme
           ? AppLightColors().scaffoldBackgroundColor
           : AppDarkColors().scaffoldBackgroundColor,
       colorScheme: Methods.colorScheme(
           colors: lightTheme ? AppLightColors() : AppDarkColors(),
           lightTheme: lightTheme),
-      textSelectionTheme: TextSelectionThemeData(cursorColor: AppLightColors().text),
-     /* inputDecorationTheme: Methods.inputDecorationTheme(
+      textSelectionTheme:
+          TextSelectionThemeData(cursorColor: AppLightColors().text),
+      /* inputDecorationTheme: Methods.inputDecorationTheme(
           colors: lightTheme ? AppLightColors() : AppDarkColors()),
       elevatedButtonTheme: Methods.elevatedButtonTheme(
           colors: lightTheme ? AppLightColors() : AppDarkColors()),

@@ -1,6 +1,6 @@
+import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:HibaPay/app/routes/app_pages.dart';
 
 class TransferController extends GetxController {
   final count = 0.obs;

@@ -29,6 +29,8 @@ class ApiKeyConstants {
   static const String byMobile = 'BY_MOBILE';
   static const String authTokenHiba = 'auth_token_hiba';
   static const String vendorId = 'vendor_id';
+  static const String accountNumber = 'account_number';
+  static const String packageId = 'package_id';
   static const String virtualCardId = 'virtual_card_id';
   static const String virtualCardAmount = 'virtual_card_amount';
   static const String home = 'HOME';

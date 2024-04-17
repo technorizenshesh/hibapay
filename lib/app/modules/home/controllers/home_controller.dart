@@ -7,7 +7,9 @@ import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:HibaPay/common/common_widgets.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 List<GetServicesResult> getServicesResult = [];
@@ -148,13 +150,15 @@ class HomeController extends GetxController {
         builder: (context) => const SpinnerViewSTF(),
       ),
     );*/
-    Get.snackbar('Spin wheel',
+    Get.snackbar(
+        margin: EdgeInsets.all(20.px),
+        'Spin wheel',
         'Spin Not available at the moment, this feature will be available soon');
   }
 
   clickOnCard({required int index}) {
     switch (getServicesResult[index].serviceId.toString()) {
-      case '0001' || '0002' || '0004':
+      case '0001':
         if (getServicesResult[index].type.toString() ==
             ApiKeyConstants.uFitPay) {
           Get.toNamed(Routes.RECHARGE, parameters: {
@@ -182,6 +186,13 @@ class HomeController extends GetxController {
         break;
       case '0003':
         Get.toNamed(Routes.ELECTRICITY, parameters: {
+          StringConstants.title:
+              getServicesResult[index].serviceNameCustom ?? '',
+          ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
+        });
+        break;
+      case '0002' || '0004':
+        Get.toNamed(Routes.DATA, parameters: {
           StringConstants.title:
               getServicesResult[index].serviceNameCustom ?? '',
           ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',

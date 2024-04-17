@@ -56,6 +56,8 @@ abstract class Routes {
   static const GIFT_USER_CARDS = _Paths.GIFT_USER_CARDS;
   static const CREATE_CARD_HOLDER = _Paths.CREATE_CARD_HOLDER;
   static const CREATE_VIRTUAL_CARD = _Paths.CREATE_VIRTUAL_CARD;
+  static const DATA = _Paths.DATA;
+  static const INTERNET = _Paths.INTERNET;
 }
 
 abstract class _Paths {
@@ -112,4 +114,6 @@ abstract class _Paths {
   static const GIFT_USER_CARDS = '/gift-user-cards';
   static const CREATE_CARD_HOLDER = '/create-card-holder';
   static const CREATE_VIRTUAL_CARD = '/create-virtual-card';
+  static const DATA = '/data';
+  static const INTERNET = '/internet';
 }

@@ -1,6 +1,7 @@
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/fund_virtual_card_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -21,8 +22,10 @@ class DepositController extends GetxController {
   final inAsyncCall = false.obs;
   final authTokenHiba = ''.obs;
   final virtualCardId = ''.obs;
+  final balance = ''.obs;
 
   FundVirtualCardResult? result;
+  List<ListVirtualCardsResult> listVirtualCardsResult = [];
 
   @override
   Future<void> onInit() async {
@@ -31,6 +34,13 @@ class DepositController extends GetxController {
     virtualCardId.value = sp.getString(ApiKeyConstants.virtualCardId) ?? '';
     super.onInit();
     startListener();
+    inAsyncCall.value = true;
+    await onInitWorking();
+    inAsyncCall.value = false;
+  }
+
+  onInitWorking() async {
+    await listVirtualCardsApi();
   }
 
   void startListener() {
@@ -59,7 +69,10 @@ class DepositController extends GetxController {
       }
       inAsyncCall.value = false;
     } else {
-      Get.snackbar('Something went wrong', 'Amount field required');
+      Get.snackbar(
+          margin: EdgeInsets.all(20.px),
+          'Something went wrong',
+          'Amount field required');
     }
   }
 
@@ -74,6 +87,21 @@ class DepositController extends GetxController {
   }
 
   void increment() => count.value++;
+
+  listVirtualCardsApi() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+    };
+    ListVirtualCardsModel? listVirtualCardsModel =
+        await ApiMethods.listVirtualCards(bodyParams: bodyParams);
+    listVirtualCardsResult.clear();
+    if (listVirtualCardsModel != null &&
+        listVirtualCardsModel.result != null &&
+        listVirtualCardsModel.result!.isNotEmpty) {
+      listVirtualCardsResult = listVirtualCardsModel.result!;
+      increment();
+    }
+  }
 
   clickOnTopUpWalletButton1() {
     showModalBottomSheet(

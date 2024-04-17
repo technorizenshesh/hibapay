@@ -1,10 +1,10 @@
+import 'package:HibaPay/common/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../controllers/rent_controller.dart';
-import 'package:HibaPay/common/common_widgets.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import '../../../data/constants/string_constants.dart';
 
+import '../../../data/constants/string_constants.dart';
+import '../controllers/rent_controller.dart';
 
 class RentView extends GetView<RentController> {
   const RentView({Key? key}) : super(key: key);
