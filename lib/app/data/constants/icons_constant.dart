@@ -34,6 +34,7 @@ class IconConstants {
       'assets/icons/ic_profile_in_active.svg';
   static const String icProfileActive = 'assets/icons/ic_profile_active.svg';
   static const String icScan = 'assets/icons/ic_scan.svg';
+  static const String icAdd = 'assets/icons/ic_add.svg';
   static const String icNotification = 'assets/icons/ic_notification.svg';
   static const String icCheck = 'assets/icons/ic_check.svg';
   static const String icDeposit = 'assets/icons/ic_deposit.svg';

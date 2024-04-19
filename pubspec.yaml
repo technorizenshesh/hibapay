@@ -33,6 +33,8 @@ dependencies:
   country_picker: ^2.0.25
   flutter_colorpicker: ^1.0.3
   colornames: ^0.1.0
+  internet_connection_checker: ^1.0.0+1
+  connectivity_plus: ^6.0.2
 
 dev_dependencies:
   flutter_lints: ^3.0.1

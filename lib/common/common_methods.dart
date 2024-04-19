@@ -106,6 +106,67 @@ class CommonMethods {
           child: appIcons(assetName: assetName, width: width, height: height),
         ),
       );
+
+  static Future<void> commonAndroidNoInternetDialog(
+      {bool isDismiss = true}) async {
+    await showDialog(
+      context: Get.context!,
+      builder: (context) {
+        return WillPopScope(
+          onWillPop: () async {
+            return false;
+          },
+          child: AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10.0)),
+            content: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                SizedBox(
+                  width: 200,
+                  child: Image.asset(ImgConstants.imgNotFound),
+                ),
+                const SizedBox(height: 32),
+                const Text(
+                  "Whoops!",
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 16),
+                const Text(
+                  "No internet connection found.",
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w500),
+                  textAlign: TextAlign.center,
+                ),
+                const SizedBox(height: 8),
+                const Text(
+                  "Check your connection and try again.",
+                  style: TextStyle(fontSize: 12),
+                  textAlign: TextAlign.center,
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+      useSafeArea: true,
+      barrierDismissible: isDismiss,
+    );
+  }
+
+  static void noInternet() {
+    Get.snackbar(
+        margin: EdgeInsets.all(20.px),
+        'Error',
+        'Please check your internet connection');
+  }
+
+  static Widget dataNotFound() {
+    return Center(
+      child: Image.asset(ImgConstants.imageNoDataFound),
+    );
+  }
 }
 
 class GradientWidget extends StatelessWidget {

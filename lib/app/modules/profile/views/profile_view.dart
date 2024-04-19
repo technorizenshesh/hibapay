@@ -1,6 +1,7 @@
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/common_widgets.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:HibaPay/common/switch_button_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -42,21 +43,29 @@ class ProfileView extends GetView<ProfileController> {
                       ),
                       child: Row(
                         children: [
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(40.px),
-                            child: Image.asset(
-                              ImgConstants.imgLogo,
-                              height: 80.px,
-                              width: 80.px,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
+                          result != null &&
+                                  result?.udocSelfyPhoto != null &&
+                                  result!.udocSelfyPhoto!.isNotEmpty &&
+                                  result?.udocSelfyPhoto !=
+                                      'https://hibapay.co/public/uploads/users/documents/'
+                              ? CommonWidgets.imageView(
+                                  image: result?.udocSelfyPhoto ?? '',
+                                  height: 80.px,
+                                  width: 80.px,
+                                  borderRadius: BorderRadius.circular(40.px),
+                                )
+                              : CommonWidgets.imageView(
+                                  image: ImgConstants.defaultNetworkImage,
+                                  height: 80.px,
+                                  width: 80.px,
+                                  borderRadius: BorderRadius.circular(40.px),
+                                ),
                           SizedBox(width: 20.px),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Tommy Jason',
+                                "${result?.firstName ?? ''} ${result?.lastName ?? ''}",
                                 style: Theme.of(context)
                                     .textTheme
                                     .displayMedium
@@ -66,7 +75,7 @@ class ProfileView extends GetView<ProfileController> {
                               ),
                               SizedBox(height: 4.px),
                               Text(
-                                'tommyjason@gmail.com',
+                                result?.email ?? '',
                                 style: Theme.of(context)
                                     .textTheme
                                     .titleSmall
@@ -85,7 +94,7 @@ class ProfileView extends GetView<ProfileController> {
                                   ),
                                   SizedBox(width: 4.px),
                                   Text(
-                                    '150',
+                                    /*result?. ??*/ '0',
                                     style: Theme.of(context)
                                         .textTheme
                                         .titleSmall

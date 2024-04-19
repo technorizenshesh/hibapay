@@ -1,5 +1,6 @@
 import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -62,6 +63,10 @@ class SignUpView extends GetView<SignUpController> {
                         title: StringConstants.phoneNumber,
                         controller: controller.phoneController,
                         isCard: controller.icPhone.value,
+                        keyboardType: TextInputType.number,
+                        inputFormatters: <TextInputFormatter>[
+                          FilteringTextInputFormatter.digitsOnly
+                        ],
                         prefixIcon: CommonMethods.appIcons(
                           assetName: controller.icPhone.value
                               ? IconConstants.icPhoneActive

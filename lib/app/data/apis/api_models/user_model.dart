@@ -9,7 +9,11 @@ class UserModel {
   UserModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    result = json['result'] != null ? Result.fromJson(json['result']) : null;
+    result = json['result'] != null
+        ? json['result'].toString() != '[]'
+            ? Result.fromJson(json['result'])
+            : null
+        : null;
     token = json['token'];
   }
 

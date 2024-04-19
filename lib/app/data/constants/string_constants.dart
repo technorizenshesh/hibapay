@@ -60,7 +60,13 @@ class StringConstants {
   static const String home = 'Home';
   static const String createCardHolder = 'Create card holder';
   static const String createVirtualCard = 'Create virtual card';
-  static const String myCard = ' My Card';
+  static const String addVirtualCard = 'Add virtual card';
+  static const String instantlyAddVirtualCard =
+      'Instantly add virtual card to make managing online payment easy.';
+  static const String instantlyCreateVirtualCard =
+      'Instantly create virtual card to make managing online payment easy.';
+  // static const String myCard = ' My Card';
+  static const String cards = ' Cards';
   static const String account = 'Account';
   static const String accountHolder = 'Account Holder';
   static const String bankName = 'Bank Name';
@@ -74,6 +80,7 @@ class StringConstants {
   static const String totalSpending = 'Total Spending';
   static const String currentBalance = 'Current balance';
   static const String bankAccount = 'Bank account : ';
+  static const String virtualCardNumber = 'Virtual card number : ';
   static const String profile = 'Profile';
   static const String welcomeBack = 'Welcome back!';
   static const String deposit = 'Deposit';
@@ -253,6 +260,8 @@ class StringConstants {
   static const String contactPreferences = "Contact preferences";
   static const String uFitPay = "UFITPAY";
   static const String hibapay = "HIBAPAY";
+  static const String exit = "EXIT";
+  static const String doYouWantToExitAnApp = "Do you want to exit an App?";
   static const String earnThreeHundredEightyPointsToEach =
       "Earn 380 points to reach";
   static const String iAgreeAndAllowHibaPay =

@@ -6,7 +6,6 @@ import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:HibaPay/common/alert_dialog_view.dart';
-import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/image_pick_and_crop.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -75,8 +74,6 @@ class VerifyIdentityController extends GetxController {
             await convertToPNG(imageSelfiePhoto.value?.path ?? '') ?? File(''),
       };
       bodyParams = {ApiKeyConstants.userId: userId.value};
-      print('imageMap::::::::::::::${imageMap}');
-      print('bodyParams::::::::::::::${bodyParams}');
       UserModel? userModel = await ApiMethods.uploadUserDocuments(
           imageMap: imageMap, bodyParams: bodyParams);
       if (userModel != null &&
@@ -86,10 +83,14 @@ class VerifyIdentityController extends GetxController {
         SharedPreferences sp = await SharedPreferences.getInstance();
         sp.setString(ApiKeyConstants.userId, userModel.result?.id ?? '');
         Get.toNamed(Routes.VERIFY_IDENTITY_SUCCESS);
+      } else {
+        Get.snackbar(
+            margin: EdgeInsets.all(20.px), 'Massage', 'Image is not a valid.');
       }
       inAsyncCall.value = false;
     } else {
-      CommonWidgets.snackBarView(title: 'All field required');
+      Get.snackbar(
+          margin: EdgeInsets.all(20.px), 'Error', 'All field required');
     }
   }
 
@@ -122,30 +123,30 @@ class VerifyIdentityController extends GetxController {
 
   Widget selectImageTextView() => Text(
         StringConstants.selectImage,
-        style: Theme.of(Get.context!)
+        /* style: Theme.of(Get.context!)
             .textTheme
             .titleMedium
-            ?.copyWith(fontSize: 18.px),
+            ?.copyWith(fontSize: 18.px),*/
       );
 
   Widget contentTextView() => Text(
         StringConstants.chooseImageFromTheOptionsBelow,
-        style: Theme.of(Get.context!)
+        /* style: Theme.of(Get.context!)
             .textTheme
             .titleSmall
-            ?.copyWith(fontSize: 14.px),
+            ?.copyWith(fontSize: 14.px),*/
       );
 
   Widget cameraTextButtonView() => Text(
         StringConstants.camera,
-        style: Theme.of(Get.context!).textTheme.titleSmall?.copyWith(
-            fontSize: 10.px, color: Theme.of(Get.context!).primaryColor),
+        /*style: Theme.of(Get.context!).textTheme.titleSmall?.copyWith(
+            fontSize: 10.px, color: Theme.of(Get.context!).primaryColor),*/
       );
 
   Widget galleryTextButtonView() => Text(
         StringConstants.gallery,
-        style: Theme.of(Get.context!).textTheme.titleSmall?.copyWith(
-            fontSize: 10.px, color: Theme.of(Get.context!).primaryColor),
+        /*style: Theme.of(Get.context!).textTheme.titleSmall?.copyWith(
+            fontSize: 10.px, color: Theme.of(Get.context!).primaryColor),*/
       );
 
   Future<void> clickCameraTextButtonView(

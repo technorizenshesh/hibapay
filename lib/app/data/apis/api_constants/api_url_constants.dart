@@ -9,6 +9,7 @@ class ApiUrlConstants {
   static const String endPointOfCreatePassword =
       '${baseUrl}user/create-password';
   static const String endPointOfLoginMobile = '/api/user/login-mobile';
+  static const String endPointOfLogin = '/api/user/login';
   static const String endPointOfForgotPassword =
       '${baseUrl}user/forgot-password';
   static const String endPointOfAddCard = '${baseUrl}card/add-card';

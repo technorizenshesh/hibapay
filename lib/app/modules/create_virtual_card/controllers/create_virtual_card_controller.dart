@@ -1,12 +1,15 @@
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/create_virtual_card_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_widgets.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:colornames/colornames.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateVirtualCardController extends GetxController {
@@ -26,6 +29,7 @@ class CreateVirtualCardController extends GetxController {
 
   Color currentColor = Colors.black;
   String selectedColor = '#00000';
+  ListVirtualCardsModel? listVirtualCardsModel;
 
   void changeColor(Color color) {
     currentColor = color;
@@ -87,13 +91,36 @@ class CreateVirtualCardController extends GetxController {
         SharedPreferences sp = await SharedPreferences.getInstance();
         sp.setString(ApiKeyConstants.virtualCardId,
             createVirtualCardModel.result?.data?.id ?? '');
+        await listVirtualCardsApi();
         Get.back();
       } else {
         CommonWidgets.snackBarView(title: 'This time only one card add');
       }
       inAsyncCall.value = false;
     } else {
-      CommonWidgets.snackBarView(title: 'All field required');
+      Get.snackbar(
+          margin: EdgeInsets.all(20.px), 'Error', 'All field required');
+    }
+  }
+
+  listVirtualCardsApi() async {
+    bodyParams.clear();
+    bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+    };
+    listVirtualCardsModel =
+        await ApiMethods.listVirtualCards(bodyParams: bodyParams);
+    listVirtualCardsResult.clear();
+    if (listVirtualCardsModel != null &&
+        listVirtualCardsModel!.result != null &&
+        listVirtualCardsModel!.result!.isNotEmpty) {
+      listVirtualCardsResult = listVirtualCardsModel!.result!;
+      if (listVirtualCardsResult.isNotEmpty) {
+        SharedPreferences sp = await SharedPreferences.getInstance();
+        sp.setString(ApiKeyConstants.virtualCardId,
+            listVirtualCardsResult.first.vcardCardId ?? '');
+      }
+      increment();
     }
   }
 

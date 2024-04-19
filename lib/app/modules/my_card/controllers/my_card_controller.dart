@@ -3,12 +3,12 @@ import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/delete_virtual_card_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_card_holder_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
+import 'package:HibaPay/app/modules/my_card/controllers/my_card_controller.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:HibaPay/common/common_widgets.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-List<ListVirtualCardsResult> listVirtualCardsResult = [];
 
 class MyCardController extends GetxController {
   final count = 0.obs;
@@ -18,6 +18,7 @@ class MyCardController extends GetxController {
   final inAsyncCall = false.obs;
 
   GetCardHolderResult? getCardHolderResult;
+  ListVirtualCardsModel? listVirtualCardsModel;
 
   @override
   Future<void> onInit() async {
@@ -50,8 +51,9 @@ class MyCardController extends GetxController {
 
   clickOnDeleteButton({required int index}) async {
     CommonWidgets.showAlertDialog(
-      title: 'Delete Info',
-      content: 'Delete your virtual card',
+      title: 'Delete info',
+      content:
+          'If you will click on yes your account balance are empty and your virtual card is delete.',
       onPressedYes: () async {
         Get.back();
         if (listVirtualCardsResult[index].vcardCardId != null &&
@@ -99,13 +101,13 @@ class MyCardController extends GetxController {
     bodyParams = {
       ApiKeyConstants.authTokenHiba: authTokenHiba.value,
     };
-    ListVirtualCardsModel? listVirtualCardsModel =
+    listVirtualCardsModel =
         await ApiMethods.listVirtualCards(bodyParams: bodyParams);
     listVirtualCardsResult.clear();
     if (listVirtualCardsModel != null &&
-        listVirtualCardsModel.result != null &&
-        listVirtualCardsModel.result!.isNotEmpty) {
-      listVirtualCardsResult = listVirtualCardsModel.result!;
+        listVirtualCardsModel!.result != null &&
+        listVirtualCardsModel!.result!.isNotEmpty) {
+      listVirtualCardsResult = listVirtualCardsModel!.result!;
       increment();
     }
   }

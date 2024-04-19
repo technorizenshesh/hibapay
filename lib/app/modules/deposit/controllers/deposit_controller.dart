@@ -1,7 +1,11 @@
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/fund_virtual_card_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_card_holder_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
+import 'package:HibaPay/app/modules/my_card/controllers/my_card_controller.dart';
+import 'package:HibaPay/app/routes/app_pages.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -24,8 +28,10 @@ class DepositController extends GetxController {
   final virtualCardId = ''.obs;
   final balance = ''.obs;
 
+  Map<String, dynamic> bodyParams = {};
+
   FundVirtualCardResult? result;
-  List<ListVirtualCardsResult> listVirtualCardsResult = [];
+  GetCardHolderResult? getCardHolderResult;
 
   @override
   Future<void> onInit() async {
@@ -53,26 +59,59 @@ class DepositController extends GetxController {
 
   clickOnTopUpWalletButton() async {
     if (amountController.text.isNotEmpty) {
-      inAsyncCall.value = true;
-      Map<String, dynamic> bodyParams = {
-        ApiKeyConstants.authTokenHiba: authTokenHiba.value,
-        ApiKeyConstants.virtualCardId: virtualCardId.value,
-        ApiKeyConstants.virtualCardAmount: amountController.text,
-        ApiKeyConstants.virtualCardFundingCurrency: 'NGN',
-      };
-      FundVirtualCardModel? fundVirtualCardModel =
-          await ApiMethods.fundVirtualCard(bodyParams: bodyParams);
-      if (fundVirtualCardModel != null && fundVirtualCardModel.result != null) {
-        result = fundVirtualCardModel.result!;
-        Get.back();
-        increment();
+      if (virtualCardId.value.isNotEmpty) {
+        inAsyncCall.value = true;
+        Map<String, dynamic> bodyParams = {
+          ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+          ApiKeyConstants.virtualCardId: virtualCardId.value,
+          ApiKeyConstants.virtualCardAmount: amountController.text,
+          ApiKeyConstants.virtualCardFundingCurrency: 'NGN',
+        };
+        FundVirtualCardModel? fundVirtualCardModel =
+            await ApiMethods.fundVirtualCard(bodyParams: bodyParams);
+        if (fundVirtualCardModel != null &&
+            fundVirtualCardModel.result != null) {
+          result = fundVirtualCardModel.result!;
+          Get.back();
+          increment();
+        }
+        inAsyncCall.value = false;
+      } else {
+        Get.snackbar(
+            margin: EdgeInsets.all(20.px),
+            'Something went wrong',
+            'Please add virtual account and card');
+        await getCardHolderApi();
       }
-      inAsyncCall.value = false;
     } else {
       Get.snackbar(
           margin: EdgeInsets.all(20.px),
           'Something went wrong',
           'Amount field required');
+    }
+  }
+
+  getCardHolderApi() async {
+    bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+    };
+    GetCardHolderModel? getCardHolderModel =
+        await ApiMethods.getCardHolder(bodyParams: bodyParams);
+    if (getCardHolderModel != null && getCardHolderModel.result != null) {
+      getCardHolderResult = getCardHolderModel.result;
+      if (getCardHolderResult != null &&
+          getCardHolderResult!.cchCardHolderId != null &&
+          getCardHolderResult!.cchCardHolderId!.isNotEmpty) {
+        SharedPreferences sp = await SharedPreferences.getInstance();
+        sp.setString(ApiKeyConstants.cardHolderId,
+            getCardHolderResult!.cchCardHolderId!);
+        await Get.toNamed(Routes.CREATE_VIRTUAL_CARD);
+        await onInit();
+      }
+      increment();
+    } else {
+      await Get.toNamed(Routes.CREATE_CARD_HOLDER);
+      await onInit();
     }
   }
 

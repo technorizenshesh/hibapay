@@ -1,29 +1,31 @@
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_banners_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_card_holder_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_card_transactions_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_services_hibapay_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:HibaPay/common/common_widgets.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-List<GetServicesResult> getServicesResult = [];
-List<GetBannersResult> getBannersResult = [];
-List<GetCardTransactionsResultData> getCardTransactionsResultData = [];
-
 class HomeController extends GetxController {
   final count = 0.obs;
   final cardIndex = 0.obs;
-  Result? result;
   GetCardTransactionsResult? getCardTransactionsResult;
   final inAsyncCall = false.obs;
   final authTokenHiba = ''.obs;
   final virtualCardId = ''.obs;
+  Map<String, dynamic> bodyParams = {};
+  GetCardHolderResult? getCardHolderResult;
+
+  ListVirtualCardsModel? listVirtualCardsModel;
 
   @override
   Future<void> onInit() async {
@@ -49,6 +51,8 @@ class HomeController extends GetxController {
   void increment() => count.value++;
 
   onInitWorking() async {
+    await getCardHolderApi();
+    await listVirtualCardsApi();
     await getProfileApi();
     await getBannersApi();
     await getServicesApi();
@@ -214,6 +218,46 @@ class HomeController extends GetxController {
         break;
       default:
         CommonWidgets.snackBarView(title: 'Coming soon');
+    }
+  }
+
+  getCardHolderApi() async {
+    bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+    };
+    GetCardHolderModel? getCardHolderModel =
+        await ApiMethods.getCardHolder(bodyParams: bodyParams);
+    if (getCardHolderModel != null && getCardHolderModel.result != null) {
+      getCardHolderResult = getCardHolderModel.result;
+      if (getCardHolderResult != null &&
+          getCardHolderResult!.cchCardHolderId != null &&
+          getCardHolderResult!.cchCardHolderId!.isNotEmpty) {
+        SharedPreferences sp = await SharedPreferences.getInstance();
+        sp.setString(ApiKeyConstants.cardHolderId,
+            getCardHolderResult!.cchCardHolderId!);
+      }
+      increment();
+    }
+  }
+
+  listVirtualCardsApi() async {
+    bodyParams.clear();
+    bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+    };
+    listVirtualCardsModel =
+        await ApiMethods.listVirtualCards(bodyParams: bodyParams);
+    listVirtualCardsResult.clear();
+    if (listVirtualCardsModel != null &&
+        listVirtualCardsModel!.result != null &&
+        listVirtualCardsModel!.result!.isNotEmpty) {
+      listVirtualCardsResult = listVirtualCardsModel!.result!;
+      if (listVirtualCardsResult.isNotEmpty) {
+        SharedPreferences sp = await SharedPreferences.getInstance();
+        sp.setString(ApiKeyConstants.virtualCardId,
+            listVirtualCardsResult.first.vcardCardId ?? '');
+      }
+      increment();
     }
   }
 }

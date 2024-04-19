@@ -1,8 +1,10 @@
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
+import 'package:HibaPay/app/modules/home/controllers/home_controller.dart';
 import 'package:HibaPay/app/modules/nav_bar/controllers/nav_bar_controller.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:HibaPay/common/common_widgets.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,12 +12,12 @@ class ProfileController extends GetxController {
   final count = 0.obs;
 
   List listOfListTileImages = [
-    IconConstants.icAppearanceAndDisplay,
+    // IconConstants.icAppearanceAndDisplay,
     IconConstants.icBiometricSettings,
     IconConstants.icReferral,
     IconConstants.icGiftUser,
     IconConstants.icAccountInfo,
-    IconConstants.icContactPreferences,
+    // IconConstants.icContactPreferences,
     IconConstants.icGeneralSetting,
     IconConstants.icChangePassword,
     IconConstants.icFaqs,
@@ -24,12 +26,12 @@ class ProfileController extends GetxController {
   ];
 
   List listOfListTileTitles = [
-    StringConstants.appearanceAndDisplay,
+    // StringConstants.appearanceAndDisplay,
     StringConstants.biometricSettings,
     StringConstants.referral,
     StringConstants.giftUser,
     StringConstants.accountInfo,
-    StringConstants.contactPreferences,
+    // StringConstants.contactPreferences,
     StringConstants.generalSetting,
     StringConstants.changePassword,
     StringConstants.faqs,
@@ -98,6 +100,11 @@ class ProfileController extends GetxController {
         SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
         sharedPreferences.clear();
+        getServicesResult.clear;
+        getBannersResult.clear;
+        getCardTransactionsResultData.clear;
+        listVirtualCardsResult.clear;
+        result = null;
         selectedIndex.value = 0;
         Get.offAllNamed(Routes.SPLASH);
       },

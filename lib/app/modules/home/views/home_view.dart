@@ -1,16 +1,17 @@
 import 'dart:ui';
 
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
+import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
+import 'package:HibaPay/app/modules/home/controllers/home_controller.dart';
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/common_widgets.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:HibaPay/common/progress_bar.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
-import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({super.key});
@@ -35,12 +36,23 @@ class HomeView extends GetView<HomeController> {
                   children: [
                     Row(
                       children: [
-                        CommonWidgets.imageView(
-                          image: controller.result?.udocSelfyPhoto ?? '',
-                          height: 40.px,
-                          width: 40.px,
-                          borderRadius: BorderRadius.circular(20.px),
-                        ),
+                        result != null &&
+                                result?.udocSelfyPhoto != null &&
+                                result!.udocSelfyPhoto!.isNotEmpty &&
+                                result?.udocSelfyPhoto !=
+                                    'https://hibapay.co/public/uploads/users/documents/'
+                            ? CommonWidgets.imageView(
+                                image: result?.udocSelfyPhoto ?? '',
+                                height: 40.px,
+                                width: 40.px,
+                                borderRadius: BorderRadius.circular(20.px),
+                              )
+                            : CommonWidgets.imageView(
+                                image: ImgConstants.defaultNetworkImage,
+                                height: 40.px,
+                                width: 40.px,
+                                borderRadius: BorderRadius.circular(20.px),
+                              ),
                         SizedBox(width: 8.px),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -51,7 +63,7 @@ class HomeView extends GetView<HomeController> {
                             ),
                             SizedBox(height: 4.px),
                             Text(
-                              "${controller.result?.firstName ?? ''} ${controller.result?.lastName ?? ''}",
+                              "${result?.firstName ?? ''} ${result?.lastName ?? ''}",
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium

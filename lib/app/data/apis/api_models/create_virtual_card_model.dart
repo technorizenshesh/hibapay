@@ -7,7 +7,7 @@ class CreateVirtualCardModel {
   CreateVirtualCardModel({this.status, this.message, this.result, this.token});
 
   CreateVirtualCardModel.fromJson(Map<String, dynamic> json) {
-    status = json['status'];
+    status = json['status'].toString();
     message = json['message'];
     result = json['result'] != null
         ? CreateVirtualCardResult.fromJson(json['result'])

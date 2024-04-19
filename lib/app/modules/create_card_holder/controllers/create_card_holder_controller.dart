@@ -5,6 +5,7 @@ import 'package:HibaPay/common/common_widgets.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class CreateCardHolderController extends GetxController {
@@ -125,7 +126,8 @@ class CreateCardHolderController extends GetxController {
       }
       inAsyncCall.value = false;
     } else {
-      CommonWidgets.snackBarView(title: 'All field required');
+      Get.snackbar(
+          margin: EdgeInsets.all(20.px), 'Error', 'All field required');
     }
   }
 

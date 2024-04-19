@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:HibaPay/app/app_controller/ac.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,6 +12,10 @@ Future<void> main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );*/
+  WidgetsFlutterBinding.ensureInitialized();
+  late StreamSubscription streamSubscription;
+  AC().getNetworkConnectionType();
+  streamSubscription = AC().checkNetworkConnection();
   runApp(
     GetMaterialApp(
       title: "HibaPay",

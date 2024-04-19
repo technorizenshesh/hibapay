@@ -123,7 +123,10 @@ class AddNewCardController extends GetxController {
       }
       inAsyncCall.value = false;
     } else {
-      CommonWidgets.snackBarView(title: 'All field required');
+ Get.snackbar(
+          margin: EdgeInsets.all(20.px),
+          'Error',
+          'All field required');
     }
   }
 

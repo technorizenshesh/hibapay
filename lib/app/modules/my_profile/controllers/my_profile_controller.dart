@@ -8,15 +8,12 @@ class MyProfileController extends GetxController {
   final count = 0.obs;
 
   List listOfListTilePersonalInfoTitles = [
-    StringConstants.yourName,
-    StringConstants.occupation,
-    StringConstants.employer,
-  ];
-
-  List listOfListTilePersonalInfoTrailing = [
-    'Tommy Jason',
-    'Manager',
-    'Overlay Design',
+    StringConstants.firstName,
+    StringConstants.lastName,
+    StringConstants.dateOfBirth,
+    StringConstants.streetAddress,
+    StringConstants.city,
+    StringConstants.country,
   ];
 
   final switchValue = false.obs;
@@ -24,10 +21,6 @@ class MyProfileController extends GetxController {
   List listOfListTileContactInfoTitles = [
     StringConstants.phoneNumber,
     StringConstants.email
-  ];
-  List listOfListTileContactInfoTrailing = [
-    '(1) 3256 8456 888',
-    'tommyjason@mail.com',
   ];
 
   @override

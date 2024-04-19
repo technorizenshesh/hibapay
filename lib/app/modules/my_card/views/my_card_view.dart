@@ -1,13 +1,15 @@
+import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
+import 'package:HibaPay/app/modules/my_card/controllers/my_card_controller.dart';
+import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/common_widgets.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
-import '../controllers/my_card_controller.dart';
 
 class MyCardView extends GetView<MyCardController> {
   const MyCardView({super.key});
@@ -19,9 +21,78 @@ class MyCardView extends GetView<MyCardController> {
         inAsyncCall: controller.inAsyncCall.value,
         child: Scaffold(
           appBar: CommonWidgets.appBar(
-              title: StringConstants.myCard, wantBackButton: false),
+              title: StringConstants.cards, wantBackButton: false),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.miniEndFloat,
+          floatingActionButton: (listVirtualCardsResult.isEmpty)
+              ? null
+              : Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    GestureDetector(
+                      onTap: () => controller.clickOnCreateVirtualCard(),
+                      child: CommonMethods.appIcons(
+                        width: 84.px,
+                        height: 84.px,
+                        assetName: IconConstants.icAdd,
+                      ),
+                    ),
+                    SizedBox(height: 48.px),
+                  ],
+                ),
           body: ListView(
             children: [
+              if (listVirtualCardsResult.isEmpty)
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 20.px, vertical: 4.px),
+                  child: Column(
+                    children: [
+                      Image.asset(ImgConstants.imgManHoldingMoney,
+                          height: 200.px),
+                      SizedBox(height: 24.px),
+                      Text(
+                        controller.getCardHolderResult == null
+                            ? StringConstants.createVirtualCard
+                            : StringConstants.addVirtualCard,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                                fontSize: 16.px,
+                                color: Theme.of(context).primaryColor),
+                      ),
+                      SizedBox(height: 10.px),
+                      Text(
+                        controller.getCardHolderResult == null
+                            ? StringConstants.instantlyAddVirtualCard
+                            : StringConstants.instantlyCreateVirtualCard,
+                        textAlign: TextAlign.center,
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(fontSize: 14.px),
+                      ),
+                      SizedBox(height: 24.px),
+                      CommonWidgets.commonElevatedButton(
+                        onPressed: () => controller.getCardHolderResult == null
+                            ? controller.clickOnCreateVirtualCardHolder()
+                            : controller.clickOnCreateVirtualCard(),
+                        child: Text(
+                          controller.getCardHolderResult == null
+                              ? StringConstants.createVirtualCard
+                              : StringConstants.addNewCard,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                      SizedBox(height: 24.px),
+                    ],
+                  ),
+                ),
               if (listVirtualCardsResult.isNotEmpty)
                 ListView.builder(
                   shrinkWrap: true,
@@ -48,31 +119,27 @@ class MyCardView extends GetView<MyCardController> {
                             isChipVisible: true,
                             isSwipeGestureEnabled: false,
                             isHolderNameVisible: true,
-                            chipColor: const Color(0xffE5AC3C),
+                            chipColor: hexToColor(
+                                listVirtualCardsResult[index].vcardColor ?? ''),
+                            //const Color(0xffE5AC3C),
+                            obscureCardNumber: false,
                             cardBgColor: hexToColor(
                                 listVirtualCardsResult[index].vcardColor ?? ''),
-                            // backgroundImage: ImgConstants.imgCardBackGround,
+                            //backgroundImage: ImgConstants.imageBgWhiteLogo,
                             onCreditCardWidgetChange: (creditCardBrand) {},
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Container(
-                                height: 40.px,
-                                width: 40.px,
-                                margin: EdgeInsets.symmetric(vertical: 8.px),
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.px),
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(40.px),
-                                  child: Image.asset(
-                                    ImgConstants.imgLogo,
-                                    height: 34.px,
-                                    width: 34.px,
-                                    fit: BoxFit.cover,
-                                  ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                  horizontal: 10.px,
+                                ),
+                                child: Image.asset(
+                                  ImgConstants.imgLogoWhite,
+                                  height: 30.px,
+                                  // width: 34.px,
+                                  fit: BoxFit.cover,
                                 ),
                               ),
                               GestureDetector(
@@ -102,37 +169,19 @@ class MyCardView extends GetView<MyCardController> {
                   },
                 ),
               SizedBox(height: 24.px),
-              Center(
-                child: InkWell(
-                  onTap: () => controller.getCardHolderResult == null
-                      ? controller.clickOnCreateVirtualCardHolder()
-                      : controller.clickOnCreateVirtualCard(),
-                  borderRadius: BorderRadius.circular(20.px),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.px),
-                      border: Border.all(
-                        color:
-                            Theme.of(context).primaryColor.withOpacity(.4.px),
-                        width: .4.px,
-                      ),
-                    ),
-                    child: Padding(
-                      padding: EdgeInsets.all(8.px),
-                      child: Text(
-                        "+   ${controller.getCardHolderResult == null ? StringConstants.createVirtualCard : StringConstants.addNewCard}",
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(
-                                fontSize: 16.px,
-                                color: Theme.of(context).primaryColor),
-                      ),
-                    ),
-                  ),
+              /* CommonWidgets.commonElevatedButton(
+                onPressed: () => controller.getCardHolderResult == null
+                    ? controller.clickOnCreateVirtualCardHolder()
+                    : controller.clickOnCreateVirtualCard(),
+                child: Text(
+                  "+   ${controller.getCardHolderResult == null ? StringConstants.createVirtualCard : StringConstants.addNewCard}",
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall
+                      ?.copyWith(fontWeight: FontWeight.w700),
                 ),
               ),
-              SizedBox(height: 24.px),
+              SizedBox(height: 24.px),*/
             ],
           ),
         ),

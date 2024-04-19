@@ -199,6 +199,24 @@ class ApiMethods {
     return null;
   }
 
+  static Future<UserModel?> login({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> queryParameters,
+  }) async {
+    UserModel? userModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfLogin,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      userModel = UserModel.fromJson(jsonDecode(response.body));
+      return userModel;
+    }
+    return null;
+  }
+
   static Future<UserModel?> getMethodForUserModel({
     void Function(int)? checkResponse,
     Map<String, dynamic>? bodyParams,

@@ -1,3 +1,4 @@
+import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -25,15 +26,23 @@ class MyProfileView extends GetView<MyProfileController> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 SizedBox(height: 20.px),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(50.px),
-                  child: Image.asset(
-                    ImgConstants.imgLogo,
-                    height: 100.px,
-                    width: 100.px,
-                    fit: BoxFit.cover,
-                  ),
-                ),
+                result != null &&
+                        result?.udocSelfyPhoto != null &&
+                        result!.udocSelfyPhoto!.isNotEmpty &&
+                        result?.udocSelfyPhoto !=
+                            'https://hibapay.co/public/uploads/users/documents/'
+                    ? CommonWidgets.imageView(
+                        image: result?.udocSelfyPhoto ?? '',
+                        height: 100.px,
+                        width: 100.px,
+                        borderRadius: BorderRadius.circular(50.px),
+                      )
+                    : CommonWidgets.imageView(
+                        image: ImgConstants.defaultNetworkImage,
+                        height: 100.px,
+                        width: 100.px,
+                        borderRadius: BorderRadius.circular(50.px),
+                      ),
                 SizedBox(height: 20.px),
                 Align(
                   alignment: Alignment.centerLeft,
@@ -54,8 +63,7 @@ class MyProfileView extends GetView<MyProfileController> {
                           onTap: () => controller.clickOnListTilePersonalInfo(
                               index: index),
                           trailing: Text(
-                            controller
-                                .listOfListTilePersonalInfoTrailing[index],
+                            methodPersonalInfo(index: index),
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -93,7 +101,7 @@ class MyProfileView extends GetView<MyProfileController> {
                           onTap: () => controller.clickOnListTilePersonalInfo(
                               index: index),
                           trailing: Text(
-                            controller.listOfListTileContactInfoTrailing[index],
+                            methodContactInfo(index: index),
                             style: Theme.of(context)
                                 .textTheme
                                 .titleMedium
@@ -140,5 +148,33 @@ class MyProfileView extends GetView<MyProfileController> {
         ],
       ),
     );
+  }
+
+  String methodPersonalInfo({required int index}) {
+    switch (index) {
+      case 0:
+        return result?.firstName ?? 'Not imp';
+      case 1:
+        return result?.lastName ?? 'Not imp';
+      case 2:
+        return 'Not imp';
+      case 3:
+        return 'Not imp';
+      case 4:
+        return 'Not imp';
+      case 5:
+        return result?.countryCode ?? 'Not imp';
+    }
+    return '';
+  }
+
+  String methodContactInfo({required int index}) {
+    switch (index) {
+      case 0:
+        return result?.mobile ?? '';
+      case 1:
+        return result?.email ?? '';
+    }
+    return '';
   }
 }

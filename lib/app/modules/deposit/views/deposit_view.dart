@@ -1,5 +1,6 @@
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/common/common_methods.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -37,13 +38,12 @@ class DepositView extends GetView<DepositController> {
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.px),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 SizedBox(height: 24.px),
-                if (controller.listVirtualCardsResult.isNotEmpty)
+                if (listVirtualCardsResult.isNotEmpty)
                   ListView.builder(
                     shrinkWrap: true,
-                    itemCount: controller.listVirtualCardsResult.length,
+                    itemCount: listVirtualCardsResult.length,
                     itemBuilder: (context, index) {
                       return ListTile(
                         shape: OutlineInputBorder(
@@ -56,17 +56,14 @@ class DepositView extends GetView<DepositController> {
                         trailing: CommonMethods.appIcons(
                             assetName: IconConstants.icRightArrow),
                         subtitle: Text(
-                          controller.listVirtualCardsResult[index]
-                                  .vcardCardNumber ??
-                              '',
+                          listVirtualCardsResult[index].vcardCardNumber ?? '',
                           style:
                               Theme.of(context).textTheme.titleMedium?.copyWith(
                                     fontSize: 12.px,
                                   ),
                         ),
                         title: Text(
-                          controller.listVirtualCardsResult[index].vcardName ??
-                              '',
+                          listVirtualCardsResult[index].vcardName ?? '',
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium

@@ -14,9 +14,16 @@ class ImgConstants {
   static const String imgSpinnerPage = 'assets/images/img_spinner_page.png';
   static const String imgReferral = 'assets/images/image_referral.png';
   static const String imgGiftBox = 'assets/images/img_gift_box.png';
+  static const String imgNotFound = 'assets/images/image_no_data_found.png';
+  static const String imgLogoWhite = 'assets/images/img_logo_white.png';
+  static const String imgManHoldingMoney =
+      'assets/images/image_man_holding_money.png';
   static const String imgProgressBubbles =
       'assets/images/img_progress_bubbles.png';
 
   static const String defaultNetworkImage =
       'https://s3.amazonaws.com/37assets/svn/765-default-avatar.png';
+
+  static const String imageNoDataFound =
+      'assets/images/image_no_data_found.png';
 }

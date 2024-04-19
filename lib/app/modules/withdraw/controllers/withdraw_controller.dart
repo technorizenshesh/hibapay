@@ -38,6 +38,7 @@ class WithdrawController extends GetxController {
   List<String> percentageList = ['25', '50', '75', '100'];
 
   final selectedValue = 0.obs;
+  GetCardTransactionsModel? getCardTransactionsModel;
 
   @override
   Future<void> onInit() async {
@@ -91,11 +92,11 @@ class WithdrawController extends GetxController {
       ApiKeyConstants.authTokenHiba: authTokenHiba.value,
       ApiKeyConstants.virtualCardId: virtualCardId.value,
     };
-    GetCardTransactionsModel? getCardTransactionsModel =
+    getCardTransactionsModel =
         await ApiMethods.getCardTransactions(bodyParams: bodyParams);
     if (getCardTransactionsModel != null &&
-        getCardTransactionsModel.result != null) {
-      getCardTransactionsResult = getCardTransactionsModel.result!;
+        getCardTransactionsModel!.result != null) {
+      getCardTransactionsResult = getCardTransactionsModel!.result!;
       if (getCardTransactionsResult != null &&
           getCardTransactionsResult!.data != null &&
           getCardTransactionsResult!.data!.isNotEmpty) {
@@ -104,6 +105,7 @@ class WithdrawController extends GetxController {
             'getCardTransactionsResultData.first.amount:::::::::::::${getCardTransactionsResultData.first.amount}');
         if (getCardTransactionsResultData.isNotEmpty) {
           balance.value = getCardTransactionsResultData.first.amount ?? '';
+          clickOnPercentage(index: 0);
           increment();
         }
       }
@@ -277,7 +279,7 @@ class WithdrawController extends GetxController {
     selectedValue.value = index;
     amountController.text = (double.parse(balance.value) *
             (double.parse(percentageList[index]) / 100))
-        .toString();
+        .toStringAsFixed(2);
     increment();
   }
 }

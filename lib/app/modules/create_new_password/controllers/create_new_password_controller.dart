@@ -1,9 +1,9 @@
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
-import 'package:HibaPay/common/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../routes/app_pages.dart';
@@ -78,7 +78,8 @@ class CreateNewPasswordController extends GetxController {
       }
       inAsyncCall.value = false;
     } else {
-      CommonWidgets.snackBarView(title: 'All field required');
+      Get.snackbar(
+          margin: EdgeInsets.all(20.px), 'Error', 'All field required');
     }
   }
 
