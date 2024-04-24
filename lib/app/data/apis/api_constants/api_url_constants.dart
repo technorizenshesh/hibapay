@@ -3,13 +3,18 @@ class ApiUrlConstants {
   static const String baseUrl = '$baseUrlMain/api/';
   static const String baseUrlForGetMethodParams = 'hibapay.co';
   static const String endPointOfSignUp = '${baseUrl}user/sign-up';
+  static const String endPointOfUpdateProfile = '${baseUrl}user/update-profile';
+  static const String endPointOfDeleteProfile = '${baseUrl}user/delete-profile';
   static const String endPointOfVerifyOtpMobile =
       '${baseUrl}user/verify-otp-mobile';
   static const String endPointOfVerifyOtp = '${baseUrl}user/verify-otp';
   static const String endPointOfCreatePassword =
       '${baseUrl}user/create-password';
+  static const String endPointOfChangePassword =
+      '${baseUrl}user/change-password';
   static const String endPointOfLoginMobile = '/api/user/login-mobile';
   static const String endPointOfLogin = '/api/user/login';
+  static const String endPointOfFaqs = '${baseUrl}faqs';
   static const String endPointOfForgotPassword =
       '${baseUrl}user/forgot-password';
   static const String endPointOfAddCard = '${baseUrl}card/add-card';
@@ -25,6 +30,8 @@ class ApiUrlConstants {
   static const String endPointOfUFitPayGetPriceList =
       '${baseUrl}ufitpay/get-price-list';
   static const String endPointOfUFitPayBillPay = '${baseUrl}ufitpay/bill-pay';
+  static const String endPointOfGiftSendGiftAsMoney =
+      '${baseUrl}gift/send-gift-as-money';
   static const String endPointOfUFitPayGetPackages =
       '${baseUrl}ufitpay/get-packages';
   static const String endPointOfUploadUserDocuments =

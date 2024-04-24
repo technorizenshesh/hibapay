@@ -1,8 +1,10 @@
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_banners_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_services_hibapay_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/common/common_methods.dart';
-import 'package:HibaPay/common/common_widgets.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -19,6 +21,7 @@ class LoginController extends GetxController {
   final isEmail = false.obs;
 
   final countryCode = 'IN'.obs;
+  final authTokenHiba = ''.obs;
   final type = ''.obs;
   final countryCodeShow = '+91'.obs;
   TextEditingController phoneController = TextEditingController();
@@ -97,6 +100,15 @@ class LoginController extends GetxController {
                 '${countryCode.value}-${phoneController.text}'
           });
         }
+      } else {
+        if (userModel != null &&
+            userModel.message != null &&
+            userModel.message!.isNotEmpty) {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px),
+              'Error',
+              userModel.message.toString());
+        }
       }
       inAsyncCall.value = false;
     } else {
@@ -125,8 +137,18 @@ class LoginController extends GetxController {
           SharedPreferences sp = await SharedPreferences.getInstance();
           sp.setString(
               ApiKeyConstants.authTokenHiba, "Bearer ${userModel.token ?? ''}");
+          await onInitWorking();
           CommonMethods.unFocsKeyBoard();
           Get.offAllNamed(Routes.NAV_BAR);
+        } else {
+          if (userModel != null &&
+              userModel.message != null &&
+              userModel.message!.isNotEmpty) {
+            Get.snackbar(
+                margin: EdgeInsets.all(20.px),
+                'Error',
+                userModel.message.toString());
+          }
         }
         inAsyncCall.value = false;
       } else {
@@ -150,8 +172,18 @@ class LoginController extends GetxController {
           SharedPreferences sp = await SharedPreferences.getInstance();
           sp.setString(
               ApiKeyConstants.authTokenHiba, "Bearer ${userModel.token ?? ''}");
+          authTokenHiba.value = "Bearer ${userModel.token ?? ''}";
           CommonMethods.unFocsKeyBoard();
           Get.offAllNamed(Routes.NAV_BAR);
+        } else {
+          if (userModel != null &&
+              userModel.message != null &&
+              userModel.message!.isNotEmpty) {
+            Get.snackbar(
+                margin: EdgeInsets.all(20.px),
+                'Error',
+                userModel.message.toString());
+          }
         }
         /* if (userModel != null &&
             userModel.result != null &&
@@ -217,5 +249,39 @@ class LoginController extends GetxController {
 
   clickOnTabs({required int value}) async {
     selectedTab.value = value;
+  }
+
+  onInitWorking() async {
+    await getBannersApi();
+    await getServicesApi();
+  }
+
+  getBannersApi() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+      ApiKeyConstants.type: ApiKeyConstants.home,
+    };
+    GetBannersModel? getBannersModel =
+        await ApiMethods.getBanners(bodyParams: bodyParams);
+    if (getBannersModel != null &&
+        getBannersModel.result != null &&
+        getBannersModel.result!.isNotEmpty) {
+      getBannersResult = getBannersModel.result!;
+      increment();
+    }
+  }
+
+  getServicesApi() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value
+    };
+    GetServicesModel? getServicesModel =
+        await ApiMethods.getServices(bodyParams: bodyParams);
+    if (getServicesModel != null &&
+        getServicesModel.result != null &&
+        getServicesModel.result!.isNotEmpty) {
+      getServicesResult = getServicesModel.result!;
+      increment();
+    }
   }
 }

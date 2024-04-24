@@ -2,8 +2,6 @@ import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:get/get.dart';
 
 class VerifyIdentitySuccessController extends GetxController {
-  //TODO: Implement VerifyIdentitySuccessController
-
   final count = 0.obs;
 
   @override
@@ -24,6 +22,6 @@ class VerifyIdentitySuccessController extends GetxController {
   void increment() => count.value++;
 
   clickOnNextButton() {
-    Get.toNamed(Routes.NAV_BAR);
+    Get.offAllNamed(Routes.LOGIN);
   }
 }

@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -114,7 +115,7 @@ class AllTransactionsView extends GetView<AllTransactionsController> {
                                 Row(
                                   children: [
                                     Text(
-                                      '${CommonMethods.cur}12,256.00',
+                                      '${cur}12,256.00',
                                       style: Theme.of(Get.context!)
                                           .textTheme
                                           .displayMedium
@@ -162,9 +163,9 @@ class AllTransactionsView extends GetView<AllTransactionsController> {
                                         return [
                                           PopupMenuItem(
                                             value:
-                                                'US  ( ${CommonMethods.cur} )',
+                                                'US  ( ${cur} )',
                                             child: Text(
-                                              'US  ( ${CommonMethods.cur} )',
+                                              'US  ( ${cur} )',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayMedium
@@ -263,8 +264,8 @@ class AllTransactionsView extends GetView<AllTransactionsController> {
                         return ListTile(
                           trailing: Text(
                             controller.listOfTra[index]['type'] == 'Withdraw'
-                                ? '- ${CommonMethods.cur + controller.listOfTra[index]['amount']}'
-                                : '+ ${CommonMethods.cur + controller.listOfTra[index]['amount']}',
+                                ? '- ${cur + controller.listOfTra[index]['amount']}'
+                                : '+ ${cur + controller.listOfTra[index]['amount']}',
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium

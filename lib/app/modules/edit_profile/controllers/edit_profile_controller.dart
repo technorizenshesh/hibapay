@@ -1,10 +1,16 @@
 import 'dart:io';
 
+import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
+import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
+import 'package:HibaPay/common/globle.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../../common/alert_dialog_view.dart';
 import '../../../../common/image_pick_and_crop.dart';
@@ -17,20 +23,55 @@ class EditProfileController extends GetxController {
   Map<String, dynamic> bodyParams = {};
   final inAsyncCall = false.obs;
   DateTime? dateTime;
+  FocusNode focusFullName = FocusNode();
+  FocusNode focusStreetAddress = FocusNode();
+  FocusNode focusCity = FocusNode();
+  FocusNode focusCountryOfResidence = FocusNode();
+  FocusNode focusDateOfBirth = FocusNode();
+  final isFullName = false.obs;
+  final isStreetAddress = false.obs;
+  final isCity = false.obs;
+  final isCountryOfResidence = false.obs;
+  final isDateOfBirth = false.obs;
+  TextEditingController fullNameController = TextEditingController();
+  TextEditingController streetAddressController = TextEditingController();
+  TextEditingController cityController = TextEditingController();
+  TextEditingController countryOfResidenceController = TextEditingController();
+  TextEditingController dateOfBirthController = TextEditingController();
 
-  TextEditingController firstNameController = TextEditingController();
-  TextEditingController companyNameController = TextEditingController();
-  TextEditingController genderController = TextEditingController();
-  TextEditingController birthDateController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
-  TextEditingController emailController = TextEditingController();
+  final countryCode = 'IN'.obs;
+  final authTokenHiba = ''.obs;
   final image = Rxn<File>();
 
   Map<String, File> imageMap = {};
 
   @override
   Future<void> onInit() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
     super.onInit();
+    startListener();
+    fullNameController.text = result?.firstName ?? '';
+    streetAddressController.text = result?.streetAddress ?? '';
+    cityController.text = result?.city ?? '';
+    countryOfResidenceController.text = result?.countryCode ?? '';
+    dateOfBirthController.text = result?.dob ?? '';
+  }
+
+  void startListener() {
+    focusFullName.addListener(onFocusChange);
+    focusStreetAddress.addListener(onFocusChange);
+    focusCity.addListener(onFocusChange);
+    focusCountryOfResidence.addListener(onFocusChange);
+    focusDateOfBirth.addListener(onFocusChange);
+  }
+
+  void onFocusChange() {
+    isFullName.value = focusFullName.hasFocus;
+    isStreetAddress.value = focusStreetAddress.hasFocus;
+    isCity.value = focusCity.hasFocus;
+    isCountryOfResidence.value = focusCountryOfResidence.hasFocus;
+    isDateOfBirth.value = focusDateOfBirth.hasFocus;
   }
 
   @override
@@ -135,15 +176,76 @@ class EditProfileController extends GetxController {
     dateTime = await DatePickerView().datePickerView(
       color: Theme.of(Get.context!).primaryColor,
       lastDate: DateTime.now(),
-      initialDate: DateTime(2000),
-      firstDate: DateTime(2000),
+      initialDate: DateTime(1940),
+      firstDate: DateTime(1940),
     );
     if (dateTime != null) {
-      birthDateController.text = DateFormat('dd-MM-yyyy')
+      dateOfBirthController.text = DateFormat('dd-MM-yyyy')
           .format(dateTime ?? DateTime.now())
           .toString();
     }
   }
 
-  clickOnSubmitButton() {}
+  clickOnSubmitButton() async {
+    if ((image.value != null ||
+            (result?.image != null && result!.image!.isNotEmpty)) &&
+        authTokenHiba.value.trim().isNotEmpty &&
+        fullNameController.text.trim().isNotEmpty &&
+        streetAddressController.text.trim().isNotEmpty &&
+        cityController.text.trim().isNotEmpty &&
+        countryCode.value.trim().isNotEmpty &&
+        dateOfBirthController.text.trim().isNotEmpty) {
+      inAsyncCall.value = true;
+      bodyParams = {
+        ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+        ApiKeyConstants.fullName: fullNameController.text,
+        ApiKeyConstants.streetAddress: streetAddressController.text,
+        ApiKeyConstants.city: cityController.text,
+        ApiKeyConstants.country: countryCode.value,
+        ApiKeyConstants.dob: dateOfBirthController.text,
+        ApiKeyConstants.countryCode: countryCode.value,
+      };
+      UserModel? userModel;
+      if (image.value != null) {
+        userModel = await ApiMethods.updateProfile(
+            bodyParams: bodyParams,
+            image: image.value,
+            imageKey: ApiKeyConstants.image);
+      } else {
+        userModel = await ApiMethods.updateProfile(
+          bodyParams: bodyParams,
+        );
+      }
+      if (userModel != null && userModel.result != null) {
+        result = userModel.result;
+        increment();
+        Get.back();
+      } else {
+        if (userModel != null &&
+            userModel.message != null &&
+            userModel.message!.isNotEmpty) {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px),
+              'Massage',
+              userModel.message.toString());
+        }
+      }
+      inAsyncCall.value = false;
+    } else {
+      Get.snackbar(
+          margin: EdgeInsets.all(20.px), 'Error', 'All field required');
+    }
+  }
+
+  clickOnCountryField() {
+    return showCountryPicker(
+      context: Get.context!,
+      showPhoneCode: true,
+      searchAutofocus: true,
+      onSelect: (Country country) {
+        countryOfResidenceController.text = country.name;
+        countryCode.value = country.countryCode;
+      },
+    );
+  }
 }

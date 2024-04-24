@@ -1,6 +1,10 @@
 import 'dart:async';
 
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_banners_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_services_hibapay_model.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -8,6 +12,7 @@ import '../../../routes/app_pages.dart';
 
 class SplashController extends GetxController {
   final count = 0.obs;
+  final authTokenHiba = ''.obs;
 
   @override
   void onInit() {
@@ -38,9 +43,45 @@ class SplashController extends GetxController {
     sp.setString(ApiKeyConstants.virtualCardId, 'Text-hd63fdvisvux87sfd');*/
     if (sp.getString(ApiKeyConstants.authTokenHiba) != null &&
         sp.getString(ApiKeyConstants.authTokenHiba)!.isNotEmpty) {
+      authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
+      await onInitWorking();
       Get.offAllNamed(Routes.NAV_BAR);
     } else {
       Get.offAllNamed(Routes.LOGIN);
+    }
+  }
+
+  onInitWorking() async {
+    await getBannersApi();
+    await getServicesApi();
+  }
+
+  getBannersApi() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+      ApiKeyConstants.type: ApiKeyConstants.home,
+    };
+    GetBannersModel? getBannersModel =
+        await ApiMethods.getBanners(bodyParams: bodyParams);
+    if (getBannersModel != null &&
+        getBannersModel.result != null &&
+        getBannersModel.result!.isNotEmpty) {
+      getBannersResult = getBannersModel.result!;
+      increment();
+    }
+  }
+
+  getServicesApi() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value
+    };
+    GetServicesModel? getServicesModel =
+        await ApiMethods.getServices(bodyParams: bodyParams);
+    if (getServicesModel != null &&
+        getServicesModel.result != null &&
+        getServicesModel.result!.isNotEmpty) {
+      getServicesResult = getServicesModel.result!;
+      increment();
     }
   }
 }

@@ -44,12 +44,12 @@ class ProfileView extends GetView<ProfileController> {
                       child: Row(
                         children: [
                           result != null &&
-                                  result?.udocSelfyPhoto != null &&
-                                  result!.udocSelfyPhoto!.isNotEmpty &&
-                                  result?.udocSelfyPhoto !=
-                                      'https://hibapay.co/public/uploads/users/documents/'
+                                  result?.image != null &&
+                                  result!.image!.isNotEmpty &&
+                                  result!.image! !=
+                                      'https://hibapay.co/public/uploads/users/profile/'
                               ? CommonWidgets.imageView(
-                                  image: result?.udocSelfyPhoto ?? '',
+                                  image: result?.image ?? '',
                                   height: 80.px,
                                   width: 80.px,
                                   borderRadius: BorderRadius.circular(40.px),

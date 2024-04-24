@@ -6,8 +6,6 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../app/data/constants/image_constants.dart';
 
 class CommonMethods {
-  static String cur = "₦";
-
   static void unFocsKeyBoard() {
     FocusManager.instance.primaryFocus?.unfocus();
   }

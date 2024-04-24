@@ -1,4 +1,5 @@
 import 'package:HibaPay/app/routes/app_pages.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -199,7 +200,7 @@ class SendMoneyController extends GetxController {
                             ),
                             Expanded(
                               child: Text(
-                                '${CommonMethods.cur} 865.10',
+                                '${cur} 865.10',
                                 textAlign: TextAlign.end,
                                 style: Theme.of(context)
                                     .textTheme

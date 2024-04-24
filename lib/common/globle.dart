@@ -6,6 +6,9 @@ import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:get/get.dart';
 
 final selectedIndex = 0.obs;
+final selectedValue = 0.obs;
+final isValue = false.obs;
+String cur = "₦";
 
 List<GetServicesResult> getServicesResult = [];
 List<GetBannersResult> getBannersResult = [];

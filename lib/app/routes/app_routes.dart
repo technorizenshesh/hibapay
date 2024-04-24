@@ -58,6 +58,8 @@ abstract class Routes {
   static const CREATE_VIRTUAL_CARD = _Paths.CREATE_VIRTUAL_CARD;
   static const DATA = _Paths.DATA;
   static const INTERNET = _Paths.INTERNET;
+  static const SET_PIN = _Paths.SET_PIN;
+  static const ENTER_PIN = _Paths.ENTER_PIN;
 }
 
 abstract class _Paths {
@@ -116,4 +118,6 @@ abstract class _Paths {
   static const CREATE_VIRTUAL_CARD = '/create-virtual-card';
   static const DATA = '/data';
   static const INTERNET = '/internet';
+  static const SET_PIN = '/set-pin';
+  static const ENTER_PIN = '/enter-pin';
 }

@@ -3,12 +3,12 @@ import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:HibaPay/common/common_methods.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CheckYourMailController extends GetxController {
+class EnterPinController extends GetxController {
   final count = 0.obs;
   final inAsyncCall = false.obs;
   TextEditingController pin = TextEditingController();
@@ -62,8 +62,7 @@ class CheckYourMailController extends GetxController {
           sp.setString(ApiKeyConstants.authTokenHiba,
               "Bearer ${userModel?.token ?? ''}");
           CommonMethods.unFocsKeyBoard();
-          Get.toNamed(Routes.CREATE_NEW_PASSWORD);
-          //Get.offAllNamed(Routes.NAV_BAR);
+          Get.offAllNamed(Routes.NAV_BAR);
         }
       } else {
         bodyParams = {
@@ -80,8 +79,7 @@ class CheckYourMailController extends GetxController {
           sp.setString(ApiKeyConstants.authTokenHiba,
               "Bearer ${userModel?.token ?? ''}");
           CommonMethods.unFocsKeyBoard();
-          Get.toNamed(Routes.CREATE_NEW_PASSWORD);
-          // Get.offAllNamed(Routes.NAV_BAR);
+          Get.offAllNamed(Routes.NAV_BAR);
         }
       }
       inAsyncCall.value = false;

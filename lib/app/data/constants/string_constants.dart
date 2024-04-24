@@ -3,6 +3,8 @@ class StringConstants {
   static const String login = 'Login';
   static const String cancel = 'Cancel';
   static const String signUp = 'Sign up';
+  static const String setAccountPin = 'Set Account PIN';
+  static const String awesome = 'Awesome';
   static const String pleaseEnterPhoneNumber = 'Please enter phone number';
   static const String resetPassword = 'Reset Password ?';
   static const String enterYourPhoneNumber = 'Enter your phone number';
@@ -40,6 +42,13 @@ class StringConstants {
   static const String pleaseEnterDateOfBirth = 'Please enter date of birth';
   static const String password = 'Password';
   static const String pleaseEnterPassword = 'Please enter password';
+  static const String yourPin = 'Your PIN';
+  static const String pleaseEnterYourPin = 'Please enter your PIN';
+  static const String retypePin = 'Retype PIN';
+  static const String pleaseEnterRetypePin = 'Please enter retype PIN';
+  static const String yourHibaPayPassword = 'Your HibaPay Password';
+  static const String pleaseEnterYourHibaPayPassword =
+      'Please enter your HibaPay password';
   static const String submit = 'Submit';
   static const String resendCode = 'Resend Code';
   static const String passwordReset = 'Password Reset';
@@ -65,9 +74,11 @@ class StringConstants {
       'Instantly add virtual card to make managing online payment easy.';
   static const String instantlyCreateVirtualCard =
       'Instantly create virtual card to make managing online payment easy.';
+
   // static const String myCard = ' My Card';
   static const String cards = ' Cards';
   static const String account = 'Account';
+  static const String virtualCard = 'Virtual card';
   static const String accountHolder = 'Account Holder';
   static const String bankName = 'Bank Name';
   static const String swiftCode = 'Swift code';
@@ -125,11 +136,14 @@ class StringConstants {
   static const String pleasePutTheFourDigitsSentToYou =
       'Please put the 4 digits sent to you';
   static const String next = 'Next';
+  static const String setAPinNow = 'Set a PIN Now';
   static const String personalInfo = 'Personal Info';
   static const String yourName = 'Your name';
   static const String occupation = 'Occupation';
   static const String employer = 'Employer';
   static const String contactInfo = 'Contact Info';
+  static const String isLock = 'Is lock';
+  static const String isLockPin = 'Is lock Pin';
   static const String greatYour = 'Great! your card is ready🙂';
   static const String nowYouCanShop =
       'Now you can shop, transmit and transfer conveniently';
@@ -180,6 +194,7 @@ class StringConstants {
   static const String pleaseEnterMeterNumber = "Please enter meter number";
   static const String pleaseEnterCurrency = "Please enter currency";
   static const String selectProvider = "Select Provider";
+  static const String actionRequired = "Action Required!";
   static const String selectPackages = "Select Packages";
   static const String selectPackagesAmount = "Select Packages Amount";
   static const String selectAccount = "Select Account";
@@ -188,7 +203,9 @@ class StringConstants {
   static const String packages = "Packages";
   static const String pleaseEnterAccountName = "Please enter account name";
   static const String giftingAmount = "Gifting Amount";
+  static const String receiverId = "Receiver id";
   static const String pleaseEnterGiftingAmount = "Please enter gifting amount";
+  static const String pleaseEnterReceiverId = "Please enter receiver id";
   static const String pleaseEnterId = "Please enter id";
   static const String pleaseEnterBillTag = "Please enter bill tag";
   static const String billTag = "Bill Tag";

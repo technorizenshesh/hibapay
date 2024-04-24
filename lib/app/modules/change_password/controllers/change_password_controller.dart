@@ -1,5 +1,10 @@
+import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
+import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ChangePasswordController extends GetxController {
   final count = 0.obs;
@@ -21,10 +26,13 @@ class ChangePasswordController extends GetxController {
   TextEditingController confirmPasswordController = TextEditingController();
   FocusNode focusConfirmPassword = FocusNode();
 
-  Map<dynamic, dynamic> bodyParams = {};
+  Map<String, dynamic> bodyParams = {};
+  final authTokenHiba = ''.obs;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
     super.onInit();
     startListener();
   }
@@ -66,30 +74,36 @@ class ChangePasswordController extends GetxController {
   }
 
   clickOnSaveButton() async {
-    /* if (currentPasswordController.text.trim().isNotEmpty &&
+    if (currentPasswordController.text.trim().isNotEmpty &&
         newPasswordController.text.trim().isNotEmpty &&
         confirmPasswordController.text.trim().isNotEmpty) {
       inAsyncCall.value = true;
       bodyParams = {
-        ApiKeyConstants.password: currentPasswordController.text,
-        ApiKeyConstants.otp: newPasswordController.text
+        ApiKeyConstants.password: newPasswordController.text,
+        ApiKeyConstants.oldPassword: currentPasswordController.text,
+        ApiKeyConstants.confirmPassword: confirmPasswordController.text,
+        ApiKeyConstants.authTokenHiba: authTokenHiba.value,
       };
-      UserModel? userModel = await ApiMethods.verifyOtpMobile(
+      UserModel? userModel = await ApiMethods.changePassword(
         bodyParams: bodyParams,
       );
       if (userModel != null &&
-          userModel.token != null &&
-          userModel.token!.isNotEmpty) {
-        SharedPreferences sp = await SharedPreferences.getInstance();
-        sp.setString(ApiKeyConstants.token, userModel.token ?? '');
-        Get.toNamed(Routes.NAV_BAR);
+          userModel.status != null &&
+          userModel.status!.isNotEmpty &&
+          userModel.status == '1') {
+        Get.back();
+      } else {
+        if (userModel != null &&
+            userModel.message != null &&
+            userModel.message!.isNotEmpty) {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px), 'Error', userModel.message ?? '');
+        }
       }
       inAsyncCall.value = false;
     } else {
- Get.snackbar(
-          margin: EdgeInsets.all(20.px),
-          'Error',
-          'All field required');
-    }*/
+      Get.snackbar(
+          margin: EdgeInsets.all(20.px), 'Error', 'All field required');
+    }
   }
 }

@@ -46,7 +46,7 @@ class AccountView extends GetView<AccountController> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.px),
                         child: Text(
-                          StringConstants.account,
+                          StringConstants.virtualCard,
                           style: Theme.of(Get.context!)
                               .textTheme
                               .displayMedium
@@ -109,7 +109,7 @@ class AccountView extends GetView<AccountController> {
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            '${CommonMethods.cur}12,256.00',
+                                            '${cur}12,256.00',
                                             maxLines: 1,
                                             style: Theme.of(Get.context!)
                                                 .textTheme
@@ -157,9 +157,9 @@ class AccountView extends GetView<AccountController> {
                                           itemBuilder: (context) {
                                             return [
                                               PopupMenuItem(
-                                                value: 'US  ( ${CommonMethods.cur} )',
+                                                value: 'US  ( ${cur} )',
                                                 child: Text(
-                                                  'US  ( ${CommonMethods.cur} )',
+                                                  'US  ( ${cur} )',
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .displayMedium
@@ -377,7 +377,7 @@ class AccountView extends GetView<AccountController> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          '${CommonMethods.cur} ${controller.balance.isNotEmpty ? controller.balance.value : '0'}',
+                                          '$cur ${controller.balance.isNotEmpty ? controller.balance.value : '0'}',
                                           maxLines: 1,
                                           style: Theme.of(Get.context!)
                                               .textTheme
@@ -426,9 +426,9 @@ class AccountView extends GetView<AccountController> {
                                         return [
                                           PopupMenuItem(
                                             value:
-                                                'US  ( ${CommonMethods.cur} )',
+                                                'US  ( ${cur} )',
                                             child: Text(
-                                              'US  ( ${CommonMethods.cur} )',
+                                              'US  ( ${cur} )',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayMedium
@@ -592,75 +592,77 @@ class AccountView extends GetView<AccountController> {
                   padding: EdgeInsets.zero,
                   physics: const NeverScrollableScrollPhysics(),
                   children: [
-                    if (getCardTransactionsResultData.isNotEmpty)
-                      SizedBox(height: 20.px),
-                    if (getCardTransactionsResultData.isNotEmpty)
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.px),
-                        child: Row(
-                          children: [
-                            Text(
-                              'Virtual Transactions',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(
-                                      color:
-                                          Theme.of(context).colorScheme.surface,
-                                      fontSize: 14.px),
-                              maxLines: 1,
-                            ),
-                          ],
-                        ),
+                    SizedBox(height: 20.px),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.px),
+                      child: Row(
+                        children: [
+                          Text(
+                            'Virtual Transactions',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.surface,
+                                    fontSize: 14.px),
+                            maxLines: 1,
+                          ),
+                        ],
                       ),
-                    if (getCardTransactionsResultData.isNotEmpty)
-                      SizedBox(height: 8.px),
-                    if (getCardTransactionsResultData.isNotEmpty)
-                      ListView.builder(
-                        shrinkWrap: true,
-                        padding: EdgeInsets.zero,
-                        physics: const AlwaysScrollableScrollPhysics(),
-                        itemCount: getCardTransactionsResultData.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            trailing: Text(
-                              getCardTransactionsResultData[index].type !=
-                                      'credit'
-                                  ? '- ${"${CommonMethods.cur}${getCardTransactionsResultData[index].amount ?? '0'}"}'
-                                  : '+ ${"${CommonMethods.cur}${getCardTransactionsResultData[index].amount ?? '0'}"}',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(
-                                      fontSize: 14.px,
-                                      color: Theme.of(context).primaryColor),
-                            ),
-                            subtitle: Text(
-                              getCardTransactionsResultData[index].datetime ??
-                                  '',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                    fontSize: 12.px,
-                                  ),
-                            ),
-                            title: Text(
-                              getCardTransactionsResultData[index].narration ??
-                                  '',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(
-                                      fontSize: 14.px,
-                                      color: Theme.of(context).primaryColor),
-                            ),
-                            /*leading: CommonMethods.appIcons(
+                    ),
+                    SizedBox(height: 8.px),
+                    (getCardTransactionsResultData.isNotEmpty)
+                        ? ListView.builder(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.zero,
+                            physics: const AlwaysScrollableScrollPhysics(),
+                            itemCount: getCardTransactionsResultData.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                trailing: Text(
+                                  getCardTransactionsResultData[index].type !=
+                                          'credit'
+                                      ? '- ${"${cur}${getCardTransactionsResultData[index].amount ?? '0'}"}'
+                                      : '+ ${"${cur}${getCardTransactionsResultData[index].amount ?? '0'}"}',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                          fontSize: 14.px,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                ),
+                                subtitle: Text(
+                                  getCardTransactionsResultData[index]
+                                          .datetime ??
+                                      '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        fontSize: 12.px,
+                                      ),
+                                ),
+                                title: Text(
+                                  getCardTransactionsResultData[index]
+                                          .narration ??
+                                      '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                          fontSize: 14.px,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                ),
+                                /*leading: CommonMethods.appIcons(
                         assetName: controller
                             .getCardTransactionsResultData[index]['icon']),*/
-                          );
-                        },
-                      ),
+                              );
+                            },
+                          )
+                        : Center(child: CommonMethods.dataNotFound()),
                     SizedBox(height: 20.px),
                   ],
                 ),

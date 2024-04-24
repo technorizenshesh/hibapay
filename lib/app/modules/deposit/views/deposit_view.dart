@@ -95,7 +95,7 @@ class DepositView extends GetView<DepositController> {
                 ),
                 SizedBox(height: 24.px),
                 /*Text(
-                  '${CommonMethods.cur} 8,256',
+                  '${cur} 8,256',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 40.px,
@@ -104,7 +104,7 @@ class DepositView extends GetView<DepositController> {
                 ),
                 SizedBox(height: 10.px),
                 Text(
-                  'Maximum ${CommonMethods.cur} 12,652.00',
+                  'Maximum ${cur} 12,652.00',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontSize: 12.px,
@@ -139,7 +139,7 @@ class DepositView extends GetView<DepositController> {
                         controller: controller.amountController,
                         decoration: InputDecoration(
                           prefixIcon: Text(
-                            '${CommonMethods.cur}  ',
+                            '${cur}  ',
                             textAlign: TextAlign.center,
                             style: Theme.of(context)
                                 .textTheme

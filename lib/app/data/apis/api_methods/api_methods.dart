@@ -7,6 +7,7 @@ import 'package:HibaPay/app/data/apis/api_models/bill_pay_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/create_card_holder_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/create_virtual_card_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/delete_virtual_card_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/faqs_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/fund_virtual_card_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_banners_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_card_holder_model.dart';
@@ -33,6 +34,27 @@ class ApiMethods {
     http.Response? response = await MyHttp.postMethod(
       bodyParams: bodyParams,
       url: ApiUrlConstants.endPointOfSignUp,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      userModel = UserModel.fromJson(jsonDecode(response.body));
+      return userModel;
+    }
+    return null;
+  }
+
+  static Future<UserModel?> updateProfile({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+    File? image,
+    String? imageKey,
+  }) async {
+    UserModel? userModel;
+    http.Response? response = await MyHttp.multipart(
+      bodyParams: bodyParams,
+      image: image,
+      imageKey: imageKey,
+      url: ApiUrlConstants.endPointOfUpdateProfile,
       checkResponse: checkResponse,
     );
     if (response != null) {
@@ -181,6 +203,23 @@ class ApiMethods {
     return null;
   }
 
+  static Future<UserModel?> changePassword({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    UserModel? userModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfChangePassword,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      userModel = UserModel.fromJson(jsonDecode(response.body));
+      return userModel;
+    }
+    return null;
+  }
+
   static Future<UserModel?> loginMobile({
     void Function(int)? checkResponse,
     required Map<String, dynamic> queryParameters,
@@ -212,6 +251,21 @@ class ApiMethods {
     );
     if (response != null) {
       userModel = UserModel.fromJson(jsonDecode(response.body));
+      return userModel;
+    }
+    return null;
+  }
+
+  static Future<FaqsModel?> faqs({
+    void Function(int)? checkResponse,
+  }) async {
+    FaqsModel? userModel;
+    http.Response? response = await MyHttp.getMethod(
+      url: ApiUrlConstants.endPointOfFaqs,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      userModel = FaqsModel.fromJson(jsonDecode(response.body));
       return userModel;
     }
     return null;
@@ -357,6 +411,23 @@ class ApiMethods {
     return null;
   }
 
+  static Future<UserModel?> giftSendGiftAsMoney({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    UserModel? userModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfGiftSendGiftAsMoney,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      userModel = UserModel.fromJson(jsonDecode(response.body));
+      return userModel;
+    }
+    return null;
+  }
+
   static Future<UserModel?> getProfile({
     void Function(int)? checkResponse,
     Map<String, dynamic>? bodyParams,
@@ -365,6 +436,23 @@ class ApiMethods {
     http.Response? response = await MyHttp.postMethod(
       bodyParams: bodyParams,
       url: ApiUrlConstants.endPointOfGetProfile,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      userModel = UserModel.fromJson(jsonDecode(response.body));
+      return userModel;
+    }
+    return null;
+  }
+
+  static Future<UserModel?> deleteProfile({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    UserModel? userModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfDeleteProfile,
       checkResponse: checkResponse,
     );
     if (response != null) {

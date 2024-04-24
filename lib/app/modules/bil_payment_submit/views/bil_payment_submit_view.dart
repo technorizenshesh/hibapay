@@ -1,4 +1,5 @@
 import 'package:HibaPay/app/data/constants/image_constants.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -47,8 +48,7 @@ class BilPaymentSubmitView extends GetView<BilPaymentSubmitController> {
                   subTitle: 'Adani Electricity Mumbai Limited'),
               SizedBox(height: 14.px),
               gradientText(
-                  title: StringConstants.amount,
-                  subTitle: '${CommonMethods.cur} 225.00'),
+                  title: StringConstants.amount, subTitle: '${cur} 225.00'),
               SizedBox(height: 14.px),
               gradientText(
                   title: StringConstants.accountNumber,

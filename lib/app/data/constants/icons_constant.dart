@@ -102,4 +102,5 @@ class IconConstantsPng {
   static const String icGiftUser = 'assets/icons_png/ic_gift_user.png';
   static const String icInternet = 'assets/icons_png/ic_internet.png';
   static const String icCoin = 'assets/icons_png/ic_coin.png';
+  static const String icKey = 'assets/icons_png/ic_key.png';
 }

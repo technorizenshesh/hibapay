@@ -1,7 +1,5 @@
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
-import 'package:HibaPay/app/modules/home/controllers/home_controller.dart';
-import 'package:HibaPay/app/modules/nav_bar/controllers/nav_bar_controller.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/globle.dart';
@@ -13,29 +11,31 @@ class ProfileController extends GetxController {
 
   List listOfListTileImages = [
     // IconConstants.icAppearanceAndDisplay,
-    IconConstants.icBiometricSettings,
+    // IconConstants.icBiometricSettings,
+    IconConstants.icWallet,
     IconConstants.icReferral,
     IconConstants.icGiftUser,
     IconConstants.icAccountInfo,
     // IconConstants.icContactPreferences,
-    IconConstants.icGeneralSetting,
+    // IconConstants.icGeneralSetting,
     IconConstants.icChangePassword,
     IconConstants.icFaqs,
-    IconConstants.icRateUs,
+    // IconConstants.icRateUs,
     IconConstants.icLogout,
   ];
 
   List listOfListTileTitles = [
     // StringConstants.appearanceAndDisplay,
-    StringConstants.biometricSettings,
+    // StringConstants.biometricSettings,
+    StringConstants.wallet,
     StringConstants.referral,
     StringConstants.giftUser,
     StringConstants.accountInfo,
     // StringConstants.contactPreferences,
-    StringConstants.generalSetting,
+    // StringConstants.generalSetting,
     StringConstants.changePassword,
     StringConstants.faqs,
-    StringConstants.rateUs,
+    // StringConstants.rateUs,
     StringConstants.logout,
   ];
 
@@ -58,7 +58,7 @@ class ProfileController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnListTile({required int index}) {
+  clickOnListTile({required int index}) async {
     switch (listOfListTileTitles[index]) {
       case StringConstants.biometricSettings:
         Get.toNamed(Routes.BIOMETRIC_SETTINGS);
@@ -70,7 +70,8 @@ class ProfileController extends GetxController {
         Get.toNamed(Routes.GIFT_USER_CARDS);
         break;
       case StringConstants.accountInfo:
-        Get.toNamed(Routes.MY_PROFILE);
+        await Get.toNamed(Routes.MY_PROFILE);
+        increment();
         break;
       case StringConstants.generalSetting:
         Get.toNamed(Routes.GENERAL_SETTING);
@@ -83,6 +84,9 @@ class ProfileController extends GetxController {
         break;
       case StringConstants.rateUs:
         Get.toNamed(Routes.RATE_US);
+        break;
+      case StringConstants.wallet:
+        Get.toNamed(Routes.WALLET);
         break;
       case StringConstants.logout:
         clickOnLogout();

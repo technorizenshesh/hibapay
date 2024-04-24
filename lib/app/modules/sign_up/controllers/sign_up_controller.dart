@@ -152,11 +152,6 @@ class SignUpController extends GetxController {
     );
   }
 
-  clickOnCancelButton() {
-    isCountryOfResidence.value = false;
-    Get.back();
-  }
-
   clickOnPasswordEyeButton() {
     passwordHide.value = !passwordHide.value;
   }

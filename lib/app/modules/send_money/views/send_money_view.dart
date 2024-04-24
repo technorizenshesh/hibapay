@@ -1,4 +1,4 @@
-import 'package:HibaPay/common/common_methods.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -60,7 +60,7 @@ class SendMoneyView extends GetView<SendMoneyController> {
                                   ),
                         ),
                         Text(
-                          'Max ${CommonMethods.cur}12,652.00',
+                          'Max ${cur}12,652.00',
                           style:
                               Theme.of(context).textTheme.titleMedium?.copyWith(
                                     fontSize: 12.px,

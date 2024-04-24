@@ -11,7 +11,7 @@ import '../../../data/constants/string_constants.dart';
 import '../controllers/wallet_controller.dart';
 
 class WalletView extends GetView<WalletController> {
-  const WalletView({Key? key}) : super(key: key);
+  const WalletView({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -68,54 +68,54 @@ class WalletView extends GetView<WalletController> {
                       ],
                     ),
                     SizedBox(height: 20.px),
-                    if (listVirtualCardsResult.isNotEmpty)
-                      ClipRRect(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                          child: Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(18.px),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                end: Alignment.topRight,
-                                begin: Alignment.bottomLeft,
-                                colors: [
-                                  Theme.of(Get.context!)
-                                      .scaffoldBackgroundColor
-                                      .withOpacity(.1),
-                                  Theme.of(Get.context!)
-                                      .scaffoldBackgroundColor
-                                      .withOpacity(.1),
-                                ],
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20.px),
-                              ),
-                              border: Border.all(
-                                width: .4.px,
-                                color: Theme.of(Get.context!)
+                    // if (listVirtualCardsResult.isNotEmpty)
+                    ClipRRect(
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                        child: Container(
+                          width: double.infinity,
+                          padding: EdgeInsets.all(18.px),
+                          decoration: BoxDecoration(
+                            gradient: LinearGradient(
+                              end: Alignment.topRight,
+                              begin: Alignment.bottomLeft,
+                              colors: [
+                                Theme.of(Get.context!)
                                     .scaffoldBackgroundColor
-                                    .withOpacity(0.2),
-                              ),
+                                    .withOpacity(.1),
+                                Theme.of(Get.context!)
+                                    .scaffoldBackgroundColor
+                                    .withOpacity(.1),
+                              ],
                             ),
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Text(
-                                        'Nigeria ( ${CommonMethods.cur} )',
-                                        style: Theme.of(Get.context!)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(
-                                              // fontSize: 20.px,
-                                              color: Theme.of(context)
-                                                  .scaffoldBackgroundColor,
-                                            ),
-                                      ),
-                                      const Spacer(),
-                                      /*PopupMenuButton(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20.px),
+                            ),
+                            border: Border.all(
+                              width: .4.px,
+                              color: Theme.of(Get.context!)
+                                  .scaffoldBackgroundColor
+                                  .withOpacity(0.2),
+                            ),
+                          ),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Row(
+                                  children: [
+                                    Text(
+                                      'Nigeria ( ${cur} )',
+                                      style: Theme.of(Get.context!)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            // fontSize: 20.px,
+                                            color: Theme.of(context)
+                                                .scaffoldBackgroundColor,
+                                          ),
+                                    ),
+                                    const Spacer(),
+                                    /*PopupMenuButton(
                                       color: Theme.of(context)
                                           .scaffoldBackgroundColor,
                                       offset: Offset(-34.px, 20.px),
@@ -152,9 +152,9 @@ class WalletView extends GetView<WalletController> {
                                         return [
                                           PopupMenuItem(
                                             value:
-                                                'US  ( ${CommonMethods.cur} )',
+                                                'US  ( ${cur} )',
                                             child: Text(
-                                              'US  ( ${CommonMethods.cur} )',
+                                              'US  ( ${cur} )',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayMedium
@@ -186,94 +186,95 @@ class WalletView extends GetView<WalletController> {
                                       onSelected: (value) =>
                                           controller.clickOnSwitch(),
                                     ),*/
-                                    ],
-                                  ),
-                                  SizedBox(height: 8.px),
-                                  Text(
-                                    '${CommonMethods.cur}12,256.00',
-                                    style: Theme.of(Get.context!)
-                                        .textTheme
-                                        .displayMedium
-                                        ?.copyWith(
-                                          fontSize: 24.px,
-                                          color: Theme.of(context)
-                                              .scaffoldBackgroundColor,
-                                        ),
-                                  ),
-                                  SizedBox(height: 8.px),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        StringConstants.walletBalance,
-                                        style: Theme.of(Get.context!)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(
-                                              fontSize: 12.px,
-                                              color: Theme.of(context)
-                                                  .scaffoldBackgroundColor,
-                                            ),
+                                  ],
+                                ),
+                                SizedBox(height: 8.px),
+                                Text(
+                                  '$cur ${(result != null && result?.wallet != null && result!.wallet!.isNotEmpty) ? result?.wallet : '0'}',
+                                  style: Theme.of(Get.context!)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                        fontSize: 24.px,
+                                        color: Theme.of(context)
+                                            .scaffoldBackgroundColor,
                                       ),
-                                      const Spacer(),
-                                      GestureDetector(
-                                        onTap: () => controller
-                                            .clickOnReceivingAccount(),
-                                        child: Padding(
-                                          padding: EdgeInsets.all(8.px),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                StringConstants
-                                                    .receivingAccount,
-                                                style: Theme.of(Get.context!)
-                                                    .textTheme
-                                                    .titleMedium
-                                                    ?.copyWith(
-                                                      fontSize: 12.px,
-                                                      color: Theme.of(context)
-                                                          .scaffoldBackgroundColor,
-                                                    ),
-                                              ),
-                                              SizedBox(width: 2.px),
-                                              Icon(
-                                                Icons.arrow_forward_ios_rounded,
-                                                color: Theme.of(context)
-                                                    .scaffoldBackgroundColor,
-                                                size: 14.px,
-                                              )
-                                            ],
+                                ),
+                                SizedBox(height: 8.px),
+                                Row(
+                                  children: [
+                                    Text(
+                                      StringConstants.walletBalance,
+                                      style: Theme.of(Get.context!)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            fontSize: 12.px,
+                                            color: Theme.of(context)
+                                                .scaffoldBackgroundColor,
                                           ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 8.px),
-                                  Row(
-                                    children: [
-                                      CommonMethods.appIcons(
-                                        assetName: IconConstants.icGift,
-                                        height: 24.px,
-                                        width: 24.px,
-                                      ),
-                                      SizedBox(width: 2.px),
-                                      Text(
-                                        'HP58464',
-                                        style: Theme.of(Get.context!)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(
-                                              fontSize: 12.px,
+                                    ),
+                                    /* const Spacer(),
+                                    GestureDetector(
+                                      onTap: () =>
+                                          controller.clickOnReceivingAccount(),
+                                      child: Padding(
+                                        padding: EdgeInsets.all(8.px),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              StringConstants.receivingAccount,
+                                              style: Theme.of(Get.context!)
+                                                  .textTheme
+                                                  .titleMedium
+                                                  ?.copyWith(
+                                                    fontSize: 12.px,
+                                                    color: Theme.of(context)
+                                                        .scaffoldBackgroundColor,
+                                                  ),
+                                            ),
+                                            SizedBox(width: 2.px),
+                                            Icon(
+                                              Icons.arrow_forward_ios_rounded,
                                               color: Theme.of(context)
                                                   .scaffoldBackgroundColor,
-                                            ),
+                                              size: 14.px,
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                    ],
-                                  )
-                                ]),
-                          ),
+                                    ),*/
+                                  ],
+                                ),
+                                SizedBox(height: 8.px),
+                                Row(
+                                  // mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    CommonMethods.appIcons(
+                                      assetName: IconConstants.icGift,
+                                      height: 24.px,
+                                      width: 24.px,
+                                    ),
+                                    SizedBox(width: 2.px),
+                                    Text(
+                                      'HB${(result != null && result?.id != null && result!.id!.isNotEmpty) ? result?.id : '0'}',
+                                      style: Theme.of(Get.context!)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            fontSize: 12.px,
+                                            color: Theme.of(context)
+                                                .scaffoldBackgroundColor,
+                                          ),
+                                    ),
+                                  ],
+                                )
+                              ]),
                         ),
                       ),
-                    SizedBox(height: 20.px),
+                    ),
+                    /* SizedBox(height: 20.px),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
@@ -325,7 +326,7 @@ class WalletView extends GetView<WalletController> {
                           ),
                         ),
                       ],
-                    ),
+                    ),*/
                   ],
                 ),
               ),
@@ -340,7 +341,7 @@ class WalletView extends GetView<WalletController> {
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.px),
                       child: Text(
-                        'Virtual Transactions',
+                        'Transactions',
                         style: Theme.of(context)
                             .textTheme
                             .displayMedium
@@ -350,53 +351,49 @@ class WalletView extends GetView<WalletController> {
                         maxLines: 1,
                       ),
                     ),
-                  if (getCardTransactionsResultData.isNotEmpty)
-                    SizedBox(height: 8.px),
-                  if (getCardTransactionsResultData.isNotEmpty)
-                    ListView.builder(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      physics: const NeverScrollableScrollPhysics(),
-                      itemCount: getCardTransactionsResultData.length,
-                      itemBuilder: (context, index) {
-                        return ListTile(
-                          trailing: Text(
-                            getCardTransactionsResultData[index].type !=
-                                    'credit'
-                                ? '- ${"${CommonMethods.cur}${getCardTransactionsResultData[index].amount ?? '0'}"}'
-                                : '+ ${"${CommonMethods.cur}${getCardTransactionsResultData[index].amount ?? '0'}"}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                    fontSize: 14.px,
-                                    color: Theme.of(context).primaryColor),
-                          ),
-                          subtitle: Text(
-                            getCardTransactionsResultData[index].datetime ?? '',
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(
-                                  fontSize: 12.px,
-                                ),
-                          ),
-                          title: Text(
-                            getCardTransactionsResultData[index].narration ??
-                                '',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                    fontSize: 14.px,
-                                    color: Theme.of(context).primaryColor),
-                          ),
-                          /*leading: CommonMethods.appIcons(
+                  // if (getCardTransactionsResultData.isNotEmpty)
+                  SizedBox(height: 8.px),
+                  // if (getCardTransactionsResultData.isNotEmpty)
+                  ListView.builder(
+                    shrinkWrap: true,
+                    padding: EdgeInsets.zero,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: getCardTransactionsResultData.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        trailing: Text(
+                          getCardTransactionsResultData[index].type != 'credit'
+                              ? '- ${"${cur}${getCardTransactionsResultData[index].amount ?? '0'}"}'
+                              : '+ ${"${cur}${getCardTransactionsResultData[index].amount ?? '0'}"}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                  fontSize: 14.px,
+                                  color: Theme.of(context).primaryColor),
+                        ),
+                        subtitle: Text(
+                          getCardTransactionsResultData[index].datetime ?? '',
+                          style:
+                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontSize: 12.px,
+                                  ),
+                        ),
+                        title: Text(
+                          getCardTransactionsResultData[index].narration ?? '',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                  fontSize: 14.px,
+                                  color: Theme.of(context).primaryColor),
+                        ),
+                        /*leading: CommonMethods.appIcons(
                           assetName: controller
                               .getCardTransactionsResultData[index]['icon']),*/
-                        );
-                      },
-                    ),
+                      );
+                    },
+                  ),
                   SizedBox(height: 20.px),
                 ],
               ),

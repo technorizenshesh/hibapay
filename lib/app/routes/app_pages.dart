@@ -44,6 +44,8 @@ import '../modules/edit_profile/bindings/edit_profile_binding.dart';
 import '../modules/edit_profile/views/edit_profile_view.dart';
 import '../modules/electricity/bindings/electricity_binding.dart';
 import '../modules/electricity/views/electricity_view.dart';
+import '../modules/enter_pin/bindings/enter_pin_binding.dart';
+import '../modules/enter_pin/views/enter_pin_view.dart';
 import '../modules/faqs/bindings/faqs_binding.dart';
 import '../modules/faqs/views/faqs_view.dart';
 import '../modules/general_setting/bindings/general_setting_binding.dart';
@@ -92,6 +94,8 @@ import '../modules/send_money/bindings/send_money_binding.dart';
 import '../modules/send_money/views/send_money_view.dart';
 import '../modules/send_money_successfully/bindings/send_money_successfully_binding.dart';
 import '../modules/send_money_successfully/views/send_money_successfully_view.dart';
+import '../modules/set_pin/bindings/set_pin_binding.dart';
+import '../modules/set_pin/views/set_pin_view.dart';
 import '../modules/sign_up/bindings/sign_up_binding.dart';
 import '../modules/sign_up/views/sign_up_view.dart';
 import '../modules/spinner/bindings/spinner_binding.dart';
@@ -388,6 +392,16 @@ class AppPages {
       name: _Paths.INTERNET,
       page: () => const InternetView(),
       binding: InternetBinding(),
+    ),
+    GetPage(
+      name: _Paths.SET_PIN,
+      page: () => const SetPinView(),
+      binding: SetPinBinding(),
+    ),
+    GetPage(
+      name: _Paths.ENTER_PIN,
+      page: () => const EnterPinView(),
+      binding: EnterPinBinding(),
     ),
   ];
 }

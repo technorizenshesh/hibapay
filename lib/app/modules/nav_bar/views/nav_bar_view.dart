@@ -60,7 +60,7 @@ class NavBarView extends GetView<NavBarController> {
                                 index: 2),*/
                             button(
                                 image: IconConstants.icAccountInActive,
-                                text: StringConstants.account,
+                                text: StringConstants.virtualCard,
                                 index: 2),
                             button(
                                 image: IconConstants.icProfileInActive,

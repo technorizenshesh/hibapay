@@ -10,6 +10,7 @@ class ApiKeyConstants {
   static const String lastName = 'last_name';
   static const String phone = 'phone';
   static const String address = 'address';
+  static const String image = 'image';
   static const String state = 'state';
   static const String country = 'country';
   static const String postalCode = 'postal_code';
@@ -21,6 +22,7 @@ class ApiKeyConstants {
   static const String city = 'city';
   static const String dob = 'dob';
   static const String password = 'password';
+  static const String oldPassword = 'old_password';
   static const String confirmPassword = 'confirm_password';
   static const String countryCode = 'country_code';
   static const String otp = 'otp';
@@ -48,6 +50,7 @@ class ApiKeyConstants {
   static const String cardBrand = 'card_brand';
   static const String cardCurrency = 'card_currency';
   static const String amount = 'amount';
+  static const String receiverId = 'receiver_id';
   static const String fundingCurrency = 'funding_currency';
   static const String withdrawalAmount = 'withdrawal_amount';
   static const String virtualCardFundingCurrency =

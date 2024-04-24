@@ -75,6 +75,22 @@ class CommonWidgets {
     );
   }
 
+  static Widget shimmerView({double? height, double? width}) {
+    return SizedBox(
+      height: height ?? 64.px,
+      width: width ?? double.infinity,
+      child: Shimmer.fromColors(
+        baseColor:
+            Theme.of(Get.context!).colorScheme.onSecondary.withOpacity(.4.px),
+        highlightColor: Theme.of(Get.context!).colorScheme.onSecondary,
+        child: Container(
+          color:
+              Theme.of(Get.context!).colorScheme.onSecondary.withOpacity(.4.px),
+        ),
+      ),
+    );
+  }
+
   ///For Full Size Use In Column Not In ROW
   static Widget commonElevatedButton(
       {double? height,
@@ -156,6 +172,7 @@ class CommonWidgets {
       GestureTapCallback? onTap,
       bool obscureText = false,
       FocusNode? focusNode,
+      MaxLengthEnforcement? maxLengthEnforcement,
       bool? filled,
       bool isCard = false}) {
     return Container(
@@ -209,6 +226,7 @@ class CommonWidgets {
                         height: 24.px,
                         child: TextFormField(
                           focusNode: focusNode,
+                          maxLengthEnforcement: maxLengthEnforcement,
                           obscureText: obscureText,
                           onTap: onTap,
                           maxLength: maxLength,

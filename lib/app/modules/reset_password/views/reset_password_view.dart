@@ -126,22 +126,71 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                                 ),
                                 hintText: StringConstants.pleaseEnterEmail,
                               )
-                            : CommonWidgets.commonTextFieldForLoginSignUP(
-                                focusNode: controller.focusPhone,
-                                title: StringConstants.phoneNumber,
-                                controller: controller.phoneController,
-                                isCard: controller.isPhone.value,
-                                keyboardType: TextInputType.number,
-                                inputFormatters: <TextInputFormatter>[
-                                  FilteringTextInputFormatter.digitsOnly
+                            : Row(
+                                children: [
+                                  InkWell(
+                                    onTap: () =>
+                                        controller.clickOnCountryField(),
+                                    borderRadius: BorderRadius.circular(14.px),
+                                    child: Container(
+                                      height: 50.px,
+                                      // width: 50.px,
+                                      decoration: BoxDecoration(
+                                        gradient: controller.isPhone.value
+                                            ? CommonMethods
+                                                .commonLinearGradientView()
+                                            : CommonMethods
+                                                .commonLinearGradientViewGrey(),
+                                        borderRadius:
+                                            BorderRadius.circular(14.px),
+                                      ),
+                                      child: Container(
+                                        margin: EdgeInsets.all(1.4.px),
+                                        decoration: BoxDecoration(
+                                          color: Theme.of(Get.context!)
+                                              .scaffoldBackgroundColor,
+                                          borderRadius:
+                                              BorderRadius.circular(14.px),
+                                        ),
+                                        child: Center(
+                                          child: Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: 14.px,
+                                                vertical: 2.px),
+                                            child: Text(
+                                              controller.countryCodeShow.value,
+                                              style: Theme.of(Get.context!)
+                                                  .textTheme
+                                                  .headlineMedium
+                                                  ?.copyWith(fontSize: 14.px),
+                                              maxLines: 1,
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(width: 6.px),
+                                  Expanded(
+                                      child: CommonWidgets
+                                          .commonTextFieldForLoginSignUP(
+                                    focusNode: controller.focusPhone,
+                                    title: StringConstants.phoneNumber,
+                                    controller: controller.phoneController,
+                                    isCard: controller.isPhone.value,
+                                    keyboardType: TextInputType.number,
+                                    inputFormatters: <TextInputFormatter>[
+                                      FilteringTextInputFormatter.digitsOnly
+                                    ],
+                                    prefixIcon: CommonMethods.appIcons(
+                                      assetName: controller.isPhone.value
+                                          ? IconConstants.icPhoneActive
+                                          : IconConstants.icPhoneInActive,
+                                    ),
+                                    hintText:
+                                        StringConstants.pleaseEnterMobileNumber,
+                                  )),
                                 ],
-                                prefixIcon: CommonMethods.appIcons(
-                                  assetName: controller.isPhone.value
-                                      ? IconConstants.icPhoneActive
-                                      : IconConstants.icPhoneInActive,
-                                ),
-                                hintText:
-                                    StringConstants.pleaseEnterMobileNumber,
                               ),
                         SizedBox(height: 10.px),
                       ],

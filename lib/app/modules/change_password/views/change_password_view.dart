@@ -53,7 +53,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                   children: [
                     SizedBox(height: 20.px),
                     CommonWidgets.commonTextFieldForLoginSignUP(
-                      obscureText: controller.currentPasswordHide.value,
+                      obscureText: !controller.currentPasswordHide.value,
                       focusNode: controller.focusCurrentPassword,
                       title: StringConstants.currentPassword,
                       controller: controller.currentPasswordController,
@@ -81,7 +81,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                     ),
                     SizedBox(height: 14.px),
                     CommonWidgets.commonTextFieldForLoginSignUP(
-                      obscureText: controller.newPasswordHide.value,
+                      obscureText: !controller.newPasswordHide.value,
                       focusNode: controller.focusNewPassword,
                       title: StringConstants.newPassword,
                       controller: controller.newPasswordController,
@@ -109,7 +109,7 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
                     ),
                     SizedBox(height: 14.px),
                     CommonWidgets.commonTextFieldForLoginSignUP(
-                      obscureText: controller.confirmPasswordHide.value,
+                      obscureText: !controller.confirmPasswordHide.value,
                       focusNode: controller.focusConfirmPassword,
                       title: StringConstants.confirmPassword,
                       controller: controller.confirmPasswordController,

@@ -75,6 +75,13 @@ class CreateNewPasswordController extends GetxController {
           userModel.status!.isNotEmpty &&
           userModel.status == '1') {
         Get.offAllNamed(Routes.LOGIN);
+      } else {
+        if (userModel != null &&
+            userModel.message != null &&
+            userModel.message!.isNotEmpty) {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px), 'Error', userModel.message ?? '');
+        }
       }
       inAsyncCall.value = false;
     } else {

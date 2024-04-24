@@ -1,5 +1,6 @@
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/common/common_methods.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -111,7 +112,7 @@ class WithdrawView extends GetView<WithdrawController> {
                               controller: controller.amountController,
                               decoration: InputDecoration(
                                 prefixIcon: Text(
-                                  '${CommonMethods.cur}  ',
+                                  '${cur}  ',
                                   textAlign: TextAlign.center,
                                   style: Theme.of(context)
                                       .textTheme
@@ -136,7 +137,7 @@ class WithdrawView extends GetView<WithdrawController> {
                       ),
                       SizedBox(height: 10.px),
                       Text(
-                        'Maximum ${CommonMethods.cur} ${controller.balance.value}',
+                        'Maximum ${cur} ${controller.balance.value}',
                         textAlign: TextAlign.center,
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(

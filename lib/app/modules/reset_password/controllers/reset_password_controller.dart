@@ -2,6 +2,7 @@ import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
+import 'package:country_picker/country_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -20,6 +21,9 @@ class ResetPasswordController extends GetxController {
   TextEditingController phoneController = TextEditingController();
 
   Map<String, dynamic> bodyParams = {};
+
+  final countryCodeShow = '+91'.obs;
+  final countryCode = 'IN'.obs;
 
   @override
   void onInit() {
@@ -64,11 +68,18 @@ class ResetPasswordController extends GetxController {
             userModel.result != null &&
             userModel.result!.otp != null &&
             userModel.result!.otp!.isNotEmpty) {
-          if (userModel.result != null) {
-            Get.toNamed(Routes.CHECK_YOUR_MAIL, parameters: {
-              ApiKeyConstants.otp: userModel.result!.otp ?? '',
-              ApiKeyConstants.email: emailController.text
-            });
+          Get.toNamed(Routes.CHECK_YOUR_MAIL, parameters: {
+            ApiKeyConstants.otp: userModel.result!.otp ?? '',
+            ApiKeyConstants.email: emailController.text
+          });
+        } else {
+          if (userModel != null &&
+              userModel.message != null &&
+              userModel.message!.isNotEmpty) {
+            Get.snackbar(
+                margin: EdgeInsets.all(20.px),
+                'Error',
+                userModel.message ?? '');
           }
         }
         inAsyncCall.value = false;
@@ -77,11 +88,13 @@ class ResetPasswordController extends GetxController {
             margin: EdgeInsets.all(20.px), 'Error', 'All field required');
       }
     } else {
-      if (phoneController.text.trim().isNotEmpty) {
+      if (phoneController.text.trim().isNotEmpty &&
+          countryCode.value.trim().isNotEmpty) {
         inAsyncCall.value = true;
         bodyParams = {
-          ApiKeyConstants.email: phoneController.text,
+          ApiKeyConstants.mobile: phoneController.text,
           ApiKeyConstants.type: ApiKeyConstants.byMobile,
+          ApiKeyConstants.countryCode: countryCode.value,
         };
         UserModel? userModel = await ApiMethods.forgotPassword(
           bodyParams: bodyParams,
@@ -90,11 +103,19 @@ class ResetPasswordController extends GetxController {
             userModel.result != null &&
             userModel.result!.otp != null &&
             userModel.result!.otp!.isNotEmpty) {
-          if (userModel.result != null) {
-            Get.toNamed(Routes.CHECK_YOUR_MAIL, parameters: {
-              ApiKeyConstants.otp: userModel.result!.otp ?? '',
-              ApiKeyConstants.mobile: phoneController.text
-            });
+          Get.toNamed(Routes.CHECK_YOUR_MAIL, parameters: {
+            ApiKeyConstants.otp: userModel.result!.otp ?? '',
+            ApiKeyConstants.mobile:
+                '${countryCode.value}-${phoneController.text}',
+          });
+        } else {
+          if (userModel != null &&
+              userModel.message != null &&
+              userModel.message!.isNotEmpty) {
+            Get.snackbar(
+                margin: EdgeInsets.all(20.px),
+                'Error',
+                userModel.message ?? '');
           }
         }
         inAsyncCall.value = false;
@@ -109,5 +130,17 @@ class ResetPasswordController extends GetxController {
 
   clickOnTabs({required int value}) async {
     selectedTab.value = value;
+  }
+
+  clickOnCountryField() {
+    return showCountryPicker(
+      context: Get.context!,
+      showPhoneCode: true,
+      searchAutofocus: true,
+      onSelect: (Country country) {
+        countryCode.value = country.countryCode;
+        countryCodeShow.value = "+ ${country.phoneCode}";
+      },
+    );
   }
 }
