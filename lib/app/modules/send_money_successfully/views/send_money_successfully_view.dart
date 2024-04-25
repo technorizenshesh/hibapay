@@ -47,7 +47,7 @@ class SendMoneySuccessfullyView
               ),
               SizedBox(height: 40.px),
               Text(
-                '${cur} 865.10',
+                '₦ 865.10',
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.displayMedium?.copyWith(
                       fontSize: 24.px,

@@ -14,6 +14,7 @@ class RechargeController extends GetxController {
   Map<String, String?> parameters = Get.parameters;
   String title = '';
   final serviceId = ''.obs;
+  final amountControllerValue = ''.obs;
 
   TextEditingController amountController = TextEditingController();
   TextEditingController serviceProviderController = TextEditingController();
@@ -71,18 +72,19 @@ class RechargeController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnContinueButton() async {
+  clickOnPayButton() async {
     if (mobileNumberController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         amountController.text.trim().isNotEmpty) {
-      if (int.parse(amountController.text) >= 100) {
+      if (int.parse(amountControllerValue.value.tr) >= 100) {
         inAsyncCall.value = true;
         Map<String, dynamic> bodyParams = {
-          ApiKeyConstants.authTokenHiba: authTokenHiba.value,
           ApiKeyConstants.serviceId: serviceId.value,
           ApiKeyConstants.vendorId: vendorId.value,
           ApiKeyConstants.accountNumber: mobileNumberController.text,
-          ApiKeyConstants.amount: amountController.text,
+          ApiKeyConstants.amount: amountControllerValue.value,
+          ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+          ApiKeyConstants.serviceType: ApiKeyConstants.buyAirtime,
         };
         BillPayModel? billPayModel =
             await ApiMethods.uFitPayBillPay(bodyParams: bodyParams);
@@ -99,8 +101,10 @@ class RechargeController extends GetxController {
           if (billPayModel != null && billPayModel.result != null) {
             Get.snackbar(
                 margin: EdgeInsets.all(20.px),
-                'Fail',
+                'Failed',
                 billPayModel.result!.message ?? '');
+          } else {
+            Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
           }
         }
       } else {

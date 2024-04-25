@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -115,7 +114,7 @@ class AllTransactionsView extends GetView<AllTransactionsController> {
                                 Row(
                                   children: [
                                     Text(
-                                      '${cur}12,256.00',
+                                      '₦12,256.00',
                                       style: Theme.of(Get.context!)
                                           .textTheme
                                           .displayMedium
@@ -163,9 +162,9 @@ class AllTransactionsView extends GetView<AllTransactionsController> {
                                         return [
                                           PopupMenuItem(
                                             value:
-                                                'US  ( ${cur} )',
+                                                'US  ( ₦ )',
                                             child: Text(
-                                              'US  ( ${cur} )',
+                                              'US  ( ₦ )',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayMedium
@@ -264,8 +263,8 @@ class AllTransactionsView extends GetView<AllTransactionsController> {
                         return ListTile(
                           trailing: Text(
                             controller.listOfTra[index]['type'] == 'Withdraw'
-                                ? '- ${cur + controller.listOfTra[index]['amount']}'
-                                : '+ ${cur + controller.listOfTra[index]['amount']}',
+                                ? '- ₦${controller.listOfTra[index]['amount']}'
+                                : '+ ₦${controller.listOfTra[index]['amount']}',
                             style: Theme.of(context)
                                 .textTheme
                                 .displayMedium

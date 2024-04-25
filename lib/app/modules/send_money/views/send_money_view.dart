@@ -60,7 +60,7 @@ class SendMoneyView extends GetView<SendMoneyController> {
                                   ),
                         ),
                         Text(
-                          'Max ${cur}12,652.00',
+                          'Max ₦12,652.00',
                           style:
                               Theme.of(context).textTheme.titleMedium?.copyWith(
                                     fontSize: 12.px,

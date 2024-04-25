@@ -114,10 +114,12 @@ class MyCardView extends GetView<MyCardController> {
                                 '${listVirtualCardsResult[index].vcardExpiryMonth ?? ''}/${listVirtualCardsResult[index].vcardExpiryYear ?? ''}',
                             cardHolderName:
                                 listVirtualCardsResult[index].vcardName ?? '',
-                            cvvCode: 'XXXX',
+                            cvvCode:
+                                listVirtualCardsResult[index].vcardCvv ?? '',
                             showBackView: false,
+                            obscureCardCvv: false,
                             isChipVisible: true,
-                            isSwipeGestureEnabled: false,
+                            // isSwipeGestureEnabled: false,
                             isHolderNameVisible: true,
                             chipColor: hexToColor(
                                 listVirtualCardsResult[index].vcardColor ?? ''),

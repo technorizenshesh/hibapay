@@ -36,17 +36,41 @@ class MyProfileView extends GetView<MyProfileController> {
                             result!.image!.isNotEmpty &&
                             result!.image !=
                                 'https://hibapay.co/public/uploads/users/profile/'
-                        ? CommonWidgets.imageView(
-                            image: result?.image ?? '',
-                            height: 100.px,
-                            width: 100.px,
-                            borderRadius: BorderRadius.circular(50.px),
+                        ? GestureDetector(
+                            onLongPress: () {
+                              CommonWidgets.showImagePopup(
+                                image: result?.image ?? '',
+                              );
+                            },
+                            onTap: () {
+                              CommonWidgets.showImagePopup(
+                                image: result?.image ?? '',
+                              );
+                            },
+                            child: CommonWidgets.imageView(
+                              image: result?.image ?? '',
+                              height: 140.px,
+                              width: 140.px,
+                              borderRadius: BorderRadius.circular(20.px),
+                            ),
                           )
-                        : CommonWidgets.imageView(
-                            image: ImgConstants.defaultNetworkImage,
-                            height: 100.px,
-                            width: 100.px,
-                            borderRadius: BorderRadius.circular(50.px),
+                        : GestureDetector(
+                            onLongPress: () {
+                              CommonWidgets.showImagePopup(
+                                image: ImgConstants.defaultNetworkImage,
+                              );
+                            },
+                            onTap: () {
+                              CommonWidgets.showImagePopup(
+                                image: result?.image ?? '',
+                              );
+                            },
+                            child: CommonWidgets.imageView(
+                              image: ImgConstants.defaultNetworkImage,
+                              height: 140.px,
+                              width: 140.px,
+                              borderRadius: BorderRadius.circular(20.px),
+                            ),
                           ),
                     SizedBox(height: 20.px),
                     Align(
@@ -71,8 +95,7 @@ class MyProfileView extends GetView<MyProfileController> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) => ListTile(
                               contentPadding: EdgeInsets.zero,
-                              onTap: () => controller
-                                  .clickOnListTilePersonalInfo(index: index),
+                              // onTap: () => controller.clickOnListTilePersonalInfo(index: index),
                               trailing: Text(
                                 methodPersonalInfo(index: index),
                                 style: Theme.of(context)
@@ -116,8 +139,7 @@ class MyProfileView extends GetView<MyProfileController> {
                         physics: const NeverScrollableScrollPhysics(),
                         itemBuilder: (context, index) => ListTile(
                               contentPadding: EdgeInsets.zero,
-                              onTap: () => controller
-                                  .clickOnListTilePersonalInfo(index: index),
+                              // onTap: () => controller.clickOnListTilePersonalInfo(index: index),
                               trailing: Text(
                                 methodContactInfo(index: index),
                                 style: Theme.of(context)

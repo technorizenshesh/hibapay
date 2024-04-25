@@ -34,6 +34,7 @@ class StringConstants {
   static const String pleaseEnterStreetAddress = 'Please enter street address';
   static const String city = 'City';
   static const String continueText = 'Continue';
+  static const String pay = 'Pay';
   static const String pleaseEnterCity = 'Please enter city';
   static const String countryOfResidence = 'Country of residence';
   static const String pleaseEnterCountryOfResidence =
@@ -79,6 +80,7 @@ class StringConstants {
   static const String cards = ' Cards';
   static const String account = 'Account';
   static const String virtualCard = 'Virtual card';
+  static const String fund = 'Fund';
   static const String accountHolder = 'Account Holder';
   static const String bankName = 'Bank Name';
   static const String swiftCode = 'Swift code';
@@ -95,6 +97,7 @@ class StringConstants {
   static const String profile = 'Profile';
   static const String welcomeBack = 'Welcome back!';
   static const String deposit = 'Deposit';
+  static const String rechargeYourWallet = 'Recharge your wallet';
   static const String transfers = 'Transfers';
   static const String withdraw = 'Withdraw';
   static const String topUpWallet = 'Top up Wallet';

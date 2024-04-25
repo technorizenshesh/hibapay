@@ -9,6 +9,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
 import 'package:pin_code_fields/pin_code_fields.dart';
@@ -583,6 +584,41 @@ class CommonWidgets {
 
   static SnackbarController snackBarView({String title = ''}) {
     return Get.snackbar(margin: EdgeInsets.all(20.px), 'Message', title);
+  }
+
+  static void showImagePopup({required String image}) {
+    Get.bottomSheet(
+        backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
+        Column(children: [
+          SizedBox(height: 40.px),
+          CommonWidgets.appBar(),
+          CommonWidgets.imageView(
+              image: image,
+              width: MediaQuery.of(Get.context!).size.width,
+              height: MediaQuery.of(Get.context!).size.height / 1.2.px,
+              borderRadius: BorderRadius.circular(20.px),
+              fit: BoxFit.contain)
+        ]),
+        isScrollControlled: true);
+    /*showDialog(
+      context: Get.context!,
+      builder: (BuildContext context) {
+        return Dialog(
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pop();
+            },
+            child: CommonWidgets.imageView(
+              image: image,
+              width: MediaQuery.of(context).size.width * 0.8,
+              height: MediaQuery.of(context).size.width * 0.8,
+              borderRadius: BorderRadius.circular(20.px),
+              fit:  BoxFit.contain
+            ),
+          ),
+        );
+      },
+    );*/
   }
 }
 

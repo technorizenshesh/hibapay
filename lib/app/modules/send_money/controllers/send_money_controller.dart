@@ -200,7 +200,7 @@ class SendMoneyController extends GetxController {
                             ),
                             Expanded(
                               child: Text(
-                                '${cur} 865.10',
+                                '₦ 865.10',
                                 textAlign: TextAlign.end,
                                 style: Theme.of(context)
                                     .textTheme

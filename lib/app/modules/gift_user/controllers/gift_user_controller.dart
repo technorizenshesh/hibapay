@@ -11,8 +11,9 @@ class GiftUserController extends GetxController {
   final count = 0.obs;
 
   Map<String, String?> parameters = Get.parameters;
-  String title = '';
+  final title = ''.obs;
   final serviceId = ''.obs;
+  final giftingAmountControllerValue = ''.obs;
 
   TextEditingController giftingAmountController = TextEditingController();
   TextEditingController receiverIdController = TextEditingController();
@@ -28,7 +29,7 @@ class GiftUserController extends GetxController {
   Future<void> onInit() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
-    title = parameters[StringConstants.title] ?? '';
+    title.value = parameters[StringConstants.title] ?? '';
     serviceId.value = parameters[ApiKeyConstants.serviceId] ?? '';
     super.onInit();
     startListener();
@@ -56,13 +57,13 @@ class GiftUserController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnContinueButton() async {
+  clickOnPayButton() async {
     if (receiverIdController.text.trim().isNotEmpty &&
         giftingAmountController.text.trim().isNotEmpty) {
       inAsyncCall.value = true;
       Map<String, dynamic> bodyParams = {
         ApiKeyConstants.authTokenHiba: authTokenHiba.value,
-        ApiKeyConstants.amount: giftingAmountController.text,
+        ApiKeyConstants.amount: giftingAmountControllerValue.value,
         ApiKeyConstants.receiverId: receiverIdController.text,
       };
       UserModel? userModel =
@@ -80,6 +81,8 @@ class GiftUserController extends GetxController {
                 userModel.message ?? '');
           }
         }
+      } else {
+        Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
       }
       inAsyncCall.value = false;
     } else {

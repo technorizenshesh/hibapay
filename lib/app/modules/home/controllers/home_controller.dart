@@ -217,11 +217,12 @@ class HomeController extends GetxController {
       case '0001':
         if (getServicesResult[index].type.toString() ==
             ApiKeyConstants.uFitPay) {
-          Get.toNamed(Routes.RECHARGE, parameters: {
+          await Get.toNamed(Routes.RECHARGE, parameters: {
             StringConstants.title:
                 getServicesResult[index].serviceNameCustom ?? '',
             ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
           });
+          await getProfileApi();
         } else {
           if (getServicesResult[index].serviceId.toString() == '0001') {
             await Get.toNamed(Routes.GIFT_USER, parameters: {
@@ -242,32 +243,36 @@ class HomeController extends GetxController {
         }
         break;
       case '0003':
-        Get.toNamed(Routes.ELECTRICITY, parameters: {
+        await Get.toNamed(Routes.ELECTRICITY, parameters: {
           StringConstants.title:
               getServicesResult[index].serviceNameCustom ?? '',
           ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
         });
+        await getProfileApi();
         break;
       case '0002' || '0004':
-        Get.toNamed(Routes.DATA, parameters: {
+        await Get.toNamed(Routes.DATA, parameters: {
           StringConstants.title:
               getServicesResult[index].serviceNameCustom ?? '',
           ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
         });
+        await getProfileApi();
         break;
       case '0005':
-        Get.toNamed(Routes.CABLE_TV, parameters: {
+        await Get.toNamed(Routes.CABLE_TV, parameters: {
           StringConstants.title:
               getServicesResult[index].serviceNameCustom ?? '',
           ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
         });
+        await getProfileApi();
         break;
       case '0036':
-        Get.toNamed(Routes.BETTING, parameters: {
+        await Get.toNamed(Routes.BETTING, parameters: {
           StringConstants.title:
               getServicesResult[index].serviceNameCustom ?? '',
           ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
         });
+        await getProfileApi();
         break;
       default:
         CommonWidgets.snackBarView(title: 'Coming soon');

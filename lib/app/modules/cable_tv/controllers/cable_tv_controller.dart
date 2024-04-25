@@ -83,7 +83,7 @@ class CableTvController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnContinueButton() async {
+  clickOnPayButton() async {
     if (decoderNumberController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         packagesController.text.trim().isNotEmpty) {
@@ -95,6 +95,7 @@ class CableTvController extends GetxController {
         ApiKeyConstants.vendorId: vendorId.value,
         ApiKeyConstants.accountNumber: decoderNumberController.text,
         ApiKeyConstants.packageId: packageId.value,
+        ApiKeyConstants.serviceType: ApiKeyConstants.buyCableTv,
       };
       BillPayModel? billPayModel =
           await ApiMethods.uFitPayBillPay(bodyParams: bodyParams);
@@ -114,8 +115,10 @@ class CableTvController extends GetxController {
         if (billPayModel != null && billPayModel.result != null) {
           Get.snackbar(
               margin: EdgeInsets.all(20.px),
-              'Fail',
+              'Failed',
               billPayModel.result!.message ?? '');
+        } else {
+          Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
         }
       }
       inAsyncCall.value = false;

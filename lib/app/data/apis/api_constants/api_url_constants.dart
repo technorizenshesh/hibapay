@@ -13,6 +13,8 @@ class ApiUrlConstants {
   static const String endPointOfChangePassword =
       '${baseUrl}user/change-password';
   static const String endPointOfLoginMobile = '/api/user/login-mobile';
+  static const String endPointOfUFitPayWalletRecharge =
+      '/api/ufitpay/wallet-recharge';
   static const String endPointOfLogin = '/api/user/login';
   static const String endPointOfFaqs = '${baseUrl}faqs';
   static const String endPointOfForgotPassword =
@@ -21,6 +23,8 @@ class ApiUrlConstants {
   static const String endPointOfGetCard = '${baseUrl}card/get-card';
   static const String endPointOfDelete = '${baseUrl}card/delete-card';
   static const String endPointOfGetProfile = '${baseUrl}user/get-profile';
+  static const String endPointOfGetWalletTransaction =
+      '${baseUrl}ufitpay/get-wallet-transaction';
   static const String endPointOfGetBanners = '${baseUrl}banners/get-banners';
   static const String endPointOfGetServices = '${baseUrl}hibapay/get-services';
   static const String endPointOfUFitPayGetServices =

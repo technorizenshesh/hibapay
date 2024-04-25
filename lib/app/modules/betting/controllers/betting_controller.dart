@@ -31,6 +31,7 @@ class BettingController extends GetxController {
   final isPackages = false.obs;
   final inAsyncCall = false.obs;
   final authTokenHiba = ''.obs;
+  final amountControllerValue = ''.obs;
 
   List<UFitPayGetVendorsResultData> uFitPayGetVendorsResultData = [];
 
@@ -83,20 +84,21 @@ class BettingController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnContinueButton() async {
+  clickOnPayButton() async {
     if (enterIdController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         amountController.text.trim().isNotEmpty &&
         packagesController.text.trim().isNotEmpty) {
-      if (int.parse(amountController.text) >= 100) {
+      if (int.parse(amountControllerValue.value) >= 100) {
         inAsyncCall.value = true;
         Map<String, dynamic> bodyParams = {
           ApiKeyConstants.authTokenHiba: authTokenHiba.value,
           ApiKeyConstants.serviceId: serviceId.value,
           ApiKeyConstants.vendorId: vendorId.value,
           ApiKeyConstants.accountNumber: enterIdController.text,
-          ApiKeyConstants.amount: amountController.text,
+          ApiKeyConstants.amount: amountControllerValue.value,
           ApiKeyConstants.packageId: packageId.value,
+          ApiKeyConstants.serviceType: ApiKeyConstants.buySportsBetting,
         };
         BillPayModel? billPayModel =
             await ApiMethods.uFitPayBillPay(bodyParams: bodyParams);
@@ -113,8 +115,10 @@ class BettingController extends GetxController {
           if (billPayModel != null && billPayModel.result != null) {
             Get.snackbar(
                 margin: EdgeInsets.all(20.px),
-                'Fail',
+                'Failed',
                 billPayModel.result!.message ?? '');
+          } else {
+            Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
           }
         }
       } else {

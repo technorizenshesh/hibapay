@@ -33,6 +33,7 @@ class DataController extends GetxController {
   final authTokenHiba = ''.obs;
 
   List<UFitPayGetVendorsResultData> uFitPayGetVendorsResultData = [];
+
   // List<GetPriceListResultData> getPriceListResultData = [];
   List<GetPackagesResultData> getPackagesResultData = [];
   List<Packages> packages = [];
@@ -82,7 +83,7 @@ class DataController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnContinueButton() async {
+  clickOnPayButton() async {
     if (mobileNumberController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         packagesController.text.trim().isNotEmpty) {
@@ -94,6 +95,9 @@ class DataController extends GetxController {
         ApiKeyConstants.vendorId: vendorId.value,
         ApiKeyConstants.accountNumber: mobileNumberController.text,
         ApiKeyConstants.packageId: packageId.value,
+        ApiKeyConstants.serviceType: (serviceId.value == '0004')
+            ? ApiKeyConstants.buyInternet
+            : ApiKeyConstants.buyData,
       };
       BillPayModel? billPayModel =
           await ApiMethods.uFitPayBillPay(bodyParams: bodyParams);
@@ -113,8 +117,10 @@ class DataController extends GetxController {
         if (billPayModel != null && billPayModel.result != null) {
           Get.snackbar(
               margin: EdgeInsets.all(20.px),
-              'Fail',
+              'Failed',
               billPayModel.result!.message ?? '');
+        } else {
+          Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
         }
       }
       inAsyncCall.value = false;

@@ -16,6 +16,7 @@ import 'package:HibaPay/app/data/apis/api_models/get_card_transactions_model.dar
 import 'package:HibaPay/app/data/apis/api_models/get_packages_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_price_list_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_services_hibapay_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_wallet_transaction_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/search_card_holder_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/u_fit_pay_get_services_model.dart';
@@ -324,6 +325,24 @@ class ApiMethods {
     return null;
   }
 
+  static Future<UserModel?> walletRecharge({
+    void Function(int)? checkResponse,
+    required Map<String, dynamic> queryParameters,
+  }) async {
+    UserModel? userModel;
+    http.Response? response = await MyHttp.getMethodParams(
+      queryParameters: queryParameters,
+      baseUri: ApiUrlConstants.baseUrlForGetMethodParams,
+      endPointUri: ApiUrlConstants.endPointOfUFitPayWalletRecharge,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      userModel = UserModel.fromJson(jsonDecode(response.body));
+      return userModel;
+    }
+    return null;
+  }
+
   static Future<UFitPayGetServicesModel?> uFitPayGetServices({
     void Function(int)? checkResponse,
     Map<String, dynamic>? bodyParams,
@@ -441,6 +460,24 @@ class ApiMethods {
     if (response != null) {
       userModel = UserModel.fromJson(jsonDecode(response.body));
       return userModel;
+    }
+    return null;
+  }
+
+  static Future<GetWalletTransactionModel?> getWalletTransaction({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    GetWalletTransactionModel? getWalletTransactionModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfGetWalletTransaction,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getWalletTransactionModel =
+          GetWalletTransactionModel.fromJson(jsonDecode(response.body));
+      return getWalletTransactionModel;
     }
     return null;
   }

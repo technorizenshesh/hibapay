@@ -52,7 +52,7 @@ class BilPaymentSuccessView extends GetView<BilPaymentSuccessController> {
                   subTitle: 'Adani Electricity Mumbai Limited'),
               SizedBox(height: 14.px),
               gradientText(
-                  title: StringConstants.amount, subTitle: '${cur} 225.00'),
+                  title: StringConstants.amount, subTitle: '₦ 225.00'),
               SizedBox(height: 14.px),
               gradientText(
                   title: StringConstants.accountNumber,

@@ -31,46 +31,47 @@ class HomeView extends GetView<HomeController> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Row(
-                    children: [
-                      result != null &&
-                              result?.image != null &&
-                              result!.image!.isNotEmpty &&
-                              result!.image! !=
-                                  'https://hibapay.co/public/uploads/users/profile/'
-                          ? CommonWidgets.imageView(
-                              image: result?.image ?? '',
-                              height: 40.px,
-                              width: 40.px,
-                              borderRadius: BorderRadius.circular(20.px),
-                            )
-                          : CommonWidgets.imageView(
-                              image: ImgConstants.defaultNetworkImage,
-                              height: 40.px,
-                              width: 40.px,
-                              borderRadius: BorderRadius.circular(20.px),
-                            ),
-                      SizedBox(width: 8.px),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            StringConstants.welcomeBack,
-                            style: Theme.of(context).textTheme.titleMedium,
-                          ),
-                          SizedBox(height: 4.px),
-                          Text(
-                            "${result?.firstName ?? ''} ${result?.lastName ?? ''}",
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                    fontSize: 20.px,
-                                    color: Theme.of(context).primaryColor),
-                          ),
-                        ],
-                      ),
-                    ],
+                  result != null &&
+                          result?.image != null &&
+                          result!.image!.isNotEmpty &&
+                          result!.image! !=
+                              'https://hibapay.co/public/uploads/users/profile/'
+                      ? CommonWidgets.imageView(
+                          image: result?.image ?? '',
+                          height: 48.px,
+                          width: 48.px,
+                          borderRadius: BorderRadius.circular(12.px),
+                        )
+                      : CommonWidgets.imageView(
+                          image: ImgConstants.defaultNetworkImage,
+                          height: 48.px,
+                          width: 48.px,
+                          borderRadius: BorderRadius.circular(12.px),
+                        ),
+                  SizedBox(width: 8.px),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          StringConstants.welcomeBack,
+                          style: Theme.of(context).textTheme.titleMedium,
+                        ),
+                        SizedBox(height: 4.px),
+                        Text(
+                          "${result?.firstName ?? ''} ${result?.lastName ?? ''}",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                  fontSize: 20.px,
+                                  color: Theme.of(context).primaryColor),
+                        ),
+                      ],
+                    ),
                   ),
                   Row(
                     children: [
@@ -364,8 +365,8 @@ class HomeView extends GetView<HomeController> {
                   return ListTile(
                     trailing: Text(
                       getCardTransactionsResultData[index].type != 'credit'
-                          ? '- ${"${cur}${getCardTransactionsResultData[index].amount ?? '0'}"}'
-                          : '+ ${"${cur}${getCardTransactionsResultData[index].amount ?? '0'}"}',
+                          ? '- ${"₦${getCardTransactionsResultData[index].amount ?? '0'}"}'
+                          : '+ ${"₦${getCardTransactionsResultData[index].amount ?? '0'}"}',
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium

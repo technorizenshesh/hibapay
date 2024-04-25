@@ -30,7 +30,7 @@ class ProfileView extends GetView<ProfileController> {
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.px),
                   child: InkWell(
-                    onTap: () => controller.clickOnCard(),
+                    //onTap: () => controller.clickOnCard(),
                     borderRadius: BorderRadius.circular(8.px),
                     child: Container(
                       padding: EdgeInsets.all(10.px),
@@ -52,13 +52,13 @@ class ProfileView extends GetView<ProfileController> {
                                   image: result?.image ?? '',
                                   height: 80.px,
                                   width: 80.px,
-                                  borderRadius: BorderRadius.circular(40.px),
+                                  borderRadius: BorderRadius.circular(14.px),
                                 )
                               : CommonWidgets.imageView(
                                   image: ImgConstants.defaultNetworkImage,
                                   height: 80.px,
                                   width: 80.px,
-                                  borderRadius: BorderRadius.circular(40.px),
+                                  borderRadius: BorderRadius.circular(14.px),
                                 ),
                           SizedBox(width: 20.px),
                           Column(
@@ -106,9 +106,9 @@ class ProfileView extends GetView<ProfileController> {
                               ),
                             ],
                           ),
-                          const Spacer(),
+                          /* const Spacer(),
                           CommonMethods.appIcons(
-                              assetName: IconConstants.icRightArrow)
+                              assetName: IconConstants.icRightArrow)*/
                         ],
                       ),
                     ),

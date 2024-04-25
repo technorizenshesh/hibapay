@@ -50,6 +50,8 @@ class ElectricityController extends GetxController {
   final packageAmount = ''.obs;
   final packageId = ''.obs;
 
+  final amountControllerValue = ''.obs;
+
   @override
   Future<void> onInit() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -89,20 +91,21 @@ class ElectricityController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnContinueButton() async {
+  clickOnPayButton() async {
     if (meterNumberController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         packagesController.text.trim().isNotEmpty &&
         amountController.text.trim().isNotEmpty) {
-      if (int.parse(amountController.text) >= 1000) {
+      if (int.parse(amountControllerValue.value.tr) >= 1000) {
         inAsyncCall.value = true;
         Map<String, dynamic> bodyParams = {
           ApiKeyConstants.authTokenHiba: authTokenHiba.value,
           ApiKeyConstants.serviceId: serviceId.value,
           ApiKeyConstants.vendorId: vendorId.value,
           ApiKeyConstants.accountNumber: meterNumberController.text,
-          ApiKeyConstants.amount: amountController.text,
+          ApiKeyConstants.amount: amountControllerValue.value,
           ApiKeyConstants.packageId: packageId.value,
+          ApiKeyConstants.serviceType: ApiKeyConstants.buyElectricity,
         };
         BillPayModel? billPayModel =
             await ApiMethods.uFitPayBillPay(bodyParams: bodyParams);
@@ -110,21 +113,29 @@ class ElectricityController extends GetxController {
             billPayModel.result != null &&
             billPayModel.result!.data != null) {
           Get.back();
-          Get.snackbar(margin: EdgeInsets.all(20.px),
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px),
               '${billPayModel.result!.resource ?? ''} ${billPayModel.result!.status ?? ''}',
               billPayModel.result!.data?.paymentStatus ?? '');
           increment();
         } else {
           if (billPayModel != null && billPayModel.result != null) {
-            Get.snackbar(margin: EdgeInsets.all(20.px),'Fail', billPayModel.result!.message ?? '');
+            Get.snackbar(
+                margin: EdgeInsets.all(20.px),
+                'Failed',
+                billPayModel.result!.message ?? '');
+          } else {
+            Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
           }
         }
       } else {
-        Get.snackbar(margin: EdgeInsets.all(20.px),'Error', 'Enter amount above 1000');
+        Get.snackbar(
+            margin: EdgeInsets.all(20.px), 'Error', 'Enter amount above 1000');
       }
       inAsyncCall.value = false;
     } else {
-      Get.snackbar(margin: EdgeInsets.all(20.px),'Error', 'All field required');
+      Get.snackbar(
+          margin: EdgeInsets.all(20.px), 'Error', 'All field required');
     }
   }
 

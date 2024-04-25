@@ -40,6 +40,8 @@ import '../modules/data/bindings/data_binding.dart';
 import '../modules/data/views/data_view.dart';
 import '../modules/deposit/bindings/deposit_binding.dart';
 import '../modules/deposit/views/deposit_view.dart';
+import '../modules/deposit_in_wallet/bindings/deposit_in_wallet_binding.dart';
+import '../modules/deposit_in_wallet/views/deposit_in_wallet_view.dart';
 import '../modules/edit_profile/bindings/edit_profile_binding.dart';
 import '../modules/edit_profile/views/edit_profile_view.dart';
 import '../modules/electricity/bindings/electricity_binding.dart';
@@ -110,8 +112,12 @@ import '../modules/verify_identity_success/bindings/verify_identity_success_bind
 import '../modules/verify_identity_success/views/verify_identity_success_view.dart';
 import '../modules/wallet/bindings/wallet_binding.dart';
 import '../modules/wallet/views/wallet_view.dart';
+import '../modules/web_view/bindings/web_view_binding.dart';
+import '../modules/web_view/views/web_view_view.dart';
 import '../modules/withdraw/bindings/withdraw_binding.dart';
 import '../modules/withdraw/views/withdraw_view.dart';
+import '../modules/withdraw_from_wallet/bindings/withdraw_from_wallet_binding.dart';
+import '../modules/withdraw_from_wallet/views/withdraw_from_wallet_view.dart';
 
 // ignore_for_file: constant_identifier_names
 
@@ -402,6 +408,21 @@ class AppPages {
       name: _Paths.ENTER_PIN,
       page: () => const EnterPinView(),
       binding: EnterPinBinding(),
+    ),
+    GetPage(
+      name: _Paths.DEPOSIT_IN_WALLET,
+      page: () => const DepositInWalletView(),
+      binding: DepositInWalletBinding(),
+    ),
+    GetPage(
+      name: _Paths.WITHDRAW_FROM_WALLET,
+      page: () => const WithdrawFromWalletView(),
+      binding: WithdrawFromWalletBinding(),
+    ),
+    GetPage(
+      name: _Paths.WEB_VIEW,
+      page: () => const WebViewView(),
+      binding: WebViewBinding(),
     ),
   ];
 }

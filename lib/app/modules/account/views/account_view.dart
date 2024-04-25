@@ -46,7 +46,7 @@ class AccountView extends GetView<AccountController> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.px),
                         child: Text(
-                          StringConstants.virtualCard,
+                          StringConstants.fund,
                           style: Theme.of(Get.context!)
                               .textTheme
                               .displayMedium
@@ -109,7 +109,7 @@ class AccountView extends GetView<AccountController> {
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            '${cur}12,256.00',
+                                            '₦12,256.00',
                                             maxLines: 1,
                                             style: Theme.of(Get.context!)
                                                 .textTheme
@@ -157,9 +157,9 @@ class AccountView extends GetView<AccountController> {
                                           itemBuilder: (context) {
                                             return [
                                               PopupMenuItem(
-                                                value: 'US  ( ${cur} )',
+                                                value: 'US  ( ₦ )',
                                                 child: Text(
-                                                  'US  ( ${cur} )',
+                                                  'US  ( ₦ )',
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .displayMedium
@@ -377,7 +377,7 @@ class AccountView extends GetView<AccountController> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          '$cur ${controller.balance.isNotEmpty ? controller.balance.value : '0'}',
+                                          '₦ ${controller.balance.isNotEmpty ? controller.balance.value : '0'}',
                                           maxLines: 1,
                                           style: Theme.of(Get.context!)
                                               .textTheme
@@ -426,9 +426,9 @@ class AccountView extends GetView<AccountController> {
                                         return [
                                           PopupMenuItem(
                                             value:
-                                                'US  ( ${cur} )',
+                                                'US  ( ₦ )',
                                             child: Text(
-                                              'US  ( ${cur} )',
+                                              'US  ( ₦ )',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayMedium
@@ -623,8 +623,8 @@ class AccountView extends GetView<AccountController> {
                                 trailing: Text(
                                   getCardTransactionsResultData[index].type !=
                                           'credit'
-                                      ? '- ${"${cur}${getCardTransactionsResultData[index].amount ?? '0'}"}'
-                                      : '+ ${"${cur}${getCardTransactionsResultData[index].amount ?? '0'}"}',
+                                      ? '- ${"₦${getCardTransactionsResultData[index].amount ?? '0'}"}'
+                                      : '+ ${"₦${getCardTransactionsResultData[index].amount ?? '0'}"}',
                                   style: Theme.of(context)
                                       .textTheme
                                       .displayMedium

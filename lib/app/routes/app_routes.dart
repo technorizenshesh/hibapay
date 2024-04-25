@@ -60,6 +60,9 @@ abstract class Routes {
   static const INTERNET = _Paths.INTERNET;
   static const SET_PIN = _Paths.SET_PIN;
   static const ENTER_PIN = _Paths.ENTER_PIN;
+  static const DEPOSIT_IN_WALLET = _Paths.DEPOSIT_IN_WALLET;
+  static const WITHDRAW_FROM_WALLET = _Paths.WITHDRAW_FROM_WALLET;
+  static const WEB_VIEW = _Paths.WEB_VIEW;
 }
 
 abstract class _Paths {
@@ -120,4 +123,7 @@ abstract class _Paths {
   static const INTERNET = '/internet';
   static const SET_PIN = '/set-pin';
   static const ENTER_PIN = '/enter-pin';
+  static const DEPOSIT_IN_WALLET = '/deposit-in-wallet';
+  static const WITHDRAW_FROM_WALLET = '/withdraw-from-wallet';
+  static const WEB_VIEW = '/web-view';
 }

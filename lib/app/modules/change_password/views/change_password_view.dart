@@ -25,22 +25,16 @@ class ChangePasswordView extends GetView<ChangePasswordController> {
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerDocked,
           floatingActionButton: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 10.px),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                CommonWidgets.commonElevatedButton(
-                  onPressed: () => controller.clickOnSaveButton(),
-                  child: Text(
-                    StringConstants.save,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall
-                        ?.copyWith(fontWeight: FontWeight.w700),
-                  ),
-                ),
-                SizedBox(height: 10.px),
-              ],
+            padding: EdgeInsets.all(20.px),
+            child: CommonWidgets.commonElevatedButton(
+              onPressed: () => controller.clickOnSaveButton(),
+              child: Text(
+                StringConstants.save,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall
+                    ?.copyWith(fontWeight: FontWeight.w700),
+              ),
             ),
           ),
           appBar: CommonWidgets.appBar(title: StringConstants.changePassword),

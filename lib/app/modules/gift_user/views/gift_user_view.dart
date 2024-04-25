@@ -2,6 +2,7 @@ import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -17,8 +18,21 @@ class GiftUserView extends GetView<GiftUserController> {
       return ProgressBar(
         inAsyncCall: controller.inAsyncCall.value,
         child: Scaffold(
-          appBar: CommonWidgets.appBar(title: controller.title),
+          appBar: CommonWidgets.appBar(title: controller.title.value),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.all(20.px),
+            child: CommonWidgets.commonElevatedButton(
+              onPressed: () => controller.clickOnPayButton(),
+              child: Text(
+                StringConstants.pay,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall
+                    ?.copyWith(fontWeight: FontWeight.w700),
+              ),
+            ),
+          ),
           body: ListView(
             children: [
               Padding(
@@ -36,24 +50,31 @@ class GiftUserView extends GetView<GiftUserController> {
                     ),
                     SizedBox(height: 14.px),
                     CommonWidgets.commonTextFieldForLoginSignUP(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                       controller: controller.giftingAmountController,
                       focusNode: controller.focusGiftingAmount,
                       title: StringConstants.giftingAmount,
                       isCard: controller.isGiftingAmount.value,
                       hintText: StringConstants.pleaseEnterGiftingAmount,
+                      onChanged: (value) {
+                        if (controller
+                                .giftingAmountController.text.isNotEmpty &&
+                            controller.giftingAmountController.text[0] != '0') {
+                          controller.giftingAmountControllerValue.value = value;
+                          controller.giftingAmountController.text =
+                              "₦ ${controller.giftingAmountController.text.toString()}";
+                        } else {
+                          controller.giftingAmountController.text = '';
+                          controller.giftingAmountControllerValue.value =
+                              controller.giftingAmountController.text
+                                  .toString();
+                        }
+                      },
                     ),
                     SizedBox(height: 20.px),
-                    CommonWidgets.commonElevatedButton(
-                      onPressed: () => controller.clickOnContinueButton(),
-                      child: Text(
-                        StringConstants.continueText,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    SizedBox(height: 10.px),
                   ],
                 ),
               ),

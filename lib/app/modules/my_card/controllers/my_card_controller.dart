@@ -3,7 +3,6 @@ import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/delete_virtual_card_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_card_holder_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
-import 'package:HibaPay/app/modules/my_card/controllers/my_card_controller.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/globle.dart';

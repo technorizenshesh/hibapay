@@ -59,4 +59,12 @@ class ApiKeyConstants {
   static const String callbackUrl = 'callback_url';
   static const String color = 'color';
   static const String name = 'name';
+  static const String paymentUrl = 'payment url';
+  static const String serviceType = 'service_type';
+  static const String buySportsBetting = 'BUY_SPORTS_BETTING';
+  static const String buyCableTv = 'BUY_CABLE_TV';
+  static const String buyInternet = 'BUY_INTERNET';
+  static const String buyData = 'BUY_DATA';
+  static const String buyElectricity = 'BUY_ELECTRICITY';
+  static const String buyAirtime = 'BUY_AIRTIME';
 }

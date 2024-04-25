@@ -21,6 +21,19 @@ class CableTvView extends GetView<CableTvController> {
         child: Scaffold(
           appBar: CommonWidgets.appBar(title: controller.title),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.all(20.px),
+            child: CommonWidgets.commonElevatedButton(
+              onPressed: () => controller.clickOnPayButton(),
+              child: Text(
+                StringConstants.pay,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall
+                    ?.copyWith(fontWeight: FontWeight.w700),
+              ),
+            ),
+          ),
           body: ListView(
             children: [
               Padding(
@@ -84,26 +97,7 @@ class CableTvView extends GetView<CableTvController> {
                             height: 10.px),
                         onTap: () => controller.clickOnPackagesAmount(),
                       ),
-                    /* SizedBox(height: 14.px),
-                    CommonWidgets.commonTextFieldForLoginSignUP(
-                      focusNode: controller.focusAmount,
-                      title: StringConstants.enterAmount,
-                      controller: controller.amountController,
-                      isCard: controller.isAmount.value,
-                      hintText: StringConstants.enterAmount,
-                    ),*/
                     SizedBox(height: 20.px),
-                    CommonWidgets.commonElevatedButton(
-                      onPressed: () => controller.clickOnContinueButton(),
-                      child: Text(
-                        StringConstants.continueText,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    SizedBox(height: 10.px),
                   ],
                 ),
               ),

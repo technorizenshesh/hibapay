@@ -4,6 +4,7 @@ import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
@@ -20,6 +21,19 @@ class BettingView extends GetView<BettingController> {
         child: Scaffold(
           appBar: CommonWidgets.appBar(title: controller.title),
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.all(20.px),
+            child: CommonWidgets.commonElevatedButton(
+              onPressed: () => controller.clickOnPayButton(),
+              child: Text(
+                StringConstants.pay,
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall
+                    ?.copyWith(fontWeight: FontWeight.w700),
+              ),
+            ),
+          ),
           body: ListView(
             children: [
               Padding(
@@ -85,24 +99,29 @@ class BettingView extends GetView<BettingController> {
                       ),*/
                     SizedBox(height: 14.px),
                     CommonWidgets.commonTextFieldForLoginSignUP(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
                       focusNode: controller.focusAmount,
                       title: StringConstants.enterAmount,
                       controller: controller.amountController,
+                      onChanged: (value) {
+                        if (controller.amountController.text.isNotEmpty &&
+                            controller.amountController.text[0] != '0') {
+                          controller.amountControllerValue.value = value;
+                          controller.amountController.text =
+                              "₦ ${controller.amountController.text.toString()}";
+                        } else {
+                          controller.amountController.text = '';
+                          controller.amountControllerValue.value =
+                              controller.amountController.text.toString();
+                        }
+                      },
                       isCard: controller.isAmount.value,
                       hintText: StringConstants.enterAmount,
                     ),
                     SizedBox(height: 20.px),
-                    CommonWidgets.commonElevatedButton(
-                      onPressed: () => controller.clickOnContinueButton(),
-                      child: Text(
-                        StringConstants.continueText,
-                        style: Theme.of(context)
-                            .textTheme
-                            .headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.w700),
-                      ),
-                    ),
-                    SizedBox(height: 10.px),
                   ],
                 ),
               ),
