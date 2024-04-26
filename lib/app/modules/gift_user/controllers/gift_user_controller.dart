@@ -17,11 +17,14 @@ class GiftUserController extends GetxController {
 
   TextEditingController giftingAmountController = TextEditingController();
   TextEditingController receiverIdController = TextEditingController();
+  TextEditingController desController = TextEditingController();
 
   FocusNode focusGiftingAmount = FocusNode();
   FocusNode focusReceiverId = FocusNode();
+  FocusNode focusDes = FocusNode();
   final isGiftingAmount = false.obs;
   final isReceiverId = false.obs;
+  final isDes = false.obs;
   final inAsyncCall = false.obs;
   final authTokenHiba = ''.obs;
 
@@ -38,11 +41,13 @@ class GiftUserController extends GetxController {
   void startListener() {
     focusGiftingAmount.addListener(onFocusChange);
     focusReceiverId.addListener(onFocusChange);
+    focusDes.addListener(onFocusChange);
   }
 
   void onFocusChange() {
     isGiftingAmount.value = focusGiftingAmount.hasFocus;
     isReceiverId.value = focusReceiverId.hasFocus;
+    isDes.value = focusDes.hasFocus;
   }
 
   @override
@@ -57,7 +62,7 @@ class GiftUserController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnPayButton() async {
+  clickOnContinueButton() async {
     if (receiverIdController.text.trim().isNotEmpty &&
         giftingAmountController.text.trim().isNotEmpty) {
       inAsyncCall.value = true;
@@ -65,9 +70,9 @@ class GiftUserController extends GetxController {
         ApiKeyConstants.authTokenHiba: authTokenHiba.value,
         ApiKeyConstants.amount: giftingAmountControllerValue.value,
         ApiKeyConstants.receiverId: receiverIdController.text,
+        ApiKeyConstants.giftsDescription: desController.text,
       };
-      UserModel? userModel =
-          await ApiMethods.giftSendGiftAsMoney(bodyParams: bodyParams);
+      UserModel? userModel = await ApiMethods.sendGift(bodyParams: bodyParams);
       if (userModel != null) {
         if (userModel.message != null && userModel.message!.isNotEmpty) {
           if (userModel.message == 'Success') {

@@ -84,6 +84,8 @@ class MyProfileController extends GetxController {
     getBannersResult.clear;
     getCardTransactionsResultData.clear;
     listVirtualCardsResult.clear;
+    getWalletTransactionResult.clear;
+    getReceivedGiftsResult.clear;
     result = null;
     selectedIndex.value = 0;
     Get.offAllNamed(Routes.SPLASH);

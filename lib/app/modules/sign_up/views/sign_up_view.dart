@@ -41,7 +41,7 @@ class SignUpView extends GetView<SignUpController> {
                       ),
                       SizedBox(height: 8.px),
                       Text(
-                        StringConstants.enterYourPhoneNumber,
+                        StringConstants.enterYourDetailToSignUp,
                         style: Theme.of(Get.context!).textTheme.titleMedium,
                       ),
                       SizedBox(height: 24.px),

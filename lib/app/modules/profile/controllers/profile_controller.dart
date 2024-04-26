@@ -12,7 +12,7 @@ class ProfileController extends GetxController {
   List listOfListTileImages = [
     // IconConstants.icAppearanceAndDisplay,
     // IconConstants.icBiometricSettings,
-    IconConstants.icWallet,
+    IconConstants.icFund,
     // IconConstants.icReferral,
     IconConstants.icGiftUser,
     IconConstants.icAccountInfo,
@@ -27,7 +27,7 @@ class ProfileController extends GetxController {
   List listOfListTileTitles = [
     // StringConstants.appearanceAndDisplay,
     // StringConstants.biometricSettings,
-    StringConstants.wallet,
+    StringConstants.fund,
     // StringConstants.referral,
     StringConstants.giftUser,
     StringConstants.accountInfo,
@@ -65,6 +65,9 @@ class ProfileController extends GetxController {
         break;
       case StringConstants.referral:
         Get.toNamed(Routes.REFERRAL);
+        break;
+      case StringConstants.fund:
+        Get.toNamed(Routes.ACCOUNT);
         break;
       case StringConstants.giftUser:
         Get.toNamed(Routes.GIFT_USER_CARDS);

@@ -74,6 +74,10 @@ import '../modules/notification/bindings/notification_binding.dart';
 import '../modules/notification/views/notification_view.dart';
 import '../modules/pay_amount/bindings/pay_amount_binding.dart';
 import '../modules/pay_amount/views/pay_amount_view.dart';
+import '../modules/pay_summary/bindings/pay_summary_binding.dart';
+import '../modules/pay_summary/views/pay_summary_view.dart';
+import '../modules/pay_summary_success/bindings/pay_summary_success_binding.dart';
+import '../modules/pay_summary_success/views/pay_summary_success_view.dart';
 import '../modules/profile/bindings/profile_binding.dart';
 import '../modules/profile/views/profile_view.dart';
 import '../modules/rate_us/bindings/rate_us_binding.dart';
@@ -423,6 +427,16 @@ class AppPages {
       name: _Paths.WEB_VIEW,
       page: () => const WebViewView(),
       binding: WebViewBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAY_SUMMARY,
+      page: () => const PaySummaryView(),
+      binding: PaySummaryBinding(),
+    ),
+    GetPage(
+      name: _Paths.PAY_SUMMARY_SUCCESS,
+      page: () => const PaySummarySuccessView(),
+      binding: PaySummarySuccessBinding(),
     ),
   ];
 }

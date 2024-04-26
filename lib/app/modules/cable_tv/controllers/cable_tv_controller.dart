@@ -83,7 +83,7 @@ class CableTvController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnPayButton() async {
+  clickOnContinueButton() async {
     if (decoderNumberController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         packagesController.text.trim().isNotEmpty) {

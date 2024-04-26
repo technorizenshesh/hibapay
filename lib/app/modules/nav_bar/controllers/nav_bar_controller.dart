@@ -1,10 +1,10 @@
 import 'package:HibaPay/app/data/constants/string_constants.dart';
-import 'package:HibaPay/app/modules/account/controllers/account_controller.dart';
-import 'package:HibaPay/app/modules/account/views/account_view.dart';
 import 'package:HibaPay/app/modules/home/controllers/home_controller.dart';
 import 'package:HibaPay/app/modules/my_card/controllers/my_card_controller.dart';
 import 'package:HibaPay/app/modules/my_card/views/my_card_view.dart';
 import 'package:HibaPay/app/modules/profile/controllers/profile_controller.dart';
+import 'package:HibaPay/app/modules/wallet/controllers/wallet_controller.dart';
+import 'package:HibaPay/app/modules/wallet/views/wallet_view.dart';
 import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/services.dart';
@@ -50,11 +50,11 @@ class NavBarController extends GetxController {
       /* case 2:
         return const ScanQrCodeView();*/
       case 2:
-        Get.delete<AccountController>();
-        Get.lazyPut<AccountController>(
-          () => AccountController(),
+        Get.delete<WalletController>();
+        Get.lazyPut<WalletController>(
+          () => WalletController(),
         );
-        return const AccountView();
+        return const WalletView();
       case 3:
         Get.delete<ProfileController>();
         Get.lazyPut<ProfileController>(

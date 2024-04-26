@@ -87,7 +87,7 @@ class LoginView extends GetView<LoginController> {
                           ),
                           SizedBox(height: 8.px),
                           Text(
-                            StringConstants.enterYourPhoneNumber,
+                            StringConstants.loginWithEmailAndMobileNumber,
                             style: Theme.of(Get.context!).textTheme.titleMedium,
                           ),
                           SizedBox(height: 24.px),

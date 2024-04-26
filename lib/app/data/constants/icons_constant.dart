@@ -28,6 +28,7 @@ class IconConstants {
   static const String icCardActive = 'assets/icons/ic_card_active.svg';
   static const String icCardInActive = 'assets/icons/ic_card_in_active.svg';
   static const String icAccountActive = 'assets/icons/ic_account_active.svg';
+  static const String icFund = 'assets/icons/ic_fund.svg';
   static const String icAccountInActive =
       'assets/icons/ic_account_in_active.svg';
   static const String icProfileInActive =

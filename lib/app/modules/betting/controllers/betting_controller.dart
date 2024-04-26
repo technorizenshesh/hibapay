@@ -84,7 +84,7 @@ class BettingController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnPayButton() async {
+  clickOnContinueButton() async {
     if (enterIdController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         amountController.text.trim().isNotEmpty &&

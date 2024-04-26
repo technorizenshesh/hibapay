@@ -91,7 +91,7 @@ class ElectricityController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnPayButton() async {
+  clickOnContinueButton() async {
     if (meterNumberController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         packagesController.text.trim().isNotEmpty &&

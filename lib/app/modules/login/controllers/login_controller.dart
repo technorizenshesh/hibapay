@@ -108,6 +108,8 @@ class LoginController extends GetxController {
               margin: EdgeInsets.all(20.px),
               'Error',
               userModel.message.toString());
+        } else {
+          Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
         }
       }
       inAsyncCall.value = false;
@@ -148,6 +150,8 @@ class LoginController extends GetxController {
                 margin: EdgeInsets.all(20.px),
                 'Error',
                 userModel.message.toString());
+          } else {
+            Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
           }
         }
         inAsyncCall.value = false;
@@ -183,6 +187,8 @@ class LoginController extends GetxController {
                 margin: EdgeInsets.all(20.px),
                 'Error',
                 userModel.message.toString());
+          } else {
+            Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
           }
         }
         /* if (userModel != null &&

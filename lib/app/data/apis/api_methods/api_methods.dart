@@ -15,6 +15,8 @@ import 'package:HibaPay/app/data/apis/api_models/get_card_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_card_transactions_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_packages_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_price_list_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_price_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_received_gifts_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_services_hibapay_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_wallet_transaction_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
@@ -325,6 +327,40 @@ class ApiMethods {
     return null;
   }
 
+  static Future<GetServicesModel?> getPriceList({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    GetServicesModel? getServicesModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfGetPriceList,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getServicesModel = GetServicesModel.fromJson(jsonDecode(response.body));
+      return getServicesModel;
+    }
+    return null;
+  }
+
+  static Future<GetPriceModel?> getPrice({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    GetPriceModel? getPriceModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfGetPrice,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getPriceModel = GetPriceModel.fromJson(jsonDecode(response.body));
+      return getPriceModel;
+    }
+    return null;
+  }
+
   static Future<UserModel?> walletRecharge({
     void Function(int)? checkResponse,
     required Map<String, dynamic> queryParameters,
@@ -430,19 +466,55 @@ class ApiMethods {
     return null;
   }
 
-  static Future<UserModel?> giftSendGiftAsMoney({
+  static Future<UserModel?> sendGift({
     void Function(int)? checkResponse,
     Map<String, dynamic>? bodyParams,
   }) async {
     UserModel? userModel;
     http.Response? response = await MyHttp.postMethod(
       bodyParams: bodyParams,
-      url: ApiUrlConstants.endPointOfGiftSendGiftAsMoney,
+      url: ApiUrlConstants.endPointOfSendGift,
       checkResponse: checkResponse,
     );
     if (response != null) {
       userModel = UserModel.fromJson(jsonDecode(response.body));
       return userModel;
+    }
+    return null;
+  }
+
+  static Future<GetReceivedGiftsModel?> getReceivedGifts({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    GetReceivedGiftsModel? getReceivedGiftsModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfGetReceivedGifts,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getReceivedGiftsModel =
+          GetReceivedGiftsModel.fromJson(jsonDecode(response.body));
+      return getReceivedGiftsModel;
+    }
+    return null;
+  }
+
+  static Future<GetReceivedGiftsModel?> sendGiftAsMoneyClaim({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    GetReceivedGiftsModel? getReceivedGiftsModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfSendGiftAsMoneyClaim,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getReceivedGiftsModel =
+          GetReceivedGiftsModel.fromJson(jsonDecode(response.body));
+      return getReceivedGiftsModel;
     }
     return null;
   }

@@ -25,9 +25,9 @@ class RechargeView extends GetView<RechargeController> {
           bottomNavigationBar: Padding(
             padding: EdgeInsets.all(20.px),
             child: CommonWidgets.commonElevatedButton(
-              onPressed: () => controller.clickOnPayButton(),
+              onPressed: () => controller.clickOnContinueButton(),
               child: Text(
-                StringConstants.pay,
+                StringConstants.continueText,
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall

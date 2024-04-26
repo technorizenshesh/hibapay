@@ -59,8 +59,8 @@ class NavBarView extends GetView<NavBarController> {
                                 text: '',
                                 index: 2),*/
                             button(
-                                image: IconConstants.icAccountInActive,
-                                text: StringConstants.fund,
+                                image: IconConstants.icWallet,
+                                text: StringConstants.wallet,
                                 index: 2),
                             button(
                                 image: IconConstants.icProfileInActive,

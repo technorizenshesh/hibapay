@@ -46,7 +46,7 @@ class WalletView extends GetView<WalletController> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          GestureDetector(
+                          /* GestureDetector(
                             onTap: () {
                               Get.back();
                             },
@@ -55,7 +55,7 @@ class WalletView extends GetView<WalletController> {
                               height: 34.px,
                               width: 34.px,
                             ),
-                          ),
+                          ),*/
                           Text(
                             StringConstants.wallet,
                             style: Theme.of(Get.context!)

@@ -89,7 +89,6 @@ class HomeController extends GetxController {
     await listVirtualCardsApi();
     await getBannersApi();
     await getServicesApi();
-    await getCardTransactionsApi();
   }
 
   getProfileApi() async {
@@ -164,10 +163,12 @@ class HomeController extends GetxController {
         listVirtualCardsModel.result != null &&
         listVirtualCardsModel.result!.isNotEmpty) {
       listVirtualCardsResult = listVirtualCardsModel.result!;
+      print('listVirtualCardsResult::::::::::::::::${listVirtualCardsResult}');
       if (listVirtualCardsResult.isNotEmpty) {
         SharedPreferences sp = await SharedPreferences.getInstance();
         sp.setString(ApiKeyConstants.virtualCardId,
-            listVirtualCardsResult.first.vcardCardId ?? '');
+            listVirtualCardsResult.first.vcardCardHolderId ?? '');
+        await getCardTransactionsApi();
         increment();
       }
       increment();

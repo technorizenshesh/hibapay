@@ -23,10 +23,13 @@ class ApiUrlConstants {
   static const String endPointOfGetCard = '${baseUrl}card/get-card';
   static const String endPointOfDelete = '${baseUrl}card/delete-card';
   static const String endPointOfGetProfile = '${baseUrl}user/get-profile';
-  static const String endPointOfGetWalletTransaction =
-      '${baseUrl}ufitpay/get-wallet-transaction';
   static const String endPointOfGetBanners = '${baseUrl}banners/get-banners';
   static const String endPointOfGetServices = '${baseUrl}hibapay/get-services';
+  static const String endPointOfGetPriceList =
+      '${baseUrl}ufitpay/get-price-list';
+  static const String endPointOfGetPrice = '${baseUrl}ufitpay/get-price';
+  static const String endPointOfGetWalletTransaction =
+      '${baseUrl}ufitpay/get-wallet-transaction';
   static const String endPointOfUFitPayGetServices =
       '${baseUrl}ufitpay/get-services';
   static const String endPointOfUFitPayGetVendors =
@@ -34,8 +37,11 @@ class ApiUrlConstants {
   static const String endPointOfUFitPayGetPriceList =
       '${baseUrl}ufitpay/get-price-list';
   static const String endPointOfUFitPayBillPay = '${baseUrl}ufitpay/bill-pay';
-  static const String endPointOfGiftSendGiftAsMoney =
-      '${baseUrl}gift/send-gift-as-money';
+  static const String endPointOfSendGift = '${baseUrl}gift/send-gift';
+  static const String endPointOfGetReceivedGifts =
+      '${baseUrl}gift/get-received-gifts';
+  static const String endPointOfSendGiftAsMoneyClaim =
+      '${baseUrl}gift/send-gift-as-money-claim';
   static const String endPointOfUFitPayGetPackages =
       '${baseUrl}ufitpay/get-packages';
   static const String endPointOfUploadUserDocuments =

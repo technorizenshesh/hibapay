@@ -112,7 +112,7 @@ class ResetPasswordView extends GetView<ResetPasswordController> {
                             ],
                           ),
                         ),
-                        SizedBox(height: 12.px),
+                        SizedBox(height: 24.px),
                         controller.selectedTab.value == 0
                             ? CommonWidgets.commonTextFieldForLoginSignUP(
                                 focusNode: controller.focusEmail,

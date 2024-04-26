@@ -1,8 +1,9 @@
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
-import 'package:HibaPay/app/data/apis/api_models/bill_pay_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_price_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/ufitpay_get_vendors_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
+import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -34,6 +35,7 @@ class RechargeController extends GetxController {
   final vendorName = ''.obs;
   final vendorId = ''.obs;
   final packageName = ''.obs;
+  Map<String, dynamic> bodyParams = {};
 
   @override
   Future<void> onInit() async {
@@ -72,41 +74,54 @@ class RechargeController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnPayButton() async {
+  clickOnContinueButton() async {
     if (mobileNumberController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         amountController.text.trim().isNotEmpty) {
       if (int.parse(amountControllerValue.value.tr) >= 100) {
-        inAsyncCall.value = true;
-        Map<String, dynamic> bodyParams = {
+        bodyParams = {
           ApiKeyConstants.serviceId: serviceId.value,
           ApiKeyConstants.vendorId: vendorId.value,
-          ApiKeyConstants.accountNumber: mobileNumberController.text,
           ApiKeyConstants.amount: amountControllerValue.value,
-          ApiKeyConstants.authTokenHiba: authTokenHiba.value,
-          ApiKeyConstants.serviceType: ApiKeyConstants.buyAirtime,
+          ApiKeyConstants.authTokenHiba: authTokenHiba.value
         };
-        BillPayModel? billPayModel =
-            await ApiMethods.uFitPayBillPay(bodyParams: bodyParams);
-        if (billPayModel != null &&
-            billPayModel.result != null &&
-            billPayModel.result!.data != null) {
-          Get.back();
-          Get.snackbar(
-              margin: EdgeInsets.all(20.px),
-              '${billPayModel.result!.resource ?? ''} ${billPayModel.result!.status ?? ''}',
-              billPayModel.result!.data!.paymentStatus ?? '');
-          increment();
-        } else {
-          if (billPayModel != null && billPayModel.result != null) {
-            Get.snackbar(
-                margin: EdgeInsets.all(20.px),
-                'Failed',
-                billPayModel.result!.message ?? '');
+        inAsyncCall.value = true;
+        GetPriceModel? getPriceModel =
+            await ApiMethods.getPrice(bodyParams: bodyParams);
+        if (getPriceModel != null &&
+            getPriceModel.result != null &&
+            getPriceModel.result!.data != null) {
+          if (getPriceModel.result!.data!.price != null &&
+                  getPriceModel.result!.data!.fee !=
+                      null /*&&
+              getPriceModel.result!.data!.total != null*/
+              ) {
+            bodyParams.clear();
+            bodyParams = {
+              ApiKeyConstants.accountNumber: mobileNumberController.text,
+              ApiKeyConstants.amount: amountControllerValue.value,
+              ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
+              ApiKeyConstants
+                  .total: (double.parse(amountControllerValue.value) +
+                      double.parse(getPriceModel.result!.data!.fee.toString()))
+                  .toString(),
+              /*ApiKeyConstants.total: getPriceModel.result!.data!.total,*/
+              // ApiKeyConstants.price: getPriceModel.result!.data!.price,
+              ApiKeyConstants.serviceType: ApiKeyConstants.buyAirtime,
+              ApiKeyConstants.serviceId: serviceId.value,
+              ApiKeyConstants.vendorId: vendorId.value,
+              ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+            };
+            Get.toNamed(Routes.PAY_SUMMARY, arguments: bodyParams);
           } else {
-            Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
+            Get.snackbar(
+                margin: EdgeInsets.all(20.px), 'NULL', 'Something went wrong');
           }
+        } else {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px), 'Error', 'Something went wrong');
         }
+        inAsyncCall.value = false;
       } else {
         Get.snackbar(
             margin: EdgeInsets.all(20.px), 'Error', 'Enter amount above 100');

@@ -45,16 +45,32 @@ class AccountView extends GetView<AccountController> {
                       SizedBox(height: 20.px),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20.px),
-                        child: Text(
-                          StringConstants.fund,
-                          style: Theme.of(Get.context!)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                fontSize: 20.px,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                Get.back();
+                              },
+                              child: CommonMethods.appIcons(
+                                assetName: IconConstants.icBack,
+                                height: 34.px,
+                                width: 34.px,
                               ),
+                            ),
+                            Text(
+                              StringConstants.fund,
+                              style: Theme.of(Get.context!)
+                                  .textTheme
+                                  .displayMedium
+                                  ?.copyWith(
+                                    fontSize: 20.px,
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                  ),
+                            ),
+                            const SizedBox()
+                          ],
                         ),
                       ),
                       SizedBox(height: 20.px),

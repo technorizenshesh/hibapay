@@ -1,10 +1,11 @@
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
-import 'package:HibaPay/app/data/apis/api_models/bill_pay_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_packages_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_price_list_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_price_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/ufitpay_get_vendors_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
+import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -83,12 +84,69 @@ class DataController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnPayButton() async {
+  clickOnContinueButton() async {
     if (mobileNumberController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         packagesController.text.trim().isNotEmpty) {
-      /*if (int.parse(amountController.text) >= 100) {*/
+      Map<String, dynamic> bodyParams = {
+        /* ApiKeyConstants.serviceId: serviceId.value,
+        ApiKeyConstants.vendorId: vendorId.value,
+        ApiKeyConstants.amount: amountControllerValue.value,
+        ApiKeyConstants.authTokenHiba: authTokenHiba.value,*/
+
+        ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+        ApiKeyConstants.serviceId: serviceId.value,
+        ApiKeyConstants.vendorId: vendorId.value,
+        ApiKeyConstants.accountNumber: mobileNumberController.text,
+        ApiKeyConstants.packageId: packageId.value,
+        ApiKeyConstants.serviceType: (serviceId.value == '0004')
+            ? ApiKeyConstants.buyInternet
+            : ApiKeyConstants.buyData,
+      };
       inAsyncCall.value = true;
+      GetPriceModel? getPriceModel =
+          await ApiMethods.getPrice(bodyParams: bodyParams);
+      if (getPriceModel != null &&
+          getPriceModel.result != null &&
+          getPriceModel.result!.data != null) {
+        if (getPriceModel.result!.data!.price != null &&
+                getPriceModel.result!.data!.fee !=
+                    null /*&&
+              getPriceModel.result!.data!.total != null*/
+            ) {
+          bodyParams.clear();
+          bodyParams = {
+            ApiKeyConstants.accountNumber: mobileNumberController.text,
+            ApiKeyConstants.amount:
+                getPriceModel.result!.data!.price.toString(),
+            ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
+            ApiKeyConstants.total: (double.parse(
+                        getPriceModel.result!.data!.price.toString()) +
+                    double.parse(getPriceModel.result!.data!.fee.toString()))
+                .toString(),
+            ApiKeyConstants.packageId: packageId.value,
+            ApiKeyConstants.serviceType: (serviceId.value == '0004')
+                ? ApiKeyConstants.buyInternet
+                : ApiKeyConstants.buyData,
+            ApiKeyConstants.serviceId: serviceId.value,
+            ApiKeyConstants.vendorId: vendorId.value,
+            ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+            /*ApiKeyConstants.total: getPriceModel.result!.data!.total,*/
+            // ApiKeyConstants.price: getPriceModel.result!.data!.price,
+          };
+          Get.toNamed(Routes.PAY_SUMMARY, arguments: bodyParams);
+        } else {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px), 'NULL', 'Something went wrong');
+        }
+      } else {
+        Get.snackbar(
+            margin: EdgeInsets.all(20.px), 'Error', 'Something went wrong');
+      }
+      inAsyncCall.value = false;
+
+      /*if (int.parse(amountController.text) >= 100) {*/
+      /*inAsyncCall.value = true;
       Map<String, dynamic> bodyParams = {
         ApiKeyConstants.authTokenHiba: authTokenHiba.value,
         ApiKeyConstants.serviceId: serviceId.value,
@@ -99,6 +157,7 @@ class DataController extends GetxController {
             ? ApiKeyConstants.buyInternet
             : ApiKeyConstants.buyData,
       };
+
       BillPayModel? billPayModel =
           await ApiMethods.uFitPayBillPay(bodyParams: bodyParams);
       if (billPayModel != null &&
@@ -110,9 +169,9 @@ class DataController extends GetxController {
             '${billPayModel.result!.resource ?? ''} ${billPayModel.result!.status ?? ''}',
             billPayModel.result!.data?.paymentStatus ?? '');
         increment();
-        /*} else {
+        */ /*} else {
           Get.snackbar(margin: EdgeInsets.all(20.px),'Fail', 'Payment fail');
-        }*/
+        }*/ /*
       } else {
         if (billPayModel != null && billPayModel.result != null) {
           Get.snackbar(
@@ -123,7 +182,7 @@ class DataController extends GetxController {
           Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
         }
       }
-      inAsyncCall.value = false;
+      inAsyncCall.value = false;*/
     } else {
       Get.snackbar(
           margin: EdgeInsets.all(20.px), 'Error', 'All field required');

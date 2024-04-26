@@ -23,9 +23,9 @@ class GiftUserView extends GetView<GiftUserController> {
           bottomNavigationBar: Padding(
             padding: EdgeInsets.all(20.px),
             child: CommonWidgets.commonElevatedButton(
-              onPressed: () => controller.clickOnPayButton(),
+              onPressed: () => controller.clickOnContinueButton(),
               child: Text(
-                StringConstants.pay,
+                StringConstants.continueText,
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall
@@ -73,6 +73,14 @@ class GiftUserView extends GetView<GiftUserController> {
                                   .toString();
                         }
                       },
+                    ),
+                    SizedBox(height: 14.px),
+                    CommonWidgets.commonTextFieldForLoginSignUP(
+                      focusNode: controller.focusDes,
+                      controller: controller.desController,
+                      title: StringConstants.giftsDescription,
+                      isCard: controller.isDes.value,
+                      hintText: StringConstants.pleaseEnterGiftsDescription,
                     ),
                     SizedBox(height: 20.px),
                   ],

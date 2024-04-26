@@ -30,6 +30,7 @@ class ApiKeyConstants {
   static const String byEmail = 'BY_EMAIL';
   static const String byMobile = 'BY_MOBILE';
   static const String authTokenHiba = 'auth_token_hiba';
+  static const String giftId = 'gift_id';
   static const String vendorId = 'vendor_id';
   static const String accountNumber = 'account_number';
   static const String packageId = 'package_id';
@@ -51,6 +52,7 @@ class ApiKeyConstants {
   static const String cardCurrency = 'card_currency';
   static const String amount = 'amount';
   static const String receiverId = 'receiver_id';
+  static const String giftsDescription = 'gifts_description';
   static const String fundingCurrency = 'funding_currency';
   static const String withdrawalAmount = 'withdrawal_amount';
   static const String virtualCardFundingCurrency =
@@ -61,6 +63,9 @@ class ApiKeyConstants {
   static const String name = 'name';
   static const String paymentUrl = 'payment url';
   static const String serviceType = 'service_type';
+  static const String fee = 'fee';
+  static const String total = 'total';
+  static const String price = 'price';
   static const String buySportsBetting = 'BUY_SPORTS_BETTING';
   static const String buyCableTv = 'BUY_CABLE_TV';
   static const String buyInternet = 'BUY_INTERNET';

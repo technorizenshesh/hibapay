@@ -7,7 +7,9 @@ class StringConstants {
   static const String awesome = 'Awesome';
   static const String pleaseEnterPhoneNumber = 'Please enter phone number';
   static const String resetPassword = 'Reset Password ?';
-  static const String enterYourPhoneNumber = 'Enter your phone number';
+  static const String enterYourDetailToSignUp = 'Enter your detail to sign up';
+  static const String loginWithEmailAndMobileNumber =
+      'Login with email and mobile number';
   static const String phoneNumber = 'Phone Number';
   static const String doNotHaveAnAccount = 'Don’t have an account?';
   static const String fullName = 'Full Name';
@@ -78,6 +80,8 @@ class StringConstants {
 
   // static const String myCard = ' My Card';
   static const String cards = ' Cards';
+  static const String payment = 'Payment';
+  static const String paymentSuccess = 'Payment success';
   static const String account = 'Account';
   static const String virtualCard = 'Virtual card';
   static const String fund = 'Fund';
@@ -207,8 +211,11 @@ class StringConstants {
   static const String pleaseEnterAccountName = "Please enter account name";
   static const String giftingAmount = "Gifting Amount";
   static const String receiverId = "Receiver id";
+  static const String giftsDescription = "Gifts description";
   static const String pleaseEnterGiftingAmount = "Please enter gifting amount";
   static const String pleaseEnterReceiverId = "Please enter receiver id";
+  static const String pleaseEnterGiftsDescription =
+      "Please enter gifts description";
   static const String pleaseEnterId = "Please enter id";
   static const String pleaseEnterBillTag = "Please enter bill tag";
   static const String billTag = "Bill Tag";
@@ -276,7 +283,7 @@ class StringConstants {
   static const String biometricSettings = "Biometric Settings";
   static const String appearanceAndDisplay = "Appearance & Display";
   static const String referral = "Referral";
-  static const String collect = "Collect";
+  static const String collected = "Collected";
   static const String contactPreferences = "Contact preferences";
   static const String uFitPay = "UFITPAY";
   static const String hibapay = "HIBAPAY";
