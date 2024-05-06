@@ -1,5 +1,6 @@
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/faqs_model.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,12 +10,12 @@ class FaqsController extends GetxController {
   TextEditingController searchController = TextEditingController();
   final inAsyncCall = false.obs;
 
-  List<FaqsResult> faqsResult = [];
-
   @override
   Future<void> onInit() async {
     super.onInit();
-    inAsyncCall.value = true;
+    if (faqsResult.isEmpty) {
+      inAsyncCall.value = true;
+    }
     await onInitWorking();
     inAsyncCall.value = false;
   }
@@ -43,6 +44,7 @@ class FaqsController extends GetxController {
         faqsModel.result != null &&
         faqsModel.result!.isNotEmpty) {
       faqsResult = faqsModel.result!;
+      increment();
     }
   }
 }

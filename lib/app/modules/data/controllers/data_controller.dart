@@ -45,6 +45,9 @@ class DataController extends GetxController {
   final packageName = ''.obs;
   final packageAmount = ''.obs;
 
+  Map<String, dynamic> bodyParams = {};
+  Map<String, String> bodyParams1 = {};
+
   @override
   Future<void> onInit() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -88,20 +91,15 @@ class DataController extends GetxController {
     if (mobileNumberController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         packagesController.text.trim().isNotEmpty) {
-      Map<String, dynamic> bodyParams = {
-        /* ApiKeyConstants.serviceId: serviceId.value,
-        ApiKeyConstants.vendorId: vendorId.value,
-        ApiKeyConstants.amount: amountControllerValue.value,
-        ApiKeyConstants.authTokenHiba: authTokenHiba.value,*/
-
-        ApiKeyConstants.authTokenHiba: authTokenHiba.value,
-        ApiKeyConstants.serviceId: serviceId.value,
-        ApiKeyConstants.vendorId: vendorId.value,
+      bodyParams = {
         ApiKeyConstants.accountNumber: mobileNumberController.text,
-        ApiKeyConstants.packageId: packageId.value,
         ApiKeyConstants.serviceType: (serviceId.value == '0004')
             ? ApiKeyConstants.buyInternet
             : ApiKeyConstants.buyData,
+        ApiKeyConstants.packageId: packageId.value,
+        ApiKeyConstants.serviceId: serviceId.value,
+        ApiKeyConstants.vendorId: vendorId.value,
+        ApiKeyConstants.authTokenHiba: authTokenHiba.value,
       };
       inAsyncCall.value = true;
       GetPriceModel? getPriceModel =
@@ -134,7 +132,19 @@ class DataController extends GetxController {
             /*ApiKeyConstants.total: getPriceModel.result!.data!.total,*/
             // ApiKeyConstants.price: getPriceModel.result!.data!.price,
           };
-          Get.toNamed(Routes.PAY_SUMMARY, arguments: bodyParams);
+          bodyParams1.clear();
+          bodyParams1 = {
+            StringConstants.mobileNumber: mobileNumberController.text,
+            StringConstants.amount:
+                getPriceModel.result!.data!.price.toString(),
+            StringConstants.fee: getPriceModel.result!.data!.fee.toString(),
+            StringConstants.total: (double.parse(
+                        getPriceModel.result!.data!.price.toString()) +
+                    double.parse(getPriceModel.result!.data!.fee.toString()))
+                .toString(),
+          };
+          Get.toNamed(Routes.PAY_SUMMARY,
+              parameters: bodyParams1, arguments: bodyParams);
         } else {
           Get.snackbar(
               margin: EdgeInsets.all(20.px), 'NULL', 'Something went wrong');

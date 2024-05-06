@@ -65,6 +65,13 @@ abstract class Routes {
   static const WEB_VIEW = _Paths.WEB_VIEW;
   static const PAY_SUMMARY = _Paths.PAY_SUMMARY;
   static const PAY_SUMMARY_SUCCESS = _Paths.PAY_SUMMARY_SUCCESS;
+  static const VIRTUAL_ACCOUNT = _Paths.VIRTUAL_ACCOUNT;
+  static const VIRTUAL_ACCOUNT_ADD = _Paths.VIRTUAL_ACCOUNT_ADD;
+  static const ABOUT_US = _Paths.ABOUT_US;
+  static const CONTACT_US = _Paths.CONTACT_US;
+  static const EDUCATION = _Paths.EDUCATION;
+  static const TERM_AND_CONDITIONS = _Paths.TERM_AND_CONDITIONS;
+  static const WALLET_TRANSACTION_DETAIL = _Paths.WALLET_TRANSACTION_DETAIL;
 }
 
 abstract class _Paths {
@@ -130,4 +137,11 @@ abstract class _Paths {
   static const WEB_VIEW = '/web-view';
   static const PAY_SUMMARY = '/pay-summary';
   static const PAY_SUMMARY_SUCCESS = '/pay-summary-success';
+  static const VIRTUAL_ACCOUNT = '/virtual-account';
+  static const VIRTUAL_ACCOUNT_ADD = '/virtual-account-add';
+  static const ABOUT_US = '/about-us';
+  static const CONTACT_US = '/contact-us';
+  static const EDUCATION = '/education';
+  static const TERM_AND_CONDITIONS = '/term-and-conditions';
+  static const WALLET_TRANSACTION_DETAIL = '/wallet-transaction-detail';
 }

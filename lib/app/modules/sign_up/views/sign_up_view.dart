@@ -145,6 +145,19 @@ class SignUpView extends GetView<SignUpController> {
                       ),
                       SizedBox(height: 14.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(
+                        focusNode: controller.focusReferral,
+                        title: StringConstants.referral,
+                        controller: controller.referralController,
+                        isCard: controller.isReferral.value,
+                        prefixIcon: CommonMethods.appIcons(
+                          assetName: controller.isReferral.value
+                              ? IconConstants.icReferralTextField
+                              : IconConstants.icReferralTextField,
+                        ),
+                        hintText: StringConstants.pleaseEnterEmail,
+                      ),
+                      SizedBox(height: 14.px),
+                      CommonWidgets.commonTextFieldForLoginSignUP(
                         obscureText: controller.passwordHide.value,
                         focusNode: controller.focusPassword,
                         title: StringConstants.password,

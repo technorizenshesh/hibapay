@@ -1,3 +1,6 @@
+import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
+import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
+import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_widgets.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +26,12 @@ class SetPinController extends GetxController {
   DateTime? dateTime;
 
   final inAsyncCall = false.obs;
+  final authTokenHiba = ''.obs;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
     super.onInit();
     startListener();
   }
@@ -63,71 +69,97 @@ class SetPinController extends GetxController {
         sp.setBool(StringConstants.isLock, false);
         sp.setString(StringConstants.isLockPin,
             yourPinController.text.trim().toString());
-        showDialog(
-          context: Get.context!,
-          builder: (context) {
-            return AlertDialog(
-              content: Padding(
-                padding: EdgeInsets.all(16.px),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Container(
-                      decoration: BoxDecoration(
-                        color: Theme.of(context).scaffoldBackgroundColor,
-                        boxShadow: [
-                          BoxShadow(
-                            blurRadius: 20.px,
-                            color: Colors.black.withOpacity(.2),
-                          )
-                        ],
-                        shape: BoxShape.circle,
+        Map<String, dynamic> bodyParams = {
+          ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+          ApiKeyConstants.appPin: yourPinController.text.toString(),
+        };
+        inAsyncCall.value = true;
+        UserModel? userModel =
+            await ApiMethods.updateAppPin(bodyParams: bodyParams);
+        if (userModel != null &&
+            userModel.status != null &&
+            userModel.status!.isNotEmpty &&
+            userModel.status == '1') {
+          showDialog(
+            context: Get.context!,
+            builder: (context) {
+              return AlertDialog(
+                content: Padding(
+                  padding: EdgeInsets.all(16.px),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                          boxShadow: [
+                            BoxShadow(
+                              blurRadius: 20.px,
+                              color: Colors.black.withOpacity(.2),
+                            )
+                          ],
+                          shape: BoxShape.circle,
+                        ),
+                        child: Padding(
+                          padding: EdgeInsets.all(8.px),
+                          child: Icon(Icons.done,
+                              color: Theme.of(context).primaryColor,
+                              size: 60.px),
+                        ),
                       ),
-                      child: Padding(
-                        padding: EdgeInsets.all(8.px),
-                        child: Icon(Icons.done,
-                            color: Theme.of(context).primaryColor, size: 60.px),
-                      ),
-                    ),
-                    SizedBox(height: 10.px),
-                    Text(
-                      'Great!',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(Get.context!)
-                          .textTheme
-                          .headlineMedium
-                          ?.copyWith(fontSize: 24.px),
-                    ),
-                    SizedBox(height: 20.px),
-                    Text(
-                      'Your account pin is created!',
-                      textAlign: TextAlign.center,
-                      style: Theme.of(Get.context!)
-                          .textTheme
-                          .titleMedium
-                          ?.copyWith(fontSize: 16.px),
-                    ),
-                    SizedBox(height: 40.px),
-                    CommonWidgets.commonElevatedButton(
-                      onPressed: () {
-                        Get.back();
-                        Get.back();
-                      },
-                      // buttonColor: Theme.of(context).colorScheme.onError,
-                      child: Text(
-                        StringConstants.awesome,
-                        style: Theme.of(context)
+                      SizedBox(height: 10.px),
+                      Text(
+                        'Great!',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(Get.context!)
                             .textTheme
-                            .headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.w700),
+                            .headlineMedium
+                            ?.copyWith(fontSize: 24.px),
                       ),
-                    ),
-                  ],
+                      SizedBox(height: 20.px),
+                      Text(
+                        'Your account pin is created!',
+                        textAlign: TextAlign.center,
+                        style: Theme.of(Get.context!)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(fontSize: 16.px),
+                      ),
+                      SizedBox(height: 40.px),
+                      CommonWidgets.commonElevatedButton(
+                        onPressed: () {
+                          Get.back();
+                          Get.back();
+                        },
+                        // buttonColor: Theme.of(context).colorScheme.onError,
+                        child: Text(
+                          StringConstants.awesome,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            );
-          },
-        );
+              );
+            },
+          );
+        } else {
+          if (userModel != null &&
+              userModel.message != null &&
+              userModel.message!.isNotEmpty) {
+            Get.snackbar(
+                margin: EdgeInsets.all(20.px),
+                'Error',
+                userModel.message ?? '');
+          } else {
+            Get.snackbar(
+                margin: EdgeInsets.all(20.px), 'Error', "Something went wrong");
+          }
+        }
+        inAsyncCall.value = false;
       } else {
         Get.snackbar(
             margin: EdgeInsets.all(20.px),

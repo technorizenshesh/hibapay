@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_banners_model.dart';
@@ -23,9 +25,11 @@ class HomeController extends GetxController {
   final count = 0.obs;
   final cardIndex = 0.obs;
   final inAsyncCall = false.obs;
-  final isLock = false.obs;
+
+  //final isLock = false.obs;
   final authTokenHiba = ''.obs;
-  final isLockPin = ''.obs;
+
+  //final isLockPin = ''.obs;
   final virtualCardId = ''.obs;
 
   TextEditingController pin = TextEditingController();
@@ -41,8 +45,8 @@ class HomeController extends GetxController {
     SharedPreferences sp = await SharedPreferences.getInstance();
     authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
     virtualCardId.value = sp.getString(ApiKeyConstants.virtualCardId) ?? '';
-    isLock.value = sp.getBool(StringConstants.isLock) ?? true;
-    isLockPin.value = sp.getString(StringConstants.isLockPin) ?? '';
+    //isLock.value = sp.getBool(StringConstants.isLock) ?? true;
+    //isLockPin.value = sp.getString(StringConstants.isLockPin) ?? '';
     super.onInit();
     startListener();
     inAsyncCall.value = true;
@@ -71,10 +75,10 @@ class HomeController extends GetxController {
   void increment() => count.value++;
 
   onInitWorking() async {
-    await getProfileApi();
-    if (isLock.value) {
-      await showBottomSheetLock();
-    } else {
+    print('result?.appPin::::::::::::::::::::::::::::::${result!.appPin}');
+    if (result != null &&
+        result!.appPin.toString() != "null" &&
+        result!.appPin!.isNotEmpty) {
       if (selectedValue.value == 0) {
         selectedValue.value = 1;
         isValue.value = true;
@@ -82,9 +86,12 @@ class HomeController extends GetxController {
         isValue.value = false;
       }
       if (isValue.value) {
-        await showBottomSheetLockEnter();
+        showBottomSheetLockEnter();
       }
+    } else {
+      showBottomSheetLock();
     }
+    await getProfileApi();
     await getCardHolderApi();
     await listVirtualCardsApi();
     await getBannersApi();
@@ -97,6 +104,8 @@ class HomeController extends GetxController {
     };
     UserModel? userModel = await ApiMethods.getProfile(bodyParams: bodyParams);
     if (userModel != null && userModel.result != null) {
+      SharedPreferences sp = await SharedPreferences.getInstance();
+      sp.setString(ApiKeyConstants.result, jsonEncode(userModel.result ?? ''));
       result = userModel.result!;
       increment();
     }
@@ -163,7 +172,6 @@ class HomeController extends GetxController {
         listVirtualCardsModel.result != null &&
         listVirtualCardsModel.result!.isNotEmpty) {
       listVirtualCardsResult = listVirtualCardsModel.result!;
-      print('listVirtualCardsResult::::::::::::::::${listVirtualCardsResult}');
       if (listVirtualCardsResult.isNotEmpty) {
         SharedPreferences sp = await SharedPreferences.getInstance();
         sp.setString(ApiKeyConstants.virtualCardId,
@@ -244,12 +252,30 @@ class HomeController extends GetxController {
         }
         break;
       case '0003':
-        await Get.toNamed(Routes.ELECTRICITY, parameters: {
-          StringConstants.title:
-              getServicesResult[index].serviceNameCustom ?? '',
-          ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
-        });
-        await getProfileApi();
+        if (getServicesResult[index].type.toString() ==
+            ApiKeyConstants.uFitPay) {
+          await Get.toNamed(Routes.ELECTRICITY, parameters: {
+            StringConstants.title:
+                getServicesResult[index].serviceNameCustom ?? '',
+            ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
+          });
+          await getProfileApi();
+        } else {
+          CommonWidgets.snackBarView(title: 'Coming soon');
+        }
+        break;
+      case '0028':
+        if (getServicesResult[index].type.toString() ==
+            ApiKeyConstants.uFitPay) {
+          await Get.toNamed(Routes.EDUCATION, parameters: {
+            StringConstants.title:
+                getServicesResult[index].serviceNameCustom ?? '',
+            ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
+          });
+          await getProfileApi();
+        } else {
+          CommonWidgets.snackBarView(title: 'Coming soon');
+        }
         break;
       case '0002' || '0004':
         await Get.toNamed(Routes.DATA, parameters: {
@@ -367,20 +393,16 @@ class HomeController extends GetxController {
                 physics: const AlwaysScrollableScrollPhysics(),
                 children: [
                   SizedBox(height: 60.px),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        StringConstants.actionRequired,
-                        style: Theme.of(Get.context!)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(
-                              fontSize: 20.px,
-                              color: Theme.of(Get.context!).primaryColor,
-                            ),
-                      ),
-                    ],
+                  Text(
+                    StringConstants.actionRequired,
+                    textAlign: TextAlign.center,
+                    style: Theme.of(Get.context!)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(
+                          fontSize: 20.px,
+                          color: Theme.of(Get.context!).primaryColor,
+                        ),
                   ),
                   SizedBox(height: 34.px),
                   CommonMethods.appIconsPng(
@@ -403,10 +425,7 @@ class HomeController extends GetxController {
                     height: 60.px,
                     width: 60.px,
                     onCompleted: (value) {
-                      print('value.toString()::::::::::::${value.toString()}');
-                      print(
-                          'pin.text.toString()::::::::::::${pin.text.toString()}');
-                      if (value.toString() == isLockPin.value.toString()) {
+                      if (value.toString() == result?.appPin.toString()) {
                         Get.back();
                       } else {
                         Get.snackbar(

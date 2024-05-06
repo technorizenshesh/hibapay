@@ -1,6 +1,5 @@
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/common/common_methods.dart';
-import 'package:HibaPay/common/globle.dart';
 import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -111,16 +110,9 @@ class WithdrawView extends GetView<WithdrawController> {
                               ],
                               controller: controller.amountController,
                               decoration: InputDecoration(
-                                prefixIcon: Text(
-                                  '₦  ',
-                                  textAlign: TextAlign.center,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium
-                                      ?.copyWith(
-                                        fontSize: 40.px,
-                                        color: Theme.of(context).primaryColor,
-                                      ),
+                                prefixIcon: CommonMethods.iconLinearGradient(
+                                  assetName: IconConstants.icCur,
+                                  value: controller.isAmount.value,
                                 ),
                                 hintText: '. . . .',
                                 hintStyle: Theme.of(context)
@@ -137,7 +129,19 @@ class WithdrawView extends GetView<WithdrawController> {
                       ),
                       SizedBox(height: 10.px),
                       Text(
-                        'Maximum ₦ ${controller.balance.value}',
+                        'Maximum',
+                        textAlign: TextAlign.center,
+                        style:
+                            Theme.of(context).textTheme.titleMedium?.copyWith(
+                                  fontSize: 12.px,
+                                ),
+                      ),
+                      CommonMethods.iconLinearGradient(
+                        assetName: IconConstants.icCur,
+                        value: true,
+                      ),
+                      Text(
+                        controller.balance.value,
                         textAlign: TextAlign.center,
                         style:
                             Theme.of(context).textTheme.titleMedium?.copyWith(

@@ -52,9 +52,10 @@ class MyCardView extends GetView<MyCardController> {
                           height: 200.px),
                       SizedBox(height: 24.px),
                       Text(
-                        controller.getCardHolderResult == null
+                        /*controller.getCardHolderResult == null
                             ? StringConstants.createVirtualCard
-                            : StringConstants.addVirtualCard,
+                            :*/
+                        StringConstants.addVirtualCard,
                         textAlign: TextAlign.center,
                         style: Theme.of(context)
                             .textTheme
@@ -65,9 +66,10 @@ class MyCardView extends GetView<MyCardController> {
                       ),
                       SizedBox(height: 10.px),
                       Text(
-                        controller.getCardHolderResult == null
+                        /*controller.getCardHolderResult == null
                             ? StringConstants.instantlyAddVirtualCard
-                            : StringConstants.instantlyCreateVirtualCard,
+                            :*/
+                        StringConstants.instantlyCreateVirtualCard,
                         textAlign: TextAlign.center,
                         style: Theme.of(context)
                             .textTheme
@@ -76,13 +78,16 @@ class MyCardView extends GetView<MyCardController> {
                       ),
                       SizedBox(height: 24.px),
                       CommonWidgets.commonElevatedButton(
-                        onPressed: () => controller.getCardHolderResult == null
+                        onPressed:
+                            () => /*controller.getCardHolderResult == null
                             ? controller.clickOnCreateVirtualCardHolder()
-                            : controller.clickOnCreateVirtualCard(),
+                            :*/
+                                controller.clickOnCreateVirtualCard(),
                         child: Text(
-                          controller.getCardHolderResult == null
+                          /*controller.getCardHolderResult == null
                               ? StringConstants.createVirtualCard
-                              : StringConstants.addNewCard,
+                              :*/
+                          StringConstants.addNewCard,
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall

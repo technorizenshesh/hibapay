@@ -106,12 +106,16 @@ class BettingView extends GetView<BettingController> {
                       focusNode: controller.focusAmount,
                       title: StringConstants.enterAmount,
                       controller: controller.amountController,
+                      prefixIcon: CommonMethods.iconLinearGradient(
+                        assetName: IconConstants.icCur,
+                        value: controller.isAmount.value,
+                      ),
                       onChanged: (value) {
                         if (controller.amountController.text.isNotEmpty &&
                             controller.amountController.text[0] != '0') {
                           controller.amountControllerValue.value = value;
                           controller.amountController.text =
-                              "₦ ${controller.amountController.text.toString()}";
+                              controller.amountController.text.toString();
                         } else {
                           controller.amountController.text = '';
                           controller.amountControllerValue.value =

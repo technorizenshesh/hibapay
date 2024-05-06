@@ -10,16 +10,19 @@ class CommonMethods {
     FocusManager.instance.primaryFocus?.unfocus();
   }
 
-  static splashLogo() {
+  static splashLogo({double? width, double? height}) {
     return Image.asset(
       ImgConstants.imgSplash,
-      height: 84.px,
-      width: 200.px,
+      height: height ?? 84.px,
+      width: width ?? 200.px,
     );
   }
 
   static Widget appIcons(
-      {required String assetName, double? width, double? height}) {
+      {required String assetName,
+      double? width,
+      double? height,
+      Color? color}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -28,6 +31,7 @@ class CommonMethods {
           assetName,
           height: height ?? 24.px,
           width: width ?? 24.px,
+          color: color,
         ),
       ],
     );
@@ -106,7 +110,7 @@ class CommonMethods {
       );
 
   static Future<void> commonAndroidNoInternetDialog(
-      {bool isDismiss = true}) async {
+      {bool isDismiss = true, GestureTapCallback? onTap}) async {
     await showDialog(
       context: Get.context!,
       builder: (context) {
@@ -143,6 +147,23 @@ class CommonMethods {
                   style: TextStyle(fontSize: 12),
                   textAlign: TextAlign.center,
                 ),
+                /* const SizedBox(height: 8),
+                GestureDetector(
+                  onTap: onTap,
+                  child: Container(
+                    padding: EdgeInsets.all(14.px),
+                    decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor,
+                        borderRadius: BorderRadius.circular(10.px)),
+                    child: Text(
+                      "Click Me.",
+                      style: TextStyle(
+                          fontSize: 12,
+                          color: Theme.of(context).scaffoldBackgroundColor),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),*/
               ],
             ),
           ),

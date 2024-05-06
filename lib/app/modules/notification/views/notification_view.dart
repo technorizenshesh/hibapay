@@ -1,4 +1,6 @@
 import 'package:HibaPay/common/common_widgets.dart';
+import 'package:HibaPay/common/globle.dart';
+import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -14,9 +16,55 @@ class NotificationView extends GetView<NotificationController> {
   Widget build(BuildContext context) {
     return Obx(() {
       controller.count.value;
-      return Scaffold(
-        appBar: CommonWidgets.appBar(title: StringConstants.notification),
-        body: ListView(
+      return ProgressBar(
+        inAsyncCall: controller.inAsyncCall.value,
+        child: Scaffold(
+          appBar: CommonWidgets.appBar(title: StringConstants.notification),
+          body: getWalletTransactionResult.isNotEmpty
+              ? ListView.builder(
+                  shrinkWrap: true,
+                  padding: EdgeInsets.zero,
+                  itemCount: getWalletTransactionResult.length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                      onTap: () => controller.clickOnListTile(index: index),
+                      trailing: Text(
+                        controller.formatDate(getWalletTransactionResult[index]
+                                .walTraTransactionDate ??
+                            '0'),
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(fontSize: 10.px),
+                      ),
+                      subtitle: Text(
+                        '${getWalletTransactionResult[index].walTraTransactionType ?? ''} - ${getWalletTransactionResult[index].walTraDescription ?? ''}',
+                        style: Theme.of(context)
+                            .textTheme
+                            .titleMedium
+                            ?.copyWith(fontSize: 10.px),
+                      ),
+                      title: Text(
+                        "${getWalletTransactionResult[index].walTraServiceType?.toLowerCase().split('_').map((word) => word[0].toUpperCase() + word.substring(1)).join(' ')}",
+                        /*  -  ${getWalletTransactionResult[index].walTraTransactionValue ?? ''}*/
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: Theme.of(context)
+                            .textTheme
+                            .displayMedium
+                            ?.copyWith(
+                                fontSize: 12.px,
+                                color: Theme.of(context).primaryColor),
+                      ),
+                      /*leading: CommonMethods.appIcons(
+                                  assetName: controller
+                            .getWalletTransactionResult[index]['icon']),*/
+                    );
+                  },
+                )
+              : Center(
+                  child: CommonMethods
+                      .dataNotFound()), /*ListView(
           children: [
             Column(children: [
               SizedBox(height: 20.px),
@@ -37,14 +85,14 @@ class NotificationView extends GetView<NotificationController> {
                         maxLines: 1,
                       ),
                     ),
-                    /*Text(
+                    */ /*Text(
                       StringConstants.allTransactions,
                       style: Theme.of(context)
                           .textTheme
                           .titleMedium
                           ?.copyWith(
                               color: Theme.of(context).primaryColor),
-                    ),*/
+                    ),*/ /*
                   ],
                 ),
               ),
@@ -83,6 +131,7 @@ class NotificationView extends GetView<NotificationController> {
               ),
             ]),
           ],
+        )*/
         ),
       );
     });

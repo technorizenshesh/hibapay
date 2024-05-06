@@ -50,19 +50,20 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCY0lwYGEKsoGUiptzwPsioayyWbm74vW4',
-    appId: '1:778522283771:android:fcc5b5e71c81a5d08e6a5e',
-    messagingSenderId: '778522283771',
-    projectId: 'hibapay-291ee',
-    storageBucket: 'hibapay-291ee.appspot.com',
+    apiKey: 'AIzaSyACiC7fpbj20-Wa7_0YlMPPiRB-mLVXN-g',
+    appId: '1:508437799840:android:3d23015b9819da223f7ac5',
+    messagingSenderId: '508437799840',
+    projectId: 'hibapay-b8213',
+    storageBucket: 'hibapay-b8213.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCWVWb0tjdIr0Dy2zEa9xlb7LnPC61o62k',
-    appId: '1:778522283771:ios:e3fe8600a76ff10b8e6a5e',
-    messagingSenderId: '778522283771',
-    projectId: 'hibapay-291ee',
-    storageBucket: 'hibapay-291ee.appspot.com',
+    apiKey: 'AIzaSyCggxsE5pcAywd0n_M1mfM9CUrCtV4nuvw',
+    appId: '1:508437799840:ios:c5f14f625abb1fb93f7ac5',
+    messagingSenderId: '508437799840',
+    projectId: 'hibapay-b8213',
+    storageBucket: 'hibapay-b8213.appspot.com',
     iosBundleId: 'com.hibapay.app.hibapay',
   );
+
 }

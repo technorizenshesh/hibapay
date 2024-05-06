@@ -1,6 +1,6 @@
+import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:HibaPay/common/progress_bar.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
 import '../../../../common/common_methods.dart';
@@ -72,6 +72,12 @@ class CheckYourMailView extends GetView<CheckYourMailController> {
                             ?.copyWith(fontSize: 16.px),
                       ),
                       SizedBox(height: 20.px),
+                      /*  CommonWidgets.commonOtpView(
+                        controller: controller.pin,
+                        height: 60.px,
+                        width: 60.px,
+                        onCompleted: (value) => controller.clickOnNextButton(),
+                      ),*/
                       CommonWidgets.commonOtpView(controller: controller.pin),
                     ],
                   ),

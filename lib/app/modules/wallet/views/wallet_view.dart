@@ -107,7 +107,7 @@ class WalletView extends GetView<WalletController> {
                                   Row(
                                     children: [
                                       Text(
-                                        'Nigeria ( ₦ )',
+                                        'Nigeria  ',
                                         style: Theme.of(Get.context!)
                                             .textTheme
                                             .titleMedium
@@ -117,137 +117,64 @@ class WalletView extends GetView<WalletController> {
                                                   .scaffoldBackgroundColor,
                                             ),
                                       ),
-                                      const Spacer(),
-                                      /*PopupMenuButton(
-                                      color: Theme.of(context)
-                                          .scaffoldBackgroundColor,
-                                      offset: Offset(-34.px, 20.px),
-                                      shape: RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(10.px)),
-                                      elevation: .4.px,
-                                      icon: Padding(
-                                        padding: EdgeInsets.all(8.px),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              StringConstants.switchText,
-                                              style: Theme.of(Get.context!)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(
-                                                    fontSize: 12.px,
-                                                    color: Theme.of(context)
-                                                        .scaffoldBackgroundColor,
-                                                  ),
-                                            ),
-                                            SizedBox(width: 2.px),
-                                            CommonMethods.appIconsPng(
-                                              assetName:
-                                                  IconConstantsPng.icSwitch,
-                                              width: 14.px,
-                                              height: 14.px,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                      itemBuilder: (context) {
-                                        return [
-                                          PopupMenuItem(
-                                            value:
-                                                'US  ( ₦ )',
-                                            child: Text(
-                                              'US  ( ₦ )',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displayMedium
-                                                  ?.copyWith(fontSize: 14.px),
-                                            ),
-                                          ),
-                                          PopupMenuItem(
-                                            value: 'British  ( £ )',
-                                            child: Text(
-                                              'British  ( £ )',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displayMedium
-                                                  ?.copyWith(fontSize: 14.px),
-                                            ),
-                                          ),
-                                          PopupMenuItem(
-                                            value: 'NGN  ( ₦ )',
-                                            child: Text(
-                                              'NGN  ( ₦ )',
-                                              style: Theme.of(context)
-                                                  .textTheme
-                                                  .displayMedium
-                                                  ?.copyWith(fontSize: 14.px),
-                                            ),
-                                          ),
-                                        ];
-                                      },
-                                      onSelected: (value) =>
-                                          controller.clickOnSwitch(),
-                                    ),*/
-                                    ],
-                                  ),
-                                  SizedBox(height: 8.px),
-                                  Text(
-                                    '₦ ${(result != null && result?.wallet != null && result!.wallet!.isNotEmpty) ? result?.wallet : '0'}',
-                                    style: Theme.of(Get.context!)
-                                        .textTheme
-                                        .displayMedium
-                                        ?.copyWith(
-                                          fontSize: 24.px,
-                                          color: Theme.of(context)
-                                              .scaffoldBackgroundColor,
-                                        ),
-                                  ),
-                                  SizedBox(height: 8.px),
-                                  Row(
-                                    children: [
                                       Text(
-                                        StringConstants.walletBalance,
+                                        '( ',
                                         style: Theme.of(Get.context!)
                                             .textTheme
                                             .titleMedium
                                             ?.copyWith(
-                                              fontSize: 12.px,
+                                              // fontSize: 20.px,
                                               color: Theme.of(context)
                                                   .scaffoldBackgroundColor,
                                             ),
                                       ),
-                                      /* const Spacer(),
-                                    GestureDetector(
-                                      onTap: () =>
-                                          controller.clickOnReceivingAccount(),
-                                      child: Padding(
-                                        padding: EdgeInsets.all(8.px),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              StringConstants.receivingAccount,
-                                              style: Theme.of(Get.context!)
-                                                  .textTheme
-                                                  .titleMedium
-                                                  ?.copyWith(
-                                                    fontSize: 12.px,
-                                                    color: Theme.of(context)
-                                                        .scaffoldBackgroundColor,
-                                                  ),
-                                            ),
-                                            SizedBox(width: 2.px),
-                                            Icon(
-                                              Icons.arrow_forward_ios_rounded,
+                                      CommonMethods.appIcons(
+                                          assetName: IconConstants.icCur,
+                                          width: 16.px,
+                                          height: 16.px),
+                                      Text(
+                                        ' )',
+                                        style: Theme.of(Get.context!)
+                                            .textTheme
+                                            .titleMedium
+                                            ?.copyWith(
+                                              // fontSize: 20.px,
                                               color: Theme.of(context)
                                                   .scaffoldBackgroundColor,
-                                              size: 14.px,
-                                            )
-                                          ],
-                                        ),
+                                            ),
                                       ),
-                                    ),*/
                                     ],
+                                  ),
+                                  SizedBox(height: 8.px),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      CommonMethods.appIcons(
+                                          assetName: IconConstants.icCur),
+                                      Text(
+                                        '${(result != null && result?.wallet != null && result!.wallet!.isNotEmpty) ? result?.wallet : '0'}',
+                                        style: Theme.of(Get.context!)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(
+                                              fontSize: 24.px,
+                                              color: Theme.of(context)
+                                                  .scaffoldBackgroundColor,
+                                            ),
+                                      ),
+                                    ],
+                                  ),
+                                  SizedBox(height: 8.px),
+                                  Text(
+                                    StringConstants.walletBalance,
+                                    style: Theme.of(Get.context!)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                          fontSize: 12.px,
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                        ),
                                   ),
                                   SizedBox(height: 8.px),
                                   Row(
@@ -284,10 +211,11 @@ class WalletView extends GetView<WalletController> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           InkWell(
-                            onTap: () => controller.clickOnDeposit(),
+                            onTap: () => controller.clickOnFundWallet(),
                             borderRadius: BorderRadius.circular(24.px),
                             child: Container(
-                              padding: EdgeInsets.all(8.px),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 24.px, vertical: 8.px),
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(24.px),
                                 color:
@@ -297,7 +225,7 @@ class WalletView extends GetView<WalletController> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: [
                                   CommonMethods.textViewLinearGradient(
-                                      text: StringConstants.rechargeYourWallet,
+                                      text: StringConstants.fundWallet,
                                       value: true),
                                   SizedBox(width: 8.px),
                                   CommonMethods.iconLinearGradient(
@@ -338,84 +266,158 @@ class WalletView extends GetView<WalletController> {
                 ),
               ),
               Expanded(
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  children: [
-                    if (getWalletTransactionResult.isNotEmpty)
-                      SizedBox(height: 24.px),
-                    if (getWalletTransactionResult.isNotEmpty)
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 16.px),
-                        child: Text(
-                          'Transactions',
-                          style: Theme.of(context)
-                              .textTheme
-                              .displayMedium
-                              ?.copyWith(
-                                  color: Theme.of(context).colorScheme.surface,
-                                  fontSize: 14.px),
-                          maxLines: 1,
-                        ),
-                      ),
-                    if (getWalletTransactionResult.isNotEmpty)
-                      SizedBox(height: 8.px),
-                    if (getWalletTransactionResult.isNotEmpty)
-                      ListView.builder(
-                        shrinkWrap: true,
+                child: getWalletTransactionResult.isNotEmpty
+                    ? ListView(
                         padding: EdgeInsets.zero,
-                        physics: const NeverScrollableScrollPhysics(),
-                        itemCount: getWalletTransactionResult.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                            trailing: Text(
-                              getWalletTransactionResult[index]
-                                          .walTraTransactionType ==
-                                      'DEBIT'
-                                  ? '- ${"₦${getWalletTransactionResult[index].walTraTransactionValue ?? '0'}"}'
-                                  : '+ ${"₦${getWalletTransactionResult[index].walTraTransactionValue ?? '0'}"}',
+                        children: [
+                          SizedBox(height: 24.px),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 16.px),
+                            child: Text(
+                              'Transactions',
                               style: Theme.of(context)
                                   .textTheme
                                   .displayMedium
                                   ?.copyWith(
-                                      fontSize: 14.px,
-                                      color: getWalletTransactionResult[index]
-                                                  .walTraTransactionType ==
-                                              'DEBIT'
-                                          ? Theme.of(context).colorScheme.error
-                                          : Theme.of(context)
-                                              .colorScheme
-                                              .onError),
+                                      color:
+                                          Theme.of(context).colorScheme.surface,
+                                      fontSize: 14.px),
+                              maxLines: 1,
                             ),
-                            subtitle: Text(
-                              getWalletTransactionResult[index]
-                                      .walTraDescription ??
-                                  '',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                    fontSize: 12.px,
-                                  ),
-                            ),
-                            title: Text(
-                              getWalletTransactionResult[index].walTraMessage ??
-                                  '',
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .displayMedium
-                                  ?.copyWith(
-                                      fontSize: 14.px,
-                                      color: Theme.of(context).primaryColor),
-                            ),
-                            /*leading: CommonMethods.appIcons(
-                          assetName: controller
+                          ),
+                          SizedBox(height: 8.px),
+                          ListView.builder(
+                            shrinkWrap: true,
+                            padding: EdgeInsets.zero,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: getWalletTransactionResult.length,
+                            itemBuilder: (context, index) {
+                              return ListTile(
+                                onTap: () =>
+                                    controller.clickOnListTile(index: index),
+                                trailing: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: [
+                                    Text(
+                                      getWalletTransactionResult[index]
+                                              .walTraTransactionType ??
+                                          '',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(
+                                              fontSize: 14.px,
+                                              color: getWalletTransactionResult[
+                                                              index]
+                                                          .walTraTransactionType ==
+                                                      'DEBIT'
+                                                  ? Theme.of(context)
+                                                      .colorScheme
+                                                      .error
+                                                  : Theme.of(context)
+                                                      .colorScheme
+                                                      .onError),
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          getWalletTransactionResult[index]
+                                                      .walTraTransactionType ==
+                                                  'DEBIT'
+                                              ? '- '
+                                              : '+ ',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayMedium
+                                              ?.copyWith(
+                                                  fontSize: 14.px,
+                                                  color: getWalletTransactionResult[
+                                                                  index]
+                                                              .walTraTransactionType ==
+                                                          'DEBIT'
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .error
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onError),
+                                        ),
+                                        CommonMethods.appIcons(
+                                            assetName: IconConstants.icCur,
+                                            width: 14.px,
+                                            height: 14.px,
+                                            color: getWalletTransactionResult[
+                                                            index]
+                                                        .walTraTransactionType ==
+                                                    'DEBIT'
+                                                ? Theme.of(context)
+                                                    .colorScheme
+                                                    .error
+                                                : Theme.of(context)
+                                                    .colorScheme
+                                                    .onError),
+                                        Text(
+                                          ' ${getWalletTransactionResult[index].walTraTransactionValue ?? '0'}',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .displayMedium
+                                              ?.copyWith(
+                                                  fontSize: 14.px,
+                                                  color: getWalletTransactionResult[
+                                                                  index]
+                                                              .walTraTransactionType ==
+                                                          'DEBIT'
+                                                      ? Theme.of(context)
+                                                          .colorScheme
+                                                          .error
+                                                      : Theme.of(context)
+                                                          .colorScheme
+                                                          .onError),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                                subtitle: Text(
+                                  getWalletTransactionResult[index]
+                                          .walTraBuyDataReference ??
+                                      getWalletTransactionResult[index]
+                                          .walTraDescription ??
+                                      getWalletTransactionResult[index]
+                                          .walTraServiceType ??
+                                      '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(fontSize: 10.px),
+                                ),
+                                title: Text(
+                                  getWalletTransactionResult[index]
+                                          .walTraBuyPostAccountNumber ??
+                                      getWalletTransactionResult[index]
+                                          .walTraMessage ??
+                                      '',
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                          fontSize: 12.px,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                ),
+                                /*leading: CommonMethods.appIcons(
+                                    assetName: controller
                               .getWalletTransactionResult[index]['icon']),*/
-                          );
-                        },
-                      ),
-                    SizedBox(height: 20.px),
-                  ],
-                ),
+                              );
+                            },
+                          ),
+                          SizedBox(height: 60.px),
+                        ],
+                      )
+                    : Center(child: CommonMethods.dataNotFound()),
               ),
             ],
           ),

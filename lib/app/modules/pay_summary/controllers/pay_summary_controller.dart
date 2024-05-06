@@ -8,11 +8,14 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 class PaySummaryController extends GetxController {
   final count = 0.obs;
   Map<String, dynamic> bodyParams = Get.arguments;
+  Map<String, String?> parameters = Get.parameters;
   final inAsyncCall = false.obs;
+
   @override
   void onInit() {
     super.onInit();
     print('bodyParams::::::::::::::::::${bodyParams}');
+    print('parameters::::::::::::::::::${parameters}');
   }
 
   @override
@@ -36,20 +39,32 @@ class PaySummaryController extends GetxController {
         billPayModel.result!.data != null) {
       Get.back();
       Get.back();
-      Get.toNamed(Routes.PAY_SUMMARY_SUCCESS, arguments: bodyParams);
-      Get.snackbar(
+      Get.toNamed(Routes.PAY_SUMMARY_SUCCESS, arguments: parameters);
+      /*Get.snackbar(
           margin: EdgeInsets.all(20.px),
           '${billPayModel.result!.resource ?? ''} ${billPayModel.result!.status ?? ''}',
-          billPayModel.result!.data!.paymentStatus ?? '');
+          billPayModel.result!.data!.paymentStatus ?? '');*/
       increment();
     } else {
-      if (billPayModel != null && billPayModel.message != null) {
+      if (billPayModel != null &&
+          billPayModel.result != null &&
+          billPayModel.result!.message != null &&
+          billPayModel.result!.message!.isNotEmpty) {
         Get.snackbar(
             margin: EdgeInsets.all(20.px),
             'Failed',
-            billPayModel.message ?? '');
+            billPayModel.result!.message ?? '');
       } else {
-        Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
+        if (billPayModel != null &&
+            billPayModel.message != null &&
+            billPayModel.message!.isNotEmpty) {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px),
+              'Failed',
+              billPayModel.message ?? '');
+        } else {
+          Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
+        }
       }
     }
     inAsyncCall.value = false;

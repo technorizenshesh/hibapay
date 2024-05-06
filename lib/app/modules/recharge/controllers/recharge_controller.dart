@@ -36,6 +36,7 @@ class RechargeController extends GetxController {
   final vendorId = ''.obs;
   final packageName = ''.obs;
   Map<String, dynamic> bodyParams = {};
+  Map<String, String> bodyParams1 = {};
 
   @override
   Future<void> onInit() async {
@@ -78,55 +79,82 @@ class RechargeController extends GetxController {
     if (mobileNumberController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         amountController.text.trim().isNotEmpty) {
-      if (int.parse(amountControllerValue.value.tr) >= 100) {
-        bodyParams = {
-          ApiKeyConstants.serviceId: serviceId.value,
-          ApiKeyConstants.vendorId: vendorId.value,
-          ApiKeyConstants.amount: amountControllerValue.value,
-          ApiKeyConstants.authTokenHiba: authTokenHiba.value
-        };
-        inAsyncCall.value = true;
-        GetPriceModel? getPriceModel =
-            await ApiMethods.getPrice(bodyParams: bodyParams);
-        if (getPriceModel != null &&
-            getPriceModel.result != null &&
-            getPriceModel.result!.data != null) {
-          if (getPriceModel.result!.data!.price != null &&
-                  getPriceModel.result!.data!.fee !=
-                      null /*&&
+      //if (int.parse(amountControllerValue.value.tr) >= 100) {
+      bodyParams = {
+        ApiKeyConstants.serviceId: serviceId.value,
+        ApiKeyConstants.vendorId: vendorId.value,
+        ApiKeyConstants.amount: amountControllerValue.value,
+        ApiKeyConstants.authTokenHiba: authTokenHiba.value
+      };
+      inAsyncCall.value = true;
+      GetPriceModel? getPriceModel =
+          await ApiMethods.getPrice(bodyParams: bodyParams);
+      if (getPriceModel != null &&
+          getPriceModel.result != null &&
+          getPriceModel.result!.data != null) {
+        if (getPriceModel.result!.data!.price != null &&
+                getPriceModel.result!.data!.fee !=
+                    null /*&&
               getPriceModel.result!.data!.total != null*/
-              ) {
-            bodyParams.clear();
-            bodyParams = {
-              ApiKeyConstants.accountNumber: mobileNumberController.text,
-              ApiKeyConstants.amount: amountControllerValue.value,
-              ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
-              ApiKeyConstants
-                  .total: (double.parse(amountControllerValue.value) +
-                      double.parse(getPriceModel.result!.data!.fee.toString()))
-                  .toString(),
-              /*ApiKeyConstants.total: getPriceModel.result!.data!.total,*/
-              // ApiKeyConstants.price: getPriceModel.result!.data!.price,
-              ApiKeyConstants.serviceType: ApiKeyConstants.buyAirtime,
-              ApiKeyConstants.serviceId: serviceId.value,
-              ApiKeyConstants.vendorId: vendorId.value,
-              ApiKeyConstants.authTokenHiba: authTokenHiba.value,
-            };
-            Get.toNamed(Routes.PAY_SUMMARY, arguments: bodyParams);
-          } else {
-            Get.snackbar(
-                margin: EdgeInsets.all(20.px), 'NULL', 'Something went wrong');
-          }
+            ) {
+          bodyParams.clear();
+          bodyParams = {
+            ApiKeyConstants.accountNumber: mobileNumberController.text,
+            ApiKeyConstants.amount: amountControllerValue.value,
+            ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
+            ApiKeyConstants.total: (double.parse(amountControllerValue.value) +
+                    double.parse(getPriceModel.result!.data!.fee.toString()))
+                .toString(),
+            /*ApiKeyConstants.total: getPriceModel.result!.data!.total,*/
+            // ApiKeyConstants.price: getPriceModel.result!.data!.price,
+            ApiKeyConstants.serviceType: ApiKeyConstants.buyAirtime,
+            ApiKeyConstants.serviceId: serviceId.value,
+            ApiKeyConstants.vendorId: vendorId.value,
+            ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+          };
+          bodyParams1.clear();
+          bodyParams1 = {
+            StringConstants.mobileNumber: mobileNumberController.text,
+            StringConstants.amount: amountControllerValue.value,
+            StringConstants.fee: getPriceModel.result!.data!.fee.toString(),
+            StringConstants.total: (double.parse(amountControllerValue.value) +
+                    double.parse(getPriceModel.result!.data!.fee.toString()))
+                .toString(),
+          };
+          Get.toNamed(Routes.PAY_SUMMARY,
+              parameters: bodyParams1, arguments: bodyParams);
         } else {
           Get.snackbar(
               margin: EdgeInsets.all(20.px), 'Error', 'Something went wrong');
         }
-        inAsyncCall.value = false;
       } else {
-        Get.snackbar(
-            margin: EdgeInsets.all(20.px), 'Error', 'Enter amount above 100');
+        if (getPriceModel != null &&
+            getPriceModel.result != null &&
+            getPriceModel.result!.message != null &&
+            getPriceModel.result!.message!.isNotEmpty) {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px),
+              'Error',
+              getPriceModel.result!.message! ?? '');
+        } else {
+          if (getPriceModel != null &&
+              getPriceModel.message != null &&
+              getPriceModel.message!.isNotEmpty) {
+            Get.snackbar(
+                margin: EdgeInsets.all(20.px),
+                'Error',
+                getPriceModel.message ?? '');
+          }
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px), 'Error', 'Something went wrong');
+        }
       }
       inAsyncCall.value = false;
+      /*} else {
+        Get.snackbar(
+            margin: EdgeInsets.all(20.px), 'Error', 'Enter amount above 100');
+      }*/
+      // inAsyncCall.value = false;
     } else {
       Get.snackbar(
           margin: EdgeInsets.all(20.px), 'Error', 'All field required');

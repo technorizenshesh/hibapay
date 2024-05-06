@@ -1,10 +1,11 @@
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
-import 'package:HibaPay/app/data/apis/api_models/bill_pay_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_packages_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_price_list_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_price_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/ufitpay_get_vendors_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
+import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -43,6 +44,9 @@ class CableTvController extends GetxController {
   final packageId = ''.obs;
   final packageName = ''.obs;
   final packageAmount = ''.obs;
+
+  Map<String, dynamic> bodyParams = {};
+  Map<String, String> bodyParams1 = {};
 
   @override
   Future<void> onInit() async {
@@ -88,15 +92,84 @@ class CableTvController extends GetxController {
         serviceProviderController.text.trim().isNotEmpty &&
         packagesController.text.trim().isNotEmpty) {
       /*if (int.parse(amountController.text) >= 100) {*/
-      inAsyncCall.value = true;
-      Map<String, dynamic> bodyParams = {
-        ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+      bodyParams = {
+        ApiKeyConstants.accountNumber: decoderNumberController.text,
+        ApiKeyConstants.serviceType: ApiKeyConstants.buyCableTv,
         ApiKeyConstants.serviceId: serviceId.value,
         ApiKeyConstants.vendorId: vendorId.value,
-        ApiKeyConstants.accountNumber: decoderNumberController.text,
         ApiKeyConstants.packageId: packageId.value,
-        ApiKeyConstants.serviceType: ApiKeyConstants.buyCableTv,
+        ApiKeyConstants.authTokenHiba: authTokenHiba.value,
       };
+      inAsyncCall.value = true;
+      GetPriceModel? getPriceModel =
+          await ApiMethods.getPrice(bodyParams: bodyParams);
+      if (getPriceModel != null &&
+          getPriceModel.result != null &&
+          getPriceModel.result!.data != null) {
+        if (getPriceModel.result!.data!.price != null &&
+                getPriceModel.result!.data!.fee !=
+                    null /*&&
+              getPriceModel.result!.data!.total != null*/
+            ) {
+          bodyParams.clear();
+          bodyParams = {
+            ApiKeyConstants.accountNumber: decoderNumberController.text,
+            ApiKeyConstants.amount:
+                getPriceModel.result!.data!.price.toString(),
+            ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
+            ApiKeyConstants.total: (double.parse(
+                        getPriceModel.result!.data!.price.toString()) +
+                    double.parse(getPriceModel.result!.data!.fee.toString()))
+                .toString(),
+            ApiKeyConstants.serviceType: ApiKeyConstants.buyCableTv,
+            ApiKeyConstants.serviceId: serviceId.value,
+            ApiKeyConstants.vendorId: vendorId.value,
+            ApiKeyConstants.packageId: packageId.value,
+            ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+          };
+          bodyParams1.clear();
+          bodyParams1 = {
+            StringConstants.decoderNumber: decoderNumberController.text,
+            StringConstants.amount:
+                getPriceModel.result!.data!.price.toString(),
+            StringConstants.fee: getPriceModel.result!.data!.fee.toString(),
+            StringConstants.total: (double.parse(
+                        getPriceModel.result!.data!.price.toString()) +
+                    double.parse(getPriceModel.result!.data!.fee.toString()))
+                .toString(),
+          };
+          Get.toNamed(Routes.PAY_SUMMARY,
+              parameters: bodyParams1, arguments: bodyParams);
+        } else {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px), 'Error', 'Something went wrong');
+        }
+      } else {
+        if (getPriceModel != null &&
+            getPriceModel.result != null &&
+            getPriceModel.result!.message != null &&
+            getPriceModel.result!.message!.isNotEmpty) {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px),
+              'Error',
+              getPriceModel.result!.message! ?? '');
+        } else {
+          if (getPriceModel != null &&
+              getPriceModel.message != null &&
+              getPriceModel.message!.isNotEmpty) {
+            Get.snackbar(
+                margin: EdgeInsets.all(20.px),
+                'Error',
+                getPriceModel.message ?? '');
+          }
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px), 'Error', 'Something went wrong');
+        }
+      }
+      inAsyncCall.value = false;
+
+      /*inAsyncCall.value = true;
+
       BillPayModel? billPayModel =
           await ApiMethods.uFitPayBillPay(bodyParams: bodyParams);
       if (billPayModel != null &&
@@ -108,9 +181,9 @@ class CableTvController extends GetxController {
             '${billPayModel.result!.resource ?? ''} ${billPayModel.result!.status ?? ''}',
             billPayModel.result!.data?.paymentStatus ?? '');
         increment();
-        /*} else {
+        */ /*} else {
           Get.snackbar(margin: EdgeInsets.all(20.px),'Fail', 'Payment fail');
-        }*/
+        }*/ /*
       } else {
         if (billPayModel != null && billPayModel.result != null) {
           Get.snackbar(
@@ -121,7 +194,7 @@ class CableTvController extends GetxController {
           Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
         }
       }
-      inAsyncCall.value = false;
+      inAsyncCall.value = false;*/
     } else {
       Get.snackbar(
           margin: EdgeInsets.all(20.px), 'Error', 'All field required');

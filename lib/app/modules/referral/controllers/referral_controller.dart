@@ -1,9 +1,10 @@
+import 'package:HibaPay/common/globle.dart';
 import 'package:get/get.dart';
+import 'package:social_share/social_share.dart';
 
 class ReferralController extends GetxController {
-  //TODO: Implement ReferralController
-
   final count = 0.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -21,5 +22,9 @@ class ReferralController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnInviteNowButton() {}
+  clickOnInviteNowButton() {
+    SocialShare.shareOptions(
+      "Hey there! Heard of HibaPay? It's a game-changer for payments! Fast, secure, and seamless. Use my code HB${result?.referralUserId ?? ''} when you sign up and let's both enjoy the perks! 🎉💳 #HibaPayRevolution",
+    );
+  }
 }

@@ -3,6 +3,7 @@ import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/common_widgets.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -57,13 +58,15 @@ class ReferralView extends GetView<ReferralController> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         CommonMethods.textViewLinearGradient(
-                            text: 'ABHI3025', value: true),
+                            text: "HB${result?.id ?? ''}", value: true),
                         SizedBox(width: 8.px),
                         InkWell(
                           onTap: () {
                             Clipboard.setData(
-                                    const ClipboardData(text: 'ABHI3025'))
-                                .then((_) {
+                              ClipboardData(
+                                text: "HB${result?.id ?? ''}",
+                              ),
+                            ).then((_) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content: Text("copied to clipboard")));
@@ -87,14 +90,14 @@ class ReferralView extends GetView<ReferralController> {
               ),
               SizedBox(height: 14.px),
               Text(
-                'Invite your friends to join crediplus and get ₦. 05.00 paytm cashback for each friend that joins using your referral code.',
+                'Invite your friends to join credit plus and get NGN(Nigeria). 05.00 paytm cashback for each friend that joins using your referral code.',
                 maxLines: 4,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               SizedBox(height: 14.px),
               Text(
-                'Your friend also gets ₦. 05.00 off on his crediplus membership.',
+                'Your friend also gets NGN(Nigeria). 05.00 off on his credit plus membership.',
                 textAlign: TextAlign.center,
                 maxLines: 4,
                 style: Theme.of(context).textTheme.titleMedium,

@@ -16,7 +16,7 @@ class CheckYourMailController extends GetxController {
 
   final mobile = ''.obs;
   final email = ''.obs;
-  final otp = ''.obs;
+  // final otp = ''.obs;
 
   Map<String, String> bodyParams = {};
 
@@ -26,8 +26,8 @@ class CheckYourMailController extends GetxController {
   void onInit() {
     mobile.value = parameters[ApiKeyConstants.mobile] ?? '';
     email.value = parameters[ApiKeyConstants.email] ?? '';
-    otp.value = parameters[ApiKeyConstants.otp] ?? '';
-    pin.text = otp.value;
+    // otp.value = parameters[ApiKeyConstants.otp] ?? '';
+    //pin.text = otp.value;
     super.onInit();
   }
 

@@ -42,7 +42,7 @@ class MyCardController extends GetxController {
   onInitWork() async {
     if (authTokenHiba.value.isNotEmpty) {
       inAsyncCall.value = true;
-      await getCardHolderApi();
+      // await getCardHolderApi();
       await listVirtualCardsApi();
       inAsyncCall.value = false;
     }
@@ -112,8 +112,9 @@ class MyCardController extends GetxController {
   }
 
   clickOnCreateVirtualCard() async {
-    await Get.toNamed(Routes.CREATE_VIRTUAL_CARD);
-    await onInitWork();
+    /* await Get.toNamed(Routes.CREATE_VIRTUAL_CARD);
+    await onInitWork();*/
+    CommonWidgets.snackBarView(title: 'Coming soon');
   }
 
   clickOnCreateVirtualCardHolder() async {

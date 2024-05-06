@@ -30,6 +30,7 @@ class GetPriceResult {
   String? resource;
   String? status;
   GetPriceResultData? data;
+  String? message;
 
   GetPriceResult({this.resource, this.status, this.data});
 
@@ -38,6 +39,7 @@ class GetPriceResult {
     status = json['status'];
     data =
         json['data'] != null ? GetPriceResultData.fromJson(json['data']) : null;
+    message = json['message'];
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +49,7 @@ class GetPriceResult {
     if (this.data != null) {
       data['data'] = this.data!.toJson();
     }
+    data['message'] = message;
     return data;
   }
 }

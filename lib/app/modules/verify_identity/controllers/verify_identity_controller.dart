@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
@@ -25,11 +26,42 @@ class VerifyIdentityController extends GetxController {
   Map<String, File> imageMap = {};
   Map<String, String> bodyParams = {};
 
+  final isFirstName = false.obs;
+  final isLastName = false.obs;
+  final isEmail = false.obs;
+  final isPhone = false.obs;
+  final isAddress = false.obs;
+  final isState = false.obs;
+  final isCountry = false.obs;
+  final isPostalCode = false.obs;
+  final isBvn = false.obs;
+
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
+  TextEditingController bvnController = TextEditingController();
+
+  FocusNode focusFirstName = FocusNode();
+  FocusNode focusLastName = FocusNode();
+  FocusNode focusBvn = FocusNode();
+
   @override
   Future<void> onInit() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     userId.value = sp.getString(ApiKeyConstants.userId) ?? '';
     super.onInit();
+    startListener();
+  }
+
+  void startListener() {
+    focusFirstName.addListener(onFocusChange);
+    focusLastName.addListener(onFocusChange);
+    focusBvn.addListener(onFocusChange);
+  }
+
+  void onFocusChange() {
+    isFirstName.value = focusFirstName.hasFocus;
+    isLastName.value = focusLastName.hasFocus;
+    isBvn.value = focusBvn.hasFocus;
   }
 
   @override
@@ -65,7 +97,11 @@ class VerifyIdentityController extends GetxController {
   }
 
   clickOnVerifyMyIdentityButton() async {
-    if (imageGovernmentId.value != null && imageSelfiePhoto.value != null) {
+    if (firstNameController.text.trim().isNotEmpty &&
+        lastNameController.text.trim().isNotEmpty &&
+        bvnController.text.trim().isNotEmpty &&
+        imageGovernmentId.value != null &&
+        imageSelfiePhoto.value != null) {
       inAsyncCall.value = true;
       imageMap = {
         ApiKeyConstants.uDocGovtPhoto:
@@ -73,19 +109,42 @@ class VerifyIdentityController extends GetxController {
         ApiKeyConstants.uDocSelfyPhoto:
             await convertToPNG(imageSelfiePhoto.value?.path ?? '') ?? File(''),
       };
-      bodyParams = {ApiKeyConstants.userId: userId.value};
+      bodyParams = {
+        ApiKeyConstants.userId: userId.value,
+        ApiKeyConstants.firstName: firstNameController.text,
+        ApiKeyConstants.lastName: lastNameController.text,
+        ApiKeyConstants.bvn: bvnController.text,
+      };
       UserModel? userModel = await ApiMethods.uploadUserDocuments(
           imageMap: imageMap, bodyParams: bodyParams);
-      if (userModel != null &&
+      if (userModel !=
+              null && /*
+          userModel.status != null &&
+          userModel.status!.isNotEmpty &&
+          userModel.status != '0' &&*/
           userModel.result != null &&
           userModel.result!.id != null &&
           userModel.result!.id!.isNotEmpty) {
         SharedPreferences sp = await SharedPreferences.getInstance();
-        sp.setString(ApiKeyConstants.userId, userModel.result?.id ?? '');
+        sp.setString(
+            ApiKeyConstants.authTokenHiba, "Bearer ${userModel.token ?? ''}");
+        sp.setString(ApiKeyConstants.result, jsonEncode(userModel.result));
         Get.toNamed(Routes.VERIFY_IDENTITY_SUCCESS);
       } else {
-        Get.snackbar(
-            margin: EdgeInsets.all(20.px), 'Massage', 'Image is not a valid.');
+        if (userModel != null &&
+            userModel.message != null &&
+            userModel.message!.isNotEmpty) {
+          Get.snackbar(
+            margin: EdgeInsets.all(20.px),
+            'Massage',
+            userModel.message ?? '',
+          );
+        } else {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px),
+              'Massage',
+              'Image is not a valid.');
+        }
       }
       inAsyncCall.value = false;
     } else {

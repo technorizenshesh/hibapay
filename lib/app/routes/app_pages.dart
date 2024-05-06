@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 
+import '../modules/about_us/bindings/about_us_binding.dart';
+import '../modules/about_us/views/about_us_view.dart';
 import '../modules/account/bindings/account_binding.dart';
 import '../modules/account/views/account_view.dart';
 import '../modules/add_bank_account/bindings/add_bank_account_binding.dart';
@@ -28,6 +30,8 @@ import '../modules/check_your_mail/bindings/check_your_mail_binding.dart';
 import '../modules/check_your_mail/views/check_your_mail_view.dart';
 import '../modules/contact_preferences/bindings/contact_preferences_binding.dart';
 import '../modules/contact_preferences/views/contact_preferences_view.dart';
+import '../modules/contact_us/bindings/contact_us_binding.dart';
+import '../modules/contact_us/views/contact_us_view.dart';
 import '../modules/create_card_holder/bindings/create_card_holder_binding.dart';
 import '../modules/create_card_holder/views/create_card_holder_view.dart';
 import '../modules/create_new_password/bindings/create_new_password_binding.dart';
@@ -44,6 +48,8 @@ import '../modules/deposit_in_wallet/bindings/deposit_in_wallet_binding.dart';
 import '../modules/deposit_in_wallet/views/deposit_in_wallet_view.dart';
 import '../modules/edit_profile/bindings/edit_profile_binding.dart';
 import '../modules/edit_profile/views/edit_profile_view.dart';
+import '../modules/education/bindings/education_binding.dart';
+import '../modules/education/views/education_view.dart';
 import '../modules/electricity/bindings/electricity_binding.dart';
 import '../modules/electricity/views/electricity_view.dart';
 import '../modules/enter_pin/bindings/enter_pin_binding.dart';
@@ -108,14 +114,22 @@ import '../modules/spinner/bindings/spinner_binding.dart';
 import '../modules/spinner/views/spinner_view.dart';
 import '../modules/splash/bindings/splash_binding.dart';
 import '../modules/splash/views/splash_view.dart';
+import '../modules/term_and_conditions/bindings/term_and_conditions_binding.dart';
+import '../modules/term_and_conditions/views/term_and_conditions_view.dart';
 import '../modules/transfer/bindings/transfer_binding.dart';
 import '../modules/transfer/views/transfer_view.dart';
 import '../modules/verify_identity/bindings/verify_identity_binding.dart';
 import '../modules/verify_identity/views/verify_identity_view.dart';
 import '../modules/verify_identity_success/bindings/verify_identity_success_binding.dart';
 import '../modules/verify_identity_success/views/verify_identity_success_view.dart';
+import '../modules/virtual_account/bindings/virtual_account_binding.dart';
+import '../modules/virtual_account/views/virtual_account_view.dart';
+import '../modules/virtual_account_add/bindings/virtual_account_add_binding.dart';
+import '../modules/virtual_account_add/views/virtual_account_add_view.dart';
 import '../modules/wallet/bindings/wallet_binding.dart';
 import '../modules/wallet/views/wallet_view.dart';
+import '../modules/wallet_transaction_detail/bindings/wallet_transaction_detail_binding.dart';
+import '../modules/wallet_transaction_detail/views/wallet_transaction_detail_view.dart';
 import '../modules/web_view/bindings/web_view_binding.dart';
 import '../modules/web_view/views/web_view_view.dart';
 import '../modules/withdraw/bindings/withdraw_binding.dart';
@@ -437,6 +451,41 @@ class AppPages {
       name: _Paths.PAY_SUMMARY_SUCCESS,
       page: () => const PaySummarySuccessView(),
       binding: PaySummarySuccessBinding(),
+    ),
+    GetPage(
+      name: _Paths.VIRTUAL_ACCOUNT,
+      page: () => const VirtualAccountView(),
+      binding: VirtualAccountBinding(),
+    ),
+    GetPage(
+      name: _Paths.VIRTUAL_ACCOUNT_ADD,
+      page: () => const VirtualAccountAddView(),
+      binding: VirtualAccountAddBinding(),
+    ),
+    GetPage(
+      name: _Paths.ABOUT_US,
+      page: () => const AboutUsView(),
+      binding: AboutUsBinding(),
+    ),
+    GetPage(
+      name: _Paths.CONTACT_US,
+      page: () => const ContactUsView(),
+      binding: ContactUsBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDUCATION,
+      page: () => const EducationView(),
+      binding: EducationBinding(),
+    ),
+    GetPage(
+      name: _Paths.TERM_AND_CONDITIONS,
+      page: () => const TermAndConditionsView(),
+      binding: TermAndConditionsBinding(),
+    ),
+    GetPage(
+      name: _Paths.WALLET_TRANSACTION_DETAIL,
+      page: () => const WalletTransactionDetailView(),
+      binding: WalletTransactionDetailBinding(),
     ),
   ];
 }

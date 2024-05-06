@@ -12,13 +12,17 @@ class ProfileController extends GetxController {
   List listOfListTileImages = [
     // IconConstants.icAppearanceAndDisplay,
     // IconConstants.icBiometricSettings,
+    // IconConstants.icVirtualAccount,
     IconConstants.icFund,
-    // IconConstants.icReferral,
+    IconConstants.icReferral,
     IconConstants.icGiftUser,
     IconConstants.icAccountInfo,
     // IconConstants.icContactPreferences,
     // IconConstants.icGeneralSetting,
     IconConstants.icChangePassword,
+    IconConstants.icAboutUs,
+    IconConstants.icTermConditions,
+    IconConstants.icContactUs,
     IconConstants.icFaqs,
     // IconConstants.icRateUs,
     IconConstants.icLogout,
@@ -27,13 +31,17 @@ class ProfileController extends GetxController {
   List listOfListTileTitles = [
     // StringConstants.appearanceAndDisplay,
     // StringConstants.biometricSettings,
-    StringConstants.fund,
-    // StringConstants.referral,
+    // StringConstants.virtualAccount,
+    StringConstants.cardBalance,
+    StringConstants.referral,
     StringConstants.giftUser,
     StringConstants.accountInfo,
     // StringConstants.contactPreferences,
     // StringConstants.generalSetting,
     StringConstants.changePassword,
+    StringConstants.aboutUS,
+    StringConstants.termConditions,
+    StringConstants.contactUs,
     StringConstants.faqs,
     // StringConstants.rateUs,
     StringConstants.logout,
@@ -63,11 +71,15 @@ class ProfileController extends GetxController {
       case StringConstants.biometricSettings:
         Get.toNamed(Routes.BIOMETRIC_SETTINGS);
         break;
+      case StringConstants.virtualAccount:
+        Get.toNamed(Routes.VIRTUAL_ACCOUNT);
+        break;
       case StringConstants.referral:
         Get.toNamed(Routes.REFERRAL);
         break;
-      case StringConstants.fund:
-        Get.toNamed(Routes.ACCOUNT);
+      case StringConstants.cardBalance:
+        CommonWidgets.snackBarView(title: 'Coming soon');
+        //Get.toNamed(Routes.ACCOUNT);
         break;
       case StringConstants.giftUser:
         Get.toNamed(Routes.GIFT_USER_CARDS);
@@ -81,6 +93,15 @@ class ProfileController extends GetxController {
         break;
       case StringConstants.changePassword:
         Get.toNamed(Routes.CHANGE_PASSWORD);
+        break;
+      case StringConstants.aboutUS:
+        Get.toNamed(Routes.ABOUT_US);
+        break;
+      case StringConstants.termConditions:
+        Get.toNamed(Routes.TERM_AND_CONDITIONS);
+        break;
+      case StringConstants.contactUs:
+        Get.toNamed(Routes.CONTACT_US);
         break;
       case StringConstants.faqs:
         Get.toNamed(Routes.FAQS);
@@ -107,13 +128,20 @@ class ProfileController extends GetxController {
         SharedPreferences sharedPreferences =
             await SharedPreferences.getInstance();
         sharedPreferences.clear();
-        getServicesResult.clear;
-        getBannersResult.clear;
-        getCardTransactionsResultData.clear;
-        listVirtualCardsResult.clear;
+        getServicesResult.clear();
+        getBannersResult.clear();
+        getCardTransactionsResultData.clear();
+        listVirtualCardsResult.clear();
+        getWalletTransactionResult.clear();
+        getReceivedGiftsResult.clear();
+        faqsResult.clear();
+        aboutUsResult.clear();
+        contactUsQuestionsResult.clear();
+        termConditionsResult.clear();
         result = null;
-        selectedIndex.value = 0;
-        Get.offAllNamed(Routes.SPLASH);
+        selectedValue.value = 0;
+        isValue.value = false;
+        await Get.offAllNamed(Routes.SPLASH);
       },
     );
   }

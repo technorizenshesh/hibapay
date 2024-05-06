@@ -4,12 +4,8 @@ class GetWalletTransactionModel {
   List<GetWalletTransactionResult>? result;
   String? token;
 
-  GetWalletTransactionModel({
-    this.status,
-    this.message,
-    this.result,
-    this.token,
-  });
+  GetWalletTransactionModel(
+      {this.status, this.message, this.result, this.token});
 
   GetWalletTransactionModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
@@ -20,6 +16,7 @@ class GetWalletTransactionModel {
         result!.add(GetWalletTransactionResult.fromJson(v));
       });
     }
+    token = json['token'];
   }
 
   Map<String, dynamic> toJson() {
@@ -74,6 +71,12 @@ class GetWalletTransactionResult {
   String? walTraBuyPostAccountNumber;
   String? walTraBuyPostAmount;
   String? walTraBuyPostRequestRef;
+  String? walTraVirtualCardNo;
+  String? walTraVirtualCardResource;
+  String? walTraVirtualCardStatus;
+  String? walTraVirtualCardId;
+  String? walTraVirtualCardBalance;
+  String? walTraCurrency;
 
   GetWalletTransactionResult(
       {this.walTraId,
@@ -114,7 +117,13 @@ class GetWalletTransactionResult {
       this.walTraBuyPostPackageId,
       this.walTraBuyPostAccountNumber,
       this.walTraBuyPostAmount,
-      this.walTraBuyPostRequestRef});
+      this.walTraBuyPostRequestRef,
+      this.walTraVirtualCardNo,
+      this.walTraVirtualCardResource,
+      this.walTraVirtualCardStatus,
+      this.walTraVirtualCardId,
+      this.walTraVirtualCardBalance,
+      this.walTraCurrency});
 
   GetWalletTransactionResult.fromJson(Map<String, dynamic> json) {
     walTraId = json['wal_tra_id'];
@@ -157,6 +166,12 @@ class GetWalletTransactionResult {
     walTraBuyPostAccountNumber = json['wal_tra_buy_post_account_number'];
     walTraBuyPostAmount = json['wal_tra_buy_post_amount'];
     walTraBuyPostRequestRef = json['wal_tra_buy_post_request_ref'];
+    walTraVirtualCardNo = json['wal_tra_virtual_card_no'];
+    walTraVirtualCardResource = json['wal_tra_virtual_card_resource'];
+    walTraVirtualCardStatus = json['wal_tra_virtual_card_status'];
+    walTraVirtualCardId = json['wal_tra_virtual_card_id'];
+    walTraVirtualCardBalance = json['wal_tra_virtual_card_balance'];
+    walTraCurrency = json['wal_tra_currency'];
   }
 
   Map<String, dynamic> toJson() {
@@ -201,6 +216,12 @@ class GetWalletTransactionResult {
     data['wal_tra_buy_post_account_number'] = walTraBuyPostAccountNumber;
     data['wal_tra_buy_post_amount'] = walTraBuyPostAmount;
     data['wal_tra_buy_post_request_ref'] = walTraBuyPostRequestRef;
+    data['wal_tra_virtual_card_no'] = walTraVirtualCardNo;
+    data['wal_tra_virtual_card_resource'] = walTraVirtualCardResource;
+    data['wal_tra_virtual_card_status'] = walTraVirtualCardStatus;
+    data['wal_tra_virtual_card_id'] = walTraVirtualCardId;
+    data['wal_tra_virtual_card_balance'] = walTraVirtualCardBalance;
+    data['wal_tra_currency'] = walTraCurrency;
     return data;
   }
 }

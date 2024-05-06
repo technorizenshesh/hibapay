@@ -3,7 +3,6 @@ import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/create_virtual_card_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
-import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/globle.dart';
 import 'package:colornames/colornames.dart';
 import 'package:flutter/material.dart';
@@ -86,6 +85,7 @@ class CreateVirtualCardController extends GetxController {
       };
       CreateVirtualCardModel? createVirtualCardModel =
           await ApiMethods.createVirtualCard(bodyParams: bodyParams);
+      print('createVirtualCardModel::::::::::::::${createVirtualCardModel}');
       if (createVirtualCardModel != null &&
           createVirtualCardModel.result != null) {
         SharedPreferences sp = await SharedPreferences.getInstance();
@@ -94,7 +94,19 @@ class CreateVirtualCardController extends GetxController {
         await listVirtualCardsApi();
         Get.back();
       } else {
-        CommonWidgets.snackBarView(title: 'This time only one card add');
+        if (createVirtualCardModel != null &&
+            createVirtualCardModel.message != null &&
+            createVirtualCardModel.message!.isNotEmpty) {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px),
+              'Error',
+              createVirtualCardModel.message!);
+        } else {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px),
+              'Error',
+              'This time only one card add');
+        }
       }
       inAsyncCall.value = false;
     } else {

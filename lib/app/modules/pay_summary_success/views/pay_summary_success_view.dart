@@ -44,14 +44,16 @@ class PaySummarySuccessView extends GetView<PaySummarySuccessController> {
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: 4,
+                itemCount: controller.parameters.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.all(10.px),
                     child: gradientText(
-                      title: controller.bodyParams.entries.elementAt(index).key,
-                      subTitle:
-                          controller.bodyParams.entries.elementAt(index).value,
+                      title: controller.parameters.entries.elementAt(index).key,
+                      subTitle: controller.parameters.entries
+                          .elementAt(index)
+                          .value
+                          .toString(),
                     ),
                   );
                 },

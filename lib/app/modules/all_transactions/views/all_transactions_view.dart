@@ -113,16 +113,25 @@ class AllTransactionsView extends GetView<AllTransactionsController> {
                                 SizedBox(height: 8.px),
                                 Row(
                                   children: [
-                                    Text(
-                                      '₦12,256.00',
-                                      style: Theme.of(Get.context!)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.copyWith(
-                                            fontSize: 24.px,
-                                            color: Theme.of(context)
-                                                .scaffoldBackgroundColor,
-                                          ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        CommonMethods.iconLinearGradient(
+                                          assetName: IconConstants.icCur,
+                                          value: true,
+                                        ),
+                                        Text(
+                                          '12,256.00',
+                                          style: Theme.of(Get.context!)
+                                              .textTheme
+                                              .displayMedium
+                                              ?.copyWith(
+                                                fontSize: 24.px,
+                                                color: Theme.of(context)
+                                                    .scaffoldBackgroundColor,
+                                              ),
+                                        ),
+                                      ],
                                     ),
                                     const Spacer(),
                                     /*PopupMenuButton(
@@ -162,9 +171,9 @@ class AllTransactionsView extends GetView<AllTransactionsController> {
                                         return [
                                           PopupMenuItem(
                                             value:
-                                                'US  ( ₦ )',
+                                                'US  ( $appCurrency )',
                                             child: Text(
-                                              'US  ( ₦ )',
+                                              'US  ( $appCurrency )',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayMedium
@@ -182,9 +191,9 @@ class AllTransactionsView extends GetView<AllTransactionsController> {
                                             ),
                                           ),
                                           PopupMenuItem(
-                                            value: 'NGN  ( ₦ )',
+                                            value: 'NGN  ( $appCurrency )',
                                             child: Text(
-                                              'NGN  ( ₦ )',
+                                              'NGN  ( $appCurrency )',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayMedium
@@ -261,16 +270,33 @@ class AllTransactionsView extends GetView<AllTransactionsController> {
                       itemCount: controller.listOfTra.length,
                       itemBuilder: (context, index) {
                         return ListTile(
-                          trailing: Text(
-                            controller.listOfTra[index]['type'] == 'Withdraw'
-                                ? '- ₦${controller.listOfTra[index]['amount']}'
-                                : '+ ₦${controller.listOfTra[index]['amount']}',
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                    fontSize: 14.px,
-                                    color: Theme.of(context).primaryColor),
+                          trailing: Row(
+                            children: [
+                              Text(
+                                controller.listOfTra[index].type != 'credit'
+                                    ? '- '
+                                    : '+ ',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                        fontSize: 14.px,
+                                        color: Theme.of(context).primaryColor),
+                              ),
+                              CommonMethods.iconLinearGradient(
+                                assetName: IconConstants.icCur,
+                                value: true,
+                              ),
+                              Text(
+                                '${controller.listOfTra[index].amount ?? '0'}',
+                                style: Theme.of(context)
+                                    .textTheme
+                                    .displayMedium
+                                    ?.copyWith(
+                                        fontSize: 14.px,
+                                        color: Theme.of(context).primaryColor),
+                              ),
+                            ],
                           ),
                           subtitle: Text(
                             controller.listOfTra[index]['sub_title'],

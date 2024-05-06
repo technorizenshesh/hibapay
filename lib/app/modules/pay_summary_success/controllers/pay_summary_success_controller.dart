@@ -2,7 +2,7 @@ import 'package:get/get.dart';
 
 class PaySummarySuccessController extends GetxController {
   final count = 0.obs;
-  Map<String, dynamic> bodyParams = Get.arguments;
+  Map<String, String?> parameters = Get.arguments;
 
   @override
   void onInit() {

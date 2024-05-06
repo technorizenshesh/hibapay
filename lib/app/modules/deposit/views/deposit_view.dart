@@ -95,7 +95,7 @@ class DepositView extends GetView<DepositController> {
                 ),
                 SizedBox(height: 24.px),
                 /*Text(
-                  '₦ 8,256',
+                  '$appCurrency 8,256',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 40.px,
@@ -104,7 +104,7 @@ class DepositView extends GetView<DepositController> {
                 ),
                 SizedBox(height: 10.px),
                 Text(
-                  'Maximum ₦ 12,652.00',
+                  'Maximum $appCurrency 12,652.00',
                   textAlign: TextAlign.center,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
                         fontSize: 12.px,
@@ -138,16 +138,9 @@ class DepositView extends GetView<DepositController> {
                         ],
                         controller: controller.amountController,
                         decoration: InputDecoration(
-                          prefixIcon: Text(
-                            '₦  ',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                  fontSize: 40.px,
-                                  color: Theme.of(context).primaryColor,
-                                ),
+                          prefixIcon: CommonMethods.iconLinearGradient(
+                            assetName: IconConstants.icCur,
+                            value: controller.isAmount.value,
                           ),
                           hintText: '. . . .',
                           hintStyle: Theme.of(context)

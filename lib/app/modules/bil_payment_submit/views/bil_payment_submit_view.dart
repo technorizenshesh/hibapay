@@ -1,5 +1,5 @@
+import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/image_constants.dart';
-import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -48,7 +48,9 @@ class BilPaymentSubmitView extends GetView<BilPaymentSubmitController> {
                   subTitle: 'Adani Electricity Mumbai Limited'),
               SizedBox(height: 14.px),
               gradientText(
-                  title: StringConstants.amount, subTitle: '₦ 225.00'),
+                  title: StringConstants.amount,
+                  subTitle: '225.00',
+                  curValue: true),
               SizedBox(height: 14.px),
               gradientText(
                   title: StringConstants.accountNumber,
@@ -77,7 +79,8 @@ class BilPaymentSubmitView extends GetView<BilPaymentSubmitController> {
     });
   }
 
-  gradientText({required String title, required String subTitle}) {
+  gradientText(
+      {required String title, required String subTitle, bool? curValue}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -90,13 +93,22 @@ class BilPaymentSubmitView extends GetView<BilPaymentSubmitController> {
           ],
         ),
         SizedBox(height: 4.px),
-        Text(
-          subTitle,
-          maxLines: 2,
-          style: Theme.of(Get.context!)
-              .textTheme
-              .displayMedium
-              ?.copyWith(fontSize: 14.px),
+        Row(
+          children: [
+            if (curValue ?? false)
+              CommonMethods.iconLinearGradient(
+                assetName: IconConstants.icCur,
+                value: true,
+              ),
+            Text(
+              subTitle,
+              maxLines: 2,
+              style: Theme.of(Get.context!)
+                  .textTheme
+                  .displayMedium
+                  ?.copyWith(fontSize: 14.px),
+            ),
+          ],
         ),
       ],
     );

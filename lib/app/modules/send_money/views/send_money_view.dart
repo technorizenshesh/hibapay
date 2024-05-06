@@ -1,4 +1,5 @@
-import 'package:HibaPay/common/globle.dart';
+import 'package:HibaPay/app/data/constants/icons_constant.dart';
+import 'package:HibaPay/common/common_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -59,12 +60,32 @@ class SendMoneyView extends GetView<SendMoneyController> {
                                     fontSize: 12.px,
                                   ),
                         ),
-                        Text(
-                          'Max ₦12,652.00',
-                          style:
-                              Theme.of(context).textTheme.titleMedium?.copyWith(
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Text(
+                              'Max',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
                                     fontSize: 12.px,
                                   ),
+                            ),
+                            CommonMethods.iconLinearGradient(
+                              assetName: IconConstants.icCur,
+                              value: true,
+                            ),
+                            Text(
+                              '12,652.00',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                    fontSize: 12.px,
+                                  ),
+                            ),
+                          ],
                         ),
                       ],
                     ),

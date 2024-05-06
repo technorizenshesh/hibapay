@@ -52,6 +52,18 @@ class ElectricityView extends GetView<ElectricityController> {
                     ),
                     SizedBox(height: 14.px),
                     CommonWidgets.commonTextFieldForLoginSignUP(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: <TextInputFormatter>[
+                        FilteringTextInputFormatter.digitsOnly
+                      ],
+                      focusNode: controller.focusMobileNumber,
+                      title: StringConstants.mobileNumber,
+                      controller: controller.mobileNumberController,
+                      isCard: controller.isMobileNumber.value,
+                      hintText: StringConstants.pleaseEnterMobileNumber,
+                    ),
+                    SizedBox(height: 14.px),
+                    CommonWidgets.commonTextFieldForLoginSignUP(
                       focusNode: controller.focusServiceProvider,
                       title: StringConstants.serviceProvider,
                       controller: controller.serviceProviderController,
@@ -91,12 +103,16 @@ class ElectricityView extends GetView<ElectricityController> {
                       focusNode: controller.focusAmount,
                       title: StringConstants.enterAmount,
                       controller: controller.amountController,
+                      prefixIcon: CommonMethods.iconLinearGradient(
+                        assetName: IconConstants.icCur,
+                        value: controller.isAmount.value,
+                      ),
                       onChanged: (value) {
                         if (controller.amountController.text.isNotEmpty &&
                             controller.amountController.text[0] != '0') {
                           controller.amountControllerValue.value = value;
                           controller.amountController.text =
-                              "₦ ${controller.amountController.text.toString()}";
+                              controller.amountController.text.toString();
                         } else {
                           controller.amountController.text = '';
                           controller.amountControllerValue.value =

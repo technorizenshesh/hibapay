@@ -9,9 +9,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-
 // ignore: depend_on_referenced_packages
 import 'package:http/http.dart' as http;
+import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shimmer/shimmer.dart';
@@ -509,9 +509,8 @@ class CommonWidgets {
   }
 
   static Future<bool> internetConnectionCheckerMethod() async {
-    /*   bool result = await InternetConnectionChecker().hasConnection;
+    bool result = await InternetConnectionChecker().hasConnection;
     return result;
-*/
     try {
       final result = await http.get(Uri.parse('https://www.google.com/'));
       if (result.statusCode == 200) {

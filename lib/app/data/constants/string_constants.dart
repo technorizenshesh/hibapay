@@ -1,21 +1,28 @@
 class StringConstants {
   static const String title = 'title';
   static const String login = 'Login';
+  static const String share = 'Share';
   static const String cancel = 'Cancel';
   static const String signUp = 'Sign up';
   static const String setAccountPin = 'Set Account PIN';
   static const String awesome = 'Awesome';
+  static const String download = 'Download';
+  static const String paymentBreakdown = 'Payment Breakdown';
   static const String pleaseEnterPhoneNumber = 'Please enter phone number';
   static const String resetPassword = 'Reset Password ?';
   static const String enterYourDetailToSignUp = 'Enter your detail to sign up';
   static const String loginWithEmailAndMobileNumber =
       'Login with email and mobile number';
   static const String phoneNumber = 'Phone Number';
+  static const String sendGift = 'Send Gift';
+  static const String shareSomeMoreDetailsWithUs =
+      'Share some more details with us';
   static const String doNotHaveAnAccount = 'Don’t have an account?';
   static const String fullName = 'Full Name';
   static const String lastName = 'Last Name';
   static const String selectedColor = 'Selected color';
   static const String name = 'Name';
+  static const String view = 'View';
   static const String colorText = 'Color';
   static const String pickColor = 'Pick color';
   static const String pleaseEnterFullName = 'Please enter full name';
@@ -60,6 +67,7 @@ class StringConstants {
   static const String newPassword = 'New Password';
   static const String confirmPassword = 'Confirm password';
   static const String confirm = 'Confirm';
+  static const String description = 'Description';
   static const String pleaseEnterNewPassword = 'Please enter new password';
   static const String pleaseEnterCurrentPassword =
       'Please enter current password';
@@ -80,11 +88,22 @@ class StringConstants {
 
   // static const String myCard = ' My Card';
   static const String cards = ' Cards';
+  static const String transactionType = 'Transaction type';
+  static const String serviceType = 'Service type';
+  static const String reference = 'Reference';
+  static const String paymentStatus = 'Payment status';
+  static const String buyStatus = 'Buy status';
+  static const String message = 'Message';
+  static const String transactionDate = 'Transaction date';
+  static const String transactionValue = 'Transaction value';
+  static const String customerName = 'Customer name';
   static const String payment = 'Payment';
   static const String paymentSuccess = 'Payment success';
   static const String account = 'Account';
   static const String virtualCard = 'Virtual card';
-  static const String fund = 'Fund';
+  static const String virtualAccount = 'Virtual account';
+  // static const String fund = 'Fund';
+  static const String cardBalance = 'Card Balance';
   static const String accountHolder = 'Account Holder';
   static const String bankName = 'Bank Name';
   static const String swiftCode = 'Swift code';
@@ -101,7 +120,7 @@ class StringConstants {
   static const String profile = 'Profile';
   static const String welcomeBack = 'Welcome back!';
   static const String deposit = 'Deposit';
-  static const String rechargeYourWallet = 'Recharge your wallet';
+  static const String fundWallet = 'Fund Wallet';
   static const String transfers = 'Transfers';
   static const String withdraw = 'Withdraw';
   static const String topUpWallet = 'Top up Wallet';
@@ -115,6 +134,8 @@ class StringConstants {
   static const String switchText = 'Switch';
   static const String addNewCard = 'Add new card';
   static const String verifyIdentity = 'Verify identity';
+  static const String detail = 'Detail';
+  static const String notificationDetail = 'Notification detail';
   static const String chooseCards = 'Choose cards';
   static const String chooseRecipients = 'Choose recipients';
   static const String sendMoneyByEmail = 'Send Money by Email';
@@ -137,6 +158,9 @@ class StringConstants {
   static const String generalSetting = "General Setting";
   static const String changePassword = "Change Password";
   static const String faqs = "FAQs";
+  static const String aboutUS = "About US";
+  static const String termConditions = "Term Conditions";
+  static const String contactUs = "Contact US";
   static const String rateUs = "Rate Us";
   static const String deleteAccount = "Delete Account";
   static const String checkYourMail = 'Check your mail';
@@ -149,6 +173,9 @@ class StringConstants {
   static const String occupation = 'Occupation';
   static const String employer = 'Employer';
   static const String contactInfo = 'Contact Info';
+  static const String stillCantFindHelp = "Still can’t find help?";
+  static const String youCanSendUs =
+      "you can send us a message and we will look into your concern ASAP!";
   static const String isLock = 'Is lock';
   static const String isLockPin = 'Is lock Pin';
   static const String greatYour = 'Great! your card is ready🙂';
@@ -193,6 +220,7 @@ class StringConstants {
   static const String wouldYouLikeToLogout = "Would you like to logout?";
   static const String accountNumber = "Account Number";
   static const String meterNumber = "Meter Number";
+  static const String byDataCost = "By data cost";
   static const String currency = "Currency";
   static const String accountName = "Account Name";
   static const String mobileNumber = "Mobile Number";
@@ -202,12 +230,15 @@ class StringConstants {
   static const String pleaseEnterCurrency = "Please enter currency";
   static const String selectProvider = "Select Provider";
   static const String actionRequired = "Action Required!";
+  static const String verification = "Verification";
+  static const String tokenDetails = "Token Details";
   static const String selectPackages = "Select Packages";
   static const String selectPackagesAmount = "Select Packages Amount";
   static const String selectAccount = "Select Account";
   static const String select = "Select";
   static const String serviceProvider = "Service Provider";
   static const String packages = "Packages";
+  static const String selectIssue = "Select issue";
   static const String pleaseEnterAccountName = "Please enter account name";
   static const String giftingAmount = "Gifting Amount";
   static const String receiverId = "Receiver id";
@@ -238,6 +269,7 @@ class StringConstants {
   static const String userId = "User ID";
   static const String addNotes = "Add Notes";
   static const String amount = "Amount";
+  static const String fee = "Fee";
   static const String fromWhichAccountDoYouWantToPay =
       "From which account do you want to pay";
   static const String nickName = "Nickname";
@@ -247,6 +279,7 @@ class StringConstants {
   static const String okIAmReady = "Ok, I’m ready!";
   static const String transferConfirmation = "Transfer Confirmation";
   static const String from = "From";
+  static const String sendMessage = "Send Message";
   static const String to = "To";
   static const String total = "Total";
   static const String recharge = "Recharge";
@@ -287,6 +320,8 @@ class StringConstants {
   static const String contactPreferences = "Contact preferences";
   static const String uFitPay = "UFITPAY";
   static const String hibapay = "HIBAPAY";
+  static const String showDetail = "Show detail";
+  static const String transactionDetail = "Transaction detail";
   static const String exit = "EXIT";
   static const String doYouWantToExitAnApp = "Do you want to exit an App?";
   static const String earnThreeHundredEightyPointsToEach =

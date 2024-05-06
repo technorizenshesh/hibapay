@@ -1,6 +1,5 @@
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/image_constants.dart';
-import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -52,7 +51,9 @@ class BilPaymentSuccessView extends GetView<BilPaymentSuccessController> {
                   subTitle: 'Adani Electricity Mumbai Limited'),
               SizedBox(height: 14.px),
               gradientText(
-                  title: StringConstants.amount, subTitle: '₦ 225.00'),
+                  title: StringConstants.amount,
+                  curValue: true,
+                  subTitle: '225.00'),
               SizedBox(height: 14.px),
               gradientText(
                   title: StringConstants.accountNumber,
@@ -114,7 +115,8 @@ class BilPaymentSuccessView extends GetView<BilPaymentSuccessController> {
     });
   }
 
-  gradientText({required String title, required String subTitle}) {
+  gradientText(
+      {required String title, required String subTitle, bool? curValue}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -127,6 +129,11 @@ class BilPaymentSuccessView extends GetView<BilPaymentSuccessController> {
           ],
         ),
         SizedBox(height: 4.px),
+        if (curValue ?? false)
+          CommonMethods.iconLinearGradient(
+            assetName: IconConstants.icCur,
+            value: true,
+          ),
         Text(
           subTitle,
           maxLines: 2,

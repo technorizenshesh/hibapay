@@ -15,8 +15,8 @@ class NavBarView extends GetView<NavBarController> {
   @override
   Widget build(BuildContext context) {
     return Obx(
-      () => PopScope(
-        onPopInvoked: (didPop) => controller.onWillPop(),
+      () => WillPopScope(
+        onWillPop: () => controller.onWillPop(),
         child: Scaffold(
           extendBody: true,
           resizeToAvoidBottomInset: false,

@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_banners_model.dart';
@@ -6,6 +9,7 @@ import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/globle.dart';
 import 'package:country_picker/country_picker.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -19,9 +23,10 @@ class LoginController extends GetxController {
   final isPassword = false.obs;
   final passwordHide = true.obs;
   final isEmail = false.obs;
-
   final countryCode = 'IN'.obs;
   final authTokenHiba = ''.obs;
+  final deviceToken = ''.obs;
+  final deviceType = ''.obs;
   final type = ''.obs;
   final countryCodeShow = '+91'.obs;
   TextEditingController phoneController = TextEditingController();
@@ -30,17 +35,21 @@ class LoginController extends GetxController {
   FocusNode focusPhone = FocusNode();
   FocusNode focusPassword = FocusNode();
   FocusNode focusEmail = FocusNode();
-
   Map<String, dynamic> queryParameters = {};
-
   final inAsyncCall = false.obs;
-
   final selectedTab = 0.obs;
 
   @override
   void onInit() {
     super.onInit();
     startListener();
+    if (Platform.isIOS) {
+      deviceType.value = ApiKeyConstants.ios;
+      print('is a IOS');
+    } else if (Platform.isAndroid) {
+      deviceType.value = ApiKeyConstants.android;
+      print('is a Andriod');
+    } else {}
   }
 
   @override
@@ -63,7 +72,7 @@ class LoginController extends GetxController {
     Get.toNamed(Routes.SIGN_UP);
   }
 
-  clickOnLoginButton1() async {
+/*  clickOnLoginButton1() async {
     if (passwordController.text.trim().isNotEmpty &&
         phoneController.text.trim().isNotEmpty &&
         countryCode.value.trim().isNotEmpty) {
@@ -79,7 +88,6 @@ class LoginController extends GetxController {
             'Message',
             'The entered string is neither a number nor an email.');
       }
-
       queryParameters = {
         // ApiKeyConstants.mobile: '${countryCode.value}-${phoneController.text}',
         ApiKeyConstants.mobile: phoneController.text,
@@ -117,9 +125,15 @@ class LoginController extends GetxController {
       Get.snackbar(
           margin: EdgeInsets.all(20.px), 'Error', 'All field required');
     }
-  }
+  }*/
 
   clickOnLoginButton() async {
+    FirebaseMessaging firebaseMessaging =
+        FirebaseMessaging.instance; // Change here
+    firebaseMessaging.getToken().then((token) {
+      print('token :::::::::::::::::::${token}');
+      deviceToken.value = token.toString();
+    });
     if (selectedTab.value != 0) {
       if (phoneController.text.trim().isNotEmpty &&
           countryCode.value.trim().isNotEmpty &&
@@ -129,6 +143,8 @@ class LoginController extends GetxController {
           ApiKeyConstants.mobile:
               '${countryCode.value}-${phoneController.text}',
           ApiKeyConstants.password: passwordController.text,
+          ApiKeyConstants.deviceType: deviceType.value,
+          ApiKeyConstants.deviceToken: deviceToken.value,
         };
         UserModel? userModel = await ApiMethods.loginMobile(
           queryParameters: queryParameters,
@@ -139,9 +155,27 @@ class LoginController extends GetxController {
           SharedPreferences sp = await SharedPreferences.getInstance();
           sp.setString(
               ApiKeyConstants.authTokenHiba, "Bearer ${userModel.token ?? ''}");
-          await onInitWorking();
+          sp.setString(
+              ApiKeyConstants.result, jsonEncode(userModel.result ?? ''));
           CommonMethods.unFocsKeyBoard();
-          Get.offAllNamed(Routes.NAV_BAR);
+          if (userModel.result != null) {
+            result = userModel.result!;
+            increment();
+            if (result != null &&
+                result?.udocSelfyPhotoStatus != null &&
+                result!.udocSelfyPhotoStatus!.isNotEmpty) {
+              await onInitWorking();
+              Get.offAllNamed(Routes.NAV_BAR);
+            } else {
+              if (result != null &&
+                  result!.id != null &&
+                  result!.id!.isNotEmpty) {
+                SharedPreferences sp = await SharedPreferences.getInstance();
+                sp.setString(ApiKeyConstants.userId, result?.id ?? '');
+                Get.toNamed(Routes.VERIFY_IDENTITY);
+              }
+            }
+          }
         } else {
           if (userModel != null &&
               userModel.message != null &&
@@ -151,7 +185,8 @@ class LoginController extends GetxController {
                 'Error',
                 userModel.message.toString());
           } else {
-            Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
+            Get.snackbar(
+                margin: EdgeInsets.all(20.px), 'Error', 'Check connection');
           }
         }
         inAsyncCall.value = false;
@@ -166,6 +201,8 @@ class LoginController extends GetxController {
         queryParameters = {
           ApiKeyConstants.email: emailController.text,
           ApiKeyConstants.password: passwordController.text,
+          ApiKeyConstants.deviceType: deviceType.value,
+          ApiKeyConstants.deviceToken: deviceToken.value,
         };
         UserModel? userModel = await ApiMethods.login(
           queryParameters: queryParameters,
@@ -176,9 +213,28 @@ class LoginController extends GetxController {
           SharedPreferences sp = await SharedPreferences.getInstance();
           sp.setString(
               ApiKeyConstants.authTokenHiba, "Bearer ${userModel.token ?? ''}");
+          sp.setString(
+              ApiKeyConstants.result, jsonEncode(userModel.result ?? ''));
           authTokenHiba.value = "Bearer ${userModel.token ?? ''}";
           CommonMethods.unFocsKeyBoard();
-          Get.offAllNamed(Routes.NAV_BAR);
+          if (userModel.result != null) {
+            result = userModel.result!;
+            increment();
+            if (result != null &&
+                result?.udocSelfyPhotoStatus != null &&
+                result!.udocSelfyPhotoStatus!.isNotEmpty) {
+              await onInitWorking();
+              Get.offAllNamed(Routes.NAV_BAR);
+            } else {
+              if (result != null &&
+                  result!.id != null &&
+                  result!.id!.isNotEmpty) {
+                SharedPreferences sp = await SharedPreferences.getInstance();
+                sp.setString(ApiKeyConstants.userId, result?.id ?? '');
+                Get.toNamed(Routes.VERIFY_IDENTITY);
+              }
+            }
+          }
         } else {
           if (userModel != null &&
               userModel.message != null &&
@@ -188,7 +244,8 @@ class LoginController extends GetxController {
                 'Error',
                 userModel.message.toString());
           } else {
-            Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
+            Get.snackbar(
+                margin: EdgeInsets.all(20.px), 'Error', 'Check connection');
           }
         }
         /* if (userModel != null &&

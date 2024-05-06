@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:HibaPay/app/app_controller/ac.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/app/modules/home/controllers/home_controller.dart';
 import 'package:HibaPay/app/modules/my_card/controllers/my_card_controller.dart';
@@ -15,10 +18,13 @@ import '../../profile/views/profile_view.dart';
 
 class NavBarController extends GetxController {
   final count = 0.obs;
+  late StreamSubscription streamSubscription;
 
   @override
   void onInit() {
     super.onInit();
+    AC().getNetworkConnectionType();
+    streamSubscription = AC().checkNetworkConnection();
   }
 
   @override
@@ -65,6 +71,7 @@ class NavBarController extends GetxController {
   }
 
   onWillPop() {
+    print('selectedIndex.value:::::::::::::::::::::::${selectedIndex.value}');
     if (selectedIndex.value == 0) {
       CommonWidgets.showAlertDialog(
         title: StringConstants.exit,

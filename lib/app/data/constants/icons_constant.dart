@@ -14,6 +14,8 @@ class IconConstants {
       'assets/icons/ic_country_in_active.svg';
   static const String icEmailActive = 'assets/icons/ic_email_active.svg';
   static const String icEmailInActive = 'assets/icons/ic_email_in_active.svg';
+  static const String icReferralTextField =
+      'assets/icons/ic_referral_text_field.svg';
   static const String icStreetAddressActive =
       'assets/icons/ic_street_address_active.svg';
   static const String icStreetAddressInActive =
@@ -53,12 +55,15 @@ class IconConstants {
   static const String icLandline = 'assets/icons/ic_landline.svg';
   static const String icMore = 'assets/icons/ic_more.svg';
   static const String icWallet = 'assets/icons/ic_wallet.svg';
-
+  static const String icVirtualAccount = 'assets/icons/ic_virtual_account.svg';
   static const String icAccountInfo = 'assets/icons/ic_account_info.svg';
   static const String icLanguage = 'assets/icons/ic_language.svg';
   static const String icGeneralSetting = 'assets/icons/ic_general_setting.svg';
   static const String icChangePassword = 'assets/icons/ic_change_password.svg';
   static const String icFaqs = 'assets/icons/ic_faqs.svg';
+  static const String icContactUs = 'assets/icons/ic_contact_us.svg';
+  static const String icAboutUs = 'assets/icons/about_us.svg';
+  static const String icTermConditions = 'assets/icons/ic_term_conditions.svg';
   static const String icRateUs = 'assets/icons/ic_rate_us.svg';
   static const String icRightArrow = 'assets/icons/ic_right_arrow.svg';
   static const String icBank = 'assets/icons/ic_bank.svg';
@@ -73,9 +78,11 @@ class IconConstants {
   static const String icGiftUser = 'assets/icons/ic_gift_user.svg';
   static const String icReferral = 'assets/icons/ic_referral.svg';
   static const String icCopy = 'assets/icons/ic_copy.svg';
+  static const String icCopyWhite = 'assets/icons/ic_copy_white.svg';
   static const String icGift = 'assets/icons/ic_gift.svg';
   static const String icLogout = 'assets/icons/ic_logout.svg';
   static const String icDownArrow = 'assets/icons/ic_down_arrow.svg';
+  static const String icCur = 'assets/icons/ic_cur.svg';
 }
 
 class IconConstantsPng {
@@ -104,4 +111,5 @@ class IconConstantsPng {
   static const String icInternet = 'assets/icons_png/ic_internet.png';
   static const String icCoin = 'assets/icons_png/ic_coin.png';
   static const String icKey = 'assets/icons_png/ic_key.png';
+  static const String icCur = 'assets/icons_png/ic_cur.png';
 }

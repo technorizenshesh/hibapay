@@ -1,4 +1,6 @@
+import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
+import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
@@ -23,9 +25,9 @@ class GiftUserView extends GetView<GiftUserController> {
           bottomNavigationBar: Padding(
             padding: EdgeInsets.all(20.px),
             child: CommonWidgets.commonElevatedButton(
-              onPressed: () => controller.clickOnContinueButton(),
+              onPressed: () => controller.clickOnSendGiftButton(),
               child: Text(
-                StringConstants.continueText,
+                StringConstants.sendGift,
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall
@@ -59,13 +61,18 @@ class GiftUserView extends GetView<GiftUserController> {
                       title: StringConstants.giftingAmount,
                       isCard: controller.isGiftingAmount.value,
                       hintText: StringConstants.pleaseEnterGiftingAmount,
+                      prefixIcon: CommonMethods.iconLinearGradient(
+                        assetName: IconConstants.icCur,
+                        value: controller.isGiftingAmount.value,
+                      ),
                       onChanged: (value) {
                         if (controller
                                 .giftingAmountController.text.isNotEmpty &&
                             controller.giftingAmountController.text[0] != '0') {
                           controller.giftingAmountControllerValue.value = value;
-                          controller.giftingAmountController.text =
-                              "₦ ${controller.giftingAmountController.text.toString()}";
+                          controller.giftingAmountController.text = controller
+                              .giftingAmountController.text
+                              .toString();
                         } else {
                           controller.giftingAmountController.text = '';
                           controller.giftingAmountControllerValue.value =

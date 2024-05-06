@@ -22,11 +22,36 @@ class VerifyIdentityView extends GetView<VerifyIdentityController> {
         inAsyncCall: controller.inAsyncCall.value,
         child: Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          appBar: CommonWidgets.appBar(title: StringConstants.verifyIdentity),
+          appBar: CommonWidgets.appBar(
+              title: StringConstants.verifyIdentity, wantBackButton: false),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.px),
             child: ListView(
               children: [
+                SizedBox(height: 10.px),
+                CommonWidgets.commonTextFieldForLoginSignUP(
+                  focusNode: controller.focusFirstName,
+                  title: StringConstants.firstName,
+                  controller: controller.firstNameController,
+                  isCard: controller.isFirstName.value,
+                  hintText: StringConstants.pleaseEnterFirstName,
+                ),
+                SizedBox(height: 10.px),
+                CommonWidgets.commonTextFieldForLoginSignUP(
+                  focusNode: controller.focusLastName,
+                  title: StringConstants.lastName,
+                  controller: controller.lastNameController,
+                  isCard: controller.isLastName.value,
+                  hintText: StringConstants.pleaseEnterLastName,
+                ),
+                SizedBox(height: 10.px),
+                CommonWidgets.commonTextFieldForLoginSignUP(
+                  focusNode: controller.focusBvn,
+                  title: StringConstants.bvn,
+                  controller: controller.bvnController,
+                  isCard: controller.isBvn.value,
+                  hintText: StringConstants.pleaseEnterBvn,
+                ),
                 SizedBox(height: 20.px),
                 GestureDetector(
                   onTap: () => controller.clickOnGovernmentIdCard(),

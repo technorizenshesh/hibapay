@@ -1,4 +1,6 @@
+import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
+import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
@@ -17,8 +19,7 @@ class DepositInWalletView extends GetView<DepositInWalletController> {
       return ProgressBar(
         inAsyncCall: controller.inAsyncCall.value,
         child: Scaffold(
-          appBar:
-              CommonWidgets.appBar(title: StringConstants.rechargeYourWallet),
+          appBar: CommonWidgets.appBar(title: StringConstants.fundWallet),
           bottomNavigationBar: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.px, vertical: 24.px),
             child: CommonWidgets.commonElevatedButton(
@@ -64,16 +65,9 @@ class DepositInWalletView extends GetView<DepositInWalletController> {
                         ],
                         controller: controller.amountController,
                         decoration: InputDecoration(
-                          prefixIcon: Text(
-                            '₦  ',
-                            textAlign: TextAlign.center,
-                            style: Theme.of(context)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                  fontSize: 40.px,
-                                  color: Theme.of(context).primaryColor,
-                                ),
+                          prefixIcon: CommonMethods.iconLinearGradient(
+                            assetName: IconConstants.icCur,
+                            value: controller.isAmount.value,
                           ),
                           hintText: '. . . .',
                           hintStyle: Theme.of(context)

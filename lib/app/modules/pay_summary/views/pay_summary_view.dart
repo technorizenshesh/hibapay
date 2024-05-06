@@ -51,10 +51,11 @@ class PaySummaryView extends GetView<PaySummaryController> {
                       padding: EdgeInsets.all(10.px),
                       child: gradientText(
                         title:
-                            controller.bodyParams.entries.elementAt(index).key,
-                        subTitle: controller.bodyParams.entries
+                            controller.parameters.entries.elementAt(index).key,
+                        subTitle: controller.parameters.entries
                             .elementAt(index)
-                            .value,
+                            .value
+                            .toString(),
                       ),
                     );
                   },

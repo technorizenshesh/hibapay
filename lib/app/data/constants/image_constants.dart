@@ -26,4 +26,6 @@ class ImgConstants {
 
   static const String imageNoDataFound =
       'assets/images/image_no_data_found.png';
+  static const String imageAboutsUs = 'assets/images/image_abouts_us.png';
+  static const String imageContactUs = 'assets/images/image_contact_us.png';
 }

@@ -2,26 +2,24 @@ import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class GiftUserController extends GetxController {
-  final count = 0.obs;
-
   Map<String, String?> parameters = Get.parameters;
-  final title = ''.obs;
-  final serviceId = ''.obs;
-  final giftingAmountControllerValue = ''.obs;
-
   TextEditingController giftingAmountController = TextEditingController();
   TextEditingController receiverIdController = TextEditingController();
   TextEditingController desController = TextEditingController();
-
   FocusNode focusGiftingAmount = FocusNode();
   FocusNode focusReceiverId = FocusNode();
   FocusNode focusDes = FocusNode();
+  final count = 0.obs;
+  final title = ''.obs;
+  final serviceId = ''.obs;
+  final giftingAmountControllerValue = ''.obs;
   final isGiftingAmount = false.obs;
   final isReceiverId = false.obs;
   final isDes = false.obs;
@@ -62,7 +60,7 @@ class GiftUserController extends GetxController {
 
   void increment() => count.value++;
 
-  clickOnContinueButton() async {
+  clickOnSendGiftButton() async {
     if (receiverIdController.text.trim().isNotEmpty &&
         giftingAmountController.text.trim().isNotEmpty) {
       inAsyncCall.value = true;
@@ -70,7 +68,8 @@ class GiftUserController extends GetxController {
         ApiKeyConstants.authTokenHiba: authTokenHiba.value,
         ApiKeyConstants.amount: giftingAmountControllerValue.value,
         ApiKeyConstants.receiverId: receiverIdController.text,
-        ApiKeyConstants.giftsDescription: desController.text,
+        ApiKeyConstants.giftsDescription:
+            '${result?.firstName ?? ''} ${result?.lastName ?? ''}', //desController.text,
       };
       UserModel? userModel = await ApiMethods.sendGift(bodyParams: bodyParams);
       if (userModel != null) {
@@ -78,7 +77,7 @@ class GiftUserController extends GetxController {
           if (userModel.message == 'Success') {
             Get.back();
             Get.snackbar(
-                margin: EdgeInsets.all(20.px), 'Pay', userModel.message ?? '');
+                margin: EdgeInsets.all(20.px), 'Send', userModel.message ?? '');
           } else {
             Get.snackbar(
                 margin: EdgeInsets.all(20.px),

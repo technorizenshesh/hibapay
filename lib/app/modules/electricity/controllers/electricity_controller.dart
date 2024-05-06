@@ -1,9 +1,10 @@
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
-import 'package:HibaPay/app/data/apis/api_models/bill_pay_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_packages_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_price_list_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_price_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/ufitpay_get_vendors_model.dart';
+import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -16,16 +17,19 @@ class ElectricityController extends GetxController {
   Map<String, String?> parameters = Get.parameters;
   String title = '';
   TextEditingController meterNumberController = TextEditingController();
+  TextEditingController mobileNumberController = TextEditingController();
   TextEditingController serviceProviderController = TextEditingController();
   TextEditingController amountController = TextEditingController();
   TextEditingController packagesController = TextEditingController();
 
   FocusNode focusMeterNumber = FocusNode();
+  FocusNode focusMobileNumber = FocusNode();
   FocusNode focusAmount = FocusNode();
   FocusNode focusServiceProvider = FocusNode();
   FocusNode focusPackages = FocusNode();
 
   final isMeterNumber = false.obs;
+  final isMobileNumber = false.obs;
   final isAmount = false.obs;
   final isServiceProvider = false.obs;
   final isPackages = false.obs;
@@ -52,6 +56,9 @@ class ElectricityController extends GetxController {
 
   final amountControllerValue = ''.obs;
 
+  Map<String, dynamic> bodyParams = {};
+  Map<String, String> bodyParams1 = {};
+
   @override
   Future<void> onInit() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -67,6 +74,7 @@ class ElectricityController extends GetxController {
 
   void startListener() {
     focusMeterNumber.addListener(onFocusChange);
+    focusMobileNumber.addListener(onFocusChange);
     focusAmount.addListener(onFocusChange);
     focusServiceProvider.addListener(onFocusChange);
     focusPackages.addListener(onFocusChange);
@@ -74,6 +82,7 @@ class ElectricityController extends GetxController {
 
   void onFocusChange() {
     isMeterNumber.value = focusMeterNumber.hasFocus;
+    isMobileNumber.value = focusMobileNumber.hasFocus;
     isAmount.value = focusAmount.hasFocus;
     isServiceProvider.value = focusServiceProvider.hasFocus;
     isPackages.value = focusPackages.hasFocus;
@@ -93,11 +102,92 @@ class ElectricityController extends GetxController {
 
   clickOnContinueButton() async {
     if (meterNumberController.text.trim().isNotEmpty &&
+        mobileNumberController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         packagesController.text.trim().isNotEmpty &&
         amountController.text.trim().isNotEmpty) {
-      if (int.parse(amountControllerValue.value.tr) >= 1000) {
-        inAsyncCall.value = true;
+      // if (int.parse(amountControllerValue.value.tr) >= 1000) {
+      bodyParams = {
+        ApiKeyConstants.accountNumber: meterNumberController.text,
+        ApiKeyConstants.amount: amountControllerValue.value,
+        ApiKeyConstants.serviceType: ApiKeyConstants.buyElectricity,
+        ApiKeyConstants.receivingMobileNo: mobileNumberController.text,
+        ApiKeyConstants.packageId: packageId.value,
+        ApiKeyConstants.serviceId: serviceId.value,
+        ApiKeyConstants.vendorId: vendorId.value,
+        ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+      };
+      inAsyncCall.value = true;
+      GetPriceModel? getPriceModel =
+          await ApiMethods.getPrice(bodyParams: bodyParams);
+      if (getPriceModel != null &&
+          getPriceModel.result != null &&
+          getPriceModel.result!.data != null) {
+        if (getPriceModel.result!.data!.price != null &&
+                getPriceModel.result!.data!.fee !=
+                    null /*&&
+              getPriceModel.result!.data!.total != null*/
+            ) {
+          bodyParams.clear();
+          bodyParams = {
+            ApiKeyConstants.accountNumber: meterNumberController.text,
+            ApiKeyConstants.amount:
+                getPriceModel.result!.data!.price.toString(),
+            ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
+            ApiKeyConstants.total: (double.parse(
+                        getPriceModel.result!.data!.price.toString()) +
+                    double.parse(getPriceModel.result!.data!.fee.toString()))
+                .toString(),
+            ApiKeyConstants.receivingMobileNo: mobileNumberController.text,
+            ApiKeyConstants.serviceType: ApiKeyConstants.buyElectricity,
+            ApiKeyConstants.packageId: packageId.value,
+            ApiKeyConstants.serviceId: serviceId.value,
+            ApiKeyConstants.vendorId: vendorId.value,
+            ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+          };
+          bodyParams1.clear();
+          bodyParams1 = {
+            StringConstants.meterNumber: meterNumberController.text,
+            StringConstants.mobileNumber: mobileNumberController.text,
+            StringConstants.amount:
+                getPriceModel.result!.data!.price.toString(),
+            StringConstants.fee: getPriceModel.result!.data!.fee.toString(),
+            StringConstants.total: (double.parse(
+                        getPriceModel.result!.data!.price.toString()) +
+                    double.parse(getPriceModel.result!.data!.fee.toString()))
+                .toString(),
+          };
+          Get.toNamed(Routes.PAY_SUMMARY,
+              parameters: bodyParams1, arguments: bodyParams);
+        } else {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px), 'Error', 'Something went wrong');
+        }
+      } else {
+        if (getPriceModel != null &&
+            getPriceModel.result != null &&
+            getPriceModel.result!.message != null &&
+            getPriceModel.result!.message!.isNotEmpty) {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px),
+              'Error',
+              getPriceModel.result!.message! ?? '');
+        } else {
+          if (getPriceModel != null &&
+              getPriceModel.message != null &&
+              getPriceModel.message!.isNotEmpty) {
+            Get.snackbar(
+                margin: EdgeInsets.all(20.px),
+                'Error',
+                getPriceModel.message ?? '');
+          }
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px), 'Error', 'Something went wrong');
+        }
+      }
+      inAsyncCall.value = false;
+
+      /*inAsyncCall.value = true;
         Map<String, dynamic> bodyParams = {
           ApiKeyConstants.authTokenHiba: authTokenHiba.value,
           ApiKeyConstants.serviceId: serviceId.value,
@@ -127,12 +217,12 @@ class ElectricityController extends GetxController {
           } else {
             Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
           }
-        }
-      } else {
+        }*/
+      /*} else {
         Get.snackbar(
             margin: EdgeInsets.all(20.px), 'Error', 'Enter amount above 1000');
-      }
-      inAsyncCall.value = false;
+      }*/
+      // inAsyncCall.value = false;
     } else {
       Get.snackbar(
           margin: EdgeInsets.all(20.px), 'Error', 'All field required');

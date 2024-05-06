@@ -59,7 +59,7 @@ class AccountView extends GetView<AccountController> {
                               ),
                             ),
                             Text(
-                              StringConstants.fund,
+                              StringConstants.cardBalance,
                               style: Theme.of(Get.context!)
                                   .textTheme
                                   .displayMedium
@@ -125,7 +125,7 @@ class AccountView extends GetView<AccountController> {
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            '₦12,256.00',
+                                            '$appCurrency 12,256.00',
                                             maxLines: 1,
                                             style: Theme.of(Get.context!)
                                                 .textTheme
@@ -173,9 +173,9 @@ class AccountView extends GetView<AccountController> {
                                           itemBuilder: (context) {
                                             return [
                                               PopupMenuItem(
-                                                value: 'US  ( ₦ )',
+                                                value: 'US  ( $appCurrency )',
                                                 child: Text(
-                                                  'US  ( ₦ )',
+                                                  'US  ( $appCurrency )',
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .displayMedium
@@ -195,9 +195,9 @@ class AccountView extends GetView<AccountController> {
                                                 ),
                                               ),
                                               PopupMenuItem(
-                                                value: 'NGN  ( ₦ )',
+                                                value: 'NGN  ( $appCurrency )',
                                                 child: Text(
-                                                  'NGN  ( ₦ )',
+                                                  'NGN  ( $appCurrency )',
                                                   style: Theme.of(context)
                                                       .textTheme
                                                       .displayMedium
@@ -238,7 +238,7 @@ class AccountView extends GetView<AccountController> {
                                               MainAxisAlignment.start,
                                           children: [
                                             Text(
-                                              'IN ₦ 18,895 +',
+                                              'IN $appCurrency 18,895 +',
                                               style: Theme.of(Get.context!)
                                                   .textTheme
                                                   .titleMedium
@@ -250,7 +250,7 @@ class AccountView extends GetView<AccountController> {
                                             ),
                                             SizedBox(height: 4.px),
                                             Text(
-                                              'Out ₦ 20,895 -',
+                                              'Out $appCurrency 20,895 -',
                                               style: Theme.of(Get.context!)
                                                   .textTheme
                                                   .titleMedium
@@ -392,17 +392,26 @@ class AccountView extends GetView<AccountController> {
                                   Row(
                                     children: [
                                       Expanded(
-                                        child: Text(
-                                          '₦ ${controller.balance.isNotEmpty ? controller.balance.value : '0'}',
-                                          maxLines: 1,
-                                          style: Theme.of(Get.context!)
-                                              .textTheme
-                                              .displayMedium
-                                              ?.copyWith(
-                                                fontSize: 24.px,
-                                                color: Theme.of(context)
-                                                    .scaffoldBackgroundColor,
-                                              ),
+                                        child: Row(
+                                          children: [
+                                            CommonMethods.appIcons(
+                                              assetName: IconConstants.icCur,
+                                            ),
+                                            Text(
+                                              controller.balance.isNotEmpty
+                                                  ? controller.balance.value
+                                                  : '0',
+                                              maxLines: 1,
+                                              style: Theme.of(Get.context!)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(
+                                                    fontSize: 24.px,
+                                                    color: Theme.of(context)
+                                                        .scaffoldBackgroundColor,
+                                                  ),
+                                            ),
+                                          ],
                                         ),
                                       ),
                                       /*PopupMenuButton(
@@ -442,9 +451,9 @@ class AccountView extends GetView<AccountController> {
                                         return [
                                           PopupMenuItem(
                                             value:
-                                                'US  ( ₦ )',
+                                                'US  ( $appCurrency )',
                                             child: Text(
-                                              'US  ( ₦ )',
+                                              'US  ( $appCurrency )',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayMedium
@@ -462,9 +471,9 @@ class AccountView extends GetView<AccountController> {
                                             ),
                                           ),
                                           PopupMenuItem(
-                                            value: 'NGN  ( ₦ )',
+                                            value: 'NGN  ( $appCurrency )',
                                             child: Text(
-                                              'NGN  ( ₦ )',
+                                              'NGN  ( $appCurrency )',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayMedium
@@ -504,7 +513,7 @@ class AccountView extends GetView<AccountController> {
                                           MainAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'IN ₦ 18,895 +',
+                                          'IN $appCurrency 18,895 +',
                                           style: Theme.of(Get.context!)
                                               .textTheme
                                               .titleMedium
@@ -516,7 +525,7 @@ class AccountView extends GetView<AccountController> {
                                         ),
                                         SizedBox(height: 4.px),
                                         Text(
-                                          'Out ₦ 20,895 -',
+                                          'Out $appCurrency 20,895 -',
                                           style: Theme.of(Get.context!)
                                               .textTheme
                                               .titleMedium
@@ -636,18 +645,37 @@ class AccountView extends GetView<AccountController> {
                             itemCount: getCardTransactionsResultData.length,
                             itemBuilder: (context, index) {
                               return ListTile(
-                                trailing: Text(
-                                  getCardTransactionsResultData[index].type !=
-                                          'credit'
-                                      ? '- ${"₦${getCardTransactionsResultData[index].amount ?? '0'}"}'
-                                      : '+ ${"₦${getCardTransactionsResultData[index].amount ?? '0'}"}',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium
-                                      ?.copyWith(
-                                          fontSize: 14.px,
-                                          color:
-                                              Theme.of(context).primaryColor),
+                                trailing: Row(
+                                  children: [
+                                    Text(
+                                      getCardTransactionsResultData[index]
+                                                  .type !=
+                                              'credit'
+                                          ? '- '
+                                          : '+ ',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(
+                                              fontSize: 14.px,
+                                              color: Theme.of(context)
+                                                  .primaryColor),
+                                    ),
+                                    CommonMethods.iconLinearGradient(
+                                      assetName: IconConstants.icCur,
+                                      value: true,
+                                    ),
+                                    Text(
+                                      ' ${getCardTransactionsResultData[index].amount ?? '0'}',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium
+                                          ?.copyWith(
+                                              fontSize: 14.px,
+                                              color: Theme.of(context)
+                                                  .primaryColor),
+                                    ),
+                                  ],
                                 ),
                                 subtitle: Text(
                                   getCardTransactionsResultData[index]

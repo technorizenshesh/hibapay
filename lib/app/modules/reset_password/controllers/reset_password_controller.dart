@@ -65,11 +65,13 @@ class ResetPasswordController extends GetxController {
           bodyParams: bodyParams,
         );
         if (userModel != null &&
-            userModel.result != null &&
+                userModel.result !=
+                    null /* &&
             userModel.result!.otp != null &&
-            userModel.result!.otp!.isNotEmpty) {
+            userModel.result!.otp!.isNotEmpty*/
+            ) {
           Get.toNamed(Routes.CHECK_YOUR_MAIL, parameters: {
-            ApiKeyConstants.otp: userModel.result!.otp ?? '',
+            //ApiKeyConstants.otp: userModel.result!.otp ?? '',
             ApiKeyConstants.email: emailController.text
           });
         } else {
@@ -100,11 +102,14 @@ class ResetPasswordController extends GetxController {
           bodyParams: bodyParams,
         );
         if (userModel != null &&
-            userModel.result != null &&
+                userModel.result !=
+                    null /* &&
             userModel.result!.otp != null &&
-            userModel.result!.otp!.isNotEmpty) {
+            userModel.result!.otp!.isNotEmpty*/
+            ) {
+          print('userModel.result!.otp::::::${userModel.result!.otp}');
           Get.toNamed(Routes.CHECK_YOUR_MAIL, parameters: {
-            ApiKeyConstants.otp: userModel.result!.otp ?? '',
+            //ApiKeyConstants.otp: userModel.result!.otp ?? '',
             ApiKeyConstants.mobile:
                 '${countryCode.value}-${phoneController.text}',
           });

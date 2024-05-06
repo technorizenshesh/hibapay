@@ -61,50 +61,55 @@ class ProfileView extends GetView<ProfileController> {
                                   borderRadius: BorderRadius.circular(14.px),
                                 ),
                           SizedBox(width: 20.px),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "${result?.firstName ?? ''} ${result?.lastName ?? ''}",
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .displayMedium
-                                    ?.copyWith(
-                                        fontSize: 20.px,
-                                        color: Theme.of(context).primaryColor),
-                              ),
-                              SizedBox(height: 4.px),
-                              Text(
-                                result?.email ?? '',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .titleSmall
-                                    ?.copyWith(
-                                      fontSize: 12.px,
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "${result?.firstName ?? ''} ${result?.lastName ?? ''}",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .displayMedium
+                                      ?.copyWith(
+                                          fontSize: 20.px,
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                ),
+                                SizedBox(height: 4.px),
+                                Text(
+                                  result?.email ?? '',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .titleSmall
+                                      ?.copyWith(
+                                        fontSize: 12.px,
+                                      ),
+                                ),
+                                SizedBox(height: 4.px),
+                                Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    CommonMethods.appIconsPng(
+                                      assetName: IconConstantsPng.icCoin,
+                                      height: 18.px,
+                                      width: 18.px,
                                     ),
-                              ),
-                              SizedBox(height: 4.px),
-                              Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  CommonMethods.appIconsPng(
-                                    assetName: IconConstantsPng.icCoin,
-                                    height: 18.px,
-                                    width: 18.px,
-                                  ),
-                                  SizedBox(width: 4.px),
-                                  Text(
-                                    /*result?. ??*/ '0',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .titleSmall
-                                        ?.copyWith(
-                                          fontSize: 12.px,
-                                        ),
-                                  ),
-                                ],
-                              ),
-                            ],
+                                    SizedBox(width: 4.px),
+                                    Text(
+                                      result?.coins ?? '0',
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .titleSmall
+                                          ?.copyWith(
+                                            fontSize: 12.px,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
                           ),
                           /* const Spacer(),
                           CommonMethods.appIcons(

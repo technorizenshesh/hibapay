@@ -1,5 +1,6 @@
+import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/image_constants.dart';
-import 'package:HibaPay/common/globle.dart';
+import 'package:HibaPay/common/common_methods.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -46,13 +47,21 @@ class SendMoneySuccessfullyView
                 style: Theme.of(context).textTheme.titleMedium,
               ),
               SizedBox(height: 40.px),
-              Text(
-                '₦ 865.10',
-                textAlign: TextAlign.center,
-                style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                      fontSize: 24.px,
-                      color: Theme.of(context).primaryColor,
-                    ),
+              Row(
+                children: [
+                  CommonMethods.iconLinearGradient(
+                    assetName: IconConstants.icCur,
+                    value: true,
+                  ),
+                  Text(
+                    '865.10',
+                    textAlign: TextAlign.center,
+                    style: Theme.of(context).textTheme.displayMedium?.copyWith(
+                          fontSize: 24.px,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                  ),
+                ],
               ),
               SizedBox(height: 40.px),
               CommonWidgets.commonElevatedButton(

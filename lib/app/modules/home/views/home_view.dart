@@ -363,16 +363,33 @@ class HomeView extends GetView<HomeController> {
                 itemCount: getCardTransactionsResultData.length,
                 itemBuilder: (context, index) {
                   return ListTile(
-                    trailing: Text(
-                      getCardTransactionsResultData[index].type != 'credit'
-                          ? '- ${"₦${getCardTransactionsResultData[index].amount ?? '0'}"}'
-                          : '+ ${"₦${getCardTransactionsResultData[index].amount ?? '0'}"}',
-                      style: Theme.of(context)
-                          .textTheme
-                          .displayMedium
-                          ?.copyWith(
-                              fontSize: 14.px,
-                              color: Theme.of(context).primaryColor),
+                    trailing: Row(
+                      children: [
+                        Text(
+                          getCardTransactionsResultData[index].type != 'credit'
+                              ? '- '
+                              : '+ ',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                  fontSize: 14.px,
+                                  color: Theme.of(context).primaryColor),
+                        ),
+                        CommonMethods.iconLinearGradient(
+                          assetName: IconConstants.icCur,
+                          value: true,
+                        ),
+                        Text(
+                          ' ${getCardTransactionsResultData[index].amount ?? '0'}',
+                          style: Theme.of(context)
+                              .textTheme
+                              .displayMedium
+                              ?.copyWith(
+                                  fontSize: 14.px,
+                                  color: Theme.of(context).primaryColor),
+                        ),
+                      ],
                     ),
                     subtitle: Text(
                       getCardTransactionsResultData[index].datetime ?? '',

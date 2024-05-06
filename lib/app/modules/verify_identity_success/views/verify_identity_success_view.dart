@@ -18,7 +18,8 @@ class VerifyIdentitySuccessView
       controller.count.value;
       return Scaffold(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-        appBar: CommonWidgets.appBar(title: StringConstants.verifyIdentity),
+        appBar: CommonWidgets.appBar(
+            title: StringConstants.verifyIdentity, wantBackButton: false),
         body: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.px),
           child: ListView(
@@ -111,7 +112,7 @@ class VerifyIdentitySuccessView
                       ),
                       SizedBox(height: 30.px),
                       CommonMethods.appIconsPng(
-                        assetName: ImgConstants .imgSuccess,
+                        assetName: ImgConstants.imgSuccess,
                         height: 40.px,
                         width: 40.px,
                       ),
