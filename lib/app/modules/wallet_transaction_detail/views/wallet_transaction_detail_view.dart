@@ -178,20 +178,58 @@ class WalletTransactionDetailView
                       color: Theme.of(context).primaryColor),
                 ),
                 SizedBox(height: 14.px),
-                listTileView1(
-                    curValue: true,
-                    title: StringConstants.amount,
-                    trailing: getWalletTransactionResult[controller.index.value]
-                            .walTraTransactionValue ??
-                        '0'),
-                SizedBox(height: 10.px),
-                listTileView1(
-                    curValue: true,
-                    title: StringConstants.fee,
-                    trailing: getWalletTransactionResult[controller.index.value]
-                            .walTraTransactionFee ??
-                        '0'),
-                SizedBox(height: 10.px),
+                if (getWalletTransactionResult[controller.index.value]
+                            .walTraTransactionValue !=
+                        null &&
+                    getWalletTransactionResult[controller.index.value]
+                        .walTraTransactionValue!
+                        .isNotEmpty &&
+                    getWalletTransactionResult[controller.index.value]
+                            .walTraTransactionValue !=
+                        '0')
+                  listTileView1(
+                      curValue: true,
+                      title: StringConstants.amount,
+                      trailing:
+                          getWalletTransactionResult[controller.index.value]
+                                  .walTraTransactionValue ??
+                              '0'),
+                if (getWalletTransactionResult[controller.index.value]
+                            .walTraTransactionValue !=
+                        null &&
+                    getWalletTransactionResult[controller.index.value]
+                        .walTraTransactionValue!
+                        .isNotEmpty &&
+                    getWalletTransactionResult[controller.index.value]
+                            .walTraTransactionValue !=
+                        '0')
+                  SizedBox(height: 10.px),
+                if (getWalletTransactionResult[controller.index.value]
+                            .walTraTransactionAppFee !=
+                        null &&
+                    getWalletTransactionResult[controller.index.value]
+                        .walTraTransactionAppFee!
+                        .isNotEmpty &&
+                    getWalletTransactionResult[controller.index.value]
+                            .walTraTransactionAppFee !=
+                        '0')
+                  listTileView1(
+                      curValue: true,
+                      title: StringConstants.fee,
+                      trailing:
+                          getWalletTransactionResult[controller.index.value]
+                                  .walTraTransactionAppFee ??
+                              '0'),
+                if (getWalletTransactionResult[controller.index.value]
+                            .walTraTransactionAppFee !=
+                        null &&
+                    getWalletTransactionResult[controller.index.value]
+                        .walTraTransactionAppFee!
+                        .isNotEmpty &&
+                    getWalletTransactionResult[controller.index.value]
+                            .walTraTransactionAppFee !=
+                        '0')
+                  SizedBox(height: 10.px),
                 listTileView1(
                     curValue: true,
                     title: StringConstants.total,
@@ -201,7 +239,7 @@ class WalletTransactionDetailView
                                 '0') +
                             double.parse(getWalletTransactionResult[
                                         controller.index.value]
-                                    .walTraTransactionFee ??
+                                    .walTraTransactionAppFee ??
                                 '0'))
                         .toString()),
                 SizedBox(height: 30.px),

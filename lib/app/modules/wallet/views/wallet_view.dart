@@ -358,7 +358,15 @@ class WalletView extends GetView<WalletController> {
                                                     .colorScheme
                                                     .onError),
                                         Text(
-                                          ' ${getWalletTransactionResult[index].walTraTransactionValue ?? '0'}',
+                                          getWalletTransactionResult[index]
+                                                          .walTraBuyDataCost !=
+                                                      null &&
+                                                  getWalletTransactionResult[
+                                                          index]
+                                                      .walTraBuyDataCost!
+                                                      .isNotEmpty
+                                              ? ' ${getWalletTransactionResult[index].walTraBuyDataCost ?? '0'}'
+                                              : ' ${getWalletTransactionResult[index].walTraTransactionValue ?? '0'}',
                                           style: Theme.of(context)
                                               .textTheme
                                               .displayMedium

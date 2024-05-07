@@ -154,7 +154,7 @@ class SignUpView extends GetView<SignUpController> {
                               ? IconConstants.icReferralTextField
                               : IconConstants.icReferralTextField,
                         ),
-                        hintText: StringConstants.pleaseEnterEmail,
+                        hintText: StringConstants.pleaseEnterCustomerReferralId,
                       ),
                       SizedBox(height: 14.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(

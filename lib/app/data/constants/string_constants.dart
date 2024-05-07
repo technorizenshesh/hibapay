@@ -39,6 +39,7 @@ class StringConstants {
   static const String email = 'Email';
   static const String notification = 'Notification';
   static const String pleaseEnterEmail = 'Please enter email';
+  static const String pleaseEnterCustomerReferralId = 'Please enter customer referral ID';
   static const String streetAddress = 'Street address';
   static const String pleaseEnterStreetAddress = 'Please enter street address';
   static const String city = 'City';
