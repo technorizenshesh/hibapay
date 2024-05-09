@@ -39,6 +39,10 @@ class LoginController extends GetxController {
   final inAsyncCall = false.obs;
   final selectedTab = 0.obs;
 
+  List<GetServicesResult> getServicesResult = [];
+  List<GetBannersResult> getBannersResult = [];
+
+
   @override
   void onInit() {
     super.onInit();

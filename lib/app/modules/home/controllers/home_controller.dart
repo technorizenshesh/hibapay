@@ -40,6 +40,12 @@ class HomeController extends GetxController {
 
   Map<String, dynamic> bodyParams = {};
 
+  List<GetCardTransactionsResultData> getCardTransactionsResultData = [];
+  List<GetServicesResult> getServicesResult = [];
+  List<ListVirtualCardsResult> listVirtualCardsResult = [];
+
+  List<GetBannersResult> getBannersResult = [];
+
   @override
   Future<void> onInit() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -230,6 +236,8 @@ class HomeController extends GetxController {
             StringConstants.title:
                 getServicesResult[index].serviceNameCustom ?? '',
             ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
+            ApiKeyConstants.commission:
+                getServicesResult[index].commission ?? '',
           });
           await getProfileApi();
         } else {
@@ -239,6 +247,8 @@ class HomeController extends GetxController {
                   getServicesResult[index].serviceNameCustom ?? '',
               ApiKeyConstants.serviceId:
                   getServicesResult[index].serviceId ?? '',
+              ApiKeyConstants.commission:
+                  getServicesResult[index].commission ?? '',
             });
             await getProfileApi();
           } else {
@@ -247,6 +257,8 @@ class HomeController extends GetxController {
                   getServicesResult[index].serviceNameCustom ?? '',
               ApiKeyConstants.serviceId:
                   getServicesResult[index].serviceId ?? '',
+              ApiKeyConstants.commission:
+                  getServicesResult[index].commission ?? '',
             });
           }
         }
@@ -258,6 +270,8 @@ class HomeController extends GetxController {
             StringConstants.title:
                 getServicesResult[index].serviceNameCustom ?? '',
             ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
+            ApiKeyConstants.commission:
+                getServicesResult[index].commission ?? '',
           });
           await getProfileApi();
         } else {
@@ -271,6 +285,8 @@ class HomeController extends GetxController {
             StringConstants.title:
                 getServicesResult[index].serviceNameCustom ?? '',
             ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
+            ApiKeyConstants.commission:
+                getServicesResult[index].commission ?? '',
           });
           await getProfileApi();
         } else {
@@ -282,7 +298,9 @@ class HomeController extends GetxController {
           StringConstants.title:
               getServicesResult[index].serviceNameCustom ?? '',
           ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
+          ApiKeyConstants.commission: getServicesResult[index].commission ?? '',
         });
+        await getServicesApi();
         await getProfileApi();
         break;
       case '0005':
@@ -290,6 +308,7 @@ class HomeController extends GetxController {
           StringConstants.title:
               getServicesResult[index].serviceNameCustom ?? '',
           ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
+          ApiKeyConstants.commission: getServicesResult[index].commission ?? '',
         });
         await getProfileApi();
         break;
@@ -298,6 +317,7 @@ class HomeController extends GetxController {
           StringConstants.title:
               getServicesResult[index].serviceNameCustom ?? '',
           ApiKeyConstants.serviceId: getServicesResult[index].serviceId ?? '',
+          ApiKeyConstants.commission: getServicesResult[index].commission ?? '',
         });
         await getProfileApi();
         break;

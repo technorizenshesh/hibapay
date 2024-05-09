@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:HibaPay/app/app_controller/ac.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
-import 'package:HibaPay/app/modules/home/controllers/home_controller.dart';
 import 'package:HibaPay/app/modules/my_card/controllers/my_card_controller.dart';
 import 'package:HibaPay/app/modules/my_card/views/my_card_view.dart';
 import 'package:HibaPay/app/modules/profile/controllers/profile_controller.dart';
@@ -42,10 +41,10 @@ class NavBarController extends GetxController {
   body() {
     switch (selectedIndex.value) {
       case 0:
-        Get.delete<HomeController>();
+        /*Get.delete<HomeController>();
         Get.lazyPut<HomeController>(
           () => HomeController(),
-        );
+        );*/
         return const HomeView();
       case 1:
         Get.delete<MyCardController>();
@@ -70,8 +69,8 @@ class NavBarController extends GetxController {
     }
   }
 
-  onWillPop() {
-    print('selectedIndex.value:::::::::::::::::::::::${selectedIndex.value}');
+  onWillPopMethod() {
+    print('selectedIndex.value::::::::::::::::${selectedIndex.value}');
     if (selectedIndex.value == 0) {
       CommonWidgets.showAlertDialog(
         title: StringConstants.exit,

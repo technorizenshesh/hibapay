@@ -5,7 +5,6 @@ import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -14,6 +13,9 @@ class GiftUserCardsController extends GetxController {
   Map<String, dynamic> bodyParams = {};
   final authTokenHiba = ''.obs;
   final inAsyncCall = false.obs;
+
+  List<GetReceivedGiftsResult> getReceivedGiftsResult = [];
+
 
   @override
   Future<void> onInit() async {
@@ -45,9 +47,9 @@ class GiftUserCardsController extends GetxController {
 
   onInitWork() async {
     if (authTokenHiba.value.isNotEmpty) {
-      if (getReceivedGiftsResult.isEmpty) {
-        inAsyncCall.value = true;
-      }
+     /* if (getReceivedGiftsResult.isEmpty) {
+      }*/
+      inAsyncCall.value = true;
       await getReceivedGiftsApi();
       inAsyncCall.value = false;
     }
@@ -62,25 +64,30 @@ class GiftUserCardsController extends GetxController {
         await ApiMethods.getReceivedGifts(bodyParams: bodyParams);
     if (getReceivedGiftsModel != null && getReceivedGiftsModel.result != null) {
       getReceivedGiftsResult.clear();
-      getReceivedGiftsResult =
-          getReceivedGiftsModel.result!.toList().reversed.toList();
-      int i = 0;
-      getReceivedGiftsResult.forEach((element) {
-        Logger().i(
-            "${element.giftsAmount}    ---    ${getReceivedGiftsModel.result![i].giftsAmount}");
-        i++;
-      });
-      getReceivedGiftsResult.sort((a, b) {
-        String statusA = a.giftsClaimStatus ?? ' ';
-        String statusB = b.giftsClaimStatus ?? ' ';
-        if (statusA == 'PENDING' && statusB != 'PENDING') {
+      getReceivedGiftsResult = getReceivedGiftsModel.result!;
+      // Sort the list
+      getReceivedGiftsResult.sort((b, a) {
+        // Extract status and dates for comparison
+        String statusB = a.giftsClaimStatus ?? '';
+        String statusA = b.giftsClaimStatus ?? '';
+        DateTime dateA = DateTime.parse(a.giftsCreatedAt ?? '');
+        DateTime dateB = DateTime.parse(b.giftsCreatedAt ?? '');
+        // If both items have 'PENDING' status, compare their creation dates
+        if (statusA == 'PENDING' && statusB == 'PENDING') {
+          return dateA.compareTo(dateB);
+        }
+        // If only one item has 'PENDING' status, prioritize it
+        else if (statusA == 'PENDING') {
           return -1; // a should come before b
-        } else if (statusA != 'PENDING' && statusB == 'PENDING') {
+        } else if (statusB == 'PENDING') {
           return 1; // b should come before a
-        } else {
-          return 0; // leave them unchanged
+        }
+        // If none of the items have 'PENDING' status, compare their creation dates
+        else {
+          return dateA.compareTo(dateB);
         }
       });
+
       increment();
     }
   }

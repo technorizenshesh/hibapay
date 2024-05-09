@@ -1,7 +1,6 @@
 import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_widgets.dart';
-import 'package:HibaPay/common/globle.dart';
 import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -35,7 +34,7 @@ class AboutUsView extends GetView<AboutUsController> {
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: aboutUsResult.length,
+                itemCount: controller.aboutUsResult.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.all(20.px),
@@ -43,7 +42,7 @@ class AboutUsView extends GetView<AboutUsController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          aboutUsResult[index].name ?? '',
+                          controller.aboutUsResult[index].name ?? '',
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium
@@ -53,7 +52,7 @@ class AboutUsView extends GetView<AboutUsController> {
                         ),
                         SizedBox(height: 8.px),
                         Text(
-                          aboutUsResult[index].description ?? '',
+                          controller.aboutUsResult[index].description ?? '',
                           textAlign: TextAlign.justify,
                           style: Theme.of(context)
                               .textTheme

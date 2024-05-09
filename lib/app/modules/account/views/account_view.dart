@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:HibaPay/common/common_methods.dart';
-import 'package:HibaPay/common/globle.dart';
 import 'package:HibaPay/common/progress_bar.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
@@ -490,7 +489,7 @@ class AccountView extends GetView<AccountController> {
                                   SizedBox(height: 8.px),
                                   Flexible(
                                     child: Text(
-                                      '${StringConstants.virtualCardNumber}${listVirtualCardsResult.isNotEmpty ? listVirtualCardsResult.first.vcardCardNumber : 'Not added card please add'}',
+                                      '${StringConstants.virtualCardNumber}${controller.listVirtualCardsResult.isNotEmpty ? controller.listVirtualCardsResult.first.vcardCardNumber : 'Not added card please add'}',
                                       style: Theme.of(Get.context!)
                                           .textTheme
                                           .titleMedium
@@ -637,18 +636,21 @@ class AccountView extends GetView<AccountController> {
                       ),
                     ),
                     SizedBox(height: 8.px),
-                    (getCardTransactionsResultData.isNotEmpty)
+                    (controller.getCardTransactionsResultData.isNotEmpty)
                         ? ListView.builder(
                             shrinkWrap: true,
                             padding: EdgeInsets.zero,
                             physics: const AlwaysScrollableScrollPhysics(),
-                            itemCount: getCardTransactionsResultData.length,
+                            itemCount:
+                                controller.getCardTransactionsResultData.length,
                             itemBuilder: (context, index) {
                               return ListTile(
                                 trailing: Row(
                                   children: [
                                     Text(
-                                      getCardTransactionsResultData[index]
+                                      controller
+                                                  .getCardTransactionsResultData[
+                                                      index]
                                                   .type !=
                                               'credit'
                                           ? '- '
@@ -666,7 +668,7 @@ class AccountView extends GetView<AccountController> {
                                       value: true,
                                     ),
                                     Text(
-                                      ' ${getCardTransactionsResultData[index].amount ?? '0'}',
+                                      ' ${controller.getCardTransactionsResultData[index].amount ?? '0'}',
                                       style: Theme.of(context)
                                           .textTheme
                                           .displayMedium
@@ -678,7 +680,8 @@ class AccountView extends GetView<AccountController> {
                                   ],
                                 ),
                                 subtitle: Text(
-                                  getCardTransactionsResultData[index]
+                                  controller
+                                          .getCardTransactionsResultData[index]
                                           .datetime ??
                                       '',
                                   style: Theme.of(context)
@@ -689,7 +692,8 @@ class AccountView extends GetView<AccountController> {
                                       ),
                                 ),
                                 title: Text(
-                                  getCardTransactionsResultData[index]
+                                  controller
+                                          .getCardTransactionsResultData[index]
                                           .narration ??
                                       '',
                                   style: Theme.of(context)
@@ -702,7 +706,7 @@ class AccountView extends GetView<AccountController> {
                                 ),
                                 /*leading: CommonMethods.appIcons(
                         assetName: controller
-                            .getCardTransactionsResultData[index]['icon']),*/
+                            .controller.getCardTransactionsResultData[index]['icon']),*/
                               );
                             },
                           )

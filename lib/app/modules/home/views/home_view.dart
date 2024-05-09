@@ -96,10 +96,10 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             SizedBox(height: 32.px),
-            if (getBannersResult.isNotEmpty)
+            if (controller.getBannersResult.isNotEmpty)
               CarouselSlider(
                 items: List.generate(
-                  getBannersResult.length,
+                  controller.getBannersResult.length,
                   (index) => ClipRRect(
                     child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
@@ -108,7 +108,9 @@ class HomeView extends GetView<HomeController> {
                         height: 220.px,
                         padding: EdgeInsets.all(20.px),
                         child: CommonWidgets.imageView(
-                            image: getBannersResult[index].bannersImage ?? ''),
+                            image: controller
+                                    .getBannersResult[index].bannersImage ??
+                                ''),
                       ),
                     ),
                   ),
@@ -131,8 +133,8 @@ class HomeView extends GetView<HomeController> {
                   viewportFraction: 1,
                 ),
               ),
-            if (getBannersResult.isNotEmpty) SizedBox(height: 4.px),
-            if (getBannersResult.isNotEmpty)
+            if (controller.getBannersResult.isNotEmpty) SizedBox(height: 4.px),
+            if (controller.getBannersResult.isNotEmpty)
               Align(
                 alignment: Alignment.center,
                 child: Padding(
@@ -150,7 +152,7 @@ class HomeView extends GetView<HomeController> {
                       children: [
                         Wrap(
                           children: List.generate(
-                            getBannersResult.length,
+                            controller.getBannersResult.length,
                             (index) => Padding(
                               padding: EdgeInsets.all(2.px),
                               child: Center(
@@ -176,79 +178,13 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ),
               ),
-            /*Row(
-            children: [
-              Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(20.px),
-                    bottomRight: Radius.circular(20.px),
-                  ),
-                  border: Border.all(
-                    width: .2,
-                    color: Theme.of(Get.context!).primaryColor.withOpacity(.2),
-                  ),
-                ),
-                child: Padding(
-                  padding:
-                      EdgeInsets.symmetric(vertical: 16.px, horizontal: 10.px),
-                  child: Column(
-                    children: [
-                      cards(
-                          onTap: () => controller.clickOnDeposit(),
-                          assetName: IconConstants.icDeposit,
-                          title: StringConstants.deposit),
-                      SizedBox(height: 18.px),
-                      cards(
-                          onTap: () => controller.clickOnTransfers(),
-                          assetName: IconConstants.icTransfers,
-                          title: StringConstants.transfers),
-                      SizedBox(height: 18.px),
-                      cards(
-                          onTap: () => controller.clickOnWithdraw(),
-                          assetName: IconConstants.icWithdraw,
-                          title: StringConstants.withdraw),
-                      SizedBox(height: 18.px),
-                      cards(
-                          onTap: () => controller.clickOnWallet(),
-                          assetName: IconConstants.icWallet,
-                          title: StringConstants.wallet),
-                      SizedBox(height: 18.px),
-                      cards(
-                          onTap: () => controller.clickOnMore(),
-                          assetName: IconConstants.icMore,
-                          title: StringConstants.more),
-                    ],
-                  ),
-                ),
-              ),
-              SizedBox(width: 10.px),
-              Expanded(
-                flex: 4,
-                child: SizedBox(
-                  height: 220.px,
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: 8,
-                    itemBuilder: (context, index) {
-                      return Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 6.px),
-                        child: Image.asset(
-                          'assets/un_used_images/card1.png',
-                        ),
-                      );
-                    },
-                  ),
-                ),
-              ),
-            ],
-          ),*/
             SizedBox(height: 24.px),
-            if (getServicesResult.isNotEmpty)
+            if (controller.getServicesResult.isNotEmpty)
               Center(
                 child: SingleChildScrollView(
                   child: Wrap(
-                    children: List.generate(getServicesResult.length, (index) {
+                    children: List.generate(controller.getServicesResult.length,
+                        (index) {
                       return SizedBox(
                         width: MediaQuery.of(context).size.width / 3.3,
                         child: Padding(
@@ -274,8 +210,9 @@ class HomeView extends GetView<HomeController> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   CommonWidgets.imageView(
-                                      image:
-                                          getServicesResult[index].icon ?? '',
+                                      image: controller
+                                              .getServicesResult[index].icon ??
+                                          '',
                                       width: 24.px,
                                       height: 24.px,
                                       fit: BoxFit.contain,
@@ -283,7 +220,7 @@ class HomeView extends GetView<HomeController> {
                                           BorderRadius.circular(0.px)),
                                   SizedBox(height: 14.px),
                                   Text(
-                                    getServicesResult[index]
+                                    controller.getServicesResult[index]
                                             .serviceNameCustom ??
                                         '',
                                     maxLines: 2,
@@ -306,44 +243,9 @@ class HomeView extends GetView<HomeController> {
                   ),
                 ),
               ),
-            /* SizedBox(height: 24.px),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.px),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Flexible(
-                      child: Text(
-                        'Today, Mar 20',
-                        style: Theme.of(context)
-                            .textTheme
-                            .displayMedium
-                            ?.copyWith(
-                                color: Theme.of(context).colorScheme.surface,
-                                fontSize: 14.px),
-                        maxLines: 1,
-                      ),
-                    ),
-                    InkWell(
-                      borderRadius: BorderRadius.circular(8.px),
-                      onTap: () => controller.clickOnAllTransactions(),
-                      child: Padding(
-                        padding: EdgeInsets.all(8.px),
-                        child: Text(
-                          StringConstants.allTransactions,
-                          style: Theme.of(context)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(color: Theme.of(context).primaryColor),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),*/
-            if (getCardTransactionsResultData.isNotEmpty)
+            if (controller.getCardTransactionsResultData.isNotEmpty)
               SizedBox(height: 24.px),
-            if (getCardTransactionsResultData.isNotEmpty)
+            if (controller.getCardTransactionsResultData.isNotEmpty)
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.px),
                 child: Text(
@@ -354,19 +256,21 @@ class HomeView extends GetView<HomeController> {
                   maxLines: 1,
                 ),
               ),
-            if (getCardTransactionsResultData.isNotEmpty)
+            if (controller.getCardTransactionsResultData.isNotEmpty)
               SizedBox(height: 20.px),
-            if (getCardTransactionsResultData.isNotEmpty)
+            if (controller.getCardTransactionsResultData.isNotEmpty)
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: getCardTransactionsResultData.length,
+                itemCount: controller.getCardTransactionsResultData.length,
                 itemBuilder: (context, index) {
                   return ListTile(
                     trailing: Row(
                       children: [
                         Text(
-                          getCardTransactionsResultData[index].type != 'credit'
+                          controller.getCardTransactionsResultData[index]
+                                      .type !=
+                                  'credit'
                               ? '- '
                               : '+ ',
                           style: Theme.of(context)
@@ -381,7 +285,7 @@ class HomeView extends GetView<HomeController> {
                           value: true,
                         ),
                         Text(
-                          ' ${getCardTransactionsResultData[index].amount ?? '0'}',
+                          ' ${controller.getCardTransactionsResultData[index].amount ?? '0'}',
                           style: Theme.of(context)
                               .textTheme
                               .displayMedium
@@ -392,13 +296,17 @@ class HomeView extends GetView<HomeController> {
                       ],
                     ),
                     subtitle: Text(
-                      getCardTransactionsResultData[index].datetime ?? '',
+                      controller
+                              .getCardTransactionsResultData[index].datetime ??
+                          '',
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(
                             fontSize: 12.px,
                           ),
                     ),
                     title: Text(
-                      getCardTransactionsResultData[index].narration ?? '',
+                      controller
+                              .getCardTransactionsResultData[index].narration ??
+                          '',
                       style: Theme.of(context)
                           .textTheme
                           .displayMedium
@@ -408,7 +316,7 @@ class HomeView extends GetView<HomeController> {
                     ),
                     /*leading: CommonMethods.appIcons(
                           assetName: controller
-                              .getCardTransactionsResultData[index]['icon']),*/
+                              .controller.getCardTransactionsResultData[index]['icon']),*/
                   );
                 },
               ),

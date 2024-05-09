@@ -5,7 +5,6 @@ import 'package:HibaPay/app/data/apis/api_models/get_card_holder_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:HibaPay/common/common_widgets.dart';
-import 'package:HibaPay/common/globle.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -18,6 +17,8 @@ class MyCardController extends GetxController {
 
   GetCardHolderResult? getCardHolderResult;
   ListVirtualCardsModel? listVirtualCardsModel;
+
+  List<ListVirtualCardsResult> listVirtualCardsResult = [];
 
   @override
   Future<void> onInit() async {

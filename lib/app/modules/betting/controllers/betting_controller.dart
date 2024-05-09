@@ -45,6 +45,7 @@ class BettingController extends GetxController {
   final packageId = ''.obs;
   final packageName = ''.obs;
   final packageAmount = ''.obs;
+  final commission = ''.obs;
 
   Map<String, dynamic> bodyParams = {};
   Map<String, String> bodyParams1 = {};
@@ -55,6 +56,7 @@ class BettingController extends GetxController {
     authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
     title = parameters[StringConstants.title] ?? '';
     serviceId.value = parameters[ApiKeyConstants.serviceId] ?? '';
+    final commission = ''.obs;
     super.onInit();
     startListener();
     inAsyncCall.value = true;
@@ -110,19 +112,26 @@ class BettingController extends GetxController {
             getPriceModel.result != null &&
             getPriceModel.result!.data != null) {
           if (getPriceModel.result!.data!.price != null &&
-                  getPriceModel.result!.data!.fee !=
-                      null /*&&
-              getPriceModel.result!.data!.total != null*/
-              ) {
+              getPriceModel.result!.data!.fee != null) {
             bodyParams.clear();
             bodyParams = {
               ApiKeyConstants.accountNumber: enterIdController.text,
-              ApiKeyConstants.amount:
-                  getPriceModel.result!.data!.price.toString(),
-              ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
-              ApiKeyConstants.total: (double.parse(
-                          getPriceModel.result!.data!.price.toString()) +
-                      double.parse(getPriceModel.result!.data!.fee.toString()))
+              ApiKeyConstants
+                  .amount: (double.parse(amountControllerValue.value) +
+                      double.parse(getPriceModel.result!.data!.fee.toString()) +
+                      (double.tryParse(commission.value) ?? 0))
+                  .toString(),
+              StringConstants.fee: getPriceModel.result!.data!.fee != null &&
+                      getPriceModel.result!.data!.fee!.isNotEmpty &&
+                      getPriceModel.result!.data!.fee != '0'
+                  ? (double.parse(getPriceModel.result!.data!.fee.toString()) +
+                          (double.tryParse(commission.value) ?? 0))
+                      .toString()
+                  : (double.tryParse(commission.value) ?? 0).toString(),
+              StringConstants
+                  .total: (double.parse(amountControllerValue.value) +
+                      double.parse(getPriceModel.result!.data!.fee.toString()) +
+                      (double.tryParse(commission.value) ?? 0))
                   .toString(),
               ApiKeyConstants.serviceType: ApiKeyConstants.buySportsBetting,
               ApiKeyConstants.serviceId: serviceId.value,
@@ -135,10 +144,21 @@ class BettingController extends GetxController {
               StringConstants.userId: enterIdController.text,
               StringConstants.amount:
                   getPriceModel.result!.data!.price.toString(),
-              StringConstants.fee: getPriceModel.result!.data!.fee.toString(),
-              StringConstants.total: (double.parse(
-                          getPriceModel.result!.data!.price.toString()) +
-                      double.parse(getPriceModel.result!.data!.fee.toString()))
+              StringConstants.serviceType:
+                  convertToTitleCase(ApiKeyConstants.buySportsBetting),
+              StringConstants.description:
+                  "${vendorName.toString()} - ${packageName.toString()}",
+              StringConstants.fee: getPriceModel.result!.data!.fee != null &&
+                      getPriceModel.result!.data!.fee!.isNotEmpty &&
+                      getPriceModel.result!.data!.fee != '0'
+                  ? (double.parse(getPriceModel.result!.data!.fee.toString()) +
+                          (double.tryParse(commission.value) ?? 0))
+                      .toString()
+                  : (double.tryParse(commission.value) ?? 0).toString(),
+              StringConstants
+                  .total: (double.parse(amountControllerValue.value) +
+                      double.parse(getPriceModel.result!.data!.fee.toString()) +
+                      (double.tryParse(commission.value) ?? 0))
                   .toString(),
             };
             Get.toNamed(Routes.PAY_SUMMARY,
@@ -170,38 +190,6 @@ class BettingController extends GetxController {
           }
         }
         inAsyncCall.value = false;
-
-        /* inAsyncCall.value = true;
-        Map<String, dynamic> bodyParams = {
-          ApiKeyConstants.authTokenHiba: authTokenHiba.value,
-          ApiKeyConstants.serviceId: serviceId.value,
-          ApiKeyConstants.vendorId: vendorId.value,
-          ApiKeyConstants.accountNumber: enterIdController.text,
-          ApiKeyConstants.amount: amountControllerValue.value,
-          ApiKeyConstants.packageId: packageId.value,
-          ApiKeyConstants.serviceType: ApiKeyConstants.buySportsBetting,
-        };
-        BillPayModel? billPayModel =
-            await ApiMethods.uFitPayBillPay(bodyParams: bodyParams);
-        if (billPayModel != null &&
-            billPayModel.result != null &&
-            billPayModel.result!.data != null) {
-          Get.back();
-          Get.snackbar(
-              margin: EdgeInsets.all(20.px),
-              '${billPayModel.result!.resource ?? ''} ${billPayModel.result!.status ?? ''}',
-              billPayModel.result!.data?.paymentStatus ?? '');
-          increment();
-        } else {
-          if (billPayModel != null && billPayModel.result != null) {
-            Get.snackbar(
-                margin: EdgeInsets.all(20.px),
-                'Failed',
-                billPayModel.result!.message ?? '');
-          } else {
-            Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
-          }
-        }*/
       } else {
         Get.snackbar(
             margin: EdgeInsets.all(20.px), 'Error', 'Enter amount above 500');
@@ -214,6 +202,14 @@ class BettingController extends GetxController {
         'All field required',
       );
     }
+  }
+
+  String convertToTitleCase(String input) {
+    List<String> words = input.split('_');
+    String titleCaseString = words.map((word) {
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+    }).join(' ');
+    return titleCaseString;
   }
 
   clickOnServiceProvider() {

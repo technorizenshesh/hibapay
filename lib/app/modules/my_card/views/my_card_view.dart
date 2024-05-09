@@ -4,7 +4,6 @@ import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/app/modules/my_card/controllers/my_card_controller.dart';
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/common_widgets.dart';
-import 'package:HibaPay/common/globle.dart';
 import 'package:HibaPay/common/progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
@@ -24,7 +23,7 @@ class MyCardView extends GetView<MyCardController> {
               title: StringConstants.cards, wantBackButton: false),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.miniEndFloat,
-          floatingActionButton: (listVirtualCardsResult.isEmpty)
+          floatingActionButton: (controller.listVirtualCardsResult.isEmpty)
               ? null
               : Column(
                   mainAxisAlignment: MainAxisAlignment.end,
@@ -42,7 +41,7 @@ class MyCardView extends GetView<MyCardController> {
                 ),
           body: ListView(
             children: [
-              if (listVirtualCardsResult.isEmpty)
+              if (controller.listVirtualCardsResult.isEmpty)
                 Padding(
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.px, vertical: 4.px),
@@ -98,11 +97,11 @@ class MyCardView extends GetView<MyCardController> {
                     ],
                   ),
                 ),
-              if (listVirtualCardsResult.isNotEmpty)
+              if (controller.listVirtualCardsResult.isNotEmpty)
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: listVirtualCardsResult.length,
+                  itemCount: controller.listVirtualCardsResult.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.symmetric(
@@ -112,26 +111,30 @@ class MyCardView extends GetView<MyCardController> {
                         children: [
                           CreditCardWidget(
                             padding: 0,
-                            cardNumber:
-                                listVirtualCardsResult[index].vcardCardNumber ??
-                                    '',
+                            cardNumber: controller.listVirtualCardsResult[index]
+                                    .vcardCardNumber ??
+                                '',
                             expiryDate:
-                                '${listVirtualCardsResult[index].vcardExpiryMonth ?? ''}/${listVirtualCardsResult[index].vcardExpiryYear ?? ''}',
-                            cardHolderName:
-                                listVirtualCardsResult[index].vcardName ?? '',
-                            cvvCode:
-                                listVirtualCardsResult[index].vcardCvv ?? '',
+                                '${controller.listVirtualCardsResult[index].vcardExpiryMonth ?? ''}/${controller.listVirtualCardsResult[index].vcardExpiryYear ?? ''}',
+                            cardHolderName: controller
+                                    .listVirtualCardsResult[index].vcardName ??
+                                '',
+                            cvvCode: controller
+                                    .listVirtualCardsResult[index].vcardCvv ??
+                                '',
                             showBackView: false,
                             obscureCardCvv: false,
                             isChipVisible: true,
                             // isSwipeGestureEnabled: false,
                             isHolderNameVisible: true,
-                            chipColor: hexToColor(
-                                listVirtualCardsResult[index].vcardColor ?? ''),
+                            chipColor: hexToColor(controller
+                                    .listVirtualCardsResult[index].vcardColor ??
+                                ''),
                             //const Color(0xffE5AC3C),
                             obscureCardNumber: false,
-                            cardBgColor: hexToColor(
-                                listVirtualCardsResult[index].vcardColor ?? ''),
+                            cardBgColor: hexToColor(controller
+                                    .listVirtualCardsResult[index].vcardColor ??
+                                ''),
                             //backgroundImage: ImgConstants.imageBgWhiteLogo,
                             onCreditCardWidgetChange: (creditCardBrand) {},
                           ),

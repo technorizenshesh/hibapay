@@ -1,3 +1,4 @@
+import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_methods.dart';
@@ -9,7 +10,8 @@ import 'package:responsive_sizer/responsive_sizer.dart';
 import '../controllers/pay_summary_success_controller.dart';
 
 class PaySummarySuccessView extends GetView<PaySummarySuccessController> {
-  const PaySummarySuccessView({Key? key}) : super(key: key);
+  const PaySummarySuccessView({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Obx(() {
@@ -90,13 +92,28 @@ class PaySummarySuccessView extends GetView<PaySummarySuccessController> {
           ],
         ),
         SizedBox(height: 4.px),
-        Text(
-          subTitle,
-          maxLines: 2,
-          style: Theme.of(Get.context!)
-              .textTheme
-              .displayMedium
-              ?.copyWith(fontSize: 14.px),
+        Row(
+          children: [
+            if (title == StringConstants.amount ||
+                title == StringConstants.fee ||
+                title == StringConstants.total)
+              CommonMethods.appIcons(
+                assetName: IconConstants.icCur,
+                width: 14.px,
+                height: 14.px,
+                color: Theme.of(Get.context!).textTheme.displayMedium?.color,
+              ),
+            Flexible(
+              child: Text(
+                subTitle,
+                maxLines: 3,
+                style: Theme.of(Get.context!)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(fontSize: 14.px),
+              ),
+            ),
+          ],
         ),
       ],
     );

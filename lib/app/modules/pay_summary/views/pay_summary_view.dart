@@ -1,3 +1,4 @@
+import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_methods.dart';
@@ -45,7 +46,7 @@ class PaySummaryView extends GetView<PaySummaryController> {
                 ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: 4,
+                  itemCount: controller.parameters.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: EdgeInsets.all(10.px),
@@ -93,13 +94,28 @@ class PaySummaryView extends GetView<PaySummaryController> {
           ],
         ),
         SizedBox(height: 4.px),
-        Text(
-          subTitle,
-          maxLines: 2,
-          style: Theme.of(Get.context!)
-              .textTheme
-              .displayMedium
-              ?.copyWith(fontSize: 14.px),
+        Row(
+          children: [
+            if (title == StringConstants.amount ||
+                title == StringConstants.fee ||
+                title == StringConstants.total)
+              CommonMethods.appIcons(
+                assetName: IconConstants.icCur,
+                width: 14.px,
+                height: 14.px,
+                color: Theme.of(Get.context!).textTheme.displayMedium?.color,
+              ),
+            Flexible(
+              child: Text(
+                subTitle,
+                maxLines: 3,
+                style: Theme.of(Get.context!)
+                    .textTheme
+                    .displayMedium
+                    ?.copyWith(fontSize: 14.px),
+              ),
+            ),
+          ],
         ),
       ],
     );

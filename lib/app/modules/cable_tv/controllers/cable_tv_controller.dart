@@ -35,6 +35,7 @@ class CableTvController extends GetxController {
   final authTokenHiba = ''.obs;
 
   List<UFitPayGetVendorsResultData> uFitPayGetVendorsResultData = [];
+
   // List<GetPriceListResultData> getPriceListResultData = [];
   List<GetPackagesResultData> getPackagesResultData = [];
   List<Packages> packages = [];
@@ -44,6 +45,7 @@ class CableTvController extends GetxController {
   final packageId = ''.obs;
   final packageName = ''.obs;
   final packageAmount = ''.obs;
+  final commission = ''.obs;
 
   Map<String, dynamic> bodyParams = {};
   Map<String, String> bodyParams1 = {};
@@ -54,6 +56,7 @@ class CableTvController extends GetxController {
     authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
     title = parameters[StringConstants.title] ?? '';
     serviceId.value = parameters[ApiKeyConstants.serviceId] ?? '';
+    commission.value = parameters[ApiKeyConstants.commission] ?? '';
     super.onInit();
     startListener();
     inAsyncCall.value = true;
@@ -91,7 +94,6 @@ class CableTvController extends GetxController {
     if (decoderNumberController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         packagesController.text.trim().isNotEmpty) {
-      /*if (int.parse(amountController.text) >= 100) {*/
       bodyParams = {
         ApiKeyConstants.accountNumber: decoderNumberController.text,
         ApiKeyConstants.serviceType: ApiKeyConstants.buyCableTv,
@@ -107,19 +109,27 @@ class CableTvController extends GetxController {
           getPriceModel.result != null &&
           getPriceModel.result!.data != null) {
         if (getPriceModel.result!.data!.price != null &&
-                getPriceModel.result!.data!.fee !=
-                    null /*&&
-              getPriceModel.result!.data!.total != null*/
-            ) {
+            getPriceModel.result!.data!.fee != null) {
           bodyParams.clear();
           bodyParams = {
             ApiKeyConstants.accountNumber: decoderNumberController.text,
-            ApiKeyConstants.amount:
-                getPriceModel.result!.data!.price.toString(),
-            ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
-            ApiKeyConstants.total: (double.parse(
+            // ApiKeyConstants.amount: getPriceModel.result!.data!.price.toString(),
+            ApiKeyConstants.amount: (double.parse(
                         getPriceModel.result!.data!.price.toString()) +
-                    double.parse(getPriceModel.result!.data!.fee.toString()))
+                    double.parse(getPriceModel.result!.data!.fee.toString()) +
+                    double.parse(commission.value))
+                .toString(),
+            StringConstants.fee: getPriceModel.result!.data!.fee != null &&
+                    getPriceModel.result!.data!.fee!.isNotEmpty &&
+                    getPriceModel.result!.data!.fee != '0'
+                ? (double.parse(getPriceModel.result!.data!.fee.toString()) +
+                        double.parse(commission.value))
+                    .toString()
+                : double.parse(commission.value).toString(),
+            StringConstants.total: (double.parse(
+                        getPriceModel.result!.data!.price.toString()) +
+                    double.parse(getPriceModel.result!.data!.fee.toString()) +
+                    double.parse(commission.value))
                 .toString(),
             ApiKeyConstants.serviceType: ApiKeyConstants.buyCableTv,
             ApiKeyConstants.serviceId: serviceId.value,
@@ -132,10 +142,21 @@ class CableTvController extends GetxController {
             StringConstants.decoderNumber: decoderNumberController.text,
             StringConstants.amount:
                 getPriceModel.result!.data!.price.toString(),
-            StringConstants.fee: getPriceModel.result!.data!.fee.toString(),
+            StringConstants.serviceType:
+                convertToTitleCase(ApiKeyConstants.buyCableTv),
+            StringConstants.description:
+                "${vendorName.toString()} - ${packageName.toString()}",
+            StringConstants.fee: getPriceModel.result!.data!.fee != null &&
+                    getPriceModel.result!.data!.fee!.isNotEmpty &&
+                    getPriceModel.result!.data!.fee != '0'
+                ? (double.parse(getPriceModel.result!.data!.fee.toString()) +
+                        double.parse(commission.value))
+                    .toString()
+                : double.parse(commission.value).toString(),
             StringConstants.total: (double.parse(
                         getPriceModel.result!.data!.price.toString()) +
-                    double.parse(getPriceModel.result!.data!.fee.toString()))
+                    double.parse(getPriceModel.result!.data!.fee.toString()) +
+                    double.parse(commission.value))
                 .toString(),
           };
           Get.toNamed(Routes.PAY_SUMMARY,
@@ -167,38 +188,18 @@ class CableTvController extends GetxController {
         }
       }
       inAsyncCall.value = false;
-
-      /*inAsyncCall.value = true;
-
-      BillPayModel? billPayModel =
-          await ApiMethods.uFitPayBillPay(bodyParams: bodyParams);
-      if (billPayModel != null &&
-          billPayModel.result != null &&
-          billPayModel.result!.data != null) {
-        Get.back();
-        Get.snackbar(
-            margin: EdgeInsets.all(20.px),
-            '${billPayModel.result!.resource ?? ''} ${billPayModel.result!.status ?? ''}',
-            billPayModel.result!.data?.paymentStatus ?? '');
-        increment();
-        */ /*} else {
-          Get.snackbar(margin: EdgeInsets.all(20.px),'Fail', 'Payment fail');
-        }*/ /*
-      } else {
-        if (billPayModel != null && billPayModel.result != null) {
-          Get.snackbar(
-              margin: EdgeInsets.all(20.px),
-              'Failed',
-              billPayModel.result!.message ?? '');
-        } else {
-          Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
-        }
-      }
-      inAsyncCall.value = false;*/
     } else {
       Get.snackbar(
           margin: EdgeInsets.all(20.px), 'Error', 'All field required');
     }
+  }
+
+  String convertToTitleCase(String input) {
+    List<String> words = input.split('_');
+    String titleCaseString = words.map((word) {
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+    }).join(' ');
+    return titleCaseString;
   }
 
   clickOnServiceProvider() {

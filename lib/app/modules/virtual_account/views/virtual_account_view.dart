@@ -20,77 +20,104 @@ class VirtualAccountView extends GetView<VirtualAccountController> {
       appBar: CommonWidgets.appBar(title: StringConstants.virtualAccount),
       body: Column(
         children: [
-          Padding(
-            padding: EdgeInsets.all(8.px),
-            child: ClipRRect(
-              child: BackdropFilter(
-                filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                child: Container(
-                  width: double.infinity,
-                  padding: EdgeInsets.all(18.px),
-                  decoration: BoxDecoration(
-                    gradient: LinearGradient(
-                      end: Alignment.topRight,
-                      begin: Alignment.bottomLeft,
-                      colors: [
-                        Theme.of(Get.context!).colorScheme.secondary,
-                        Theme.of(Get.context!).colorScheme.onSecondary,
-                      ],
-                    ),
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(20.px),
-                    ),
-                    border: Border.all(
-                      width: .4.px,
-                      color: Theme.of(Get.context!)
-                          .scaffoldBackgroundColor
-                          .withOpacity(0.2),
-                    ),
-                  ),
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              StringConstants.virtualAccount,
-                              style: Theme.of(Get.context!)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                    // fontSize: 20.px,
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                  ),
-                            ),
-                            Text(
-                              result?.virtualAccountDataBankName ?? '',
-                              style: Theme.of(Get.context!)
-                                  .textTheme
-                                  .titleMedium
-                                  ?.copyWith(
-                                    // fontSize: 20.px,
-                                    color: Theme.of(context)
-                                        .scaffoldBackgroundColor,
-                                  ),
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: 14.px),
-                        Container(
-                          padding: EdgeInsets.all(10.px),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context)
-                                .scaffoldBackgroundColor
-                                .withOpacity(.2.px),
-                            borderRadius: BorderRadius.circular(30.px),
+          (result != null &&
+                  result?.virtualAccountDataAccountNumber != null &&
+                  result!.virtualAccountDataAccountNumber!.isNotEmpty)
+              ? Padding(
+                  padding: EdgeInsets.all(8.px),
+                  child: ClipRRect(
+                    child: BackdropFilter(
+                      filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                      child: Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(18.px),
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            end: Alignment.topRight,
+                            begin: Alignment.bottomLeft,
+                            colors: [
+                              Theme.of(Get.context!).colorScheme.secondary,
+                              Theme.of(Get.context!).colorScheme.onSecondary,
+                            ],
                           ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(20.px),
+                          ),
+                          border: Border.all(
+                            width: .4.px,
+                            color: Theme.of(Get.context!)
+                                .scaffoldBackgroundColor
+                                .withOpacity(0.2),
+                          ),
+                        ),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    StringConstants.virtualAccount,
+                                    style: Theme.of(Get.context!)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                          // fontSize: 20.px,
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                        ),
+                                  ),
+                                  Text(
+                                    result?.virtualAccountDataBankName ?? '',
+                                    style: Theme.of(Get.context!)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                          // fontSize: 20.px,
+                                          color: Theme.of(context)
+                                              .scaffoldBackgroundColor,
+                                        ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 14.px),
+                              Container(
+                                padding: EdgeInsets.all(10.px),
+                                decoration: BoxDecoration(
+                                  color: Theme.of(context)
+                                      .scaffoldBackgroundColor
+                                      .withOpacity(.2.px),
+                                  borderRadius: BorderRadius.circular(30.px),
+                                ),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      result?.virtualAccountDataAccountNumber ??
+                                          '',
+                                      style: Theme.of(Get.context!)
+                                          .textTheme
+                                          .titleMedium
+                                          ?.copyWith(
+                                            // fontSize: 20.px,
+                                            color: Theme.of(context)
+                                                .scaffoldBackgroundColor,
+                                          ),
+                                    ),
+                                    SizedBox(width: 8.px),
+                                    GestureDetector(
+                                      onTap: () => controller.clickOnCopyIcon(),
+                                      child: CommonMethods.appIcons(
+                                        assetName: IconConstants.icCopyWhite,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(height: 14.px),
                               Text(
-                                result?.virtualAccountDataAccountNumber ?? '',
+                                '${result?.firstName ?? ''} ${result?.lastName ?? ''}',
                                 style: Theme.of(Get.context!)
                                     .textTheme
                                     .titleMedium
@@ -100,33 +127,456 @@ class VirtualAccountView extends GetView<VirtualAccountController> {
                                           .scaffoldBackgroundColor,
                                     ),
                               ),
-                              SizedBox(width: 8.px),
-                              GestureDetector(
-                                onTap: () => controller.clickOnCopyIcon(),
-                                child: CommonMethods.appIcons(
-                                  assetName: IconConstants.icCopyWhite,
-                                ),
+                            ]),
+                      ),
+                    ),
+                  ),
+                )
+              : Center(child: CommonMethods.dataNotFound()),
+          if (result != null &&
+              result?.virtualAccountDataAccountNumber1 != null &&
+              result!.virtualAccountDataAccountNumber1!.isNotEmpty)
+            Padding(
+              padding: EdgeInsets.all(8.px),
+              child: ClipRRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(18.px),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        end: Alignment.topRight,
+                        begin: Alignment.bottomLeft,
+                        colors: [
+                          Theme.of(Get.context!).colorScheme.secondary,
+                          Theme.of(Get.context!).colorScheme.onSecondary,
+                        ],
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20.px),
+                      ),
+                      border: Border.all(
+                        width: .4.px,
+                        color: Theme.of(Get.context!)
+                            .scaffoldBackgroundColor
+                            .withOpacity(0.2),
+                      ),
+                    ),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                StringConstants.virtualAccount,
+                                style: Theme.of(Get.context!)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      // fontSize: 20.px,
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                    ),
+                              ),
+                              Text(
+                                result?.virtualAccountDataBankName1 ?? '',
+                                style: Theme.of(Get.context!)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      // fontSize: 20.px,
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                    ),
                               ),
                             ],
                           ),
-                        ),
-                        SizedBox(height: 14.px),
-                        Text(
-                          '${result?.firstName ?? ''} ${result?.lastName ?? ''}',
-                          style: Theme.of(Get.context!)
-                              .textTheme
-                              .titleMedium
-                              ?.copyWith(
-                                // fontSize: 20.px,
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                              ),
-                        ),
-                      ]),
+                          SizedBox(height: 14.px),
+                          Container(
+                            padding: EdgeInsets.all(10.px),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .scaffoldBackgroundColor
+                                  .withOpacity(.2.px),
+                              borderRadius: BorderRadius.circular(30.px),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  result?.virtualAccountDataAccountNumber1 ??
+                                      '',
+                                  style: Theme.of(Get.context!)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        // fontSize: 20.px,
+                                        color: Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                      ),
+                                ),
+                                SizedBox(width: 8.px),
+                                GestureDetector(
+                                  onTap: () => controller.clickOnCopyIcon(),
+                                  child: CommonMethods.appIcons(
+                                    assetName: IconConstants.icCopyWhite,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 14.px),
+                          Text(
+                            '${result?.firstName ?? ''} ${result?.lastName ?? ''}',
+                            style: Theme.of(Get.context!)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  // fontSize: 20.px,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ),
+                          ),
+                        ]),
+                  ),
                 ),
               ),
             ),
-          ),
+          if (result != null &&
+              result?.virtualAccountDataAccountNumber2 != null &&
+              result!.virtualAccountDataAccountNumber2!.isNotEmpty)
+            Padding(
+              padding: EdgeInsets.all(8.px),
+              child: ClipRRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(18.px),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        end: Alignment.topRight,
+                        begin: Alignment.bottomLeft,
+                        colors: [
+                          Theme.of(Get.context!).colorScheme.secondary,
+                          Theme.of(Get.context!).colorScheme.onSecondary,
+                        ],
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20.px),
+                      ),
+                      border: Border.all(
+                        width: .4.px,
+                        color: Theme.of(Get.context!)
+                            .scaffoldBackgroundColor
+                            .withOpacity(0.2),
+                      ),
+                    ),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                StringConstants.virtualAccount,
+                                style: Theme.of(Get.context!)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      // fontSize: 20.px,
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                    ),
+                              ),
+                              Text(
+                                result?.virtualAccountDataBankName2 ?? '',
+                                style: Theme.of(Get.context!)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      // fontSize: 20.px,
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                    ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 14.px),
+                          Container(
+                            padding: EdgeInsets.all(10.px),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .scaffoldBackgroundColor
+                                  .withOpacity(.2.px),
+                              borderRadius: BorderRadius.circular(30.px),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  result?.virtualAccountDataAccountNumber2 ??
+                                      '',
+                                  style: Theme.of(Get.context!)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        // fontSize: 20.px,
+                                        color: Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                      ),
+                                ),
+                                SizedBox(width: 8.px),
+                                GestureDetector(
+                                  onTap: () => controller.clickOnCopyIcon(),
+                                  child: CommonMethods.appIcons(
+                                    assetName: IconConstants.icCopyWhite,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 14.px),
+                          Text(
+                            '${result?.firstName ?? ''} ${result?.lastName ?? ''}',
+                            style: Theme.of(Get.context!)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  // fontSize: 20.px,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ),
+                          ),
+                        ]),
+                  ),
+                ),
+              ),
+            ),
+          if (result != null &&
+              result?.virtualAccountDataAccountNumber3 != null &&
+              result!.virtualAccountDataAccountNumber3!.isNotEmpty)
+            Padding(
+              padding: EdgeInsets.all(8.px),
+              child: ClipRRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(18.px),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        end: Alignment.topRight,
+                        begin: Alignment.bottomLeft,
+                        colors: [
+                          Theme.of(Get.context!).colorScheme.secondary,
+                          Theme.of(Get.context!).colorScheme.onSecondary,
+                        ],
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20.px),
+                      ),
+                      border: Border.all(
+                        width: .4.px,
+                        color: Theme.of(Get.context!)
+                            .scaffoldBackgroundColor
+                            .withOpacity(0.2),
+                      ),
+                    ),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                StringConstants.virtualAccount,
+                                style: Theme.of(Get.context!)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      // fontSize: 20.px,
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                    ),
+                              ),
+                              Text(
+                                result?.virtualAccountDataBankName3 ?? '',
+                                style: Theme.of(Get.context!)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      // fontSize: 20.px,
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                    ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 14.px),
+                          Container(
+                            padding: EdgeInsets.all(10.px),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .scaffoldBackgroundColor
+                                  .withOpacity(.2.px),
+                              borderRadius: BorderRadius.circular(30.px),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  result?.virtualAccountDataAccountNumber3 ??
+                                      '',
+                                  style: Theme.of(Get.context!)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        // fontSize: 20.px,
+                                        color: Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                      ),
+                                ),
+                                SizedBox(width: 8.px),
+                                GestureDetector(
+                                  onTap: () => controller.clickOnCopyIcon(),
+                                  child: CommonMethods.appIcons(
+                                    assetName: IconConstants.icCopyWhite,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 14.px),
+                          Text(
+                            '${result?.firstName ?? ''} ${result?.lastName ?? ''}',
+                            style: Theme.of(Get.context!)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  // fontSize: 20.px,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ),
+                          ),
+                        ]),
+                  ),
+                ),
+              ),
+            ),
+          if (result != null &&
+              result?.virtualAccountDataAccountNumber4 != null &&
+              result!.virtualAccountDataAccountNumber4!.isNotEmpty)
+            Padding(
+              padding: EdgeInsets.all(8.px),
+              child: ClipRRect(
+                child: BackdropFilter(
+                  filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                  child: Container(
+                    width: double.infinity,
+                    padding: EdgeInsets.all(18.px),
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        end: Alignment.topRight,
+                        begin: Alignment.bottomLeft,
+                        colors: [
+                          Theme.of(Get.context!).colorScheme.secondary,
+                          Theme.of(Get.context!).colorScheme.onSecondary,
+                        ],
+                      ),
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(20.px),
+                      ),
+                      border: Border.all(
+                        width: .4.px,
+                        color: Theme.of(Get.context!)
+                            .scaffoldBackgroundColor
+                            .withOpacity(0.2),
+                      ),
+                    ),
+                    child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                StringConstants.virtualAccount,
+                                style: Theme.of(Get.context!)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      // fontSize: 20.px,
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                    ),
+                              ),
+                              Text(
+                                result?.virtualAccountDataBankName4 ?? '',
+                                style: Theme.of(Get.context!)
+                                    .textTheme
+                                    .titleMedium
+                                    ?.copyWith(
+                                      // fontSize: 20.px,
+                                      color: Theme.of(context)
+                                          .scaffoldBackgroundColor,
+                                    ),
+                              ),
+                            ],
+                          ),
+                          SizedBox(height: 14.px),
+                          Container(
+                            padding: EdgeInsets.all(10.px),
+                            decoration: BoxDecoration(
+                              color: Theme.of(context)
+                                  .scaffoldBackgroundColor
+                                  .withOpacity(.2.px),
+                              borderRadius: BorderRadius.circular(30.px),
+                            ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text(
+                                  result?.virtualAccountDataAccountNumber4 ??
+                                      '',
+                                  style: Theme.of(Get.context!)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        // fontSize: 20.px,
+                                        color: Theme.of(context)
+                                            .scaffoldBackgroundColor,
+                                      ),
+                                ),
+                                SizedBox(width: 8.px),
+                                GestureDetector(
+                                  onTap: () => controller.clickOnCopyIcon(),
+                                  child: CommonMethods.appIcons(
+                                    assetName: IconConstants.icCopyWhite,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          SizedBox(height: 14.px),
+                          Text(
+                            '${result?.firstName ?? ''} ${result?.lastName ?? ''}',
+                            style: Theme.of(Get.context!)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                  // fontSize: 20.px,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ),
+                          ),
+                        ]),
+                  ),
+                ),
+              ),
+            ),
         ],
       ),
     );

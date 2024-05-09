@@ -266,7 +266,7 @@ class WalletView extends GetView<WalletController> {
                 ),
               ),
               Expanded(
-                child: getWalletTransactionResult.isNotEmpty
+                child: controller.getWalletTransactionResult.isNotEmpty
                     ? ListView(
                         padding: EdgeInsets.zero,
                         children: [
@@ -290,7 +290,8 @@ class WalletView extends GetView<WalletController> {
                             shrinkWrap: true,
                             padding: EdgeInsets.zero,
                             physics: const NeverScrollableScrollPhysics(),
-                            itemCount: getWalletTransactionResult.length,
+                            itemCount:
+                                controller.getWalletTransactionResult.length,
                             itemBuilder: (context, index) {
                               return ListTile(
                                 onTap: () =>
@@ -299,7 +300,8 @@ class WalletView extends GetView<WalletController> {
                                   crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
-                                      getWalletTransactionResult[index]
+                                      controller
+                                              .getWalletTransactionResult[index]
                                               .walTraTransactionType ??
                                           '',
                                       style: Theme.of(context)
@@ -307,7 +309,8 @@ class WalletView extends GetView<WalletController> {
                                           .displayMedium
                                           ?.copyWith(
                                               fontSize: 14.px,
-                                              color: getWalletTransactionResult[
+                                              color: controller
+                                                          .getWalletTransactionResult[
                                                               index]
                                                           .walTraTransactionType ==
                                                       'DEBIT'
@@ -322,7 +325,9 @@ class WalletView extends GetView<WalletController> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         Text(
-                                          getWalletTransactionResult[index]
+                                          controller
+                                                      .getWalletTransactionResult[
+                                                          index]
                                                       .walTraTransactionType ==
                                                   'DEBIT'
                                               ? '- '
@@ -332,7 +337,8 @@ class WalletView extends GetView<WalletController> {
                                               .displayMedium
                                               ?.copyWith(
                                                   fontSize: 14.px,
-                                                  color: getWalletTransactionResult[
+                                                  color: controller
+                                                              .getWalletTransactionResult[
                                                                   index]
                                                               .walTraTransactionType ==
                                                           'DEBIT'
@@ -347,7 +353,8 @@ class WalletView extends GetView<WalletController> {
                                             assetName: IconConstants.icCur,
                                             width: 14.px,
                                             height: 14.px,
-                                            color: getWalletTransactionResult[
+                                            color: controller
+                                                        .getWalletTransactionResult[
                                                             index]
                                                         .walTraTransactionType ==
                                                     'DEBIT'
@@ -358,21 +365,25 @@ class WalletView extends GetView<WalletController> {
                                                     .colorScheme
                                                     .onError),
                                         Text(
-                                          getWalletTransactionResult[index]
-                                                          .walTraBuyDataCost !=
+                                          controller
+                                                          .getWalletTransactionResult[
+                                                              index]
+                                                          .walTraTransactionValue !=
                                                       null &&
-                                                  getWalletTransactionResult[
+                                                  controller
+                                                      .getWalletTransactionResult[
                                                           index]
-                                                      .walTraBuyDataCost!
+                                                      .walTraTransactionValue!
                                                       .isNotEmpty
-                                              ? ' ${getWalletTransactionResult[index].walTraBuyDataCost ?? '0'}'
-                                              : ' ${getWalletTransactionResult[index].walTraTransactionValue ?? '0'}',
+                                              ? ' ${controller.getWalletTransactionResult[index].walTraTransactionValue ?? '0'}'
+                                              : ' ${controller.getWalletTransactionResult[index].walTraTransactionValue ?? '0'}',
                                           style: Theme.of(context)
                                               .textTheme
                                               .displayMedium
                                               ?.copyWith(
                                                   fontSize: 14.px,
-                                                  color: getWalletTransactionResult[
+                                                  color: controller
+                                                              .getWalletTransactionResult[
                                                                   index]
                                                               .walTraTransactionType ==
                                                           'DEBIT'
@@ -388,11 +399,13 @@ class WalletView extends GetView<WalletController> {
                                   ],
                                 ),
                                 subtitle: Text(
-                                  getWalletTransactionResult[index]
+                                  controller.getWalletTransactionResult[index]
                                           .walTraBuyDataReference ??
-                                      getWalletTransactionResult[index]
+                                      controller
+                                          .getWalletTransactionResult[index]
                                           .walTraDescription ??
-                                      getWalletTransactionResult[index]
+                                      controller
+                                          .getWalletTransactionResult[index]
                                           .walTraServiceType ??
                                       '',
                                   style: Theme.of(context)
@@ -401,9 +414,10 @@ class WalletView extends GetView<WalletController> {
                                       ?.copyWith(fontSize: 10.px),
                                 ),
                                 title: Text(
-                                  getWalletTransactionResult[index]
+                                  controller.getWalletTransactionResult[index]
                                           .walTraBuyPostAccountNumber ??
-                                      getWalletTransactionResult[index]
+                                      controller
+                                          .getWalletTransactionResult[index]
                                           .walTraMessage ??
                                       '',
                                   maxLines: 1,
@@ -418,7 +432,7 @@ class WalletView extends GetView<WalletController> {
                                 ),
                                 /*leading: CommonMethods.appIcons(
                                     assetName: controller
-                              .getWalletTransactionResult[index]['icon']),*/
+                              .controller.getWalletTransactionResult[index]['icon']),*/
                               );
                             },
                           ),

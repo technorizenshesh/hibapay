@@ -37,6 +37,7 @@ class ApiKeyConstants {
   static const String authTokenHiba = 'auth_token_hiba';
   static const String appPin = 'app_pin';
   static const String result = 'result';
+  static const String termConditionsResult = 'termConditionsResult';
   static const String giftId = 'gift_id';
   static const String vendorId = 'vendor_id';
   static const String reference = 'reference';
@@ -55,6 +56,7 @@ class ApiKeyConstants {
   static const String cardNumber = 'card_number';
   static const String cardId = 'card_id';
   static const String serviceId = 'service_id';
+  static const String commission = 'commission';
   static const String uDocGovtPhoto = 'udoc_govt_photo';
   static const String uDocSelfyPhoto = 'udoc_selfy_photo';
   static const String cardBrand = 'card_brand';

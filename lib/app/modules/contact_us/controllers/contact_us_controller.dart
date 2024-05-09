@@ -31,6 +31,8 @@ class ContactUsController extends GetxController {
   final cuqQuestion = ''.obs;
 
   Map<String, dynamic> bodyParams = {};
+  List<ContactUsQuestionsResult> contactUsQuestionsResult = [];
+
 
   @override
   Future<void> onInit() async {
@@ -38,9 +40,9 @@ class ContactUsController extends GetxController {
     authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
     super.onInit();
     startListener();
-    if (contactUsQuestionsResult.isEmpty) {
-      inAsyncCall.value = true;
-    }
+    /*if (contactUsQuestionsResult.isEmpty) {
+    }*/
+    inAsyncCall.value = true;
     await onInitWorking();
     inAsyncCall.value = false;
   }

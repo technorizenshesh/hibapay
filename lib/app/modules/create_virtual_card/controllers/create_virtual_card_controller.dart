@@ -3,7 +3,6 @@ import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/create_virtual_card_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
-import 'package:HibaPay/common/globle.dart';
 import 'package:colornames/colornames.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
@@ -29,6 +28,7 @@ class CreateVirtualCardController extends GetxController {
   Color currentColor = Colors.black;
   String selectedColor = '#00000';
   ListVirtualCardsModel? listVirtualCardsModel;
+  List<ListVirtualCardsResult> listVirtualCardsResult = [];
 
   void changeColor(Color color) {
     currentColor = color;

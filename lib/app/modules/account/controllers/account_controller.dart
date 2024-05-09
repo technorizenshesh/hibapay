@@ -3,8 +3,8 @@ import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/fund_virtual_card_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_card_holder_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_card_transactions_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/list_virtual_cards_model.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
-import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -28,6 +28,8 @@ class AccountController extends GetxController {
 
   FundVirtualCardResult? result;
   GetCardHolderResult? getCardHolderResult;
+
+  List<ListVirtualCardsResult> listVirtualCardsResult = [];
 
   @override
   Future<void> onInit() async {

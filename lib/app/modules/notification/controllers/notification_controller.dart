@@ -4,7 +4,6 @@ import 'package:HibaPay/app/data/apis/api_models/get_wallet_transaction_model.da
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_methods.dart';
-import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -37,6 +36,8 @@ class NotificationController extends GetxController {
 
   final authTokenHiba = ''.obs;
   final inAsyncCall = false.obs;
+
+  List<GetWalletTransactionResult> getWalletTransactionResult = [];
 
   @override
   Future<void> onInit() async {
@@ -149,7 +150,7 @@ class NotificationController extends GetxController {
                     trailing: getWalletTransactionResult[index]
                             .walTraTransactionValue ??
                         ''),
-            /*  if (getWalletTransactionResult[index].walTraTransactionValue !=
+              /*  if (getWalletTransactionResult[index].walTraTransactionValue !=
                       null &&
                   getWalletTransactionResult[index]
                       .walTraTransactionValue!

@@ -80,16 +80,16 @@ class MyProfileController extends GetxController {
     //if (userModel != null) {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     sharedPreferences.clear();
-    getServicesResult.clear();
-    getBannersResult.clear();
-    getCardTransactionsResultData.clear();
-    listVirtualCardsResult.clear();
-    getWalletTransactionResult.clear();
-    getReceivedGiftsResult.clear();
-    faqsResult.clear();
-    aboutUsResult.clear();
-    contactUsQuestionsResult.clear();
-    termConditionsResult.clear();
+    // getServicesResult.clear();
+    // getBannersResult.clear();
+    // getCardTransactionsResultData.clear();
+    // listVirtualCardsResult.clear();
+    // getWalletTransactionResult.clear();
+    // getReceivedGiftsResult.clear();
+    // faqsResult.clear();
+    // aboutUsResult.clear();
+    // contactUsQuestionsResult.clear();
+    // termConditionsResult.clear();
     result = null;
     selectedValue.value = 0;
     isValue.value = false;

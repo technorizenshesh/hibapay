@@ -3,8 +3,6 @@ import 'dart:convert';
 
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
-import 'package:HibaPay/app/data/apis/api_models/get_banners_model.dart';
-import 'package:HibaPay/app/data/apis/api_models/get_services_hibapay_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/common/globle.dart';
 import 'package:HibaPay/main.dart';
@@ -94,40 +92,6 @@ class SplashController extends GetxController {
     UserModel? userModel = await ApiMethods.getProfile(bodyParams: bodyParams);
     if (userModel != null && userModel.result != null) {
       result = userModel.result!;
-      increment();
-    }
-  }
-
-  onInitWorking() async {
-    await getBannersApi();
-    await getServicesApi();
-  }
-
-  getBannersApi() async {
-    Map<String, dynamic> bodyParams = {
-      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
-      ApiKeyConstants.type: ApiKeyConstants.home,
-    };
-    GetBannersModel? getBannersModel =
-        await ApiMethods.getBanners(bodyParams: bodyParams);
-    if (getBannersModel != null &&
-        getBannersModel.result != null &&
-        getBannersModel.result!.isNotEmpty) {
-      getBannersResult = getBannersModel.result!;
-      increment();
-    }
-  }
-
-  getServicesApi() async {
-    Map<String, dynamic> bodyParams = {
-      ApiKeyConstants.authTokenHiba: authTokenHiba.value
-    };
-    GetServicesModel? getServicesModel =
-        await ApiMethods.getServices(bodyParams: bodyParams);
-    if (getServicesModel != null &&
-        getServicesModel.result != null &&
-        getServicesModel.result!.isNotEmpty) {
-      getServicesResult = getServicesModel.result!;
       increment();
     }
   }

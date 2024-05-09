@@ -61,6 +61,38 @@ class Result {
   String? virtualAccountDataBankName;
   String? virtualAccountDataBank;
   String? virtualAccountDataCurrency;
+  String? virtualAccountResource1;
+  String? virtualAccountStatus1;
+  String? virtualAccountDataReference1;
+  String? virtualAccountDataAccountNumber1;
+  String? virtualAccountDataAccountName1;
+  String? virtualAccountDataBankName1;
+  String? virtualAccountDataBank1;
+  String? virtualAccountDataCurrency1;
+  String? virtualAccountResource2;
+  String? virtualAccountStatus2;
+  String? virtualAccountDataReference2;
+  String? virtualAccountDataAccountNumber2;
+  String? virtualAccountDataAccountName2;
+  String? virtualAccountDataBankName2;
+  String? virtualAccountDataBank2;
+  String? virtualAccountDataCurrency2;
+  String? virtualAccountResource3;
+  String? virtualAccountStatus3;
+  String? virtualAccountDataReference3;
+  String? virtualAccountDataAccountNumber3;
+  String? virtualAccountDataAccountName3;
+  String? virtualAccountDataBankName3;
+  String? virtualAccountDataBank3;
+  String? virtualAccountDataCurrency3;
+  String? virtualAccountResource4;
+  String? virtualAccountStatus4;
+  String? virtualAccountDataReference4;
+  String? virtualAccountDataAccountNumber4;
+  String? virtualAccountDataAccountName4;
+  String? virtualAccountDataBankName4;
+  String? virtualAccountDataBank4;
+  String? virtualAccountDataCurrency4;
   String? udocId;
   String? udocSelfyPhoto;
   String? udocGovtPhoto;
@@ -109,6 +141,38 @@ class Result {
       this.virtualAccountDataBankName,
       this.virtualAccountDataBank,
       this.virtualAccountDataCurrency,
+      this.virtualAccountResource1,
+      this.virtualAccountStatus1,
+      this.virtualAccountDataReference1,
+      this.virtualAccountDataAccountNumber1,
+      this.virtualAccountDataAccountName1,
+      this.virtualAccountDataBankName1,
+      this.virtualAccountDataBank1,
+      this.virtualAccountDataCurrency1,
+      this.virtualAccountResource2,
+      this.virtualAccountStatus2,
+      this.virtualAccountDataReference2,
+      this.virtualAccountDataAccountNumber2,
+      this.virtualAccountDataAccountName2,
+      this.virtualAccountDataBankName2,
+      this.virtualAccountDataBank2,
+      this.virtualAccountDataCurrency2,
+      this.virtualAccountResource3,
+      this.virtualAccountStatus3,
+      this.virtualAccountDataReference3,
+      this.virtualAccountDataAccountNumber3,
+      this.virtualAccountDataAccountName3,
+      this.virtualAccountDataBankName3,
+      this.virtualAccountDataBank3,
+      this.virtualAccountDataCurrency3,
+      this.virtualAccountResource4,
+      this.virtualAccountStatus4,
+      this.virtualAccountDataReference4,
+      this.virtualAccountDataAccountNumber4,
+      this.virtualAccountDataAccountName4,
+      this.virtualAccountDataBankName4,
+      this.virtualAccountDataBank4,
+      this.virtualAccountDataCurrency4,
       this.udocId,
       this.udocSelfyPhoto,
       this.udocGovtPhoto,
@@ -158,6 +222,46 @@ class Result {
     virtualAccountDataBankName = json['virtual_account_data_bank_name'];
     virtualAccountDataBank = json['virtual_account_data_bank'];
     virtualAccountDataCurrency = json['virtual_account_data_currency'];
+    virtualAccountResource1 = json['virtual_account_resource_1'];
+    virtualAccountStatus1 = json['virtual_account_status_1'];
+    virtualAccountDataReference1 = json['virtual_account_data_reference_1'];
+    virtualAccountDataAccountNumber1 =
+        json['virtual_account_data_account_number_1'];
+    virtualAccountDataAccountName1 =
+        json['virtual_account_data_account_name_1'];
+    virtualAccountDataBankName1 = json['virtual_account_data_bank_name_1'];
+    virtualAccountDataBank1 = json['virtual_account_data_bank_1'];
+    virtualAccountDataCurrency1 = json['virtual_account_data_currency_1'];
+    virtualAccountResource2 = json['virtual_account_resource_2'];
+    virtualAccountStatus2 = json['virtual_account_status_2'];
+    virtualAccountDataReference2 = json['virtual_account_data_reference_2'];
+    virtualAccountDataAccountNumber2 =
+        json['virtual_account_data_account_number_2'];
+    virtualAccountDataAccountName2 =
+        json['virtual_account_data_account_name_2'];
+    virtualAccountDataBankName2 = json['virtual_account_data_bank_name_2'];
+    virtualAccountDataBank2 = json['virtual_account_data_bank_2'];
+    virtualAccountDataCurrency2 = json['virtual_account_data_currency_2'];
+    virtualAccountResource3 = json['virtual_account_resource_3'];
+    virtualAccountStatus3 = json['virtual_account_status_3'];
+    virtualAccountDataReference3 = json['virtual_account_data_reference_3'];
+    virtualAccountDataAccountNumber3 =
+        json['virtual_account_data_account_number_3'];
+    virtualAccountDataAccountName3 =
+        json['virtual_account_data_account_name_3'];
+    virtualAccountDataBankName3 = json['virtual_account_data_bank_name_3'];
+    virtualAccountDataBank3 = json['virtual_account_data_bank_3'];
+    virtualAccountDataCurrency3 = json['virtual_account_data_currency_3'];
+    virtualAccountResource4 = json['virtual_account_resource_4'];
+    virtualAccountStatus4 = json['virtual_account_status_4'];
+    virtualAccountDataReference4 = json['virtual_account_data_reference_4'];
+    virtualAccountDataAccountNumber4 =
+        json['virtual_account_data_account_number_4'];
+    virtualAccountDataAccountName4 =
+        json['virtual_account_data_account_name_4'];
+    virtualAccountDataBankName4 = json['virtual_account_data_bank_name_4'];
+    virtualAccountDataBank4 = json['virtual_account_data_bank_4'];
+    virtualAccountDataCurrency4 = json['virtual_account_data_currency_4'];
     udocId = json['udoc_id'];
     udocSelfyPhoto = json['udoc_selfy_photo'];
     udocGovtPhoto = json['udoc_govt_photo'];
@@ -209,6 +313,46 @@ class Result {
     data['virtual_account_data_bank_name'] = virtualAccountDataBankName;
     data['virtual_account_data_bank'] = virtualAccountDataBank;
     data['virtual_account_data_currency'] = virtualAccountDataCurrency;
+    data['virtual_account_resource_1'] = virtualAccountResource1;
+    data['virtual_account_status_1'] = virtualAccountStatus1;
+    data['virtual_account_data_reference_1'] = virtualAccountDataReference1;
+    data['virtual_account_data_account_number_1'] =
+        virtualAccountDataAccountNumber1;
+    data['virtual_account_data_account_name_1'] =
+        virtualAccountDataAccountName1;
+    data['virtual_account_data_bank_name_1'] = virtualAccountDataBankName1;
+    data['virtual_account_data_bank_1'] = virtualAccountDataBank1;
+    data['virtual_account_data_currency_1'] = virtualAccountDataCurrency1;
+    data['virtual_account_resource_2'] = virtualAccountResource2;
+    data['virtual_account_status_2'] = virtualAccountStatus2;
+    data['virtual_account_data_reference_2'] = virtualAccountDataReference2;
+    data['virtual_account_data_account_number_2'] =
+        virtualAccountDataAccountNumber2;
+    data['virtual_account_data_account_name_2'] =
+        virtualAccountDataAccountName2;
+    data['virtual_account_data_bank_name_2'] = virtualAccountDataBankName2;
+    data['virtual_account_data_bank_2'] = virtualAccountDataBank2;
+    data['virtual_account_data_currency_2'] = virtualAccountDataCurrency2;
+    data['virtual_account_resource_3'] = virtualAccountResource3;
+    data['virtual_account_status_3'] = virtualAccountStatus3;
+    data['virtual_account_data_reference_3'] = virtualAccountDataReference3;
+    data['virtual_account_data_account_number_3'] =
+        virtualAccountDataAccountNumber3;
+    data['virtual_account_data_account_name_3'] =
+        virtualAccountDataAccountName3;
+    data['virtual_account_data_bank_name_3'] = virtualAccountDataBankName3;
+    data['virtual_account_data_bank_3'] = virtualAccountDataBank3;
+    data['virtual_account_data_currency_3'] = virtualAccountDataCurrency3;
+    data['virtual_account_resource_4'] = virtualAccountResource4;
+    data['virtual_account_status_4'] = virtualAccountStatus4;
+    data['virtual_account_data_reference_4'] = virtualAccountDataReference4;
+    data['virtual_account_data_account_number_4'] =
+        virtualAccountDataAccountNumber4;
+    data['virtual_account_data_account_name_4'] =
+        virtualAccountDataAccountName4;
+    data['virtual_account_data_bank_name_4'] = virtualAccountDataBankName4;
+    data['virtual_account_data_bank_4'] = virtualAccountDataBank4;
+    data['virtual_account_data_currency_4'] = virtualAccountDataCurrency4;
     data['udoc_id'] = udocId;
     data['udoc_selfy_photo'] = udocSelfyPhoto;
     data['udoc_govt_photo'] = udocGovtPhoto;

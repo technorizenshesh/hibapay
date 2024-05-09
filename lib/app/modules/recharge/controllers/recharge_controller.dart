@@ -37,6 +37,7 @@ class RechargeController extends GetxController {
   final packageName = ''.obs;
   Map<String, dynamic> bodyParams = {};
   Map<String, String> bodyParams1 = {};
+  final commission = ''.obs;
 
   @override
   Future<void> onInit() async {
@@ -44,6 +45,7 @@ class RechargeController extends GetxController {
     authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
     title = parameters[StringConstants.title] ?? '';
     serviceId.value = parameters[ApiKeyConstants.serviceId] ?? '';
+    commission.value = parameters[ApiKeyConstants.commission] ?? '';
     super.onInit();
     startListener();
     inAsyncCall.value = true;
@@ -79,7 +81,6 @@ class RechargeController extends GetxController {
     if (mobileNumberController.text.trim().isNotEmpty &&
         serviceProviderController.text.trim().isNotEmpty &&
         amountController.text.trim().isNotEmpty) {
-      //if (int.parse(amountControllerValue.value.tr) >= 100) {
       bodyParams = {
         ApiKeyConstants.serviceId: serviceId.value,
         ApiKeyConstants.vendorId: vendorId.value,
@@ -93,19 +94,24 @@ class RechargeController extends GetxController {
           getPriceModel.result != null &&
           getPriceModel.result!.data != null) {
         if (getPriceModel.result!.data!.price != null &&
-                getPriceModel.result!.data!.fee !=
-                    null /*&&
-              getPriceModel.result!.data!.total != null*/
-            ) {
+            getPriceModel.result!.data!.fee != null) {
           bodyParams.clear();
           bodyParams = {
             ApiKeyConstants.accountNumber: mobileNumberController.text,
-            ApiKeyConstants.amount: amountControllerValue.value,
-            ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
-            ApiKeyConstants.total: (double.parse(amountControllerValue.value) +
-                    double.parse(getPriceModel.result!.data!.fee.toString()))
+            ApiKeyConstants.amount: (double.parse(amountControllerValue.value) +
+                    double.parse(getPriceModel.result!.data!.fee.toString()) +
+                    double.parse(commission.value))
                 .toString(),
-            /*ApiKeyConstants.total: getPriceModel.result!.data!.total,*/
+            // ApiKeyConstants.amount: amountControllerValue.value,
+            ApiKeyConstants.fee:
+                (double.parse(getPriceModel.result!.data!.fee.toString()) +
+                        double.parse(commission.value))
+                    .toString(),
+            ApiKeyConstants.total: (double.parse(amountControllerValue.value) +
+                    double.parse(getPriceModel.result!.data!.fee.toString()) +
+                    double.parse(commission.value))
+                .toString(),
+            //ApiKeyConstants.total: getPriceModel.result!.data!.total,
             // ApiKeyConstants.price: getPriceModel.result!.data!.price,
             ApiKeyConstants.serviceType: ApiKeyConstants.buyAirtime,
             ApiKeyConstants.serviceId: serviceId.value,
@@ -116,9 +122,19 @@ class RechargeController extends GetxController {
           bodyParams1 = {
             StringConstants.mobileNumber: mobileNumberController.text,
             StringConstants.amount: amountControllerValue.value,
-            StringConstants.fee: getPriceModel.result!.data!.fee.toString(),
+            StringConstants.serviceType:
+                convertToTitleCase(ApiKeyConstants.buyAirtime),
+            StringConstants.description: vendorName.toString(),
+            StringConstants.fee: getPriceModel.result!.data!.fee != null &&
+                    getPriceModel.result!.data!.fee!.isNotEmpty &&
+                    getPriceModel.result!.data!.fee != '0'
+                ? (double.parse(getPriceModel.result!.data!.fee.toString()) +
+                        double.parse(commission.value))
+                    .toString()
+                : double.parse(commission.value).toString(),
             StringConstants.total: (double.parse(amountControllerValue.value) +
-                    double.parse(getPriceModel.result!.data!.fee.toString()))
+                    double.parse(getPriceModel.result!.data!.fee.toString()) +
+                    double.parse(commission.value))
                 .toString(),
           };
           Get.toNamed(Routes.PAY_SUMMARY,
@@ -150,15 +166,18 @@ class RechargeController extends GetxController {
         }
       }
       inAsyncCall.value = false;
-      /*} else {
-        Get.snackbar(
-            margin: EdgeInsets.all(20.px), 'Error', 'Enter amount above 100');
-      }*/
-      // inAsyncCall.value = false;
     } else {
       Get.snackbar(
           margin: EdgeInsets.all(20.px), 'Error', 'All field required');
     }
+  }
+
+  String convertToTitleCase(String input) {
+    List<String> words = input.split('_');
+    String titleCaseString = words.map((word) {
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+    }).join(' ');
+    return titleCaseString;
   }
 
   clickOnServiceProvider() {

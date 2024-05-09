@@ -16,18 +16,22 @@ class EducationController extends GetxController {
   final count = 0.obs;
   Map<String, String?> parameters = Get.parameters;
   String title = '';
-  TextEditingController meterNumberController = TextEditingController();
+
+  // TextEditingController meterNumberController = TextEditingController();
   TextEditingController mobileNumberController = TextEditingController();
   TextEditingController serviceProviderController = TextEditingController();
+
   // TextEditingController amountController = TextEditingController();
   TextEditingController packagesController = TextEditingController();
 
   FocusNode focusMobileNumber = FocusNode();
+
   // FocusNode focusAmount = FocusNode();
   FocusNode focusServiceProvider = FocusNode();
   FocusNode focusPackages = FocusNode();
 
   final isMobileNumber = false.obs;
+
   // final isAmount = false.obs;
   final isServiceProvider = false.obs;
   final isPackages = false.obs;
@@ -52,7 +56,8 @@ class EducationController extends GetxController {
   final packageAmount = ''.obs;
   final packageId = ''.obs;
 
-  final amountControllerValue = ''.obs;
+  // final amountControllerValue = ''.obs;
+  final commission = ''.obs;
 
   Map<String, dynamic> bodyParams = {};
   Map<String, String> bodyParams1 = {};
@@ -63,6 +68,7 @@ class EducationController extends GetxController {
     authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
     title = parameters[StringConstants.title] ?? '';
     serviceId.value = parameters[ApiKeyConstants.serviceId] ?? '';
+    commission.value = parameters[ApiKeyConstants.commission] ?? '';
     super.onInit();
     startListener();
     inAsyncCall.value = true;
@@ -97,16 +103,11 @@ class EducationController extends GetxController {
   void increment() => count.value++;
 
   clickOnContinueButton() async {
-    if (meterNumberController.text.trim().isNotEmpty &&
-            serviceProviderController.text.trim().isNotEmpty &&
-            packagesController.text
-                .trim()
-                .isNotEmpty /*&&
-        amountController.text.trim().isNotEmpty*/
-        ) {
+    if (mobileNumberController.text.trim().isNotEmpty &&
+        serviceProviderController.text.trim().isNotEmpty &&
+        packagesController.text.trim().isNotEmpty) {
       bodyParams = {
-        ApiKeyConstants.accountNumber: meterNumberController.text,
-        // ApiKeyConstants.amount: amountControllerValue.value,
+        ApiKeyConstants.accountNumber: mobileNumberController.text,
         ApiKeyConstants.serviceType: ApiKeyConstants.buyEducation,
         ApiKeyConstants.packageId: packageId.value,
         ApiKeyConstants.serviceId: serviceId.value,
@@ -120,19 +121,26 @@ class EducationController extends GetxController {
           getPriceModel.result != null &&
           getPriceModel.result!.data != null) {
         if (getPriceModel.result!.data!.price != null &&
-                getPriceModel.result!.data!.fee !=
-                    null /*&&
-              getPriceModel.result!.data!.total != null*/
-            ) {
+            getPriceModel.result!.data!.fee != null) {
           bodyParams.clear();
           bodyParams = {
-            ApiKeyConstants.accountNumber: meterNumberController.text,
-            ApiKeyConstants.amount:
-                getPriceModel.result!.data!.price.toString(),
-            ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
-            ApiKeyConstants.total: (double.parse(
+            ApiKeyConstants.accountNumber: mobileNumberController.text,
+            ApiKeyConstants.amount: (double.parse(
                         getPriceModel.result!.data!.price.toString()) +
-                    double.parse(getPriceModel.result!.data!.fee.toString()))
+                    double.parse(getPriceModel.result!.data!.fee.toString()) +
+                    double.parse(commission.value))
+                .toString(),
+            StringConstants.fee: getPriceModel.result!.data!.fee != null &&
+                    getPriceModel.result!.data!.fee!.isNotEmpty &&
+                    getPriceModel.result!.data!.fee != '0'
+                ? (double.parse(getPriceModel.result!.data!.fee.toString()) +
+                        double.parse(commission.value))
+                    .toString()
+                : double.parse(commission.value).toString(),
+            StringConstants.total: (double.parse(
+                        getPriceModel.result!.data!.price.toString()) +
+                    double.parse(getPriceModel.result!.data!.fee.toString()) +
+                    double.parse(commission.value))
                 .toString(),
             ApiKeyConstants.serviceType: ApiKeyConstants.buyEducation,
             ApiKeyConstants.packageId: packageId.value,
@@ -142,13 +150,24 @@ class EducationController extends GetxController {
           };
           bodyParams1.clear();
           bodyParams1 = {
-            StringConstants.mobileNumber: meterNumberController.text,
+            StringConstants.mobileNumber: mobileNumberController.text,
             StringConstants.amount:
                 getPriceModel.result!.data!.price.toString(),
-            StringConstants.fee: getPriceModel.result!.data!.fee.toString(),
+            StringConstants.serviceType:
+                convertToTitleCase(ApiKeyConstants.buyEducation),
+            StringConstants.description:
+                "${vendorName.toString()} - ${packageName.toString()}",
+            StringConstants.fee: getPriceModel.result!.data!.fee != null &&
+                    getPriceModel.result!.data!.fee!.isNotEmpty &&
+                    getPriceModel.result!.data!.fee != '0'
+                ? (double.parse(getPriceModel.result!.data!.fee.toString()) +
+                        double.parse(commission.value))
+                    .toString()
+                : double.parse(commission.value).toString(),
             StringConstants.total: (double.parse(
                         getPriceModel.result!.data!.price.toString()) +
-                    double.parse(getPriceModel.result!.data!.fee.toString()))
+                    double.parse(getPriceModel.result!.data!.fee.toString()) +
+                    double.parse(commission.value))
                 .toString(),
           };
           Get.toNamed(Routes.PAY_SUMMARY,
@@ -180,47 +199,18 @@ class EducationController extends GetxController {
         }
       }
       inAsyncCall.value = false;
-
-      /*inAsyncCall.value = true;
-        Map<String, dynamic> bodyParams = {
-          ApiKeyConstants.authTokenHiba: authTokenHiba.value,
-          ApiKeyConstants.serviceId: serviceId.value,
-          ApiKeyConstants.vendorId: vendorId.value,
-          ApiKeyConstants.accountNumber: meterNumberController.text,
-          ApiKeyConstants.amount: amountControllerValue.value,
-          ApiKeyConstants.packageId: packageId.value,
-          ApiKeyConstants.serviceType: ApiKeyConstants.buyEducation,
-        };
-        BillPayModel? billPayModel =
-            await ApiMethods.uFitPayBillPay(bodyParams: bodyParams);
-        if (billPayModel != null &&
-            billPayModel.result != null &&
-            billPayModel.result!.data != null) {
-          Get.back();
-          Get.snackbar(
-              margin: EdgeInsets.all(20.px),
-              '${billPayModel.result!.resource ?? ''} ${billPayModel.result!.status ?? ''}',
-              billPayModel.result!.data?.paymentStatus ?? '');
-          increment();
-        } else {
-          if (billPayModel != null && billPayModel.result != null) {
-            Get.snackbar(
-                margin: EdgeInsets.all(20.px),
-                'Failed',
-                billPayModel.result!.message ?? '');
-          } else {
-            Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
-          }
-        }*/
-      /*} else {
-        Get.snackbar(
-            margin: EdgeInsets.all(20.px), 'Error', 'Enter amount above 1000');
-      }*/
-      // inAsyncCall.value = false;
     } else {
       Get.snackbar(
           margin: EdgeInsets.all(20.px), 'Error', 'All field required');
     }
+  }
+
+  String convertToTitleCase(String input) {
+    List<String> words = input.split('_');
+    String titleCaseString = words.map((word) {
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+    }).join(' ');
+    return titleCaseString;
   }
 
   clickOnServiceProvider() {

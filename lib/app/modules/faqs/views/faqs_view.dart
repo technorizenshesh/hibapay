@@ -19,10 +19,10 @@ class FaqsView extends GetView<FaqsController> {
         inAsyncCall: controller.inAsyncCall.value,
         child: Scaffold(
           appBar: CommonWidgets.appBar(
-            title: StringConstants.faqs,
+            title: StringConstants.faqs
           ),
           body: ListView.builder(
-            itemCount: faqsResult.length,
+            itemCount: controller.faqsResult.length,
             itemBuilder: (context, index) {
               return Padding(
                 padding: EdgeInsets.all(10.px),
@@ -35,13 +35,13 @@ class FaqsView extends GetView<FaqsController> {
                     ),
                   ),
                   subtitle: Text(
-                    faqsResult[index].faqsAnswer ?? '',
+                    controller.faqsResult[index].faqsAnswer ?? '',
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
                           fontSize: 12.px,
                         ),
                   ),
                   title: Text(
-                    faqsResult[index].faqsQuestions ?? '',
+                    controller.faqsResult[index].faqsQuestions ?? '',
                     style: Theme.of(context).textTheme.displayMedium?.copyWith(
                         fontSize: 14.px, color: Theme.of(context).primaryColor),
                   ),

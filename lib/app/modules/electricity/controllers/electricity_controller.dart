@@ -58,6 +58,7 @@ class ElectricityController extends GetxController {
 
   Map<String, dynamic> bodyParams = {};
   Map<String, String> bodyParams1 = {};
+  final commission = ''.obs;
 
   @override
   Future<void> onInit() async {
@@ -65,6 +66,7 @@ class ElectricityController extends GetxController {
     authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
     title = parameters[StringConstants.title] ?? '';
     serviceId.value = parameters[ApiKeyConstants.serviceId] ?? '';
+    commission.value = parameters[ApiKeyConstants.commission] ?? '';
     super.onInit();
     startListener();
     inAsyncCall.value = true;
@@ -106,7 +108,6 @@ class ElectricityController extends GetxController {
         serviceProviderController.text.trim().isNotEmpty &&
         packagesController.text.trim().isNotEmpty &&
         amountController.text.trim().isNotEmpty) {
-      // if (int.parse(amountControllerValue.value.tr) >= 1000) {
       bodyParams = {
         ApiKeyConstants.accountNumber: meterNumberController.text,
         ApiKeyConstants.amount: amountControllerValue.value,
@@ -124,20 +125,19 @@ class ElectricityController extends GetxController {
           getPriceModel.result != null &&
           getPriceModel.result!.data != null) {
         if (getPriceModel.result!.data!.price != null &&
-                getPriceModel.result!.data!.fee !=
-                    null /*&&
-              getPriceModel.result!.data!.total != null*/
-            ) {
+            getPriceModel.result!.data!.fee != null) {
           bodyParams.clear();
           bodyParams = {
             ApiKeyConstants.accountNumber: meterNumberController.text,
-            ApiKeyConstants.amount:
-                getPriceModel.result!.data!.price.toString(),
-            ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
-            ApiKeyConstants.total: (double.parse(
-                        getPriceModel.result!.data!.price.toString()) +
-                    double.parse(getPriceModel.result!.data!.fee.toString()))
+            ApiKeyConstants.amount: (double.parse(amountControllerValue.value) +
+                    double.parse(getPriceModel.result!.data!.fee.toString()) +
+                    double.parse(commission.value))
                 .toString(),
+            // ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
+            // ApiKeyConstants.total: (double.parse(
+            //             getPriceModel.result!.data!.price.toString()) +
+            //         double.parse(getPriceModel.result!.data!.fee.toString()))
+            //     .toString(),
             ApiKeyConstants.receivingMobileNo: mobileNumberController.text,
             ApiKeyConstants.serviceType: ApiKeyConstants.buyElectricity,
             ApiKeyConstants.packageId: packageId.value,
@@ -151,10 +151,20 @@ class ElectricityController extends GetxController {
             StringConstants.mobileNumber: mobileNumberController.text,
             StringConstants.amount:
                 getPriceModel.result!.data!.price.toString(),
-            StringConstants.fee: getPriceModel.result!.data!.fee.toString(),
-            StringConstants.total: (double.parse(
-                        getPriceModel.result!.data!.price.toString()) +
-                    double.parse(getPriceModel.result!.data!.fee.toString()))
+            StringConstants.serviceType:
+                convertToTitleCase(ApiKeyConstants.buyElectricity),
+            StringConstants.description:
+                "${vendorName.toString()} - ${packageName.toString()}",
+            StringConstants.fee: getPriceModel.result!.data!.fee != null &&
+                    getPriceModel.result!.data!.fee!.isNotEmpty &&
+                    getPriceModel.result!.data!.fee != '0'
+                ? (double.parse(getPriceModel.result!.data!.fee.toString()) +
+                        double.parse(commission.value))
+                    .toString()
+                : double.parse(commission.value).toString(),
+            StringConstants.total: (double.parse(amountControllerValue.value) +
+                    double.parse(getPriceModel.result!.data!.fee.toString()) +
+                    double.parse(commission.value))
                 .toString(),
           };
           Get.toNamed(Routes.PAY_SUMMARY,
@@ -186,47 +196,18 @@ class ElectricityController extends GetxController {
         }
       }
       inAsyncCall.value = false;
-
-      /*inAsyncCall.value = true;
-        Map<String, dynamic> bodyParams = {
-          ApiKeyConstants.authTokenHiba: authTokenHiba.value,
-          ApiKeyConstants.serviceId: serviceId.value,
-          ApiKeyConstants.vendorId: vendorId.value,
-          ApiKeyConstants.accountNumber: meterNumberController.text,
-          ApiKeyConstants.amount: amountControllerValue.value,
-          ApiKeyConstants.packageId: packageId.value,
-          ApiKeyConstants.serviceType: ApiKeyConstants.buyElectricity,
-        };
-        BillPayModel? billPayModel =
-            await ApiMethods.uFitPayBillPay(bodyParams: bodyParams);
-        if (billPayModel != null &&
-            billPayModel.result != null &&
-            billPayModel.result!.data != null) {
-          Get.back();
-          Get.snackbar(
-              margin: EdgeInsets.all(20.px),
-              '${billPayModel.result!.resource ?? ''} ${billPayModel.result!.status ?? ''}',
-              billPayModel.result!.data?.paymentStatus ?? '');
-          increment();
-        } else {
-          if (billPayModel != null && billPayModel.result != null) {
-            Get.snackbar(
-                margin: EdgeInsets.all(20.px),
-                'Failed',
-                billPayModel.result!.message ?? '');
-          } else {
-            Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
-          }
-        }*/
-      /*} else {
-        Get.snackbar(
-            margin: EdgeInsets.all(20.px), 'Error', 'Enter amount above 1000');
-      }*/
-      // inAsyncCall.value = false;
     } else {
       Get.snackbar(
           margin: EdgeInsets.all(20.px), 'Error', 'All field required');
     }
+  }
+
+  String convertToTitleCase(String input) {
+    List<String> words = input.split('_');
+    String titleCaseString = words.map((word) {
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+    }).join(' ');
+    return titleCaseString;
   }
 
   clickOnServiceProvider() {

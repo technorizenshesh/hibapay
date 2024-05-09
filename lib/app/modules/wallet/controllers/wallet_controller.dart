@@ -20,6 +20,8 @@ class WalletController extends GetxController {
   final authTokenHiba = ''.obs;
   final inAsyncCall = false.obs;
 
+  List<GetWalletTransactionResult> getWalletTransactionResult = [];
+
   @override
   Future<void> onInit() async {
     super.onInit();

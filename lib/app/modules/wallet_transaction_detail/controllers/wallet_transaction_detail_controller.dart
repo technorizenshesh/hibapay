@@ -1,11 +1,11 @@
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_live_transaction_details_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_wallet_transaction_model.dart';
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/common_widgets.dart';
-import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
@@ -21,6 +21,9 @@ class WalletTransactionDetailController extends GetxController {
   final index = 0.obs;
   final authTokenHiba = ''.obs;
   GetLiveTransactionDetailsResultData? getLiveTransactionDetailsResultData;
+
+  List<GetWalletTransactionResult> getWalletTransactionResult = [];
+  GetWalletTransactionResult? getWalletTransactionResultData;
 
   @override
   Future<void> onInit() async {
@@ -256,7 +259,23 @@ class WalletTransactionDetailController extends GetxController {
   }
 
   onInitWork() async {
+    await getWalletTransactionApi();
     await getLiveTransactionDetailsApi();
+  }
+
+  getWalletTransactionApi() async {
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value
+    };
+    GetWalletTransactionModel? getWalletTransactionModel =
+        await ApiMethods.getWalletTransaction(bodyParams: bodyParams);
+    if (getWalletTransactionModel != null &&
+        getWalletTransactionModel.result != null) {
+      getWalletTransactionResult =
+          getWalletTransactionModel.result!.reversed.toList();
+      getWalletTransactionResultData = getWalletTransactionResult[index.value];
+      increment();
+    }
   }
 
   getLiveTransactionDetailsApi() async {

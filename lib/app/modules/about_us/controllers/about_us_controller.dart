@@ -6,13 +6,14 @@ import 'package:get/get.dart';
 class AboutUsController extends GetxController {
   final count = 0.obs;
   final inAsyncCall = false.obs;
+  List<AboutUsResult> aboutUsResult = [];
 
   @override
   Future<void> onInit() async {
     super.onInit();
-    if (aboutUsResult.isEmpty) {
-      inAsyncCall.value = true;
-    }
+    /*if (aboutUsResult.isEmpty) {
+    }*/
+    inAsyncCall.value = true;
     await onInitWorking();
     inAsyncCall.value = false;
   }

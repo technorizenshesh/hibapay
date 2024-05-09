@@ -26,11 +26,11 @@ class GiftUserCardsView extends GetView<GiftUserCardsController> {
           appBar: CommonWidgets.appBar(title: StringConstants.giftUser),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.px),
-            child: getReceivedGiftsResult.isNotEmpty
+            child: controller.getReceivedGiftsResult.isNotEmpty
                 ? SingleChildScrollView(
                     child: Center(
                       child: Wrap(
-                        children: List.generate(getReceivedGiftsResult.length,
+                        children: List.generate(controller.getReceivedGiftsResult.length,
                             (index) {
                           return SizedBox(
                             width: MediaQuery.of(context).size.width / 2.2.px,
@@ -63,7 +63,7 @@ class GiftUserCardsView extends GetView<GiftUserCardsController> {
                                           ],
                                         ),
                                       ),
-                                      child: getReceivedGiftsResult[index]
+                                      child: controller.getReceivedGiftsResult[index]
                                                   .giftsClaimStatus !=
                                               'PENDING'
                                           ? Container(
@@ -100,7 +100,7 @@ class GiftUserCardsView extends GetView<GiftUserCardsController> {
                                                                     .icCoin),
                                                         SizedBox(width: 4.px),
                                                         Text(
-                                                          getReceivedGiftsResult[
+                                                          controller.getReceivedGiftsResult[
                                                                       index]
                                                                   .giftsAmount ??
                                                               '0',
@@ -117,16 +117,16 @@ class GiftUserCardsView extends GetView<GiftUserCardsController> {
                                                         ),
                                                       ]),
                                                   SizedBox(height: 10.px),
-                                                  if (getReceivedGiftsResult[
+                                                  if (controller.getReceivedGiftsResult[
                                                                   index]
                                                               .giftsDescription !=
                                                           null &&
-                                                      getReceivedGiftsResult[
+                                                      controller.getReceivedGiftsResult[
                                                               index]
                                                           .giftsDescription!
                                                           .isNotEmpty)
                                                     Text(
-                                                      getReceivedGiftsResult[
+                                                      controller.getReceivedGiftsResult[
                                                                   index]
                                                               .giftsDescription ??
                                                           '',
@@ -140,11 +140,11 @@ class GiftUserCardsView extends GetView<GiftUserCardsController> {
                                                                       context)
                                                                   .primaryColor),
                                                     ),
-                                                  if (getReceivedGiftsResult[
+                                                  if (controller.getReceivedGiftsResult[
                                                                   index]
                                                               .giftsDescription !=
                                                           null &&
-                                                      getReceivedGiftsResult[
+                                                      controller.getReceivedGiftsResult[
                                                               index]
                                                           .giftsDescription!
                                                           .isNotEmpty)
@@ -162,7 +162,7 @@ class GiftUserCardsView extends GetView<GiftUserCardsController> {
                                             )
                                           : null,
                                     ),
-                                    if (getReceivedGiftsResult[index]
+                                    if (controller.getReceivedGiftsResult[index]
                                             .giftsClaimStatus ==
                                         'PENDING')
                                       InkWell(
