@@ -96,153 +96,229 @@ class HomeView extends GetView<HomeController> {
               ),
             ),
             SizedBox(height: 32.px),
-            if (controller.getBannersResult.isNotEmpty)
-              CarouselSlider(
-                items: List.generate(
-                  controller.getBannersResult.length,
-                  (index) => ClipRRect(
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                      child: Container(
-                        width: double.infinity,
-                        height: 220.px,
-                        padding: EdgeInsets.all(20.px),
-                        child: CommonWidgets.imageView(
-                            image: controller
-                                    .getBannersResult[index].bannersImage ??
-                                ''),
+            (controller.getBannersResult.isNotEmpty)
+                ? CarouselSlider(
+                    items: List.generate(
+                      controller.getBannersResult.length,
+                      (index) => ClipRRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                          child: Container(
+                            width: double.infinity,
+                            height: 220.px,
+                            padding: EdgeInsets.all(20.px),
+                            child: CommonWidgets.imageView(
+                                image: controller
+                                        .getBannersResult[index].bannersImage ??
+                                    ''),
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ),
-                options: CarouselOptions(
-                  height: 220.px,
-                  onPageChanged: (index, reason) {
-                    controller.cardIndex.value = index;
-                  },
-                  initialPage: 0,
-                  enableInfiniteScroll: true,
-                  reverse: false,
-                  autoPlay: true,
-                  enlargeStrategy: CenterPageEnlargeStrategy.zoom,
-                  autoPlayInterval: const Duration(seconds: 3),
-                  autoPlayAnimationDuration: const Duration(milliseconds: 1200),
-                  autoPlayCurve: Curves.easeOutSine,
-                  scrollDirection: Axis.horizontal,
-                  enlargeCenterPage: true,
-                  viewportFraction: 1,
-                ),
-              ),
-            if (controller.getBannersResult.isNotEmpty) SizedBox(height: 4.px),
-            if (controller.getBannersResult.isNotEmpty)
-              Align(
-                alignment: Alignment.center,
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.px),
-                  child: Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 6.px, vertical: 4.px),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor.withOpacity(.2.px),
-                      borderRadius: BorderRadius.circular(12.px),
+                    options: CarouselOptions(
+                      height: 220.px,
+                      onPageChanged: (index, reason) {
+                        controller.cardIndex.value = index;
+                      },
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      reverse: false,
+                      autoPlay: true,
+                      enlargeStrategy: CenterPageEnlargeStrategy.zoom,
+                      autoPlayInterval: const Duration(seconds: 3),
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 1200),
+                      autoPlayCurve: Curves.easeOutSine,
+                      scrollDirection: Axis.horizontal,
+                      enlargeCenterPage: true,
+                      viewportFraction: 1,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Wrap(
-                          children: List.generate(
-                            controller.getBannersResult.length,
-                            (index) => Padding(
-                              padding: EdgeInsets.all(2.px),
-                              child: Center(
-                                child: Container(
-                                  width: 6.px,
-                                  height: 6.px,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(3.px),
-                                    gradient: controller.cardIndex.value ==
-                                            index
-                                        ? CommonMethods
-                                            .commonLinearGradientView()
-                                        : CommonMethods
-                                            .commonLinearGradientViewWhite(),
-                                  ),
+                  )
+                : CarouselSlider(
+                    items: List.generate(
+                      4,
+                      (index) => ClipRRect(
+                        child: BackdropFilter(
+                          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                          child: Container(
+                            width: double.infinity,
+                            height: 220.px,
+                            padding: EdgeInsets.all(20.px),
+                            child: CommonWidgets.shimmerView(),
+                          ),
+                        ),
+                      ),
+                    ),
+                    options: CarouselOptions(
+                      height: 220.px,
+                      onPageChanged: (index, reason) {
+                        controller.cardIndex1.value = index;
+                      },
+                      initialPage: 0,
+                      enableInfiniteScroll: true,
+                      reverse: false,
+                      autoPlay: true,
+                      enlargeStrategy: CenterPageEnlargeStrategy.zoom,
+                      autoPlayInterval: const Duration(seconds: 3),
+                      autoPlayAnimationDuration:
+                          const Duration(milliseconds: 1200),
+                      autoPlayCurve: Curves.easeOutSine,
+                      scrollDirection: Axis.horizontal,
+                      enlargeCenterPage: true,
+                      viewportFraction: 1,
+                    ),
+                  ),
+            SizedBox(height: 4.px),
+            Align(
+              alignment: Alignment.center,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.px),
+                child: Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 6.px, vertical: 4.px),
+                  decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor.withOpacity(.2.px),
+                    borderRadius: BorderRadius.circular(12.px),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Wrap(
+                        children: List.generate(
+                          4,
+                          (index) => Padding(
+                            padding: EdgeInsets.all(2.px),
+                            child: Center(
+                              child: Container(
+                                width: 6.px,
+                                height: 6.px,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(3.px),
+                                  gradient: controller.cardIndex1.value == index
+                                      ? CommonMethods.commonLinearGradientView()
+                                      : CommonMethods
+                                          .commonLinearGradientViewWhite(),
                                 ),
                               ),
                             ),
                           ),
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ),
+            ),
             SizedBox(height: 24.px),
-            if (controller.getServicesResult.isNotEmpty)
-              Center(
-                child: SingleChildScrollView(
-                  child: Wrap(
-                    children: List.generate(controller.getServicesResult.length,
-                        (index) {
-                      return SizedBox(
-                        width: MediaQuery.of(context).size.width / 3.3,
-                        child: Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 4.px, vertical: 4.px),
-                          child: InkWell(
-                            onTap: () => controller.clickOnCard(index: index),
-                            borderRadius: BorderRadius.circular(8.px),
-                            child: Container(
-                              height: 100.px,
+            (controller.getServicesResult.isNotEmpty)
+                ? Center(
+                    child: SingleChildScrollView(
+                      child: Wrap(
+                        children: List.generate(
+                            controller.getServicesResult.length, (index) {
+                          return SizedBox(
+                            width: MediaQuery.of(context).size.width / 3.3,
+                            child: Padding(
                               padding: EdgeInsets.symmetric(
-                                  horizontal: 4.px, vertical: 14.px),
-                              decoration: BoxDecoration(
+                                  horizontal: 4.px, vertical: 4.px),
+                              child: InkWell(
+                                onTap: () =>
+                                    controller.clickOnCard(index: index),
                                 borderRadius: BorderRadius.circular(8.px),
-                                color:
-                                    Theme.of(context).scaffoldBackgroundColor,
-                                /*border: Border.all(
+                                child: Container(
+                                  height: 100.px,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 4.px, vertical: 14.px),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.px),
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    /*border: Border.all(
                                 width: .4.px,
                                 color: Theme.of(context).colorScheme.surface,
                               ),*/
-                              ),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  CommonWidgets.imageView(
-                                      image: controller
-                                              .getServicesResult[index].icon ??
-                                          '',
-                                      width: 24.px,
-                                      height: 24.px,
-                                      fit: BoxFit.contain,
-                                      borderRadius:
-                                          BorderRadius.circular(0.px)),
-                                  SizedBox(height: 14.px),
-                                  Text(
-                                    controller.getServicesResult[index]
-                                            .serviceNameCustom ??
-                                        '',
-                                    maxLines: 2,
-                                    textAlign: TextAlign.center,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayMedium
-                                        ?.copyWith(
-                                          fontSize: 14.px,
-                                          color: Theme.of(context).primaryColor,
-                                        ),
                                   ),
-                                ],
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      CommonWidgets.imageView(
+                                          image: controller
+                                                  .getServicesResult[index]
+                                                  .icon ??
+                                              '',
+                                          width: 24.px,
+                                          height: 24.px,
+                                          fit: BoxFit.contain,
+                                          borderRadius:
+                                              BorderRadius.circular(0.px)),
+                                      SizedBox(height: 14.px),
+                                      controller.getServicesResult[index]
+                                                  .serviceNameCustom ==
+                                              null
+                                          ? CommonWidgets.shimmerView(
+                                              height: 20.px)
+                                          : Text(
+                                              controller
+                                                      .getServicesResult[index]
+                                                      .serviceNameCustom ??
+                                                  '',
+                                              maxLines: 2,
+                                              textAlign: TextAlign.center,
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(
+                                                    fontSize: 14.px,
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                  ),
+                                            ),
+                                    ],
+                                  ),
+                                ),
                               ),
                             ),
-                          ),
-                        ),
-                      );
-                    }),
+                          );
+                        }),
+                      ),
+                    ),
+                  )
+                : Center(
+                    child: SingleChildScrollView(
+                      child: Wrap(
+                        children: List.generate(9, (index) {
+                          return SizedBox(
+                            width: MediaQuery.of(context).size.width / 3.3,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 4.px, vertical: 4.px),
+                              child: InkWell(
+                                onTap: () =>
+                                    controller.clickOnCard(index: index),
+                                borderRadius: BorderRadius.circular(8.px),
+                                child: Container(
+                                  height: 100.px,
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 4.px, vertical: 14.px),
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.px),
+                                    color: Theme.of(context)
+                                        .scaffoldBackgroundColor,
+                                    /*border: Border.all(
+                                width: .4.px,
+                                color: Theme.of(context).colorScheme.surface,
+                              ),*/
+                                  ),
+                                  child: CommonWidgets.shimmerView(),
+                                ),
+                              ),
+                            ),
+                          );
+                        }),
+                      ),
+                    ),
                   ),
-                ),
-              ),
             if (controller.getCardTransactionsResultData.isNotEmpty)
               SizedBox(height: 24.px),
             if (controller.getCardTransactionsResultData.isNotEmpty)

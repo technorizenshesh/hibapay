@@ -24,6 +24,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class HomeController extends GetxController {
   final count = 0.obs;
   final cardIndex = 0.obs;
+  final cardIndex1 = 0.obs;
   final inAsyncCall = false.obs;
 
   //final isLock = false.obs;
@@ -41,18 +42,36 @@ class HomeController extends GetxController {
   Map<String, dynamic> bodyParams = {};
 
   List<GetCardTransactionsResultData> getCardTransactionsResultData = [];
-  List<GetServicesResult> getServicesResult = [];
   List<ListVirtualCardsResult> listVirtualCardsResult = [];
-
   List<GetBannersResult> getBannersResult = [];
+  List<GetServicesResult> getServicesResult = [];
 
   @override
   Future<void> onInit() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
+    /* String? jsonDataForBanners = sp.getString(ApiKeyConstants.getBannersResult);
+    if (jsonDataForBanners != null) {
+      Map<String, dynamic> jsonMap = jsonDecode(jsonDataForBanners);
+      GetBannersModel getBannersModel = GetBannersModel.fromJson(jsonMap);
+      if (getBannersModel.result != null &&
+          getBannersModel.result!.isNotEmpty) {
+        getBannersResult = getBannersModel.result!;
+        increment();
+      }
+    }
+    String? jsonDataForServices =
+        sp.getString(ApiKeyConstants.getServicesResult);
+    if (jsonDataForServices != null) {
+      Map<String, dynamic> jsonMap = jsonDecode(jsonDataForServices);
+      GetServicesModel getServicesModel = GetServicesModel.fromJson(jsonMap);
+      if (getServicesModel.result != null &&
+          getServicesModel.result!.isNotEmpty) {
+        getServicesResult = getServicesModel.result!;
+        increment();
+      }
+    }*/
     authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
     virtualCardId.value = sp.getString(ApiKeyConstants.virtualCardId) ?? '';
-    //isLock.value = sp.getBool(StringConstants.isLock) ?? true;
-    //isLockPin.value = sp.getString(StringConstants.isLockPin) ?? '';
     super.onInit();
     startListener();
     inAsyncCall.value = true;
@@ -81,7 +100,6 @@ class HomeController extends GetxController {
   void increment() => count.value++;
 
   onInitWorking() async {
-    print('result?.appPin::::::::::::::::::::::::::::::${result!.appPin}');
     if (result != null &&
         result!.appPin.toString() != "null" &&
         result!.appPin!.isNotEmpty) {
@@ -98,10 +116,10 @@ class HomeController extends GetxController {
       showBottomSheetLock();
     }
     await getProfileApi();
-    await getCardHolderApi();
-    await listVirtualCardsApi();
     await getBannersApi();
     await getServicesApi();
+    await getCardHolderApi();
+    await listVirtualCardsApi();
   }
 
   getProfileApi() async {
@@ -128,6 +146,13 @@ class HomeController extends GetxController {
         getBannersModel.result != null &&
         getBannersModel.result!.isNotEmpty) {
       getBannersResult = getBannersModel.result!;
+      /*SharedPreferences prefs = await SharedPreferences.getInstance();
+      GetBannersModel getBannersResultList =
+          GetBannersModel(result: getBannersModel.result!);
+      String getBannersResultJsonData =
+          jsonEncode(getBannersResultList.toJson());
+      await prefs.setString(
+          ApiKeyConstants.getBannersResult, getBannersResultJsonData);*/
       increment();
     }
   }
@@ -142,6 +167,13 @@ class HomeController extends GetxController {
         getServicesModel.result != null &&
         getServicesModel.result!.isNotEmpty) {
       getServicesResult = getServicesModel.result!;
+      /* SharedPreferences prefs = await SharedPreferences.getInstance();
+      GetServicesModel getServicesModelList =
+          GetServicesModel(result: getServicesModel.result!);
+      String getServicesResultJsonData =
+          jsonEncode(getServicesModelList.toJson());
+      await prefs.setString(
+          ApiKeyConstants.getServicesResult, getServicesResultJsonData);*/
       increment();
     }
   }
@@ -565,7 +597,6 @@ class HomeController extends GetxController {
   }
 
   clickOnSubmitButton() async {
-    print('');
     if (dateOfBirthController.text.trim().isNotEmpty) {
       if (dateOfBirthController.text == result?.dob) {
         dateOfBirthController.clear();

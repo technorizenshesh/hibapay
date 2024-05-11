@@ -6,6 +6,8 @@ final selectedValue = 0.obs;
 final isValue = false.obs;
 // String appCurrency = "NGN";
 Result? result;
+// List<GetServicesResult> getServicesResult = [];
+// List<GetBannersResult> getBannersResult = [];
 
 /*
 Result? result;

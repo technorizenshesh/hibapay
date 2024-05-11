@@ -35,6 +35,9 @@ class PaySummaryController extends GetxController {
     BillPayModel? billPayModel =
         await ApiMethods.uFitPayBillPay(bodyParams: bodyParams);
     if (billPayModel != null &&
+        billPayModel.status != null &&
+        billPayModel.status!.isNotEmpty &&
+        billPayModel.status != '0' &&
         billPayModel.result != null &&
         billPayModel.result!.data != null) {
       Get.back();

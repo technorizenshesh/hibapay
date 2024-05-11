@@ -400,13 +400,11 @@ class WalletView extends GetView<WalletController> {
                                 ),
                                 subtitle: Text(
                                   controller.getWalletTransactionResult[index]
-                                          .walTraBuyDataReference ??
-                                      controller
-                                          .getWalletTransactionResult[index]
                                           .walTraDescription ??
                                       controller
                                           .getWalletTransactionResult[index]
-                                          .walTraServiceType ??
+                                          .walTraServiceType ?? /*controller.getWalletTransactionResult[index]
+                                          .walTraBuyDataReference ??*/
                                       '',
                                   style: Theme.of(context)
                                       .textTheme
@@ -415,10 +413,8 @@ class WalletView extends GetView<WalletController> {
                                 ),
                                 title: Text(
                                   controller.getWalletTransactionResult[index]
-                                          .walTraBuyPostAccountNumber ??
-                                      controller
-                                          .getWalletTransactionResult[index]
-                                          .walTraMessage ??
+                                          .walTraMessage ?? /*controller.getWalletTransactionResult[index]
+                                          .walTraBuyPostAccountNumber ??*/
                                       '',
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,

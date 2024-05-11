@@ -13,27 +13,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 class NotificationController extends GetxController {
   final count = 0.obs;
 
-  List listOfTra = [
-    {
-      'title': 'Rewards',
-      'sub_title': 'Loyal user rewards!😘',
-      'time': '5m ago',
-      'icon': 'assets/icons/ic_withdraw.svg'
-    },
-    {
-      'title': 'Money Transfer',
-      'sub_title': 'You have successfully sent money to Maria of...',
-      'time': '25m ago',
-      'icon': 'assets/icons/ic_deposit.svg'
-    },
-    {
-      'title': 'Payment Notification',
-      'sub_title': 'Successfully paid!🤑',
-      'time': 'Mar 20',
-      'icon': 'assets/icons/ic_withdraw.svg'
-    },
-  ];
-
   final authTokenHiba = ''.obs;
   final inAsyncCall = false.obs;
 
@@ -68,101 +47,100 @@ class NotificationController extends GetxController {
         width: double.infinity,
         child: Padding(
           padding: EdgeInsets.all(16.px),
-          child: ListView(
-            physics: const AlwaysScrollableScrollPhysics(),
-            children: [
-              Text(
-                StringConstants.detail,
-                style: Theme.of(Get.context!).textTheme.displayMedium?.copyWith(
-                      fontSize: 20.px,
-                      color: Theme.of(Get.context!).primaryColor,
-                    ),
-              ),
-              SizedBox(height: 14.px),
-              if (getWalletTransactionResult[index].walTraMessage != null &&
-                  getWalletTransactionResult[index].walTraMessage!.isNotEmpty)
-                listTileView(
-                    title: StringConstants.message,
-                    trailing:
-                        getWalletTransactionResult[index].walTraMessage ?? ''),
-              if (getWalletTransactionResult[index].walTraDescription != null &&
-                  getWalletTransactionResult[index]
-                      .walTraDescription!
-                      .isNotEmpty)
-                listTileView(
-                    title: StringConstants.description,
-                    trailing:
-                        getWalletTransactionResult[index].walTraDescription ??
-                            ''),
-              if (getWalletTransactionResult[index].walTraCustomerName !=
-                      null &&
-                  getWalletTransactionResult[index]
-                      .walTraCustomerName!
-                      .isNotEmpty)
-                listTileView(
-                    title: StringConstants.customerName,
-                    trailing:
-                        getWalletTransactionResult[index].walTraCustomerName ??
-                            ''),
-              if (getWalletTransactionResult[index].walTraTransactionType !=
-                      null &&
-                  getWalletTransactionResult[index]
-                      .walTraTransactionType!
-                      .isNotEmpty)
-                listTileView(
-                    title: StringConstants.transactionType,
-                    trailing: getWalletTransactionResult[index]
-                            .walTraTransactionType ??
-                        ''),
-              if (getWalletTransactionResult[index].walTraServiceType != null &&
-                  getWalletTransactionResult[index]
-                      .walTraServiceType!
-                      .isNotEmpty)
-                listTileView(
-                    title: StringConstants.serviceType,
-                    trailing:
-                        getWalletTransactionResult[index].walTraServiceType ??
-                            ''),
-              if (getWalletTransactionResult[index].walTraTransactionDate !=
-                      null &&
-                  getWalletTransactionResult[index]
-                      .walTraTransactionDate!
-                      .isNotEmpty)
-                listTileView(
-                    title: StringConstants.transactionDate,
-                    trailing: getWalletTransactionResult[index]
-                            .walTraTransactionDate ??
-                        ''),
-              if (getWalletTransactionResult[index].walTraCurrency != null &&
-                  getWalletTransactionResult[index].walTraCurrency!.isNotEmpty)
-                listTileView(
-                    title: StringConstants.currency,
-                    trailing:
-                        getWalletTransactionResult[index].walTraCurrency ?? ''),
-              if (getWalletTransactionResult[index].walTraTransactionValue !=
-                      null &&
-                  getWalletTransactionResult[index]
-                      .walTraTransactionValue!
-                      .isNotEmpty)
-                listTileView(
-                    curValue: true,
-                    title: StringConstants.transactionValue,
-                    trailing: getWalletTransactionResult[index]
-                            .walTraTransactionValue ??
-                        ''),
-              /*  if (getWalletTransactionResult[index].walTraTransactionValue !=
-                      null &&
-                  getWalletTransactionResult[index]
-                      .walTraTransactionValue!
-                      .isNotEmpty)
-                listTileView(
-                    curValue: true,
-                    title: StringConstants.transactionValue,
-                    trailing: getWalletTransactionResult[index]
-                            .walTraTransactionValue ??
-                        ''),*/
-              SizedBox(height: 14.px),
-            ],
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  StringConstants.detail,
+                  style:
+                      Theme.of(Get.context!).textTheme.displayMedium?.copyWith(
+                            fontSize: 20.px,
+                            color: Theme.of(Get.context!).primaryColor,
+                          ),
+                ),
+                SizedBox(height: 14.px),
+                if (getWalletTransactionResult[index].walTraMessage != null &&
+                    getWalletTransactionResult[index].walTraMessage!.isNotEmpty)
+                  listTileView(
+                      title: StringConstants.message,
+                      trailing:
+                          getWalletTransactionResult[index].walTraMessage ??
+                              ''),
+                if (getWalletTransactionResult[index].walTraDescription !=
+                        null &&
+                    getWalletTransactionResult[index]
+                        .walTraDescription!
+                        .isNotEmpty)
+                  listTileView(
+                      title: StringConstants.description,
+                      trailing:
+                          getWalletTransactionResult[index].walTraDescription ??
+                              ''),
+                if (getWalletTransactionResult[index].walTraCustomerName !=
+                        null &&
+                    getWalletTransactionResult[index]
+                        .walTraCustomerName!
+                        .isNotEmpty)
+                  listTileView(
+                      title: StringConstants.customerName,
+                      trailing: getWalletTransactionResult[index]
+                              .walTraCustomerName ??
+                          ''),
+                if (getWalletTransactionResult[index].walTraTransactionType !=
+                        null &&
+                    getWalletTransactionResult[index]
+                        .walTraTransactionType!
+                        .isNotEmpty)
+                  listTileView(
+                      title: StringConstants.transactionType,
+                      trailing: getWalletTransactionResult[index]
+                              .walTraTransactionType ??
+                          ''),
+                if (getWalletTransactionResult[index].walTraServiceType !=
+                        null &&
+                    getWalletTransactionResult[index]
+                        .walTraServiceType!
+                        .isNotEmpty)
+                  listTileView(
+                      title: StringConstants.serviceType,
+                      trailing:
+                          getWalletTransactionResult[index].walTraServiceType ??
+                              ''),
+                if (getWalletTransactionResult[index].walTraTransactionDate !=
+                        null &&
+                    getWalletTransactionResult[index]
+                        .walTraTransactionDate!
+                        .isNotEmpty)
+                  listTileView(
+                      title: StringConstants.transactionDate,
+                      trailing: getWalletTransactionResult[index]
+                              .walTraTransactionDate ??
+                          ''),
+                if (getWalletTransactionResult[index].walTraCurrency != null &&
+                    getWalletTransactionResult[index]
+                        .walTraCurrency!
+                        .isNotEmpty)
+                  listTileView(
+                      title: StringConstants.currency,
+                      trailing:
+                          getWalletTransactionResult[index].walTraCurrency ??
+                              ''),
+                if (getWalletTransactionResult[index].walTraTransactionValue !=
+                        null &&
+                    getWalletTransactionResult[index]
+                        .walTraTransactionValue!
+                        .isNotEmpty)
+                  listTileView(
+                      curValue: true,
+                      title: StringConstants.transactionValue,
+                      trailing: getWalletTransactionResult[index]
+                              .walTraTransactionValue ??
+                          ''),
+                SizedBox(height: 14.px),
+              ],
+            ),
           ),
         ),
       ),
@@ -171,29 +149,45 @@ class NotificationController extends GetxController {
 
   Widget listTileView(
       {required String trailing, required String title, bool? curValue}) {
-    return ListTile(
-      contentPadding: EdgeInsets.zero,
-      title: Text(
-        title,
-        style: Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
-            fontSize: 14.px, color: Theme.of(Get.context!).primaryColor),
-      ),
-      trailing: Row(
-        mainAxisSize: MainAxisSize.min,
+    return Padding(
+      padding: EdgeInsets.symmetric(vertical: 14.px),
+      child: Row(
         children: [
-          if (curValue ?? false)
-            CommonMethods.appIcons(
-                height: 14.px,
-                width: 14.px,
-                assetName: IconConstants.icCur,
-                color: Theme.of(Get.context!).textTheme.titleMedium?.color),
-          Text(
-            trailing,
-            style: Theme.of(Get.context!)
-                .textTheme
-                .titleMedium
-                ?.copyWith(fontWeight: FontWeight.w600),
+          Expanded(
+            child: Text(
+              title,
+              maxLines: 2,
+              textAlign: TextAlign.start,
+              style: Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
+                  fontSize: 14.px, color: Theme.of(Get.context!).primaryColor),
+            ),
           ),
+          Expanded(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (curValue ?? false)
+                  CommonMethods.appIcons(
+                      height: 14.px,
+                      width: 14.px,
+                      assetName: IconConstants.icCur,
+                      color:
+                          Theme.of(Get.context!).textTheme.titleMedium?.color),
+                Flexible(
+                  child: Text(
+                    trailing,
+                    maxLines: 2,
+                    textAlign: TextAlign.right,
+                    style: Theme.of(Get.context!)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontWeight: FontWeight.w600),
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );

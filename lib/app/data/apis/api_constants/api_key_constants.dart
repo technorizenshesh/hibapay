@@ -37,6 +37,8 @@ class ApiKeyConstants {
   static const String authTokenHiba = 'auth_token_hiba';
   static const String appPin = 'app_pin';
   static const String result = 'result';
+  static const String getBannersResult = 'getBannersResult';
+  static const String getServicesResult = 'getServicesResult';
   static const String termConditionsResult = 'termConditionsResult';
   static const String giftId = 'gift_id';
   static const String vendorId = 'vendor_id';

@@ -39,20 +39,14 @@ class LoginController extends GetxController {
   final inAsyncCall = false.obs;
   final selectedTab = 0.obs;
 
-  List<GetServicesResult> getServicesResult = [];
-  List<GetBannersResult> getBannersResult = [];
-
-
   @override
   void onInit() {
     super.onInit();
     startListener();
     if (Platform.isIOS) {
       deviceType.value = ApiKeyConstants.ios;
-      print('is a IOS');
     } else if (Platform.isAndroid) {
       deviceType.value = ApiKeyConstants.android;
-      print('is a Andriod');
     } else {}
   }
 
@@ -76,66 +70,10 @@ class LoginController extends GetxController {
     Get.toNamed(Routes.SIGN_UP);
   }
 
-/*  clickOnLoginButton1() async {
-    if (passwordController.text.trim().isNotEmpty &&
-        phoneController.text.trim().isNotEmpty &&
-        countryCode.value.trim().isNotEmpty) {
-      inAsyncCall.value = true;
-      String input = phoneController.text;
-      if (isNumeric(input)) {
-        type.value = ApiKeyConstants.mobile;
-      } else if (isEmailMethod(input)) {
-        type.value = ApiKeyConstants.email;
-      } else {
-        Get.snackbar(
-            margin: EdgeInsets.all(20.px),
-            'Message',
-            'The entered string is neither a number nor an email.');
-      }
-      queryParameters = {
-        // ApiKeyConstants.mobile: '${countryCode.value}-${phoneController.text}',
-        ApiKeyConstants.mobile: phoneController.text,
-        ApiKeyConstants.password: passwordController.text,
-        ApiKeyConstants.type: type.value,
-      };
-      UserModel? userModel = await ApiMethods.login(
-        queryParameters: queryParameters,
-      );
-      if (userModel != null &&
-          userModel.result != null &&
-          userModel.result!.otp != null &&
-          userModel.result!.otp!.isNotEmpty) {
-        if (userModel.result != null) {
-          Get.toNamed(Routes.CHECK_YOUR_MAIL, parameters: {
-            ApiKeyConstants.otp: userModel.result!.otp ?? '',
-            ApiKeyConstants.mobile:
-                '${countryCode.value}-${phoneController.text}'
-          });
-        }
-      } else {
-        if (userModel != null &&
-            userModel.message != null &&
-            userModel.message!.isNotEmpty) {
-          Get.snackbar(
-              margin: EdgeInsets.all(20.px),
-              'Error',
-              userModel.message.toString());
-        } else {
-          Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
-        }
-      }
-      inAsyncCall.value = false;
-    } else {
-      Get.snackbar(
-          margin: EdgeInsets.all(20.px), 'Error', 'All field required');
-    }
-  }*/
-
   clickOnLoginButton() async {
     FirebaseMessaging firebaseMessaging =
         FirebaseMessaging.instance; // Change here
     firebaseMessaging.getToken().then((token) {
-      print('token :::::::::::::::::::${token}');
       deviceToken.value = token.toString();
     });
     if (selectedTab.value != 0) {
@@ -252,34 +190,12 @@ class LoginController extends GetxController {
                 margin: EdgeInsets.all(20.px), 'Error', 'Check connection');
           }
         }
-        /* if (userModel != null &&
-            userModel.result != null &&
-            userModel.result!.otp != null &&
-            userModel.result!.otp!.isNotEmpty) {
-          if (userModel.result != null) {
-            Get.toNamed(Routes.CHECK_YOUR_MAIL, parameters: {
-              ApiKeyConstants.otp: userModel.result!.otp ?? '',
-              ApiKeyConstants.mobile:
-                  '${countryCode.value}-${phoneController.text}'
-            });
-          }
-        }*/
         inAsyncCall.value = false;
       } else {
         Get.snackbar(
             margin: EdgeInsets.all(20.px), 'Error', 'All field required');
       }
     }
-  }
-
-  bool isNumeric(String s) {
-    return double.tryParse(s) != null;
-  }
-
-  bool isEmailMethod(String s) {
-    String pattern = r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$';
-    RegExp regex = RegExp(pattern);
-    return regex.hasMatch(s);
   }
 
   clickOnResetPassword() {
@@ -319,8 +235,8 @@ class LoginController extends GetxController {
   }
 
   onInitWorking() async {
-    await getBannersApi();
-    await getServicesApi();
+    //await getBannersApi();
+    //await getServicesApi();
   }
 
   getBannersApi() async {
@@ -333,7 +249,13 @@ class LoginController extends GetxController {
     if (getBannersModel != null &&
         getBannersModel.result != null &&
         getBannersModel.result!.isNotEmpty) {
-      getBannersResult = getBannersModel.result!;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      GetBannersModel getBannersResultList =
+          GetBannersModel(result: getBannersModel.result!);
+      String getBannersResultJsonData =
+          jsonEncode(getBannersResultList.toJson());
+      await prefs.setString(
+          ApiKeyConstants.getBannersResult, getBannersResultJsonData);
       increment();
     }
   }
@@ -347,7 +269,13 @@ class LoginController extends GetxController {
     if (getServicesModel != null &&
         getServicesModel.result != null &&
         getServicesModel.result!.isNotEmpty) {
-      getServicesResult = getServicesModel.result!;
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      GetServicesModel getServicesModelList =
+          GetServicesModel(result: getServicesModel.result!);
+      String getServicesResultJsonData =
+          jsonEncode(getServicesModelList.toJson());
+      await prefs.setString(
+          ApiKeyConstants.getServicesResult, getServicesResultJsonData);
       increment();
     }
   }

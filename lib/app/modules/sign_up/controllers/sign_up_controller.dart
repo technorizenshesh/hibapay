@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
@@ -47,6 +48,7 @@ class SignUpController extends GetxController {
   TextEditingController passwordController = TextEditingController();
 
   Map<String, dynamic> bodyParams = {};
+  Map<String, dynamic> bodyParamsForResend = {};
   DateTime? dateTime;
 
   final inAsyncCall = false.obs;
@@ -54,6 +56,9 @@ class SignUpController extends GetxController {
   final otp = ''.obs;
 
   TextEditingController pin = TextEditingController();
+
+  late Timer timer;
+  final seconds = 0.obs;
 
   @override
   void onInit() {
@@ -68,6 +73,7 @@ class SignUpController extends GetxController {
 
   @override
   void onClose() {
+    timer.cancel();
     super.onClose();
   }
 
@@ -98,8 +104,8 @@ class SignUpController extends GetxController {
         countryCode.value.trim().isNotEmpty &&
         dateOfBirthController.text.trim().isNotEmpty &&
         passwordController.text.trim().isNotEmpty) {
-      bodyParams.clear();
-      bodyParams = {
+      bodyParamsForResend.clear();
+      bodyParamsForResend = {
         ApiKeyConstants.fullName: fullNameController.text,
         ApiKeyConstants.mobile: phoneController.text,
         ApiKeyConstants.email: emailController.text,
@@ -115,11 +121,12 @@ class SignUpController extends GetxController {
       };
       inAsyncCall.value = true;
       UserModel? userModel =
-          await ApiMethods.signUpOtpRequest(bodyParams: bodyParams);
+          await ApiMethods.signUpOtpRequest(bodyParams: bodyParamsForResend);
       if (userModel != null &&
           userModel.status != null &&
           userModel.status == '1') {
         inAsyncCall.value = false;
+        startTimer();
         await checkVerification();
       } else {
         if (userModel != null &&
@@ -185,10 +192,11 @@ class SignUpController extends GetxController {
   }
 
   checkVerification() {
-    return showModalBottomSheet(
-      context: Get.context!,
+    Get.bottomSheet(
       backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
-      builder: (BuildContext context) {
+      isDismissible: false,
+      Obx(() {
+        count.value;
         return SizedBox(
           width: double.infinity,
           child: Padding(
@@ -196,34 +204,70 @@ class SignUpController extends GetxController {
             child: ListView(
               physics: const AlwaysScrollableScrollPhysics(),
               children: [
-                SizedBox(height: 20.px),
-                Text(
-                  StringConstants.verification,
-                  textAlign: TextAlign.center,
-                  style:
-                      Theme.of(Get.context!).textTheme.displayMedium?.copyWith(
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const SizedBox(),
+                    Text(
+                      StringConstants.verification,
+                      textAlign: TextAlign.center,
+                      style: Theme.of(Get.context!)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
                             fontSize: 20.px,
                             color: Theme.of(Get.context!).primaryColor,
                           ),
+                    ),
+                    IconButton(
+                      onPressed: () => clickOnCrossIcon(),
+                      icon: Icon(
+                        Icons.close,
+                        color: Theme.of(Get.context!).primaryColor,
+                      ),
+                    ),
+                  ],
                 ),
-                SizedBox(height: 40.px),
+                SizedBox(height: 20.px),
+                Text(
+                  'Please enter the OTP you received in your email to verify; you can find it in your inbox or spam folder.',
+                  textAlign: TextAlign.start,
+                  style: Theme.of(Get.context!).textTheme.titleMedium?.copyWith(
+                      fontSize: 12.px,
+                      color: Theme.of(Get.context!).primaryColor),
+                ),
+                SizedBox(height: 20.px),
                 CommonWidgets.commonOtpView(
                   controller: pin,
                   height: 60.px,
                   width: 60.px,
                 ),
                 SizedBox(height: 40.px),
-                TextButton(
-                  onPressed: () => clickOnSubmit(),
+                CommonWidgets.commonElevatedButton(
+                  onPressed: () => clickOnVerify(),
                   child: Text(
-                    StringConstants.submit,
+                    StringConstants.verify,
+                    style: Theme.of(Get.context!)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                ),
+                SizedBox(height: 20.px),
+                TextButton(
+                  onPressed: () =>
+                      seconds.value == 0 ? clickOnResendOtp() : null,
+                  child: Text(
+                    seconds.value == 0
+                        ? StringConstants.resendOtp
+                        : 'Please wait for ${seconds.value} seconds before resending the code',
                     textAlign: TextAlign.center,
                     style: Theme.of(Get.context!)
                         .textTheme
                         .titleMedium
                         ?.copyWith(
                             fontSize: 16.px,
-                            color: Theme.of(context).primaryColor),
+                            color: Theme.of(Get.context!).primaryColor),
                   ),
                 ),
                 SizedBox(height: 40.px),
@@ -231,11 +275,28 @@ class SignUpController extends GetxController {
             ),
           ),
         );
-      },
+      }),
     );
   }
 
-  clickOnSubmit() async {
+  clickOnCrossIcon() {
+    Get.back();
+  }
+
+  void startTimer() {
+    seconds.value = 60;
+    timer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (seconds.value > 0) {
+        seconds.value--;
+        increment();
+      } else {
+        timer.cancel();
+        increment();
+      }
+    });
+  }
+
+  clickOnVerify() async {
     if (pin.text.trim().isNotEmpty) {
       bodyParams.clear();
       bodyParams = {
@@ -256,10 +317,11 @@ class SignUpController extends GetxController {
       inAsyncCall.value = true;
       UserModel? userModel =
           await ApiMethods.signUpOtpRequestVerify(bodyParams: bodyParams);
-      Get.back();
       if (userModel != null &&
           userModel.status != null &&
           userModel.status == '1') {
+        pin.text = '';
+        increment();
         await signUp();
       } else {
         if (userModel != null &&
@@ -308,6 +370,29 @@ class SignUpController extends GetxController {
           'Massage',
           'Server down',
         );
+      }
+    }
+  }
+
+  clickOnResendOtp() async {
+    pin.text = '';
+    startTimer();
+    increment();
+    UserModel? userModel =
+        await ApiMethods.signUpOtpRequest(bodyParams: bodyParamsForResend);
+    if (userModel != null &&
+        userModel.status != null &&
+        userModel.status == '1') {
+      inAsyncCall.value = false;
+      Get.snackbar(margin: EdgeInsets.all(20.px), 'Massage', 'Check you mail');
+    } else {
+      if (userModel != null &&
+          userModel.message != null &&
+          userModel.message!.isNotEmpty) {
+        Get.snackbar(
+            margin: EdgeInsets.all(20.px),
+            'Massage',
+            userModel.message.toString());
       }
     }
   }

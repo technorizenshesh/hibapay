@@ -65,13 +65,11 @@ class SplashController extends GetxController {
       Logger().i(authTokenHiba.value.toString);
       result = Result.fromJson(
           jsonDecode(sp.getString(ApiKeyConstants.result) ?? ''));
-      // await getProfileApi();
       if (result != null &&
               result?.udocSelfyPhotoStatus != null &&
               result!.udocSelfyPhotoStatus!.isNotEmpty ||
           result?.virtualAccountDataAccountNumber != null &&
               result!.virtualAccountDataAccountNumber!.isNotEmpty) {
-        // await onInitWorking();
         Get.offAllNamed(Routes.NAV_BAR);
       } else {
         if (result != null && result!.id != null && result!.id!.isNotEmpty) {

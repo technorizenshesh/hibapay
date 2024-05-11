@@ -22,6 +22,7 @@ class StringConstants {
   static const String lastName = 'Last Name';
   static const String selectedColor = 'Selected color';
   static const String name = 'Name';
+  static const String resendOtp = 'Resend otp';
   static const String view = 'View';
   static const String colorText = 'Color';
   static const String pickColor = 'Pick color';
@@ -39,7 +40,8 @@ class StringConstants {
   static const String email = 'Email';
   static const String notification = 'Notification';
   static const String pleaseEnterEmail = 'Please enter email';
-  static const String pleaseEnterCustomerReferralId = 'Please enter customer referral ID';
+  static const String pleaseEnterCustomerReferralId =
+      'Please enter customer referral ID';
   static const String streetAddress = 'Street address';
   static const String pleaseEnterStreetAddress = 'Please enter street address';
   static const String city = 'City';
@@ -61,6 +63,7 @@ class StringConstants {
   static const String pleaseEnterYourHibaPayPassword =
       'Please enter your HibaPay password';
   static const String submit = 'Submit';
+  static const String verify = 'Verify';
   static const String resendCode = 'Resend Code';
   static const String passwordReset = 'Password Reset';
   static const String createNewPassword = 'Create New Password';
