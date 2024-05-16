@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+// import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 class ScanQrCodeController extends GetxController {
   final count = 0.obs;
 
-  Barcode? result;
-  QRViewController? qrController;
+  // Barcode? result;
+  // QRViewController? qrController;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
   final flashValue = false.obs;
   final flipValue = false.obs;
   final data = 0.obs;
-  CameraFacing? cameraFacing;
+  // CameraFacing? cameraFacing;
 
   TextEditingController amountController = TextEditingController();
   TextEditingController addNotesController = TextEditingController();
@@ -29,7 +29,7 @@ class ScanQrCodeController extends GetxController {
 
   @override
   void onClose() {
-    qrController?.dispose();
+    // qrController?.dispose();
     super.onClose();
   }
 

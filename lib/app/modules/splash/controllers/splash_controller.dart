@@ -8,7 +8,7 @@ import 'package:HibaPay/common/globle.dart';
 import 'package:HibaPay/main.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
+// import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../routes/app_pages.dart';
@@ -62,7 +62,7 @@ class SplashController extends GetxController {
     if (sp.getString(ApiKeyConstants.authTokenHiba) != null &&
         sp.getString(ApiKeyConstants.authTokenHiba)!.isNotEmpty) {
       authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
-      Logger().i(authTokenHiba.value.toString);
+      // Logger().i(authTokenHiba.value.toString);
       result = Result.fromJson(
           jsonDecode(sp.getString(ApiKeyConstants.result) ?? ''));
       if (result != null &&

@@ -63,30 +63,44 @@ class GiftUserController extends GetxController {
   clickOnSendGiftButton() async {
     if (receiverIdController.text.trim().isNotEmpty &&
         giftingAmountController.text.trim().isNotEmpty) {
-      inAsyncCall.value = true;
-      Map<String, dynamic> bodyParams = {
-        ApiKeyConstants.authTokenHiba: authTokenHiba.value,
-        ApiKeyConstants.amount: giftingAmountControllerValue.value,
-        ApiKeyConstants.receiverId: receiverIdController.text,
-        ApiKeyConstants.giftsDescription:
-            '${result?.firstName ?? ''} ${result?.lastName ?? ''}', //desController.text,
-      };
-      UserModel? userModel = await ApiMethods.sendGift(bodyParams: bodyParams);
-      if (userModel != null) {
-        if (userModel.message != null && userModel.message!.isNotEmpty) {
-          if (userModel.message == 'Success') {
-            Get.back();
-            Get.snackbar(
-                margin: EdgeInsets.all(20.px), 'Send', userModel.message ?? '');
-          } else {
-            Get.snackbar(
-                margin: EdgeInsets.all(20.px),
-                'Error',
-                userModel.message ?? '');
+      if (double.parse(giftingAmountController.text.toString()) > 50.0) {
+        if (double.parse(giftingAmountController.text.toString()) < 30000.0) {
+          inAsyncCall.value = true;
+          Map<String, dynamic> bodyParams = {
+            ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+            ApiKeyConstants.amount: giftingAmountControllerValue.value,
+            ApiKeyConstants.receiverId: receiverIdController.text,
+            ApiKeyConstants.giftsDescription:
+                '${result?.firstName ?? ''} ${result?.lastName ?? ''}',
+            //desController.text,
+          };
+          UserModel? userModel =
+              await ApiMethods.sendGift(bodyParams: bodyParams);
+          if (userModel != null) {
+            if (userModel.message != null && userModel.message!.isNotEmpty) {
+              if (userModel.message == 'Success') {
+                Get.back();
+                Get.snackbar(
+                    margin: EdgeInsets.all(20.px),
+                    'Send',
+                    userModel.message ?? '');
+              } else {
+                Get.snackbar(
+                    margin: EdgeInsets.all(20.px),
+                    'Error',
+                    userModel.message ?? '');
+              }
+            }
           }
+        } else {
+          Get.snackbar(
+              margin: EdgeInsets.all(20.px),
+              'Error',
+              'Maximum gift input is 30,000');
         }
       } else {
-        Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
+        Get.snackbar(
+            margin: EdgeInsets.all(20.px), 'Error', 'Minimum gift input is 50');
       }
       inAsyncCall.value = false;
     } else {

@@ -59,6 +59,9 @@ class EducationController extends GetxController {
   // final amountControllerValue = ''.obs;
   final commission = ''.obs;
 
+  final commissionType = ''.obs;
+  final commissionValue = ''.obs;
+
   Map<String, dynamic> bodyParams = {};
   Map<String, String> bodyParams1 = {};
 
@@ -69,6 +72,9 @@ class EducationController extends GetxController {
     title = parameters[StringConstants.title] ?? '';
     serviceId.value = parameters[ApiKeyConstants.serviceId] ?? '';
     commission.value = parameters[ApiKeyConstants.commission] ?? '';
+
+    commission.value = parameters[ApiKeyConstants.commission] ?? '';
+    commissionType.value = parameters[ApiKeyConstants.commissionType] ?? '';
     super.onInit();
     startListener();
     inAsyncCall.value = true;
@@ -122,14 +128,24 @@ class EducationController extends GetxController {
           getPriceModel.result!.data != null) {
         if (getPriceModel.result!.data!.price != null &&
             getPriceModel.result!.data!.fee != null) {
+          if (commissionType.value.isNotEmpty) {
+            commissionValue.value =
+                ((double.parse(getPriceModel.result!.data!.price.toString()) *
+                            double.parse(commission.value.toString())) /
+                        100)
+                    .toString();
+            increment();
+          }
           bodyParams.clear();
           bodyParams = {
             ApiKeyConstants.accountNumber: mobileNumberController.text,
-            ApiKeyConstants.amount: (double.parse(
-                        getPriceModel.result!.data!.price.toString()) +
-                    double.parse(getPriceModel.result!.data!.fee.toString()) +
-                    double.parse(commission.value))
-                .toString(),
+            StringConstants.amount:
+                getPriceModel.result!.data!.price.toString(),
+            // ApiKeyConstants.amount: (double.parse(
+            //             getPriceModel.result!.data!.price.toString()) +
+            //         double.parse(getPriceModel.result!.data!.fee.toString()) +
+            //         double.parse(commission.value))
+            //     .toString(),
             StringConstants.fee: getPriceModel.result!.data!.fee != null &&
                     getPriceModel.result!.data!.fee!.isNotEmpty &&
                     getPriceModel.result!.data!.fee != '0'
@@ -157,17 +173,23 @@ class EducationController extends GetxController {
                 convertToTitleCase(ApiKeyConstants.buyEducation),
             StringConstants.description:
                 "${vendorName.toString()} - ${packageName.toString()}",
-            StringConstants.fee: getPriceModel.result!.data!.fee != null &&
+            StringConstants.fee: (getPriceModel.result!.data!.fee != null &&
                     getPriceModel.result!.data!.fee!.isNotEmpty &&
-                    getPriceModel.result!.data!.fee != '0'
+                    getPriceModel.result!.data!.fee != '0')
                 ? (double.parse(getPriceModel.result!.data!.fee.toString()) +
-                        double.parse(commission.value))
+                        double.parse(commissionType.value != 'PERCENTAGE'
+                            ? commission.value
+                            : commissionValue.value))
                     .toString()
-                : double.parse(commission.value).toString(),
+                : commissionType.value != 'PERCENTAGE'
+                    ? double.parse(commission.value).toString()
+                    : double.parse(commissionValue.value).toString(),
             StringConstants.total: (double.parse(
                         getPriceModel.result!.data!.price.toString()) +
                     double.parse(getPriceModel.result!.data!.fee.toString()) +
-                    double.parse(commission.value))
+                    double.parse(commissionType.value != 'PERCENTAGE'
+                        ? commission.value
+                        : commissionValue.value))
                 .toString(),
           };
           Get.toNamed(Routes.PAY_SUMMARY,

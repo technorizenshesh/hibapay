@@ -60,6 +60,9 @@ class ElectricityController extends GetxController {
   Map<String, String> bodyParams1 = {};
   final commission = ''.obs;
 
+  final commissionType = ''.obs;
+  final commissionValue = ''.obs;
+
   @override
   Future<void> onInit() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
@@ -67,6 +70,8 @@ class ElectricityController extends GetxController {
     title = parameters[StringConstants.title] ?? '';
     serviceId.value = parameters[ApiKeyConstants.serviceId] ?? '';
     commission.value = parameters[ApiKeyConstants.commission] ?? '';
+    commission.value = parameters[ApiKeyConstants.commission] ?? '';
+    commissionType.value = parameters[ApiKeyConstants.commissionType] ?? '';
     super.onInit();
     startListener();
     inAsyncCall.value = true;
@@ -126,18 +131,18 @@ class ElectricityController extends GetxController {
           getPriceModel.result!.data != null) {
         if (getPriceModel.result!.data!.price != null &&
             getPriceModel.result!.data!.fee != null) {
+          if (commissionType.value.isNotEmpty) {
+            commissionValue.value =
+                ((double.parse(getPriceModel.result!.data!.price.toString()) *
+                            double.parse(commission.value.toString())) /
+                        100)
+                    .toString();
+            increment();
+          }
           bodyParams.clear();
           bodyParams = {
             ApiKeyConstants.accountNumber: meterNumberController.text,
-            ApiKeyConstants.amount: (double.parse(amountControllerValue.value) +
-                    double.parse(getPriceModel.result!.data!.fee.toString()) +
-                    double.parse(commission.value))
-                .toString(),
-            // ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
-            // ApiKeyConstants.total: (double.parse(
-            //             getPriceModel.result!.data!.price.toString()) +
-            //         double.parse(getPriceModel.result!.data!.fee.toString()))
-            //     .toString(),
+            ApiKeyConstants.amount: amountControllerValue.value,
             ApiKeyConstants.receivingMobileNo: mobileNumberController.text,
             ApiKeyConstants.serviceType: ApiKeyConstants.buyElectricity,
             ApiKeyConstants.packageId: packageId.value,
@@ -155,16 +160,22 @@ class ElectricityController extends GetxController {
                 convertToTitleCase(ApiKeyConstants.buyElectricity),
             StringConstants.description:
                 "${vendorName.toString()} - ${packageName.toString()}",
-            StringConstants.fee: getPriceModel.result!.data!.fee != null &&
+            StringConstants.fee: (getPriceModel.result!.data!.fee != null &&
                     getPriceModel.result!.data!.fee!.isNotEmpty &&
-                    getPriceModel.result!.data!.fee != '0'
+                    getPriceModel.result!.data!.fee != '0')
                 ? (double.parse(getPriceModel.result!.data!.fee.toString()) +
-                        double.parse(commission.value))
+                        double.parse(commissionType.value != 'PERCENTAGE'
+                            ? commission.value
+                            : commissionValue.value))
                     .toString()
-                : double.parse(commission.value).toString(),
+                : commissionType.value != 'PERCENTAGE'
+                    ? double.parse(commission.value).toString()
+                    : double.parse(commissionValue.value).toString(),
             StringConstants.total: (double.parse(amountControllerValue.value) +
                     double.parse(getPriceModel.result!.data!.fee.toString()) +
-                    double.parse(commission.value))
+                    double.parse(commissionType.value != 'PERCENTAGE'
+                        ? commission.value
+                        : commissionValue.value))
                 .toString(),
           };
           Get.toNamed(Routes.PAY_SUMMARY,

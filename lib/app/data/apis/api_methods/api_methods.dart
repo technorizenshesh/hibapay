@@ -20,6 +20,7 @@ import 'package:HibaPay/app/data/apis/api_models/get_packages_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_price_list_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_price_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_received_gifts_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_referral_description_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_services_hibapay_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_virtual_card_model.dart';
 import 'package:HibaPay/app/data/apis/api_models/get_wallet_transaction_model.dart';
@@ -309,6 +310,22 @@ class ApiMethods {
     if (response != null) {
       userModel = FaqsModel.fromJson(jsonDecode(response.body));
       return userModel;
+    }
+    return null;
+  }
+
+  static Future<GetReferralDescriptionModel?> getReferralDescription({
+    void Function(int)? checkResponse,
+  }) async {
+    GetReferralDescriptionModel? getReferralDescriptionModel;
+    http.Response? response = await MyHttp.getMethod(
+      url: ApiUrlConstants.endPointOfGetReferralDescription,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      getReferralDescriptionModel =
+          GetReferralDescriptionModel.fromJson(jsonDecode(response.body));
+      return getReferralDescriptionModel;
     }
     return null;
   }
@@ -770,6 +787,24 @@ class ApiMethods {
     http.Response? response = await MyHttp.postMethod(
       bodyParams: bodyParams,
       url: ApiUrlConstants.endPointOfListVirtualCards,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      listVirtualCardsModel =
+          ListVirtualCardsModel.fromJson(jsonDecode(response.body));
+      return listVirtualCardsModel;
+    }
+    return null;
+  }
+
+  static Future<ListVirtualCardsModel?> createVirtualAccount({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    ListVirtualCardsModel? listVirtualCardsModel;
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfCreateVirtualAccount,
       checkResponse: checkResponse,
     );
     if (response != null) {

@@ -85,6 +85,7 @@ class StringConstants {
   static const String createCardHolder = 'Create card holder';
   static const String createVirtualCard = 'Create virtual card';
   static const String addVirtualCard = 'Add virtual card';
+  static const String addVirtualAccount = 'Add virtual account';
   static const String instantlyAddVirtualCard =
       'Instantly add virtual card to make managing online payment easy.';
   static const String instantlyCreateVirtualCard =
@@ -291,6 +292,7 @@ class StringConstants {
   static const String internet = "Internet";
   static const String betting = "Betting";
   static const String giftUser = "Gift User";
+  static const String giftRedeem = " Gift Redeem";
   static const String cableTV = "Cable TV";
   static const String paidGas = "Paid Gas";
   static const String water = "Water";

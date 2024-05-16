@@ -18,7 +18,24 @@ class VirtualAccountView extends GetView<VirtualAccountController> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CommonWidgets.appBar(title: StringConstants.virtualAccount),
-      body: Column(
+      floatingActionButton: (result != null &&
+              result?.virtualAccountDataAccountNumber4 != null &&
+              result!.virtualAccountDataAccountNumber4!.isNotEmpty)
+          ? null
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                GestureDetector(
+                  onTap: () => controller.clickOnCreateVirtualAccount(),
+                  child: CommonMethods.appIcons(
+                    width: 84.px,
+                    height: 84.px,
+                    assetName: IconConstants.icAdd,
+                  ),
+                ),
+              ],
+            ),
+      body: ListView(
         children: [
           (result != null &&
                   result?.virtualAccountDataAccountNumber != null &&

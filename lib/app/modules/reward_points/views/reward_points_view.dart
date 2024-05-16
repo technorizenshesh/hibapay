@@ -6,7 +6,8 @@ import 'package:HibaPay/common/common_widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-import 'package:simple_progress_indicators/simple_progress_indicators.dart';
+
+// import 'package:simple_progress_indicators/simple_progress_indicators.dart';
 
 import '../controllers/reward_points_controller.dart';
 
@@ -127,7 +128,7 @@ class RewardPointsView extends GetView<RewardPointsController> {
                     children: [
                       Stack(
                         children: [
-                          AnimatedProgressBar(
+                          /*AnimatedProgressBar(
                             value: .7,
                             duration: const Duration(seconds: 3),
                             gradient: LinearGradient(
@@ -144,7 +145,7 @@ class RewardPointsView extends GetView<RewardPointsController> {
                                 .colorScheme
                                 .surface
                                 .withOpacity(.2.px),
-                          ),
+                          ),*/
                           CommonMethods.appIconsPng(
                               height: 14.px,
                               assetName: ImgConstants.imgProgressBubbles,

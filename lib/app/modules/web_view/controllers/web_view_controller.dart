@@ -1,11 +1,10 @@
 import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+// import 'package:webview_flutter/webview_flutter.dart';
 
 class WebViewPaymentController extends GetxController {
   final count = 0.obs;
-  WebViewController webController = WebViewController();
+  // WebViewController webController = WebViewController();
   final inAsyncCall = false.obs;
   Map<String, String?> parameters = Get.parameters;
   String paymentUrl = '';
@@ -20,7 +19,7 @@ class WebViewPaymentController extends GetxController {
   void onReady() {
     super.onReady();
     inAsyncCall.value = true;
-    webController = WebViewController()
+    /* webController = WebViewController()
       ..setJavaScriptMode(JavaScriptMode.unrestricted)
       ..setBackgroundColor(const Color(0x00000000))
       ..setNavigationDelegate(
@@ -37,7 +36,7 @@ class WebViewPaymentController extends GetxController {
                 ApiKeyConstants.userId: userId,
                 "ApiKeyConstants.bookingId": bookingId
               };
-              /* GetPayexBookingPaymentModel? getPayexBookingPaymentModel =
+              */ /* GetPayexBookingPaymentModel? getPayexBookingPaymentModel =
                   await ApiMethods.getPayexBookingPayment(
                       queryParameters: queryParameters);
               if (getPayexBookingPaymentModel != null &&
@@ -50,7 +49,7 @@ class WebViewPaymentController extends GetxController {
                     Get.offAndToNamed(Routes.CANCEL_BOOKING);
                   }
                 }
-              }*/
+              }*/ /*
             }
           },
           onPageFinished: (String url) {},
@@ -63,7 +62,7 @@ class WebViewPaymentController extends GetxController {
           },
         ),
       )
-      ..loadRequest(Uri.parse(paymentUrl));
+      ..loadRequest(Uri.parse(paymentUrl));*/
     inAsyncCall.value = false;
   }
 

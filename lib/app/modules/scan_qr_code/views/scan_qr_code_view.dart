@@ -1,11 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:qr_code_scanner/qr_code_scanner.dart';
+// import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 
-import '../../../routes/app_pages.dart';
 import '../controllers/scan_qr_code_controller.dart';
 
 class ScanQrCodeView extends GetView<ScanQrCodeController> {
@@ -17,19 +14,19 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
       body: Stack(
         alignment: Alignment.bottomCenter,
         children: <Widget>[
-          _buildQrView(context),
+          //_buildQrView(context),
           SafeArea(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
                 SizedBox(height: 20.px),
                 InkWell(
-                  onTap: () async {
+                  /*onTap: () async {
                     await controller.qrController?.toggleFlash();
                     controller.flashValue.value =
                         (await controller.qrController?.getFlashStatus())!;
                     controller.increment();
-                  },
+                  },*/
                   child: Obx(
                     () => Container(
                       height: 54.px,
@@ -59,7 +56,7 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
     );
   }
 
-  Widget _buildQrView(BuildContext context) {
+  /*Widget _buildQrView(BuildContext context) {
     return QRView(
       key: controller.qrKey,
       onQRViewCreated: (p0) {
@@ -71,7 +68,7 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
             controller.data.value++;
             if (controller.data.value == 1) {
               controller.qrController?.pauseCamera();
-              /*showDialog(
+              */ /*showDialog(
                 context: context,
                 builder: (context) {
                   Uri uri = Uri.parse(controller.result!.code != null
@@ -156,7 +153,7 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
               ).whenComplete(() {
                 controller.data.value = 0;
                 controller.qrController?.resumeCamera();
-              });*/
+              });*/ /*
               Get.toNamed(Routes.PAY_AMOUNT);
               controller.data.value = 0;
               controller.qrController?.resumeCamera();
@@ -180,5 +177,5 @@ class ScanQrCodeView extends GetView<ScanQrCodeController> {
         const SnackBar(content: Text('no Permission')),
       );
     }
-  }
+  }*/
 }

@@ -59,6 +59,7 @@ class ApiKeyConstants {
   static const String cardId = 'card_id';
   static const String serviceId = 'service_id';
   static const String commission = 'commission';
+  static const String commissionType = 'commission_type';
   static const String uDocGovtPhoto = 'udoc_govt_photo';
   static const String uDocSelfyPhoto = 'udoc_selfy_photo';
   static const String cardBrand = 'card_brand';
@@ -90,4 +91,5 @@ class ApiKeyConstants {
   static const String cuqEmail = 'cuq_email';
   static const String cuqMessage = 'cuq_message';
   static const String cuqId = 'cuq_id';
+  static const String bank = 'bank';
 }

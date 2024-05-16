@@ -1,3 +1,4 @@
+import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -32,5 +33,9 @@ class VirtualAccountController extends GetxController {
     );
     Get.snackbar(
         margin: EdgeInsets.all(20.px), 'Massage', 'Copied to your clipboard !');
+  }
+
+  clickOnCreateVirtualAccount() {
+    Get.toNamed(Routes.VIRTUAL_ACCOUNT_ADD);
   }
 }

@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/progress_bar.dart';
-import 'package:fl_chart/fl_chart.dart';
+// import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
@@ -722,7 +722,7 @@ class AccountView extends GetView<AccountController> {
     });
   }
 
-  Widget bottomTitleWidgets(double value, TitleMeta meta) {
+/*  Widget bottomTitleWidgets(double value, TitleMeta meta) {
     const style = TextStyle(
       fontWeight: FontWeight.bold,
       fontSize: 16,
@@ -782,5 +782,5 @@ class AccountView extends GetView<AccountController> {
     }
 
     return Text(text, style: style, textAlign: TextAlign.left);
-  }
+  }*/
 }

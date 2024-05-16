@@ -1,18 +1,24 @@
+import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/bill_pay_model.dart';
+import 'package:HibaPay/app/data/apis/api_models/get_live_transaction_details_model.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PaySummaryController extends GetxController {
   final count = 0.obs;
   Map<String, dynamic> bodyParams = Get.arguments;
   Map<String, String?> parameters = Get.parameters;
   final inAsyncCall = false.obs;
+  final authTokenHiba = ''.obs;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
+    SharedPreferences sp = await SharedPreferences.getInstance();
+    authTokenHiba.value = sp.getString(ApiKeyConstants.authTokenHiba) ?? '';
     super.onInit();
     print('bodyParams::::::::::::::::::${bodyParams}');
     print('parameters::::::::::::::::::${parameters}');
@@ -42,6 +48,12 @@ class PaySummaryController extends GetxController {
         billPayModel.result!.data != null) {
       Get.back();
       Get.back();
+      if (billPayModel.result!.data != null &&
+          billPayModel.result!.data!.reference != null &&
+          billPayModel.result!.data!.reference!.isNotEmpty) {
+        getLiveTransactionDetailsApi(
+            reference: billPayModel.result!.data!.reference ?? '');
+      }
       Get.toNamed(Routes.PAY_SUMMARY_SUCCESS, arguments: parameters);
       /*Get.snackbar(
           margin: EdgeInsets.all(20.px),
@@ -69,6 +81,22 @@ class PaySummaryController extends GetxController {
           Get.snackbar(margin: EdgeInsets.all(20.px), 'Error', 'Server down');
         }
       }
+    }
+    inAsyncCall.value = false;
+  }
+
+  getLiveTransactionDetailsApi({required String reference}) async {
+    inAsyncCall.value = true;
+    Map<String, dynamic> bodyParams = {
+      ApiKeyConstants.authTokenHiba: authTokenHiba.value,
+      ApiKeyConstants.reference: reference,
+    };
+    GetLiveTransactionDetailsModel? getLiveTransactionDetailsModel =
+        await ApiMethods.getLiveTransactionDetails(bodyParams: bodyParams);
+    if (getLiveTransactionDetailsModel != null &&
+        getLiveTransactionDetailsModel.result != null &&
+        getLiveTransactionDetailsModel.result!.data != null) {
+      increment();
     }
     inAsyncCall.value = false;
   }

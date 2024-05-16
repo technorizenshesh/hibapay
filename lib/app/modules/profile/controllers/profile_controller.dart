@@ -13,9 +13,8 @@ class ProfileController extends GetxController {
     // IconConstants.icAppearanceAndDisplay,
     // IconConstants.icBiometricSettings,
     // IconConstants.icVirtualAccount,
-    IconConstants.icFund,
-    IconConstants.icReferral,
     IconConstants.icGiftUser,
+    IconConstants.icFund,
     IconConstants.icAccountInfo,
     // IconConstants.icContactPreferences,
     // IconConstants.icGeneralSetting,
@@ -24,6 +23,7 @@ class ProfileController extends GetxController {
     IconConstants.icTermConditions,
     IconConstants.icContactUs,
     IconConstants.icFaqs,
+    IconConstants.icReferral,
     // IconConstants.icRateUs,
     IconConstants.icLogout,
   ];
@@ -32,9 +32,8 @@ class ProfileController extends GetxController {
     // StringConstants.appearanceAndDisplay,
     // StringConstants.biometricSettings,
     // StringConstants.virtualAccount,
+    StringConstants.giftRedeem,
     StringConstants.cardBalance,
-    StringConstants.referral,
-    StringConstants.giftUser,
     StringConstants.accountInfo,
     // StringConstants.contactPreferences,
     // StringConstants.generalSetting,
@@ -44,6 +43,7 @@ class ProfileController extends GetxController {
     StringConstants.contactUs,
     StringConstants.faqs,
     // StringConstants.rateUs,
+    StringConstants.referral,
     StringConstants.logout,
   ];
 
@@ -81,7 +81,7 @@ class ProfileController extends GetxController {
         CommonWidgets.snackBarView(title: 'Coming soon');
         //Get.toNamed(Routes.ACCOUNT);
         break;
-      case StringConstants.giftUser:
+      case StringConstants.giftRedeem:
         Get.toNamed(Routes.GIFT_USER_CARDS);
         break;
       case StringConstants.accountInfo:

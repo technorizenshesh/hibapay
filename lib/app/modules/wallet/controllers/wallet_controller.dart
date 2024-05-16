@@ -250,11 +250,11 @@ class WalletController extends GetxController {
                           .walTraTransactionValue!
                           .isNotEmpty)
                     listTileView(
-                        curValue: true,
-                        title: StringConstants.transactionValue,
-                        trailing: getWalletTransactionResult[index]
-                                .walTraTransactionValue ??
-                            ''),
+                      curValue: true,
+                      title: StringConstants.transactionValue,
+                      trailing:
+                          '${double.parse(getWalletTransactionResult[index].walTraTransactionValue ?? '0') + double.parse(getWalletTransactionResult[index].walTraTransactionAppFee ?? '0')}',
+                    ),
                   SizedBox(height: 14.px),
                 ],
               ),

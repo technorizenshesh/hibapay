@@ -364,36 +364,51 @@ class WalletView extends GetView<WalletController> {
                                                 : Theme.of(context)
                                                     .colorScheme
                                                     .onError),
-                                        Text(
-                                          controller
-                                                          .getWalletTransactionResult[
-                                                              index]
-                                                          .walTraTransactionValue !=
-                                                      null &&
-                                                  controller
-                                                      .getWalletTransactionResult[
-                                                          index]
-                                                      .walTraTransactionValue!
-                                                      .isNotEmpty
-                                              ? ' ${controller.getWalletTransactionResult[index].walTraTransactionValue ?? '0'}'
-                                              : ' ${controller.getWalletTransactionResult[index].walTraTransactionValue ?? '0'}',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displayMedium
-                                              ?.copyWith(
-                                                  fontSize: 14.px,
-                                                  color: controller
-                                                              .getWalletTransactionResult[
-                                                                  index]
-                                                              .walTraTransactionType ==
-                                                          'DEBIT'
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .error
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .onError),
-                                        ),
+                                        if (controller
+                                                    .getWalletTransactionResult[
+                                                        index]
+                                                    .walTraTransactionValue !=
+                                                null &&
+                                            controller
+                                                .getWalletTransactionResult[
+                                                    index]
+                                                .walTraTransactionValue!
+                                                .isNotEmpty)
+                                          Text(
+                                            (controller
+                                                            .getWalletTransactionResult[
+                                                                index]
+                                                            .walTraServiceType !=
+                                                        null &&
+                                                    controller
+                                                        .getWalletTransactionResult[
+                                                            index]
+                                                        .walTraServiceType!
+                                                        .isNotEmpty &&
+                                                    controller
+                                                            .getWalletTransactionResult[
+                                                                index]
+                                                            .walTraServiceType! ==
+                                                        'BUY_DATA')
+                                                ? ' ${double.parse(controller.getWalletTransactionResult[index].walTraTransactionValue ?? '0') + double.parse(controller.getWalletTransactionResult[index].walTraTransactionAppFee ?? '0')}'
+                                                : ' ${double.parse(controller.getWalletTransactionResult[index].walTraTransactionValue ?? '0') + double.parse(controller.getWalletTransactionResult[index].walTraTransactionAppFee ?? '0') + double.parse(controller.getWalletTransactionResult[index].walTraTransactionFee ?? '0')}',
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .displayMedium
+                                                ?.copyWith(
+                                                    fontSize: 14.px,
+                                                    color: controller
+                                                                .getWalletTransactionResult[
+                                                                    index]
+                                                                .walTraTransactionType ==
+                                                            'DEBIT'
+                                                        ? Theme.of(context)
+                                                            .colorScheme
+                                                            .error
+                                                        : Theme.of(context)
+                                                            .colorScheme
+                                                            .onError),
+                                          ),
                                       ],
                                     ),
                                   ],

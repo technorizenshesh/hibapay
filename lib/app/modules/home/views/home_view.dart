@@ -106,11 +106,12 @@ class HomeView extends GetView<HomeController> {
                           child: Container(
                             width: double.infinity,
                             height: 220.px,
-                            padding: EdgeInsets.all(20.px),
+                            padding: EdgeInsets.all(10.px),
                             child: CommonWidgets.imageView(
                                 image: controller
                                         .getBannersResult[index].bannersImage ??
-                                    ''),
+                                    '',
+                                fit: BoxFit.contain),
                           ),
                         ),
                       ),
@@ -169,47 +170,97 @@ class HomeView extends GetView<HomeController> {
                     ),
                   ),
             SizedBox(height: 4.px),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.px),
-                child: Container(
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 6.px, vertical: 4.px),
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).primaryColor.withOpacity(.2.px),
-                    borderRadius: BorderRadius.circular(12.px),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Wrap(
-                        children: List.generate(
-                          4,
-                          (index) => Padding(
-                            padding: EdgeInsets.all(2.px),
-                            child: Center(
-                              child: Container(
-                                width: 6.px,
-                                height: 6.px,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(3.px),
-                                  gradient: controller.cardIndex1.value == index
-                                      ? CommonMethods.commonLinearGradientView()
-                                      : CommonMethods
-                                          .commonLinearGradientViewWhite(),
+            (controller.getBannersResult.isNotEmpty)
+                ? Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.px),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 6.px, vertical: 4.px),
+                        decoration: BoxDecoration(
+                          color:
+                              Theme.of(context).primaryColor.withOpacity(.2.px),
+                          borderRadius: BorderRadius.circular(12.px),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Wrap(
+                              children: List.generate(
+                                controller.getBannersResult.length,
+                                (index) => Padding(
+                                  padding: EdgeInsets.all(2.px),
+                                  child: Center(
+                                    child: Container(
+                                      width: 6.px,
+                                      height: 6.px,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(3.px),
+                                        gradient: controller.cardIndex.value ==
+                                                index
+                                            ? CommonMethods
+                                                .commonLinearGradientView()
+                                            : CommonMethods
+                                                .commonLinearGradientViewWhite(),
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
+                          ],
                         ),
                       ),
-                    ],
+                    ),
+                  )
+                : Align(
+                    alignment: Alignment.center,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 16.px),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 6.px, vertical: 4.px),
+                        decoration: BoxDecoration(
+                          color:
+                              Theme.of(context).primaryColor.withOpacity(.2.px),
+                          borderRadius: BorderRadius.circular(12.px),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Wrap(
+                              children: List.generate(
+                                4,
+                                (index) => Padding(
+                                  padding: EdgeInsets.all(2.px),
+                                  child: Center(
+                                    child: Container(
+                                      width: 6.px,
+                                      height: 6.px,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadius.circular(3.px),
+                                        gradient: controller.cardIndex1.value ==
+                                                index
+                                            ? CommonMethods
+                                                .commonLinearGradientView()
+                                            : CommonMethods
+                                                .commonLinearGradientViewWhite(),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            ),
             SizedBox(height: 24.px),
             (controller.getServicesResult.isNotEmpty)
                 ? Center(

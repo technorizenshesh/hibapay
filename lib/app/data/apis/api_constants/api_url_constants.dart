@@ -24,6 +24,8 @@ class ApiUrlConstants {
       '${baseUrl}contact-us-questions';
   static const String endPointOfLogin = '/api/user/login';
   static const String endPointOfFaqs = '${baseUrl}faqs';
+  static const String endPointOfGetReferralDescription =
+      '${baseUrl}common/get-referral-description';
   static const String endPointOfAbout = '${baseUrl}about';
   static const String endPointOfTermConditions = '${baseUrl}term-conditions';
   static const String endPointOfForgotPassword =
@@ -68,6 +70,8 @@ class ApiUrlConstants {
       '${baseUrl}hibapay/card/create-virtual-card';
   static const String endPointOfListVirtualCards =
       '${baseUrl}hibapay/card/list-virtual-cards';
+  static const String endPointOfCreateVirtualAccount =
+      '${baseUrl}ufitpay/virtual-account/create-virtual-account';
   static const String endPointOfGetVirtualCard =
       '${baseUrl}hibapay/card/get-virtual-card';
   static const String endPointOfDeleteVirtualCard =

@@ -47,6 +47,7 @@ class GetServicesResult {
   String? type;
   String? serviceNameCustom;
   String? commission;
+  String? commissionType;
 
   GetServicesResult({
     this.id,
@@ -60,6 +61,7 @@ class GetServicesResult {
     this.type,
     this.serviceNameCustom,
     this.commission,
+    this.commissionType,
   });
 
   GetServicesResult.fromJson(Map<String, dynamic> json) {
@@ -74,6 +76,7 @@ class GetServicesResult {
     type = json['type'];
     serviceNameCustom = json['service_name_custom'];
     commission = json['commission'].toString();
+    commissionType = json['commission_type'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -88,6 +91,7 @@ class GetServicesResult {
     data['icon'] = icon;
     data['type'] = type;
     data['commission'] = commission;
+    data['commission_type'] = commissionType;
     return data;
   }
 }

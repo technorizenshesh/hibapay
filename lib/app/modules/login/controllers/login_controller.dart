@@ -73,9 +73,10 @@ class LoginController extends GetxController {
   clickOnLoginButton() async {
     FirebaseMessaging firebaseMessaging =
         FirebaseMessaging.instance; // Change here
-    firebaseMessaging.getToken().then((token) {
+    await firebaseMessaging.getToken().then((token) {
       deviceToken.value = token.toString();
     });
+    print('deviceToken.value:::::::::::::::::::::::::${deviceToken.value}');
     if (selectedTab.value != 0) {
       if (phoneController.text.trim().isNotEmpty &&
           countryCode.value.trim().isNotEmpty &&

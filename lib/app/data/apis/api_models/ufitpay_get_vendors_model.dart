@@ -9,7 +9,7 @@ class UFitPayGetVendorsModel {
   UFitPayGetVendorsModel.fromJson(Map<String, dynamic> json) {
     status = json['status'];
     message = json['message'];
-    result = json['result'] != null
+    result = json['result'] != null && json['result'].toString() != '[]'
         ? UFitPayGetVendorsResult.fromJson(json['result'])
         : null;
     token = json['token'];
@@ -37,7 +37,7 @@ class UFitPayGetVendorsResult {
   UFitPayGetVendorsResult.fromJson(Map<String, dynamic> json) {
     resource = json['resource'];
     status = json['status'];
-    if (json['data'] != null) {
+    if (json['data'] != null && json['data'].toString() != '[]') {
       data = <UFitPayGetVendorsResultData>[];
       json['data'].forEach((v) {
         data!.add(UFitPayGetVendorsResultData.fromJson(v));
