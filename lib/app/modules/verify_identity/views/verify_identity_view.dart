@@ -29,7 +29,14 @@ class VerifyIdentityView extends GetView<VerifyIdentityController> {
             child: ListView(
               children: [
                 SizedBox(height: 10.px),
+                Text(
+                  StringConstants.inLineWithThe,
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+                SizedBox(height: 10.px),
                 CommonWidgets.commonTextFieldForLoginSignUP(
+                  readOnly: true,
                   focusNode: controller.focusFirstName,
                   title: StringConstants.firstName,
                   controller: controller.firstNameController,
@@ -38,6 +45,7 @@ class VerifyIdentityView extends GetView<VerifyIdentityController> {
                 ),
                 SizedBox(height: 10.px),
                 CommonWidgets.commonTextFieldForLoginSignUP(
+                  readOnly: true,
                   focusNode: controller.focusLastName,
                   title: StringConstants.lastName,
                   controller: controller.lastNameController,
@@ -51,6 +59,14 @@ class VerifyIdentityView extends GetView<VerifyIdentityController> {
                   controller: controller.bvnController,
                   isCard: controller.isBvn.value,
                   hintText: StringConstants.pleaseEnterBvn,
+                ),
+                SizedBox(height: 10.px),
+                CommonWidgets.commonTextFieldForLoginSignUP(
+                  focusNode: controller.focusNin,
+                  title: StringConstants.nin,
+                  controller: controller.ninController,
+                  isCard: controller.isNin.value,
+                  hintText: StringConstants.pleaseEnterNin,
                 ),
                 SizedBox(height: 20.px),
                 GestureDetector(
@@ -261,6 +277,17 @@ class VerifyIdentityView extends GetView<VerifyIdentityController> {
                         ?.copyWith(fontWeight: FontWeight.w700),
                   ),
                 ),
+                /*SizedBox(height: 10.px),
+                CommonWidgets.commonElevatedButton(
+                  onPressed: () => controller.clickOnLoginButton(),
+                  child: Text(
+                    StringConstants.login,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall
+                        ?.copyWith(fontWeight: FontWeight.w700),
+                  ),
+                ),*/
                 SizedBox(height: 10.px),
               ],
             ),

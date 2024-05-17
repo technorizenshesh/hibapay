@@ -16,6 +16,7 @@ class ApiKeyConstants {
   static const String postalCode = 'postal_code';
   static const String kycMethod = 'kyc_method';
   static const String bvn = 'bvn';
+  static const String nin = 'nin';
   static const String selfieImage = 'selfie_image';
   static const String selfieImageCapital = 'SELFIE_IMAGE';
   static const String streetAddress = 'street_address';
@@ -65,6 +66,7 @@ class ApiKeyConstants {
   static const String cardBrand = 'card_brand';
   static const String cardCurrency = 'card_currency';
   static const String amount = 'amount';
+  static const String uFitPayFee = 'ufitpay_fee';
   static const String receiverId = 'receiver_id';
   static const String giftsDescription = 'gifts_description';
   static const String fundingCurrency = 'funding_currency';

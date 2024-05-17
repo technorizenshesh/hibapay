@@ -143,6 +143,8 @@ class ElectricityController extends GetxController {
           bodyParams = {
             ApiKeyConstants.accountNumber: meterNumberController.text,
             ApiKeyConstants.amount: amountControllerValue.value,
+            ApiKeyConstants.uFitPayFee:
+                getPriceModel.result!.data!.fee.toString(),
             ApiKeyConstants.receivingMobileNo: mobileNumberController.text,
             ApiKeyConstants.serviceType: ApiKeyConstants.buyElectricity,
             ApiKeyConstants.packageId: packageId.value,

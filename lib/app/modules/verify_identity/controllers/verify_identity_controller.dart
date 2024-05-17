@@ -7,6 +7,7 @@ import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:HibaPay/common/alert_dialog_view.dart';
+import 'package:HibaPay/common/globle.dart';
 import 'package:HibaPay/common/image_pick_and_crop.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -35,20 +36,27 @@ class VerifyIdentityController extends GetxController {
   final isCountry = false.obs;
   final isPostalCode = false.obs;
   final isBvn = false.obs;
+  final isNin = false.obs;
 
   TextEditingController firstNameController = TextEditingController();
   TextEditingController lastNameController = TextEditingController();
   TextEditingController bvnController = TextEditingController();
+  TextEditingController ninController = TextEditingController();
 
   FocusNode focusFirstName = FocusNode();
   FocusNode focusLastName = FocusNode();
   FocusNode focusBvn = FocusNode();
+  FocusNode focusNin = FocusNode();
 
   @override
   Future<void> onInit() async {
     SharedPreferences sp = await SharedPreferences.getInstance();
     userId.value = sp.getString(ApiKeyConstants.userId) ?? '';
+    result =
+        Result.fromJson(jsonDecode(sp.getString(ApiKeyConstants.result) ?? ''));
     super.onInit();
+    firstNameController.text = result?.firstName ?? '';
+    lastNameController.text = result?.lastName ?? '';
     startListener();
   }
 
@@ -56,12 +64,14 @@ class VerifyIdentityController extends GetxController {
     focusFirstName.addListener(onFocusChange);
     focusLastName.addListener(onFocusChange);
     focusBvn.addListener(onFocusChange);
+    focusNin.addListener(onFocusChange);
   }
 
   void onFocusChange() {
     isFirstName.value = focusFirstName.hasFocus;
     isLastName.value = focusLastName.hasFocus;
     isBvn.value = focusBvn.hasFocus;
+    isNin.value = focusNin.hasFocus;
   }
 
   @override
@@ -100,6 +110,7 @@ class VerifyIdentityController extends GetxController {
     if (firstNameController.text.trim().isNotEmpty &&
         lastNameController.text.trim().isNotEmpty &&
         bvnController.text.trim().isNotEmpty &&
+        ninController.text.trim().isNotEmpty &&
         imageGovernmentId.value != null &&
         imageSelfiePhoto.value != null) {
       inAsyncCall.value = true;
@@ -114,6 +125,7 @@ class VerifyIdentityController extends GetxController {
         ApiKeyConstants.firstName: firstNameController.text,
         ApiKeyConstants.lastName: lastNameController.text,
         ApiKeyConstants.bvn: bvnController.text,
+        ApiKeyConstants.nin: ninController.text,
       };
       UserModel? userModel = await ApiMethods.uploadUserDocuments(
           imageMap: imageMap, bodyParams: bodyParams);
@@ -270,4 +282,6 @@ class VerifyIdentityController extends GetxController {
   clickOnSelfiePhotoCard() {
     showAlertDialog(imageGovernment: false);
   }
+
+  clickOnLoginButton() {}
 }

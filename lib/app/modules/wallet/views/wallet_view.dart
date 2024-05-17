@@ -267,8 +267,8 @@ class WalletView extends GetView<WalletController> {
               ),
               Expanded(
                 child: controller.getWalletTransactionResult.isNotEmpty
-                    ? ListView(
-                        padding: EdgeInsets.zero,
+                    ? Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(height: 24.px),
                           Padding(
@@ -286,112 +286,52 @@ class WalletView extends GetView<WalletController> {
                             ),
                           ),
                           SizedBox(height: 8.px),
-                          ListView.builder(
-                            shrinkWrap: true,
-                            padding: EdgeInsets.zero,
-                            physics: const NeverScrollableScrollPhysics(),
-                            itemCount:
-                                controller.getWalletTransactionResult.length,
-                            itemBuilder: (context, index) {
-                              return ListTile(
-                                onTap: () =>
-                                    controller.clickOnListTile(index: index),
-                                trailing: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      controller
-                                              .getWalletTransactionResult[index]
-                                              .walTraTransactionType ??
-                                          '',
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .displayMedium
-                                          ?.copyWith(
-                                              fontSize: 14.px,
-                                              color: controller
-                                                          .getWalletTransactionResult[
-                                                              index]
-                                                          .walTraTransactionType ==
-                                                      'DEBIT'
-                                                  ? Theme.of(context)
-                                                      .colorScheme
-                                                      .error
-                                                  : Theme.of(context)
-                                                      .colorScheme
-                                                      .onError),
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          controller
-                                                      .getWalletTransactionResult[
-                                                          index]
-                                                      .walTraTransactionType ==
-                                                  'DEBIT'
-                                              ? '- '
-                                              : '+ ',
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .displayMedium
-                                              ?.copyWith(
-                                                  fontSize: 14.px,
-                                                  color: controller
-                                                              .getWalletTransactionResult[
-                                                                  index]
-                                                              .walTraTransactionType ==
-                                                          'DEBIT'
-                                                      ? Theme.of(context)
-                                                          .colorScheme
-                                                          .error
-                                                      : Theme.of(context)
-                                                          .colorScheme
-                                                          .onError),
-                                        ),
-                                        CommonMethods.appIcons(
-                                            assetName: IconConstants.icCur,
-                                            width: 14.px,
-                                            height: 14.px,
-                                            color: controller
+                          Expanded(
+                            child: ListView.builder(
+                              padding: EdgeInsets.zero,
+                              itemCount:
+                                  controller.getWalletTransactionResult.length,
+                              itemBuilder: (context, index) {
+                                return ListTile(
+                                  onTap: () =>
+                                      controller.clickOnListTile(index: index),
+                                  trailing: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    children: [
+                                      Text(
+                                        controller
+                                                .getWalletTransactionResult[
+                                                    index]
+                                                .walTraTransactionType ??
+                                            '',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .displayMedium
+                                            ?.copyWith(
+                                                fontSize: 14.px,
+                                                color: controller
+                                                            .getWalletTransactionResult[
+                                                                index]
+                                                            .walTraTransactionType ==
+                                                        'DEBIT'
+                                                    ? Theme.of(context)
+                                                        .colorScheme
+                                                        .error
+                                                    : Theme.of(context)
+                                                        .colorScheme
+                                                        .onError),
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text(
+                                            controller
                                                         .getWalletTransactionResult[
                                                             index]
                                                         .walTraTransactionType ==
                                                     'DEBIT'
-                                                ? Theme.of(context)
-                                                    .colorScheme
-                                                    .error
-                                                : Theme.of(context)
-                                                    .colorScheme
-                                                    .onError),
-                                        if (controller
-                                                    .getWalletTransactionResult[
-                                                        index]
-                                                    .walTraTransactionValue !=
-                                                null &&
-                                            controller
-                                                .getWalletTransactionResult[
-                                                    index]
-                                                .walTraTransactionValue!
-                                                .isNotEmpty)
-                                          Text(
-                                            (controller
-                                                            .getWalletTransactionResult[
-                                                                index]
-                                                            .walTraServiceType !=
-                                                        null &&
-                                                    controller
-                                                        .getWalletTransactionResult[
-                                                            index]
-                                                        .walTraServiceType!
-                                                        .isNotEmpty &&
-                                                    controller
-                                                            .getWalletTransactionResult[
-                                                                index]
-                                                            .walTraServiceType! ==
-                                                        'BUY_DATA')
-                                                ? ' ${double.parse(controller.getWalletTransactionResult[index].walTraTransactionValue ?? '0') + double.parse(controller.getWalletTransactionResult[index].walTraTransactionAppFee ?? '0')}'
-                                                : ' ${double.parse(controller.getWalletTransactionResult[index].walTraTransactionValue ?? '0') + double.parse(controller.getWalletTransactionResult[index].walTraTransactionAppFee ?? '0') + double.parse(controller.getWalletTransactionResult[index].walTraTransactionFee ?? '0')}',
+                                                ? '- '
+                                                : '+ ',
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .displayMedium
@@ -409,43 +349,104 @@ class WalletView extends GetView<WalletController> {
                                                             .colorScheme
                                                             .onError),
                                           ),
-                                      ],
-                                    ),
-                                  ],
-                                ),
-                                subtitle: Text(
-                                  controller.getWalletTransactionResult[index]
-                                          .walTraDescription ??
-                                      controller
-                                          .getWalletTransactionResult[index]
-                                          .walTraServiceType ?? /*controller.getWalletTransactionResult[index]
-                                          .walTraBuyDataReference ??*/
-                                      '',
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .titleMedium
-                                      ?.copyWith(fontSize: 10.px),
-                                ),
-                                title: Text(
-                                  controller.getWalletTransactionResult[index]
-                                          .walTraMessage ?? /*controller.getWalletTransactionResult[index]
-                                          .walTraBuyPostAccountNumber ??*/
-                                      '',
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .displayMedium
-                                      ?.copyWith(
-                                          fontSize: 12.px,
-                                          color:
-                                              Theme.of(context).primaryColor),
-                                ),
-                                /*leading: CommonMethods.appIcons(
-                                    assetName: controller
-                              .controller.getWalletTransactionResult[index]['icon']),*/
-                              );
-                            },
+                                          CommonMethods.appIcons(
+                                              assetName: IconConstants.icCur,
+                                              width: 14.px,
+                                              height: 14.px,
+                                              color: controller
+                                                          .getWalletTransactionResult[
+                                                              index]
+                                                          .walTraTransactionType ==
+                                                      'DEBIT'
+                                                  ? Theme.of(context)
+                                                      .colorScheme
+                                                      .error
+                                                  : Theme.of(context)
+                                                      .colorScheme
+                                                      .onError),
+                                          if (controller
+                                                      .getWalletTransactionResult[
+                                                          index]
+                                                      .walTraTransactionValue !=
+                                                  null &&
+                                              controller
+                                                  .getWalletTransactionResult[
+                                                      index]
+                                                  .walTraTransactionValue!
+                                                  .isNotEmpty)
+                                            Text(
+                                              (controller
+                                                              .getWalletTransactionResult[
+                                                                  index]
+                                                              .walTraServiceType !=
+                                                          null &&
+                                                      controller
+                                                          .getWalletTransactionResult[
+                                                              index]
+                                                          .walTraServiceType!
+                                                          .isNotEmpty &&
+                                                      controller
+                                                              .getWalletTransactionResult[
+                                                                  index]
+                                                              .walTraServiceType! ==
+                                                          'BUY_DATA')
+                                                  ? ' ${double.parse(controller.getWalletTransactionResult[index].walTraTransactionValue ?? '0') + double.parse(controller.getWalletTransactionResult[index].walTraTransactionAppFee ?? '0')}'
+                                                  : ' ${double.parse(controller.getWalletTransactionResult[index].walTraTransactionValue ?? '0') + double.parse(controller.getWalletTransactionResult[index].walTraTransactionAppFee ?? '0') + double.parse(controller.getWalletTransactionResult[index].walTraTransactionFee ?? '0')}',
+                                              style: Theme.of(context)
+                                                  .textTheme
+                                                  .displayMedium
+                                                  ?.copyWith(
+                                                      fontSize: 14.px,
+                                                      color: controller
+                                                                  .getWalletTransactionResult[
+                                                                      index]
+                                                                  .walTraTransactionType ==
+                                                              'DEBIT'
+                                                          ? Theme.of(context)
+                                                              .colorScheme
+                                                              .error
+                                                          : Theme.of(context)
+                                                              .colorScheme
+                                                              .onError),
+                                            ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                  subtitle: Text(
+                                    controller.getWalletTransactionResult[index]
+                                            .walTraDescription ??
+                                        controller
+                                            .getWalletTransactionResult[index]
+                                            .walTraServiceType ?? /*controller.getWalletTransactionResult[index]
+                                            .walTraBuyDataReference ??*/
+                                        '',
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(fontSize: 10.px),
+                                  ),
+                                  title: Text(
+                                    controller.getWalletTransactionResult[index]
+                                            .walTraMessage ?? /*controller.getWalletTransactionResult[index]
+                                            .walTraBuyPostAccountNumber ??*/
+                                        '',
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium
+                                        ?.copyWith(
+                                            fontSize: 12.px,
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                  ),
+                                  /*leading: CommonMethods.appIcons(
+                                      assetName: controller
+                                .controller.getWalletTransactionResult[index]['icon']),*/
+                                );
+                              },
+                            ),
                           ),
                           SizedBox(height: 60.px),
                         ],

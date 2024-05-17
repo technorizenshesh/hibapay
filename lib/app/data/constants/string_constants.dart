@@ -37,6 +37,7 @@ class StringConstants {
   static const String pleaseEnterColor = 'Please enter color';
   static const String pleaseEnterPostalCode = 'Please enter postal code';
   static const String pleaseEnterBvn = 'Please enter bvn';
+  static const String pleaseEnterNin = 'Please enter nin';
   static const String email = 'Email';
   static const String notification = 'Notification';
   static const String pleaseEnterEmail = 'Please enter email';
@@ -107,6 +108,7 @@ class StringConstants {
   static const String account = 'Account';
   static const String virtualCard = 'Virtual card';
   static const String virtualAccount = 'Virtual account';
+
   // static const String fund = 'Fund';
   static const String cardBalance = 'Card Balance';
   static const String accountHolder = 'Account Holder';
@@ -118,6 +120,7 @@ class StringConstants {
   static const String country = 'Country';
   static const String postalCode = 'Postal Code';
   static const String bvn = 'BVN';
+  static const String nin = 'NIN';
   static const String totalSpending = 'Total Spending';
   static const String currentBalance = 'Current balance';
   static const String bankAccount = 'Bank account : ';
@@ -194,6 +197,9 @@ class StringConstants {
   static const String selfiePhoto = 'Selfie photo';
   static const String itsRequiredByLaw =
       "It's required by law to verify your identity as a new user";
+  static const String inLineWithThe =
+      "In line with the new CBN rules, you need to verify your identity in order to have full access to HibaPay services.";
+
   static const String
       transfersAreReviewedWhichMayResultInDelaysOrFundsBeingFrozen =
       'Transfers are reviewed which may result\nin delays or funds being frozen';
@@ -263,6 +269,7 @@ class StringConstants {
   static const String searchContacts = "Search contacts...";
   static const String sendMoney = "Send Money";
   static const String backToHome = "Back To Home";
+  static const String generateToken = "Generate Token";
   static const String getFreeCard = "Get Free Card";
   static const String inviteNow = "INVITE NOW";
   static const String referYourFriendsEarnCashback =

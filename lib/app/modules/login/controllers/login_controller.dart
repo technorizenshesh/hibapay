@@ -92,6 +92,11 @@ class LoginController extends GetxController {
         UserModel? userModel = await ApiMethods.loginMobile(
           queryParameters: queryParameters,
         );
+        if (userModel != null) {
+          SharedPreferences sp = await SharedPreferences.getInstance();
+          sp.setString(
+              ApiKeyConstants.result, jsonEncode(userModel.result ?? ''));
+        }
         if (userModel != null &&
             userModel.token != null &&
             userModel.token!.isNotEmpty) {
@@ -119,6 +124,15 @@ class LoginController extends GetxController {
               }
             }
           }
+        } else if (userModel != null &&
+            userModel.result != null &&
+            userModel.result!.id != null &&
+            userModel.result!.id!.isNotEmpty) {
+          SharedPreferences sp = await SharedPreferences.getInstance();
+          sp.setString(ApiKeyConstants.userId, result?.id ?? '');
+          sp.setString(
+              ApiKeyConstants.result, jsonEncode(userModel.result ?? ''));
+          Get.toNamed(Routes.VERIFY_IDENTITY);
         } else {
           if (userModel != null &&
               userModel.message != null &&
@@ -178,6 +192,15 @@ class LoginController extends GetxController {
               }
             }
           }
+        } else if (userModel != null &&
+            userModel.result != null &&
+            userModel.result!.id != null &&
+            userModel.result!.id!.isNotEmpty) {
+          SharedPreferences sp = await SharedPreferences.getInstance();
+          sp.setString(ApiKeyConstants.userId, result?.id ?? '');
+          sp.setString(
+              ApiKeyConstants.result, jsonEncode(userModel.result ?? ''));
+          Get.toNamed(Routes.VERIFY_IDENTITY);
         } else {
           if (userModel != null &&
               userModel.message != null &&

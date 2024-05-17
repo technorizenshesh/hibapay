@@ -48,13 +48,26 @@ class PaySummaryController extends GetxController {
         billPayModel.result!.data != null) {
       Get.back();
       Get.back();
+
       if (billPayModel.result!.data != null &&
           billPayModel.result!.data!.reference != null &&
           billPayModel.result!.data!.reference!.isNotEmpty) {
-        getLiveTransactionDetailsApi(
-            reference: billPayModel.result!.data!.reference ?? '');
+        if (bodyParams[ApiKeyConstants.buyEducation] ==
+                ApiKeyConstants.buyEducation ||
+            bodyParams[ApiKeyConstants.buyElectricity] ==
+                ApiKeyConstants.buyElectricity) {
+          getLiveTransactionDetailsApi(
+              reference: billPayModel.result!.data!.reference ?? '');
+        }
       }
-      Get.toNamed(Routes.PAY_SUMMARY_SUCCESS, arguments: parameters);
+      Get.toNamed(Routes.PAY_SUMMARY_SUCCESS,
+          arguments: parameters,
+          parameters: {
+            ApiKeyConstants.reference:
+                billPayModel.result!.data!.reference ?? '',
+            ApiKeyConstants.serviceType:
+                bodyParams[ApiKeyConstants.serviceType],
+          });
       /*Get.snackbar(
           margin: EdgeInsets.all(20.px),
           '${billPayModel.result!.resource ?? ''} ${billPayModel.result!.status ?? ''}',

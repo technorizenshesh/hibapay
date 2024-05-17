@@ -1,3 +1,4 @@
+import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
 import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
@@ -46,13 +47,13 @@ class PaySummarySuccessView extends GetView<PaySummarySuccessController> {
               ListView.builder(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
-                itemCount: controller.parameters.length,
+                itemCount: controller.arguments.length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: EdgeInsets.all(10.px),
                     child: gradientText(
-                      title: controller.parameters.entries.elementAt(index).key,
-                      subTitle: controller.parameters.entries
+                      title: controller.arguments.entries.elementAt(index).key,
+                      subTitle: controller.arguments.entries
                           .elementAt(index)
                           .value
                           .toString(),
@@ -61,6 +62,27 @@ class PaySummarySuccessView extends GetView<PaySummarySuccessController> {
                 },
               ),
               SizedBox(height: 40.px),
+              if (controller.reference.value.isNotEmpty)
+                if (controller.serviceType.value ==
+                        ApiKeyConstants.buyEducation ||
+                    controller.serviceType.value ==
+                        ApiKeyConstants.buyElectricity)
+                  CommonWidgets.commonElevatedButton(
+                    onPressed: () => controller.clickOnGenerateTokenButton(),
+                    child: Text(
+                      StringConstants.generateToken,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall
+                          ?.copyWith(fontWeight: FontWeight.w700),
+                    ),
+                  ),
+              if (controller.reference.value.isNotEmpty)
+                if (controller.serviceType.value ==
+                        ApiKeyConstants.buyEducation ||
+                    controller.serviceType.value ==
+                        ApiKeyConstants.buyElectricity)
+                  SizedBox(height: 20.px),
               CommonWidgets.commonElevatedButton(
                 onPressed: () => controller.clickOnBackToHomeButton(),
                 child: Text(

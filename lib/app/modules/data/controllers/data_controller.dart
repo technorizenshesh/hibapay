@@ -128,6 +128,8 @@ class DataController extends GetxController {
             ApiKeyConstants.accountNumber: mobileNumberController.text,
             ApiKeyConstants.amount:
                 getPriceModel.result!.data!.price.toString(),
+            ApiKeyConstants.uFitPayFee:
+            getPriceModel.result!.data!.fee.toString(),
             /*ApiKeyConstants.amount: (serviceId.value == '0004')
                 ? (double.parse(getPriceModel.result!.data!.price.toString()) +
                         double.parse(
@@ -138,11 +140,11 @@ class DataController extends GetxController {
                                 ? commission.value
                                 : commissionValue.value))
                     .toString(),*/
-            ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
-            ApiKeyConstants.total: (double.parse(
-                        getPriceModel.result!.data!.price.toString()) +
-                    double.parse(getPriceModel.result!.data!.fee.toString()))
-                .toString(),
+            // ApiKeyConstants.fee: getPriceModel.result!.data!.fee,
+            // ApiKeyConstants.total: (double.parse(
+            //             getPriceModel.result!.data!.price.toString()) +
+            //         double.parse(getPriceModel.result!.data!.fee.toString()))
+            //     .toString(),
             ApiKeyConstants.packageId: packageId.value,
             ApiKeyConstants.serviceType: (serviceId.value == '0004')
                 ? ApiKeyConstants.buyInternet

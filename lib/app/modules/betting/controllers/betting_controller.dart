@@ -128,25 +128,27 @@ class BettingController extends GetxController {
             bodyParams.clear();
             bodyParams = {
               ApiKeyConstants.accountNumber: enterIdController.text,
-              StringConstants.amount:
+              ApiKeyConstants.amount:
                   getPriceModel.result!.data!.price.toString(),
+              ApiKeyConstants.uFitPayFee:
+                  getPriceModel.result!.data!.fee.toString(),
               // ApiKeyConstants
               //     .amount: (double.parse(amountControllerValue.value) +
               //         double.parse(getPriceModel.result!.data!.fee.toString()) +
               //         (double.tryParse(commission.value) ?? 0))
               //     .toString(),
-              StringConstants.fee: getPriceModel.result!.data!.fee != null &&
-                      getPriceModel.result!.data!.fee!.isNotEmpty &&
-                      getPriceModel.result!.data!.fee != '0'
-                  ? (double.parse(getPriceModel.result!.data!.fee.toString()) +
-                          (double.tryParse(commission.value) ?? 0))
-                      .toString()
-                  : (double.tryParse(commission.value) ?? 0).toString(),
-              StringConstants
-                  .total: (double.parse(amountControllerValue.value) +
-                      double.parse(getPriceModel.result!.data!.fee.toString()) +
-                      (double.tryParse(commission.value) ?? 0))
-                  .toString(),
+              // StringConstants.fee: getPriceModel.result!.data!.fee != null &&
+              //         getPriceModel.result!.data!.fee!.isNotEmpty &&
+              //         getPriceModel.result!.data!.fee != '0'
+              //     ? (double.parse(getPriceModel.result!.data!.fee.toString()) +
+              //             (double.tryParse(commission.value) ?? 0))
+              //         .toString()
+              //     : (double.tryParse(commission.value) ?? 0).toString(),
+              // StringConstants
+              //     .total: (double.parse(amountControllerValue.value) +
+              //         double.parse(getPriceModel.result!.data!.fee.toString()) +
+              //         (double.tryParse(commission.value) ?? 0))
+              //     .toString(),
               ApiKeyConstants.serviceType: ApiKeyConstants.buySportsBetting,
               ApiKeyConstants.serviceId: serviceId.value,
               ApiKeyConstants.vendorId: vendorId.value,

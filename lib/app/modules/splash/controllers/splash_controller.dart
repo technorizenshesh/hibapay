@@ -8,7 +8,6 @@ import 'package:HibaPay/common/globle.dart';
 import 'package:HibaPay/main.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
-// import 'package:logger/logger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../routes/app_pages.dart';

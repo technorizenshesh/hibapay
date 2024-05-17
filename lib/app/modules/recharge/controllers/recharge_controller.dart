@@ -114,14 +114,16 @@ class RechargeController extends GetxController {
                     double.parse(commission.value))
                 .toString(),*/
             ApiKeyConstants.amount: amountControllerValue.value,
-            ApiKeyConstants.fee:
-                (double.parse(getPriceModel.result!.data!.fee.toString()) +
-                        double.parse(commission.value))
-                    .toString(),
-            ApiKeyConstants.total: (double.parse(amountControllerValue.value) +
-                    double.parse(getPriceModel.result!.data!.fee.toString()) +
-                    double.parse(commission.value))
-                .toString(),
+            ApiKeyConstants.uFitPayFee:
+                getPriceModel.result!.data!.fee.toString(),
+            // ApiKeyConstants.fee:
+            //     (double.parse(getPriceModel.result!.data!.fee.toString()) +
+            //             double.parse(commission.value))
+            //         .toString(),
+            // ApiKeyConstants.total: (double.parse(amountControllerValue.value) +
+            //         double.parse(getPriceModel.result!.data!.fee.toString()) +
+            //         double.parse(commission.value))
+            //     .toString(),
             //ApiKeyConstants.total: getPriceModel.result!.data!.total,
             // ApiKeyConstants.price: getPriceModel.result!.data!.price,
             ApiKeyConstants.serviceType: ApiKeyConstants.buyAirtime,

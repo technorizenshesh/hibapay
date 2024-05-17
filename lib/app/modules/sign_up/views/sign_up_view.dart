@@ -46,16 +46,29 @@ class SignUpView extends GetView<SignUpController> {
                       ),
                       SizedBox(height: 24.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(
-                        focusNode: controller.focusFullName,
-                        title: StringConstants.fullName,
-                        controller: controller.fullNameController,
-                        isCard: controller.isFullName.value,
+                        focusNode: controller.focusFirstName,
+                        title: StringConstants.firstName,
+                        controller: controller.firstNameController,
+                        isCard: controller.isFirstName.value,
                         prefixIcon: CommonMethods.appIcons(
-                          assetName: controller.isFullName.value
+                          assetName: controller.isFirstName.value
                               ? IconConstants.icUserActive
                               : IconConstants.icUserInActive,
                         ),
-                        hintText: StringConstants.pleaseEnterFullName,
+                        hintText: StringConstants.pleaseEnterFirstName,
+                      ),
+                      SizedBox(height: 14.px),
+                      CommonWidgets.commonTextFieldForLoginSignUP(
+                        focusNode: controller.focusLastName,
+                        title: StringConstants.lastName,
+                        controller: controller.lastNameController,
+                        isCard: controller.isLastName.value,
+                        prefixIcon: CommonMethods.appIcons(
+                          assetName: controller.isLastName.value
+                              ? IconConstants.icUserActive
+                              : IconConstants.icUserInActive,
+                        ),
+                        hintText: StringConstants.pleaseEnterLastName,
                       ),
                       SizedBox(height: 14.px),
                       CommonWidgets.commonTextFieldForLoginSignUP(

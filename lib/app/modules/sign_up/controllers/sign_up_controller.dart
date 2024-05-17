@@ -18,7 +18,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 class SignUpController extends GetxController {
   final count = 0.obs;
   final hide = true.obs;
-  FocusNode focusFullName = FocusNode();
+  FocusNode focusFirstName = FocusNode();
+  FocusNode focusLastName = FocusNode();
   FocusNode focusPhone = FocusNode();
   FocusNode focusEmail = FocusNode();
   FocusNode focusReferral = FocusNode();
@@ -27,7 +28,9 @@ class SignUpController extends GetxController {
   FocusNode focusCountryOfResidence = FocusNode();
   FocusNode focusDateOfBirth = FocusNode();
   FocusNode focusPassword = FocusNode();
-  final isFullName = false.obs;
+  final isFirstName = false.obs;
+  final isLstName = false.obs;
+  final isLastName = false.obs;
   final icPhone = false.obs;
   final isEmail = false.obs;
   final isStreetAddress = false.obs;
@@ -38,6 +41,8 @@ class SignUpController extends GetxController {
   final isPassword = false.obs;
   final passwordHide = true.obs;
   TextEditingController fullNameController = TextEditingController();
+  TextEditingController firstNameController = TextEditingController();
+  TextEditingController lastNameController = TextEditingController();
   TextEditingController phoneController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController streetAddressController = TextEditingController();
@@ -78,7 +83,8 @@ class SignUpController extends GetxController {
   }
 
   void onFocusChange() {
-    isFullName.value = focusFullName.hasFocus;
+    isFirstName.value = focusFirstName.hasFocus;
+    isLastName.value = focusLastName.hasFocus;
     icPhone.value = focusPhone.hasFocus;
     isEmail.value = focusEmail.hasFocus;
     isStreetAddress.value = focusStreetAddress.hasFocus;
@@ -96,7 +102,8 @@ class SignUpController extends GetxController {
   }
 
   clickOnSignUpButton() async {
-    if (fullNameController.text.trim().isNotEmpty &&
+    if (firstNameController.text.trim().isNotEmpty &&
+        lastNameController.text.trim().isNotEmpty &&
         phoneController.text.trim().isNotEmpty &&
         emailController.text.trim().isNotEmpty &&
         streetAddressController.text.trim().isNotEmpty &&
@@ -104,8 +111,26 @@ class SignUpController extends GetxController {
         countryCode.value.trim().isNotEmpty &&
         dateOfBirthController.text.trim().isNotEmpty &&
         passwordController.text.trim().isNotEmpty) {
-      bodyParamsForResend.clear();
-      bodyParamsForResend = {
+      // bodyParamsForResend.clear();
+      bodyParams.clear();
+      bodyParams = {
+        ApiKeyConstants.fullName: '',
+        ApiKeyConstants.firstName: firstNameController.text,
+        ApiKeyConstants.lastName: lastNameController.text,
+        ApiKeyConstants.mobile: phoneController.text,
+        ApiKeyConstants.email: emailController.text,
+        ApiKeyConstants.streetAddress: streetAddressController.text,
+        ApiKeyConstants.city: cityController.text,
+        ApiKeyConstants.country: countryCode.value,
+        ApiKeyConstants.dob: dateOfBirthController.text,
+        ApiKeyConstants.password: passwordController.text,
+        ApiKeyConstants.confirmPassword: passwordController.text,
+        ApiKeyConstants.countryCode: countryCode.value,
+        ApiKeyConstants.referralUserId: referralController.text,
+        ApiKeyConstants.otp: pin.text,
+        ApiKeyConstants.image: '',
+      };
+      /*bodyParamsForResend = {
         ApiKeyConstants.fullName: fullNameController.text,
         ApiKeyConstants.mobile: phoneController.text,
         ApiKeyConstants.email: emailController.text,
@@ -119,7 +144,6 @@ class SignUpController extends GetxController {
         ApiKeyConstants.referralUserId: referralController.text,
         ApiKeyConstants.image: '',
       };
-      inAsyncCall.value = true;
       UserModel? userModel =
           await ApiMethods.signUpOtpRequest(bodyParams: bodyParamsForResend);
       if (userModel != null &&
@@ -137,7 +161,9 @@ class SignUpController extends GetxController {
               'Massage',
               userModel.message.toString());
         }
-      }
+      }*/
+      inAsyncCall.value = true;
+      await signUp();
       inAsyncCall.value = false;
     } else {
       Get.snackbar(
@@ -150,7 +176,8 @@ class SignUpController extends GetxController {
   }
 
   void startListener() {
-    focusFullName.addListener(onFocusChange);
+    focusFirstName.addListener(onFocusChange);
+    focusLastName.addListener(onFocusChange);
     focusPhone.addListener(onFocusChange);
     focusEmail.addListener(onFocusChange);
     focusStreetAddress.addListener(onFocusChange);

@@ -139,25 +139,10 @@ class EducationController extends GetxController {
           bodyParams.clear();
           bodyParams = {
             ApiKeyConstants.accountNumber: mobileNumberController.text,
-            StringConstants.amount:
+            ApiKeyConstants.amount:
                 getPriceModel.result!.data!.price.toString(),
-            // ApiKeyConstants.amount: (double.parse(
-            //             getPriceModel.result!.data!.price.toString()) +
-            //         double.parse(getPriceModel.result!.data!.fee.toString()) +
-            //         double.parse(commission.value))
-            //     .toString(),
-            StringConstants.fee: getPriceModel.result!.data!.fee != null &&
-                    getPriceModel.result!.data!.fee!.isNotEmpty &&
-                    getPriceModel.result!.data!.fee != '0'
-                ? (double.parse(getPriceModel.result!.data!.fee.toString()) +
-                        double.parse(commission.value))
-                    .toString()
-                : double.parse(commission.value).toString(),
-            StringConstants.total: (double.parse(
-                        getPriceModel.result!.data!.price.toString()) +
-                    double.parse(getPriceModel.result!.data!.fee.toString()) +
-                    double.parse(commission.value))
-                .toString(),
+            ApiKeyConstants.uFitPayFee:
+                getPriceModel.result!.data!.fee.toString(),
             ApiKeyConstants.serviceType: ApiKeyConstants.buyEducation,
             ApiKeyConstants.packageId: packageId.value,
             ApiKeyConstants.serviceId: serviceId.value,
