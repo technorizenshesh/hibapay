@@ -138,7 +138,16 @@ class RechargeController extends GetxController {
             StringConstants.serviceType:
                 convertToTitleCase(ApiKeyConstants.buyAirtime),
             StringConstants.description: vendorName.toString(),
-            StringConstants.fee: (getPriceModel.result!.data!.fee != null &&
+            StringConstants.fee: '0.0',
+            StringConstants.total: (double.parse(amountControllerValue
+                    .value) /* +
+                    double.parse(getPriceModel.result!.data!.fee.toString()) +
+                    double.parse(commissionType.value != 'PERCENTAGE'
+                        ? commission.value
+                        : commissionValue.value)*/
+                )
+                .toString(),
+            StringConstants.fee1: (getPriceModel.result!.data!.fee != null &&
                     getPriceModel.result!.data!.fee!.isNotEmpty &&
                     getPriceModel.result!.data!.fee != '0')
                 ? (double.parse(getPriceModel.result!.data!.fee.toString()) +
@@ -149,12 +158,6 @@ class RechargeController extends GetxController {
                 : commissionType.value != 'PERCENTAGE'
                     ? double.parse(commission.value).toString()
                     : double.parse(commissionValue.value).toString(),
-            StringConstants.total: (double.parse(amountControllerValue.value) +
-                    double.parse(getPriceModel.result!.data!.fee.toString()) +
-                    double.parse(commissionType.value != 'PERCENTAGE'
-                        ? commission.value
-                        : commissionValue.value))
-                .toString(),
           };
           Get.toNamed(Routes.PAY_SUMMARY,
               parameters: bodyParams1, arguments: bodyParams);

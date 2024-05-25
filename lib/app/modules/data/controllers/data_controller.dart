@@ -129,7 +129,7 @@ class DataController extends GetxController {
             ApiKeyConstants.amount:
                 getPriceModel.result!.data!.price.toString(),
             ApiKeyConstants.uFitPayFee:
-            getPriceModel.result!.data!.fee.toString(),
+                getPriceModel.result!.data!.fee.toString(),
             /*ApiKeyConstants.amount: (serviceId.value == '0004')
                 ? (double.parse(getPriceModel.result!.data!.price.toString()) +
                         double.parse(
@@ -178,11 +178,7 @@ class DataController extends GetxController {
                     : commissionType.value != 'PERCENTAGE'
                         ? double.parse(commission.value).toString()
                         : double.parse(commissionValue.value).toString()
-                : (commission.value.isNotEmpty && commission.value != '0')
-                    ? commissionType.value != 'PERCENTAGE'
-                        ? commission.value
-                        : commissionValue.value
-                    : '0.0',
+                : '0.0',
             StringConstants.total: (serviceId.value == '0004')
                 ? (double.parse(getPriceModel.result!.data!.price.toString()) +
                         double.parse(
@@ -191,11 +187,31 @@ class DataController extends GetxController {
                             ? commission.value
                             : commissionValue.value))
                     .toString()
-                : (double.parse(getPriceModel.result!.data!.price.toString()) +
+                : (double.parse(getPriceModel.result!.data!.price
+                        .toString()) /* +
                         double.parse(commissionType.value != 'PERCENTAGE'
                             ? commission.value
-                            : commissionValue.value))
+                            : commissionValue.value)*/
+                    )
                     .toString(),
+            StringConstants.fee1: (serviceId.value == '0004')
+                ? (getPriceModel.result!.data!.fee != null &&
+                        getPriceModel.result!.data!.fee!.isNotEmpty &&
+                        getPriceModel.result!.data!.fee != '0')
+                    ? (double.parse(
+                                getPriceModel.result!.data!.fee.toString()) +
+                            double.parse(commissionType.value != 'PERCENTAGE'
+                                ? commission.value
+                                : commissionValue.value))
+                        .toString()
+                    : commissionType.value != 'PERCENTAGE'
+                        ? double.parse(commission.value).toString()
+                        : double.parse(commissionValue.value).toString()
+                : (commission.value.isNotEmpty && commission.value != '0')
+                    ? commissionType.value != 'PERCENTAGE'
+                        ? commission.value
+                        : commissionValue.value
+                    : '0.0',
           };
           Get.toNamed(Routes.PAY_SUMMARY,
               parameters: bodyParams1, arguments: bodyParams);

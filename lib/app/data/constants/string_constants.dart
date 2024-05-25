@@ -15,6 +15,7 @@ class StringConstants {
       'Login with email and mobile number';
   static const String phoneNumber = 'Phone Number';
   static const String sendGift = 'Send Gift';
+  static const String back = 'Back';
   static const String shareSomeMoreDetailsWithUs =
       'Share some more details with us';
   static const String doNotHaveAnAccount = 'Don’t have an account?';
@@ -282,6 +283,7 @@ class StringConstants {
   static const String addNotes = "Add Notes";
   static const String amount = "Amount";
   static const String fee = "Fee";
+  static const String fee1 = "Fee1";
   static const String fromWhichAccountDoYouWantToPay =
       "From which account do you want to pay";
   static const String nickName = "Nickname";

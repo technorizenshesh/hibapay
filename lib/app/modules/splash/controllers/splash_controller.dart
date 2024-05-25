@@ -64,7 +64,9 @@ class SplashController extends GetxController {
       // Logger().i(authTokenHiba.value.toString);
       result = Result.fromJson(
           jsonDecode(sp.getString(ApiKeyConstants.result) ?? ''));
-      if (result != null &&
+      Get.offAllNamed(Routes.NAV_BAR);
+
+      /*if (result != null &&
               result?.udocSelfyPhotoStatus != null &&
               result!.udocSelfyPhotoStatus!.isNotEmpty ||
           result?.virtualAccountDataAccountNumber != null &&
@@ -76,7 +78,7 @@ class SplashController extends GetxController {
           sp.setString(ApiKeyConstants.userId, result?.id ?? '');
           Get.offAllNamed(Routes.VERIFY_IDENTITY);
         }
-      }
+      }*/
     } else {
       Get.offAllNamed(Routes.LOGIN);
     }

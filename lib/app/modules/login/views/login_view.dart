@@ -78,9 +78,11 @@ class LoginView extends GetView<LoginController> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                              height: MediaQuery.of(context).size.height / 5),
-                          CommonMethods.splashLogo(),
-                          SizedBox(height: 34.px),
+                              height: MediaQuery.of(context).size.height / 6),
+                          Center(
+                            child: CommonMethods.splashLogo(),
+                          ),
+                          SizedBox(height: 40.px),
                           Text(
                             StringConstants.login,
                             style: Theme.of(context).textTheme.displayLarge,

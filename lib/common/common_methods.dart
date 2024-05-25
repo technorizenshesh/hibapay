@@ -13,8 +13,8 @@ class CommonMethods {
   static splashLogo({double? width, double? height}) {
     return Image.asset(
       ImgConstants.imgSplash,
-      height: height ?? 84.px,
-      width: width ?? 200.px,
+      height: height ?? 80.px,
+      width: width ?? 140.px,
     );
   }
 

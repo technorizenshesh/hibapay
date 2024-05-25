@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:HibaPay/app/app_controller/ac.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
-import 'package:HibaPay/app/modules/my_card/controllers/my_card_controller.dart';
-import 'package:HibaPay/app/modules/my_card/views/my_card_view.dart';
+import 'package:HibaPay/app/modules/gift_user_cards/controllers/gift_user_cards_controller.dart';
+import 'package:HibaPay/app/modules/gift_user_cards/views/gift_user_cards_view.dart';
 import 'package:HibaPay/app/modules/profile/controllers/profile_controller.dart';
 import 'package:HibaPay/app/modules/wallet/controllers/wallet_controller.dart';
 import 'package:HibaPay/app/modules/wallet/views/wallet_view.dart';
@@ -41,19 +41,13 @@ class NavBarController extends GetxController {
   body() {
     switch (selectedIndex.value) {
       case 0:
-        /*Get.delete<HomeController>();
-        Get.lazyPut<HomeController>(
-          () => HomeController(),
-        );*/
         return const HomeView();
       case 1:
-        Get.delete<MyCardController>();
-        Get.lazyPut<MyCardController>(
-          () => MyCardController(),
+        Get.delete<GiftUserCardsController>();
+        Get.lazyPut<GiftUserCardsController>(
+          () => GiftUserCardsController(),
         );
-        return const MyCardView();
-      /* case 2:
-        return const ScanQrCodeView();*/
+        return const GiftUserCardsView();
       case 2:
         Get.delete<WalletController>();
         Get.lazyPut<WalletController>(

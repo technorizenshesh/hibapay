@@ -5,7 +5,6 @@ import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
-import 'package:HibaPay/app/routes/app_pages.dart';
 import 'package:HibaPay/common/common_widgets.dart';
 import 'package:HibaPay/common/time_picker_view.dart';
 import 'package:country_picker/country_picker.dart';
@@ -51,7 +50,6 @@ class SignUpController extends GetxController {
   TextEditingController dateOfBirthController = TextEditingController();
   TextEditingController referralController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
   Map<String, dynamic> bodyParams = {};
   Map<String, dynamic> bodyParamsForResend = {};
   DateTime? dateTime;
@@ -64,6 +62,15 @@ class SignUpController extends GetxController {
 
   late Timer timer;
   final seconds = 0.obs;
+
+  final isBvn = false.obs;
+  final isNin = false.obs;
+
+  TextEditingController bvnController = TextEditingController();
+  TextEditingController ninController = TextEditingController();
+
+  FocusNode focusBvn = FocusNode();
+  FocusNode focusNin = FocusNode();
 
   @override
   void onInit() {
@@ -93,6 +100,8 @@ class SignUpController extends GetxController {
     isDateOfBirth.value = focusDateOfBirth.hasFocus;
     isPassword.value = focusPassword.hasFocus;
     isReferral.value = focusReferral.hasFocus;
+    isBvn.value = focusBvn.hasFocus;
+    isNin.value = focusNin.hasFocus;
   }
 
   void increment() => count.value++;
@@ -129,6 +138,8 @@ class SignUpController extends GetxController {
         ApiKeyConstants.referralUserId: referralController.text,
         ApiKeyConstants.otp: pin.text,
         ApiKeyConstants.image: '',
+        ApiKeyConstants.bvn: '' /*bvnController.text*/,
+        ApiKeyConstants.nin: '' /*ninController.text*/,
       };
       /*bodyParamsForResend = {
         ApiKeyConstants.fullName: fullNameController.text,
@@ -186,6 +197,8 @@ class SignUpController extends GetxController {
     focusDateOfBirth.addListener(onFocusChange);
     focusPassword.addListener(onFocusChange);
     focusReferral.addListener(onFocusChange);
+    focusNin.addListener(onFocusChange);
+    focusBvn.addListener(onFocusChange);
   }
 
   clickOnCountryField() {
@@ -381,7 +394,8 @@ class SignUpController extends GetxController {
       sp.setString(
           ApiKeyConstants.authTokenHiba, "Bearer ${userModel.token ?? ''}");
       sp.setString(ApiKeyConstants.result, jsonEncode(userModel.result));
-      Get.toNamed(Routes.VERIFY_IDENTITY);
+      //Get.toNamed(Routes.VERIFY_IDENTITY);
+      Get.back();
     } else {
       if (userModel != null &&
           userModel.message != null &&

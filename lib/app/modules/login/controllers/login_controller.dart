@@ -76,7 +76,6 @@ class LoginController extends GetxController {
     await firebaseMessaging.getToken().then((token) {
       deviceToken.value = token.toString();
     });
-    print('deviceToken.value:::::::::::::::::::::::::${deviceToken.value}');
     if (selectedTab.value != 0) {
       if (phoneController.text.trim().isNotEmpty &&
           countryCode.value.trim().isNotEmpty &&
@@ -109,7 +108,8 @@ class LoginController extends GetxController {
           if (userModel.result != null) {
             result = userModel.result!;
             increment();
-            if (result != null &&
+            Get.offAllNamed(Routes.NAV_BAR);
+            /*if (result != null &&
                 result?.udocSelfyPhotoStatus != null &&
                 result!.udocSelfyPhotoStatus!.isNotEmpty) {
               await onInitWorking();
@@ -122,9 +122,9 @@ class LoginController extends GetxController {
                 sp.setString(ApiKeyConstants.userId, result?.id ?? '');
                 Get.toNamed(Routes.VERIFY_IDENTITY);
               }
-            }
+            }*/
           }
-        } else if (userModel != null &&
+        } /*else if (userModel != null &&
             userModel.result != null &&
             userModel.result!.id != null &&
             userModel.result!.id!.isNotEmpty) {
@@ -133,7 +133,8 @@ class LoginController extends GetxController {
           sp.setString(
               ApiKeyConstants.result, jsonEncode(userModel.result ?? ''));
           Get.toNamed(Routes.VERIFY_IDENTITY);
-        } else {
+        }*/
+        else {
           if (userModel != null &&
               userModel.message != null &&
               userModel.message!.isNotEmpty) {
@@ -177,6 +178,8 @@ class LoginController extends GetxController {
           if (userModel.result != null) {
             result = userModel.result!;
             increment();
+            Get.offAllNamed(Routes.NAV_BAR);
+/*
             if (result != null &&
                 result?.udocSelfyPhotoStatus != null &&
                 result!.udocSelfyPhotoStatus!.isNotEmpty) {
@@ -190,9 +193,9 @@ class LoginController extends GetxController {
                 sp.setString(ApiKeyConstants.userId, result?.id ?? '');
                 Get.toNamed(Routes.VERIFY_IDENTITY);
               }
-            }
+            }*/
           }
-        } else if (userModel != null &&
+        } /*else if (userModel != null &&
             userModel.result != null &&
             userModel.result!.id != null &&
             userModel.result!.id!.isNotEmpty) {
@@ -201,7 +204,8 @@ class LoginController extends GetxController {
           sp.setString(
               ApiKeyConstants.result, jsonEncode(userModel.result ?? ''));
           Get.toNamed(Routes.VERIFY_IDENTITY);
-        } else {
+        }*/
+        else {
           if (userModel != null &&
               userModel.message != null &&
               userModel.message!.isNotEmpty) {

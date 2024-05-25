@@ -50,7 +50,17 @@ class WalletController extends GetxController {
 
   clickOnFundWallet() async {
     // await Get.toNamed(Routes.DEPOSIT_IN_WALLET);
-    Get.toNamed(Routes.VIRTUAL_ACCOUNT);
+    if (result != null &&
+        result?.udocSelfyPhotoStatus != null &&
+        result!.udocSelfyPhotoStatus!.isNotEmpty) {
+      Get.toNamed(Routes.VIRTUAL_ACCOUNT);
+    } else {
+      if (result != null && result!.id != null && result!.id!.isNotEmpty) {
+        SharedPreferences sp = await SharedPreferences.getInstance();
+        sp.setString(ApiKeyConstants.userId, result?.id ?? '');
+        Get.toNamed(Routes.VERIFY_IDENTITY);
+      }
+    }
     await onInit();
   }
 

@@ -1,5 +1,4 @@
 import 'package:HibaPay/app/data/constants/icons_constant.dart';
-import 'package:HibaPay/app/data/constants/image_constants.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/common_widgets.dart';
@@ -27,12 +26,8 @@ class PaySummaryView extends GetView<PaySummaryController> {
               physics: const AlwaysScrollableScrollPhysics(),
               children: [
                 SizedBox(height: 40.px),
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(50.px),
-                  child: Image.asset(
-                    ImgConstants.imgSplash,
-                    height: 85.px,
-                  ),
+                Center(
+                  child: CommonMethods.splashLogo(),
                 ),
                 SizedBox(height: 40.px),
                 Text(
@@ -48,17 +43,21 @@ class PaySummaryView extends GetView<PaySummaryController> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: controller.parameters.length,
                   itemBuilder: (context, index) {
-                    return Padding(
-                      padding: EdgeInsets.all(10.px),
-                      child: gradientText(
-                        title:
-                            controller.parameters.entries.elementAt(index).key,
-                        subTitle: controller.parameters.entries
-                            .elementAt(index)
-                            .value
-                            .toString(),
-                      ),
-                    );
+                    return controller.parameters.entries.elementAt(index).key ==
+                            StringConstants.fee1
+                        ? const SizedBox()
+                        : Padding(
+                            padding: EdgeInsets.all(10.px),
+                            child: gradientText(
+                              title: controller.parameters.entries
+                                  .elementAt(index)
+                                  .key,
+                              subTitle: controller.parameters.entries
+                                  .elementAt(index)
+                                  .value
+                                  .toString(),
+                            ),
+                          );
                   },
                 ),
                 SizedBox(height: 40.px),

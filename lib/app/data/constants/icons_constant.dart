@@ -8,6 +8,14 @@ class IconConstants {
   static const String icCalendarInActive =
       'assets/icons/ic_calendar_in_active.svg';
   static const String icCityActive = 'assets/icons/ic_city_active.svg';
+  static const String icNinInActive = 'assets/icons/ic_nin_in_active.svg';
+  static const String icNinActive = 'assets/icons/ic_nin_active.svg';
+  static const String icBvnInActive = 'assets/icons/ic_bvn_in_active.svg';
+  static const String icBvnActive = 'assets/icons/ic_bvn_active.svg';
+  static const String icReferralTextFieldActive =
+      'assets/icons/ic_referral_text_field_active.svg';
+  static const String icReferralTextFieldInActive =
+      'assets/icons/ic_referral_text_field_in_active.svg';
   static const String icCityInActive = 'assets/icons/ic_city_in_active.svg';
   static const String icCountryActive = 'assets/icons/ic_country_active.svg';
   static const String icCountryInActive =
@@ -15,7 +23,7 @@ class IconConstants {
   static const String icEmailActive = 'assets/icons/ic_email_active.svg';
   static const String icEmailInActive = 'assets/icons/ic_email_in_active.svg';
   static const String icReferralTextField =
-      'assets/icons/ic_referral_text_field.svg';
+      'assets/icons/ic_referral_text_field_active.svg';
   static const String icStreetAddressActive =
       'assets/icons/ic_street_address_active.svg';
   static const String icStreetAddressInActive =

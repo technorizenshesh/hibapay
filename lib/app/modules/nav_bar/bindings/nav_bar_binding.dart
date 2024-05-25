@@ -1,5 +1,5 @@
 import 'package:HibaPay/app/modules/account/controllers/account_controller.dart';
-import 'package:HibaPay/app/modules/my_card/controllers/my_card_controller.dart';
+import 'package:HibaPay/app/modules/gift_user_cards/controllers/gift_user_cards_controller.dart';
 import 'package:HibaPay/app/modules/scan_qr_code/controllers/scan_qr_code_controller.dart';
 import 'package:get/get.dart';
 
@@ -19,8 +19,8 @@ class NavBarBinding extends Bindings {
     Get.lazyPut<ScanQrCodeController>(
       () => ScanQrCodeController(),
     );
-    Get.lazyPut<MyCardController>(
-      () => MyCardController(),
+    Get.lazyPut<GiftUserCardsController>(
+      () => GiftUserCardsController(),
     );
     Get.lazyPut<AccountController>(
       () => AccountController(),

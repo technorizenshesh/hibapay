@@ -48,7 +48,6 @@ class PaySummaryController extends GetxController {
         billPayModel.result!.data != null) {
       Get.back();
       Get.back();
-
       if (billPayModel.result!.data != null &&
           billPayModel.result!.data!.reference != null &&
           billPayModel.result!.data!.reference!.isNotEmpty) {

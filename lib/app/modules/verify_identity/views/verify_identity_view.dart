@@ -22,8 +22,7 @@ class VerifyIdentityView extends GetView<VerifyIdentityController> {
         inAsyncCall: controller.inAsyncCall.value,
         child: Scaffold(
           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
-          appBar: CommonWidgets.appBar(
-              title: StringConstants.verifyIdentity, wantBackButton: false),
+          appBar: CommonWidgets.appBar(title: StringConstants.verifyIdentity),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.px),
             child: ListView(

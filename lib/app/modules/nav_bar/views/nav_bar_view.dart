@@ -51,13 +51,13 @@ class NavBarView extends GetView<NavBarController> {
                                 text: StringConstants.home,
                                 index: 0),
                             button(
+                                image: IconConstants.icGift,
+                                text: StringConstants.giftUser,
+                                index: 1),
+                            /* button(
                                 image: IconConstants.icCardInActive,
                                 text: StringConstants.cards,
-                                index: 1),
-                            /*button(
-                                image: IconConstants.icCardInActive,
-                                text: '',
-                                index: 2),*/
+                                index: 1),*/
                             button(
                                 image: IconConstants.icWallet,
                                 text: StringConstants.wallet,

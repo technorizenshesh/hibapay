@@ -32,9 +32,11 @@ class SignUpView extends GetView<SignUpController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      SizedBox(height: 20.px),
+                      Center(
+                        child: CommonMethods.splashLogo(),
+                      ),
                       SizedBox(height: 40.px),
-                      CommonMethods.splashLogo(),
-                      SizedBox(height: 34.px),
                       Text(
                         StringConstants.signUp,
                         style: Theme.of(context).textTheme.displayLarge,
@@ -164,12 +166,39 @@ class SignUpView extends GetView<SignUpController> {
                         isCard: controller.isReferral.value,
                         prefixIcon: CommonMethods.appIcons(
                           assetName: controller.isReferral.value
-                              ? IconConstants.icReferralTextField
-                              : IconConstants.icReferralTextField,
+                              ? IconConstants.icReferralTextFieldActive
+                              : IconConstants.icReferralTextFieldInActive,
                         ),
                         hintText: StringConstants.pleaseEnterCustomerReferralId,
                       ),
                       SizedBox(height: 14.px),
+                      /*
+                      CommonWidgets.commonTextFieldForLoginSignUP(
+                        focusNode: controller.focusBvn,
+                        title: StringConstants.bvn,
+                        controller: controller.bvnController,
+                        isCard: controller.isBvn.value,
+                        prefixIcon: CommonMethods.appIcons(
+                          assetName: controller.isBvn.value
+                              ? IconConstants.icBvnActive
+                              : IconConstants.icBvnInActive,
+                        ),
+                        hintText: StringConstants.pleaseEnterBvn,
+                      ),
+                      SizedBox(height: 14.px),
+                      CommonWidgets.commonTextFieldForLoginSignUP(
+                        focusNode: controller.focusNin,
+                        title: StringConstants.nin,
+                        controller: controller.ninController,
+                        isCard: controller.isNin.value,
+                        prefixIcon: CommonMethods.appIcons(
+                          assetName: controller.isNin.value
+                              ? IconConstants.icNinActive
+                              : IconConstants.icNinInActive,
+                        ),
+                        hintText: StringConstants.pleaseEnterNin,
+                      ),
+                      SizedBox(height: 14.px),*/
                       CommonWidgets.commonTextFieldForLoginSignUP(
                         obscureText: controller.passwordHide.value,
                         focusNode: controller.focusPassword,

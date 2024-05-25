@@ -2,8 +2,10 @@ import 'package:HibaPay/app/data/apis/api_constants/api_key_constants.dart';
 import 'package:HibaPay/app/data/apis/api_methods/api_methods.dart';
 import 'package:HibaPay/app/data/apis/api_models/user_model.dart';
 import 'package:HibaPay/app/data/constants/string_constants.dart';
+import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/globle.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -80,10 +82,93 @@ class GiftUserController extends GetxController {
             if (userModel.message != null && userModel.message!.isNotEmpty) {
               if (userModel.message == 'Success') {
                 Get.back();
-                Get.snackbar(
-                    margin: EdgeInsets.all(20.px),
-                    'Send',
-                    userModel.message ?? '');
+                showCupertinoDialog(
+                  context: Get.context!,
+                  builder: (context) {
+                    return AlertDialog(
+                      contentPadding: EdgeInsets.zero,
+                      backgroundColor:
+                          Theme.of(context).scaffoldBackgroundColor,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50.px),
+                      ),
+                      content: Container(
+                        padding: EdgeInsets.all(24.px),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(50.px),
+                          gradient: LinearGradient(
+                            end: Alignment.topRight,
+                            begin: Alignment.bottomLeft,
+                            colors: [
+                              Theme.of(Get.context!).colorScheme.secondary,
+                              Theme.of(Get.context!).colorScheme.onSecondary,
+                            ],
+                          ),
+                        ),
+                        child:
+                            Column(mainAxisSize: MainAxisSize.min, children: [
+                          Image.asset('assets/icons_png/ic_gift_pop_up.png',
+                              width: 100.px, height: 85.px),
+                          SizedBox(height: 24.px),
+                          Text(
+                            'GIFT SENT!',
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 28.px,
+                                  fontStyle: FontStyle.italic,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ),
+                          ),
+                          SizedBox(height: 14.px),
+                          Text(
+                            'YOU SUCCESSFULLY SEND ${receiverIdController.text} A GIFT.',
+                            textAlign: TextAlign.center,
+                            style: Theme.of(context)
+                                .textTheme
+                                .displayMedium
+                                ?.copyWith(
+                                  fontSize: 16.px,
+                                  color:
+                                      Theme.of(context).scaffoldBackgroundColor,
+                                ),
+                          ),
+                          SizedBox(height: 34.px),
+                          InkWell(
+                            onTap: () => clickOnBack(),
+                            borderRadius: BorderRadius.circular(14.px),
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 40.px, vertical: 14.px),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(14.px),
+                                color:
+                                    Theme.of(context).scaffoldBackgroundColor,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  CommonMethods.textViewLinearGradient(
+                                    text: StringConstants.back,
+                                    value: true,
+                                    style: Theme.of(Get.context!)
+                                        .textTheme
+                                        .titleMedium
+                                        ?.copyWith(
+                                            fontWeight: FontWeight.w600,
+                                            fontSize: 16.px),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
+                        ]),
+                      ),
+                    );
+                  },
+                );
               } else {
                 Get.snackbar(
                     margin: EdgeInsets.all(20.px),
@@ -107,5 +192,9 @@ class GiftUserController extends GetxController {
       Get.snackbar(
           margin: EdgeInsets.all(20.px), 'Error', 'All field required');
     }
+  }
+
+  clickOnBack() {
+    Get.back();
   }
 }
