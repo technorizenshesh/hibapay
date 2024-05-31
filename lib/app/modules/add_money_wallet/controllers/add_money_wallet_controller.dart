@@ -23,7 +23,7 @@ class AddMoneyWalletController extends GetxController {
   final inAsyncCall = false.obs;
   FocusNode focusMoney = FocusNode();
   TextEditingController addMoneyController = TextEditingController();
-  final isMoney = true.obs;
+  final isMoney = false.obs;
 
   final dataNumber = ''.obs;
   final isWaiting = true.obs;
@@ -52,9 +52,12 @@ class AddMoneyWalletController extends GetxController {
     if (response != null) {
       if (jsonDecode(response.body)['result'] != null &&
           jsonDecode(response.body)['result'] != '[]') {
-        dataNumber.value = jsonDecode(response.body)['result'];
+        dataNumber.value =
+            jsonDecode(response.body)['result']['virtual_account_number'] ?? '';
+        bankName.value = jsonDecode(response.body)['result']
+                ['virtual_account_bank_name'] ??
+            '';
       }
-      bankName.value = jsonDecode(response.body)['bank_name'] ?? '';
       userName.value = jsonDecode(response.body)['user_name'] ?? '';
       dataMessage.value = jsonDecode(response.body)['message'];
       increment();
@@ -85,156 +88,126 @@ class AddMoneyWalletController extends GetxController {
     if (addMoneyController.text.trim().isNotEmpty &&
         dataNumber.value.isNotEmpty) {
       Get.bottomSheet(
-        backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
-        Obx(() {
-          count.value;
-          return SizedBox(
-            width: double.infinity,
-            child: Padding(
-              padding: EdgeInsets.all(16.px),
-              child: ListView(
-                children: [
-                  Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            'Account transfer',
-                            style: Theme.of(Get.context!)
-                                .textTheme
-                                .displayMedium
-                                ?.copyWith(
-                                  fontSize: 20.px,
-                                  color: Theme.of(Get.context!).primaryColor,
-                                ),
+              backgroundColor: Theme.of(Get.context!).scaffoldBackgroundColor,
+              Obx(() {
+        count.value;
+        return SizedBox(
+          width: double.infinity,
+          child: Padding(
+            padding: EdgeInsets.all(16.px),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Fund Wallet',
+                      style: Theme.of(Get.context!)
+                          .textTheme
+                          .displayMedium
+                          ?.copyWith(
+                            fontSize: 20.px,
+                            color: Theme.of(Get.context!).primaryColor,
                           ),
-                          IconButton(
-                            onPressed: () => clickOnCrossIcon(),
-                            icon: Icon(
-                              Icons.close,
-                              color: Theme.of(Get.context!).primaryColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(height: 20.px),
-                      /*Flexible(
-                      child: Text(
-                        'Transfer ${addMoneyController.text} NGN to the account below for this phone number only session expires in 30 min.',
-                        style: Theme.of(Get.context!)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    IconButton(
+                      onPressed: () => clickOnCrossIcon(),
+                      icon: Icon(
+                        Icons.close,
+                        color: Theme.of(Get.context!).primaryColor,
                       ),
                     ),
-                    SizedBox(height: 8.px),*/
-                      Text(
-                        dataMessage.value,
-                        style: Theme.of(Get.context!)
-                            .textTheme
-                            .titleMedium
-                            ?.copyWith(fontWeight: FontWeight.w600),
+                  ],
+                ),
+                SizedBox(height: 20.px),
+                /*Flexible(
+                  child: Text(
+                    'Transfer ${addMoneyController.text} NGN to the account below for this phone number only session expires in 30 min.',
+                    style: Theme.of(Get.context!)
+                        .textTheme
+                        .titleMedium
+                        ?.copyWith(fontWeight: FontWeight.w600),
+                  ),
+                ),
+                SizedBox(height: 8.px),*/
+                Text(
+                  dataMessage.value,
+                  style: Theme.of(Get.context!)
+                      .textTheme
+                      .titleMedium
+                      ?.copyWith(fontWeight: FontWeight.w600),
+                ),
+                SizedBox(height: 14.px),
+                ClipRRect(
+                  child: BackdropFilter(
+                    filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
+                    child: Container(
+                      width: double.infinity,
+                      padding: EdgeInsets.all(18.px),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          end: Alignment.topRight,
+                          begin: Alignment.bottomLeft,
+                          colors: [
+                            Theme.of(Get.context!).colorScheme.secondary,
+                            Theme.of(Get.context!).colorScheme.onSecondary,
+                          ],
+                        ),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(20.px),
+                        ),
+                        border: Border.all(
+                          width: .4.px,
+                          color: Theme.of(Get.context!)
+                              .scaffoldBackgroundColor
+                              .withOpacity(0.2),
+                        ),
                       ),
-                      SizedBox(height: 14.px),
-                      ClipRRect(
-                        child: BackdropFilter(
-                          filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
-                          child: Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(18.px),
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                end: Alignment.topRight,
-                                begin: Alignment.bottomLeft,
-                                colors: [
-                                  Theme.of(Get.context!).colorScheme.secondary,
-                                  Theme.of(Get.context!)
-                                      .colorScheme
-                                      .onSecondary,
-                                ],
-                              ),
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20.px),
-                              ),
-                              border: Border.all(
-                                width: .4.px,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  StringConstants.virtualAccount,
+                                  style: Theme.of(Get.context!)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        // fontSize: 20.px,
+                                        color: Theme.of(Get.context!)
+                                            .scaffoldBackgroundColor,
+                                      ),
+                                ),
+                                Text(
+                                  bankName.value,
+                                  style: Theme.of(Get.context!)
+                                      .textTheme
+                                      .titleMedium
+                                      ?.copyWith(
+                                        // fontSize: 20.px,
+                                        color: Theme.of(Get.context!)
+                                            .scaffoldBackgroundColor,
+                                      ),
+                                ),
+                              ],
+                            ),
+                            SizedBox(height: 14.px),
+                            Container(
+                              padding: EdgeInsets.all(10.px),
+                              decoration: BoxDecoration(
                                 color: Theme.of(Get.context!)
                                     .scaffoldBackgroundColor
-                                    .withOpacity(0.2),
+                                    .withOpacity(.2.px),
+                                borderRadius: BorderRadius.circular(30.px),
                               ),
-                            ),
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
                                 children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        StringConstants.virtualAccount,
-                                        style: Theme.of(Get.context!)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(
-                                              // fontSize: 20.px,
-                                              color: Theme.of(Get.context!)
-                                                  .scaffoldBackgroundColor,
-                                            ),
-                                      ),
-                                      Text(
-                                        bankName.value,
-                                        style: Theme.of(Get.context!)
-                                            .textTheme
-                                            .titleMedium
-                                            ?.copyWith(
-                                              // fontSize: 20.px,
-                                              color: Theme.of(Get.context!)
-                                                  .scaffoldBackgroundColor,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                  SizedBox(height: 14.px),
-                                  Container(
-                                    padding: EdgeInsets.all(10.px),
-                                    decoration: BoxDecoration(
-                                      color: Theme.of(Get.context!)
-                                          .scaffoldBackgroundColor
-                                          .withOpacity(.2.px),
-                                      borderRadius:
-                                          BorderRadius.circular(30.px),
-                                    ),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      children: [
-                                        Text(
-                                          dataNumber.value,
-                                          style: Theme.of(Get.context!)
-                                              .textTheme
-                                              .titleMedium
-                                              ?.copyWith(
-                                                // fontSize: 20.px,
-                                                color: Theme.of(Get.context!)
-                                                    .scaffoldBackgroundColor,
-                                              ),
-                                        ),
-                                        SizedBox(width: 8.px),
-                                        GestureDetector(
-                                          onTap: () => clickOnCopyIcon(),
-                                          child: CommonMethods.appIcons(
-                                            assetName:
-                                                IconConstants.icCopyWhite,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(height: 14.px),
                                   Text(
-                                    userName.value.isNotEmpty
-                                        ? userName.value
-                                        : '${result?.firstName ?? ''} ${result?.lastName ?? ''}',
+                                    dataNumber.value,
                                     style: Theme.of(Get.context!)
                                         .textTheme
                                         .titleMedium
@@ -244,78 +217,101 @@ class AddMoneyWalletController extends GetxController {
                                               .scaffoldBackgroundColor,
                                         ),
                                   ),
-                                ]),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 20.px),
-                      Text(
-                        'Please wait while we confirm $formattedTimeMethod ( ${addMoneyController.text} NGN) your token will be sent once we receiver your payment.',
-                        style: Theme.of(Get.context!).textTheme.titleMedium,
-                        textAlign: TextAlign.center,
-                      ),
-                      if (!isWaiting.value) SizedBox(height: 8.px),
-                      if (!isWaiting.value)
-                        Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8.px),
-                            border: Border.all(
-                              color: Theme.of(Get.context!).primaryColor,
-                            ),
-                          ),
-                          child: Text(
-                            'Note : You can close this. Your payment is in progress. If the payment is completed, you will see your history.',
-                            style: Theme.of(Get.context!)
-                                .textTheme
-                                .titleMedium
-                                ?.copyWith(
-                                  color: Theme.of(Get.context!).primaryColor,
-                                ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      SizedBox(height: 8.px),
-                      (isWaiting.value)
-                          ? CommonWidgets.commonElevatedButton(
-                              onPressed: () {
-                                // Get.back();
-                                isWaiting.value = false;
-                                startTimer();
-                              },
-                              child: Text(
-                                'I have made the transfer',
-                                style: Theme.of(Get.context!)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
-                              ),
-                            )
-                          : CommonWidgets.commonElevatedButton(
-                              onPressed: () {
-                                selectedIndex.value = 0;
-                                Get.offAllNamed(Routes.NAV_BAR);
-                              },
-                              child: Text(
-                                'CLOSE',
-                                style: Theme.of(Get.context!)
-                                    .textTheme
-                                    .headlineSmall
-                                    ?.copyWith(fontWeight: FontWeight.w700),
+                                  SizedBox(width: 8.px),
+                                  GestureDetector(
+                                    onTap: () => clickOnCopyIcon(),
+                                    child: CommonMethods.appIcons(
+                                      assetName: IconConstants.icCopyWhite,
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                      SizedBox(height: 14.px),
-                    ],
+                            SizedBox(height: 14.px),
+                            Text(
+                              userName.value.isNotEmpty
+                                  ? userName.value
+                                  : '${result?.firstName ?? ''} ${result?.lastName ?? ''}',
+                              style: Theme.of(Get.context!)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                    // fontSize: 20.px,
+                                    color: Theme.of(Get.context!)
+                                        .scaffoldBackgroundColor,
+                                  ),
+                            ),
+                          ]),
+                    ),
                   ),
-                ],
-              ),
+                ),
+                SizedBox(height: 20.px),
+                Text(
+                  'Please wait while we confirm $formattedTimeMethod ( ${addMoneyController.text} NGN) is on its way to your wallet.',
+                  style: Theme.of(Get.context!).textTheme.titleMedium,
+                  textAlign: TextAlign.center,
+                ),
+                if (!isWaiting.value) SizedBox(height: 8.px),
+                if (!isWaiting.value)
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(8.px),
+                      border: Border.all(
+                        color: Theme.of(Get.context!).primaryColor,
+                      ),
+                    ),
+                    child: Text(
+                      'Note : You can close this. Your payment is in progress. Once the payment confirmation is complete, you will see the funds in your wallet.',
+                      style: Theme.of(Get.context!)
+                          .textTheme
+                          .titleMedium
+                          ?.copyWith(
+                            color: Theme.of(Get.context!).primaryColor,
+                          ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                SizedBox(height: 8.px),
+                (isWaiting.value)
+                    ? CommonWidgets.commonElevatedButton(
+                        onPressed: () {
+                          // Get.back();
+                          isWaiting.value = false;
+                          startTimer();
+                        },
+                        child: Text(
+                          'I have made the transfer',
+                          style: Theme.of(Get.context!)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                      )
+                    : CommonWidgets.commonElevatedButton(
+                        onPressed: () {
+                          selectedIndex.value = 0;
+                          Get.offAllNamed(Routes.NAV_BAR);
+                        },
+                        child: Text(
+                          'CLOSE',
+                          style: Theme.of(Get.context!)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(fontWeight: FontWeight.w700),
+                        ),
+                      ),
+                SizedBox(height: 14.px),
+              ],
             ),
-          );
-        }),
-        /*
+          ),
+        );
+      }), isScrollControlled: true
+              /*
         addMoneyController.clear();
         isWaiting.value = true;
         secondsRemaining.value = (5 * 60);*/
-      ).whenComplete(() {
+              )
+          .whenComplete(() {
         increment();
       });
     } else {

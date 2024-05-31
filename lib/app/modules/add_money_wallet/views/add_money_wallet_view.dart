@@ -13,7 +13,7 @@ class AddMoneyWalletView extends GetView<AddMoneyWalletController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonWidgets.appBar(title: StringConstants.addVirtualAccount),
+      appBar: CommonWidgets.appBar(title: 'Fund Wallet'),
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       bottomNavigationBar: Padding(
         padding: EdgeInsets.all(20.px),
