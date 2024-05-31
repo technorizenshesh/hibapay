@@ -675,6 +675,21 @@ class ApiMethods {
     return null;
   }
 
+  static Future<http.Response?> assignUser({
+    void Function(int)? checkResponse,
+    Map<String, dynamic>? bodyParams,
+  }) async {
+    http.Response? response = await MyHttp.postMethod(
+      bodyParams: bodyParams,
+      url: ApiUrlConstants.endPointOfAssigneUser,
+      checkResponse: checkResponse,
+    );
+    if (response != null) {
+      return response;
+    }
+    return null;
+  }
+
   static Future<GetWalletTransactionModel?> getWalletTransaction({
     void Function(int)? checkResponse,
     Map<String, dynamic>? bodyParams,

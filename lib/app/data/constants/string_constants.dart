@@ -57,6 +57,7 @@ class StringConstants {
   static const String pleaseEnterDateOfBirth = 'Please enter date of birth';
   static const String password = 'Password';
   static const String pleaseEnterPassword = 'Please enter password';
+  // static const String pleaseEnterAmount = 'Please enter amount';
   static const String yourPin = 'Your PIN';
   static const String pleaseEnterYourPin = 'Please enter your PIN';
   static const String retypePin = 'Retype PIN';
@@ -133,6 +134,8 @@ class StringConstants {
   static const String transfers = 'Transfers';
   static const String withdraw = 'Withdraw';
   static const String topUpWallet = 'Top up Wallet';
+  static const String addAmount = 'Add amount';
+  static const String addMoneyText = 'Add money';
   static const String addMoney =
       'Add money to your wallet and make one click payments';
   static const String wallet = 'Wallet';

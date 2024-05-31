@@ -6,6 +6,8 @@ import '../modules/account/bindings/account_binding.dart';
 import '../modules/account/views/account_view.dart';
 import '../modules/add_bank_account/bindings/add_bank_account_binding.dart';
 import '../modules/add_bank_account/views/add_bank_account_view.dart';
+import '../modules/add_money_wallet/bindings/add_money_wallet_binding.dart';
+import '../modules/add_money_wallet/views/add_money_wallet_view.dart';
 import '../modules/add_new_bank/bindings/add_new_bank_binding.dart';
 import '../modules/add_new_bank/views/add_new_bank_view.dart';
 import '../modules/add_new_card/bindings/add_new_card_binding.dart';
@@ -486,6 +488,11 @@ class AppPages {
       name: _Paths.WALLET_TRANSACTION_DETAIL,
       page: () => const WalletTransactionDetailView(),
       binding: WalletTransactionDetailBinding(),
+    ),
+    GetPage(
+      name: _Paths.ADD_MONEY_WALLET,
+      page: () => const AddMoneyWalletView(),
+      binding: AddMoneyWalletBinding(),
     ),
   ];
 }

@@ -72,6 +72,7 @@ abstract class Routes {
   static const EDUCATION = _Paths.EDUCATION;
   static const TERM_AND_CONDITIONS = _Paths.TERM_AND_CONDITIONS;
   static const WALLET_TRANSACTION_DETAIL = _Paths.WALLET_TRANSACTION_DETAIL;
+  static const ADD_MONEY_WALLET = _Paths.ADD_MONEY_WALLET;
 }
 
 abstract class _Paths {
@@ -144,4 +145,5 @@ abstract class _Paths {
   static const EDUCATION = '/education';
   static const TERM_AND_CONDITIONS = '/term-and-conditions';
   static const WALLET_TRANSACTION_DETAIL = '/wallet-transaction-detail';
+  static const ADD_MONEY_WALLET = '/add-money-wallet';
 }

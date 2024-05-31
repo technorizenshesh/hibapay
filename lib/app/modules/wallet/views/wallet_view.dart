@@ -391,7 +391,23 @@ class WalletView extends GetView<WalletController> {
                                                               .walTraServiceType! ==
                                                           'BUY_DATA')
                                                   ? ' ${double.parse(controller.getWalletTransactionResult[index].walTraTransactionValue ?? '0') + double.parse(controller.getWalletTransactionResult[index].walTraTransactionAppFee ?? '0')}'
-                                                  : ' ${double.parse(controller.getWalletTransactionResult[index].walTraTransactionValue ?? '0') + double.parse(controller.getWalletTransactionResult[index].walTraTransactionAppFee ?? '0') + double.parse(controller.getWalletTransactionResult[index].walTraTransactionFee ?? '0')}',
+                                                  : (controller
+                                                                  .getWalletTransactionResult[
+                                                                      index]
+                                                                  .walTraServiceType !=
+                                                              null &&
+                                                          controller
+                                                              .getWalletTransactionResult[
+                                                                  index]
+                                                              .walTraServiceType!
+                                                              .isNotEmpty &&
+                                                          controller
+                                                                  .getWalletTransactionResult[
+                                                                      index]
+                                                                  .walTraServiceType! ==
+                                                              'WALLET_RECHARGE')
+                                                      ? ' ${double.parse(controller.getWalletTransactionResult[index].walTraTransactionValue ?? '0')}'
+                                                      : ' ${double.parse(controller.getWalletTransactionResult[index].walTraTransactionValue ?? '0') + double.parse(controller.getWalletTransactionResult[index].walTraTransactionAppFee ?? '0') + double.parse(controller.getWalletTransactionResult[index].walTraTransactionFee ?? '0')}',
                                               style: Theme.of(context)
                                                   .textTheme
                                                   .displayMedium
