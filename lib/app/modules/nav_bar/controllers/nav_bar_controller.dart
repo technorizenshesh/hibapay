@@ -64,7 +64,6 @@ class NavBarController extends GetxController {
   }
 
   onWillPopMethod() {
-    print('selectedIndex.value::::::::::::::::${selectedIndex.value}');
     if (selectedIndex.value == 0) {
       CommonWidgets.showAlertDialog(
         title: StringConstants.exit,
