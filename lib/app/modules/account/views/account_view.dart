@@ -1,12 +1,9 @@
 import 'dart:ui';
-
 import 'package:HibaPay/common/common_methods.dart';
 import 'package:HibaPay/common/progress_bar.dart';
-// import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:responsive_sizer/responsive_sizer.dart';
-
 import '../../../data/constants/icons_constant.dart';
 import '../../../data/constants/string_constants.dart';
 import '../controllers/account_controller.dart';
